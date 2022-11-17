@@ -5,16 +5,16 @@ The goal is to build an environment where we can test the already existing algor
 
 
 ## Members
-| name | github username | trello username | [role] |
+| name | github username | trello username | role |
 |:------------:|:---------------:|:---------------:|:------:|
 | Adithya Ravichandran |  |  |  |
 | Levente Ludányi |  |  |  |
 | Fryderyk Sitnik |  |  |  |
-| Shubh Lashkery |  |  |  |
-| Martina Paez Berru  |  |  |  |
+| Shubh Lashkery | shubhlashkery | shubhlashkery |  |
+| Martina Paez Berru  | Martina-Paez-Berru | martinapaezberru |  |
 | Kaoutar Fahraoui |  |  |  |
 | Mia Chambat |  |  |  |
-| Amine Roudani |  |  |  |
+| Amine Roudani | amineroudani | amineroudani |  |
 | Julien Girod |  |  |  |
 | Duc Nguyen |  |  |  |
 | Victoire Fabien |  |  |  |
@@ -22,9 +22,9 @@ The goal is to build an environment where we can test the already existing algor
 | Minh Pham |  |  |  |
 | The Nguyen |  |  |  |
 | Tu Nguyen |  |  |  |
-| Alessandro Massaad |  |  |  |
+| Alessandro Massaad | alemassaad | alemassaad |  |
 | Adrien pls send me your last name|  |  |  |
-| Mathéo Le Masson |  |  |  |
+| Mathéo Le Masson | Matheo-LeMasson | matheo-lemasson |  |
 
 
 
