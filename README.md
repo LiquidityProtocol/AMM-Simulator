@@ -13,15 +13,15 @@ The goal is to build an environment where we can test the already existing algor
 | Shubh Lashkery | shubhlashkery | shubhlashkery |  |
 | Martina Paez Berru  | Martina-Paez-Berru | martinapaezberru |  |
 | Kaoutar Fahraoui |  |  |  |
-| Mia Chambat |  |  |  |
+| Mia Chambat | miachambat | miachambat |  |
 | Amine Roudani | amineroudani | amineroudani |  |
-| Julien Girod |  |  |  |
-| Duc Nguyen |  |  |  |
+| Julien Girod | juliengirod | Julien Girod |  |
+| Duc Nguyen | combi2k2 | Duc Nguyen |  |
 | Victoire Fabien |  |  |  |
 | Jasmine Samson |  |  |  |
 | Minh Pham |  |  |  |
 | Tu Nguyen |  |  |  |
-| The Nguyen |  |  |  |
+| The Nguyen | the-nguyen | thenguyen33 |  |
 | Alessandro Massaad | alemassaad | alemassaad |  |
 | Adrien pls send me your last name|  |  |  |
 | Mathéo Le Masson | Matheo-LeMasson | matheo-lemasson |  |
