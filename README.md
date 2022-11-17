@@ -20,8 +20,8 @@ The goal is to build an environment where we can test the already existing algor
 | Victoire Fabien |  |  |  |
 | Jasmine Samson |  |  |  |
 | Minh Pham |  |  |  |
-| The Nguyen |  |  |  |
 | Tu Nguyen |  |  |  |
+| The Nguyen |  |  |  |
 | Alessandro Massaad | alemassaad | alemassaad |  |
 | Adrien pls send me your last name|  |  |  |
 | Mathéo Le Masson | Matheo-LeMasson | matheo-lemasson |  |
