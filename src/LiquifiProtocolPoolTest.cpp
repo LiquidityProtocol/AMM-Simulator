@@ -1,24 +1,23 @@
-#include <vector>
 #include <stdexcept>
-#include <string.h>
+#include <string>
 #include "LiquifiProtocolPool.hpp"
 
 int main() {
-    Token token1("Token_1"), token2("Token_2"), token3("Token_3");
-    LiquifiProtocolPool pool({{token1, 10}, {token2, 20}}, 0);
+    Token *token1 = new Token("Token_1"), *token2 = new Token("Token_2"), *token3 = new Token("Token_3");
+    LiquifiProtocolPool pool(token1, token2, 10, 20, 0);
 
     try {
         pool.standard_immediate_swap({token3, 0});
         assert(false);
     } catch (std::invalid_argument &e) {
-        assert(strcmp(e.what(), "invalid token"));
+        assert(std::string(e.what()) == "invalid token");
     }
 
     try {
         pool.standard_immediate_swap({token1, 0});
         assert(false);
     } catch (std::invalid_argument &e) {
-        assert(strcmp(e.what(), "invalid quantity"));
+        assert(std::string(e.what()) == "invalid quantity");
     }
 
     auto output = pool.standard_immediate_swap({token1, 10});
