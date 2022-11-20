@@ -11,6 +11,10 @@ public:
 	bool operator==(const Token &other) const {
 		return name == other.name;
 	}
+
+	bool operator!=(const Token &other) const {
+		return !(*this == other);
+	}
 private:
 	std::string name;
 };
