@@ -2,9 +2,9 @@
 
 class PoolChunk {
 public:
-    PoolChunk(Token token, double quantity) : token(token), quantity(quantity) {}
+    PoolChunk(Token *token, double quantity) : token(token), quantity(quantity) {}
 
-    Token get_token() const {
+    Token * get_token() const {
         return token;
     }
 
@@ -16,6 +16,6 @@ public:
         quantity += change;
     }
 private:
-    Token token;
+    Token *token;
     double quantity;
 };
