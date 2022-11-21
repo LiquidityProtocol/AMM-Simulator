@@ -2,33 +2,31 @@
 #define TOKEN_HPP
 
 #include <string>
+#include <unordered_map>
 
 class Token {
-public:
-	Token(std::string name) : name(name) {}
-
-	std::string get_name() const {
-		return name;
-	}
-
-	bool operator==(const Token &other) const {
-		return name == other.name;
-	}
-
-	bool operator!=(const Token &other) const {
-		return !(*this == other);
-	}
 private:
-	std::string name;
+	Token(const std::string &name) : name_(name) {}
+
+	static std::unordered_map<std::string, Token *> existing_tokens_;
+	std::string name_;
+public:
+	// disallow copying
+	Token & operator=(const Token &) = delete;
+	Token(const Token &) = delete;
+
+	static Token * GetToken(const std::string &name) {
+		if (!existing_tokens_.count(name)) {
+			existing_tokens_[name] = new Token(name);
+		}
+		return existing_tokens_[name];
+	}
+
+	std::string name() const {
+		return name_;
+	}
 };
 
-namespace std {
-	template<>
-	struct hash<Token> {
-		size_t operator()(const Token &token) const {
-			return hash<string>()(token.get_name());
-		}
-	};
-}
+std::unordered_map<std::string, Token *> Token::existing_tokens_ = std::unordered_map<std::string, Token *>();
 
 #endif
