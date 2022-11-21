@@ -30,7 +30,7 @@ The goal is to build an environment where we can test the already existing algor
 ## Teams
 ### Econ Research
 - Shubh
-- Martina
+- Gabriele
 - Kaoutar
 - Mia
 
@@ -42,6 +42,7 @@ The goal is to build an environment where we can test the already existing algor
 ### Frontend
 - Jasmine
 - Victoire
+- Martina
 
 ### Liqudity Protocol
 - Minh
