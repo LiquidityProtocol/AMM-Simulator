@@ -2,7 +2,6 @@
 #define UNISWAP_V2_POOL_HPP
 
 #include "PoolInterface.hpp"
-#include "PoolChunk.hpp"
 
 class UniswapV2Pool : public PoolInterface {
 public:
