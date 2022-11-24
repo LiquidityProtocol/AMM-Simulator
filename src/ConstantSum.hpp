@@ -10,9 +10,6 @@ public:
     using PoolInterface::PoolInterface;
 private:
     double GetT1inT2Price(Token *token1, Token *token2 ) const {
-        if (!InPool(token1) || !InPool(token2)) {
-            throw std::invalid_argument("invalid token");
-        }
         return (quantities_.find(token2)->second)/(quantities_.find(token1)->second);
     }
 
