@@ -1,6 +1,7 @@
 #include <cassert>
 #include <stdexcept>
 #include "ConstantSum.hpp"
+#include "Token.hpp"
 
 int main() {
     Token *token1 = Token::GetToken("token1");
