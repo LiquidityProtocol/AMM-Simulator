@@ -9,15 +9,12 @@ using namespace std;
 
 class Account{
   public:
-  Account(const string &name){
-    if (!existing_acc.count(name)){
-      existing_acc.insert(name);
-      name_ = name;
-      wallet = unordered_map<Token*, double>();
-    }else{
-      throw invalid_argument("Account exist");
-    }
-  }
+  static Account * GetAccount(const string &name) {
+		if (!existing_acc_.count(name)) {
+			existing_acc_[name] = new Account(name);
+		}
+		return existing_acc_[name];
+	}
 
   void mintToken(Token* token_ptr, double quantity){
     wallet[token_ptr] += quantity;
@@ -54,13 +51,17 @@ class Account{
   }
 
   private:
-  Account(const std::string &name) : name_(name) {}
+  Account(const std::string &name){
+    usd_value = 0;
+    name_ = name;
+  }
+
 	static std::unordered_map<std::string, Account *> existing_acc_;
-	std::string name_;
 public:
 	// disallow copying
-	Token & operator=(const Token &) = delete;
-	Token(const Token &) = delete;
+	Account & operator=(const Account &) = delete;
+	Account(const Account &) = delete;
+
   unordered_map<Token*, double> wallet;
   double usd_value;
   static set<string> existing_acc;
@@ -68,6 +69,6 @@ public:
   
 };
 
-static unordered_map<string, Account *> existing_acc_ = unordered_map<string, Account *> ();
+unordered_map<string, Account *> Account::existing_acc_ = unordered_map<string, Account *> ();
 
 #endif
