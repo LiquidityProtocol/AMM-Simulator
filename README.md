@@ -11,7 +11,7 @@ The goal is to build an environment where we can test the already existing algor
 | Levente Ludányi | ludlev2 | leventeludanyi | Project Leader |
 | Fryderyk Sitnik | fryderyk-sitnik | fryderyksitnik2 | Responsible for Trello |
 | Shubh Lashkery | shubhlashkery | shubhlashkery | Econ Research Team Leader |
-| Martina Paez Berru  | Martina-Paez-Berru | martinapaezberru |  |
+| Martina Paez Berru  | Martina-Paez-Berru | martinapaezberru | Frontend Team Leader |
 | Kaoutar Fahraoui | Kaoutar-Fahraoui | kaoutar.fahraoui |  |
 | Mia Chambat | miachambat | miachambat |  |
 | Amine Roudani | amineroudani | amineroudani |  |
