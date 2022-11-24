@@ -8,7 +8,23 @@
 using namespace std;
 
 class Account{
+  private:
+    Account(const std::string &name){
+      usd_value = 0;
+      name_ = name;
+    }
+    static std::unordered_map<std::string, Account *> existing_acc_;
+
   public:
+  // disallow copying
+	Account & operator=(const Account &) = delete;
+	Account(const Account &) = delete;
+
+  unordered_map<Token*, double> wallet;
+  double usd_value;
+  static set<string> existing_acc;
+  string name_;
+
   static Account * GetAccount(const string &name) {
 		if (!existing_acc_.count(name)) {
 			existing_acc_[name] = new Account(name);
@@ -37,9 +53,7 @@ class Account{
   }
 
   void swap(PoolInterface *pool, Token* input_token, Token* output_token, double input_quantity){
-    if(!wallet.count(input_token)){
-      throw invalid_argument("token not in wallet!");
-    }else if (input_quantity > wallet[input_token]){
+    if (input_quantity > wallet[input_token]){
       throw invalid_argument("not enough token!");
     }else{
       double output_quantity = pool->Swap(input_token, output_token, input_quantity);
@@ -49,23 +63,6 @@ class Account{
       usd_value += output_quantity*output_token->getPrice();
     }
   }
-
-  private:
-  Account(const std::string &name){
-    usd_value = 0;
-    name_ = name;
-  }
-
-	static std::unordered_map<std::string, Account *> existing_acc_;
-public:
-	// disallow copying
-	Account & operator=(const Account &) = delete;
-	Account(const Account &) = delete;
-
-  unordered_map<Token*, double> wallet;
-  double usd_value;
-  static set<string> existing_acc;
-  string name_;
   
 };
 
