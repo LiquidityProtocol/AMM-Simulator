@@ -26,11 +26,11 @@ class Account{
   string name_;
 
   static Account * GetAccount(const string &name) {
-		if (!existing_acc_.count(name)) {
-			existing_acc_[name] = new Account(name);
-		}
-		return existing_acc_[name];
+	if (!existing_acc_.count(name)) {
+		existing_acc_[name] = new Account(name);
 	}
+	return existing_acc_[name];
+  }
 
   void mintToken(Token* token_ptr, double quantity){
     wallet[token_ptr] += quantity;
