@@ -16,7 +16,7 @@ The goal is to build an environment where we can test the already existing algor
 | Mia Chambat | miachambat | miachambat |  |
 | Amine Roudani | amineroudani | amineroudani |  |
 | Julien Girod | juliengirod | Julien Girod |  |
-| Duc Nguyen | combi2k2 | Duc Nguyen | Maths/Algorithm Research Team Member |
+| Duc Nguyen | combi2k2 | Duc Nguyen | Maths/Algorithm Research Team Leader |
 | Victoire Fabien | victoire-fabien | victoire-fabien |  |
 | Jasmine Samson | Jasmine-Samson | jasmine samson |  |
 | Minh Pham | minhpham160603 | minhpham1606 |  |
