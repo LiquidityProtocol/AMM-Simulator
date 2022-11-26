@@ -5,7 +5,7 @@
 #include <unordered_set>
 
 #include <stdexcept>
-#include "Token.hpp"
+#include "../Token.hpp"
 
 using namespace std;
 

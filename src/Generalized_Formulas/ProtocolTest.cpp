@@ -6,7 +6,7 @@
 
 #include "Protocol.hpp"
 #include "message.hpp"
-#include "Token.hpp"
+#include "../Token.hpp"
 
 using namespace std;
 
