@@ -1,3 +1,5 @@
+#define TOKEN_PATH  ../Token.hpp
+
 #include <iostream>
 #include <vector>
 #include <assert.h>
