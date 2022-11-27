@@ -5,11 +5,6 @@
 #include <unordered_map>
 
 class Token {
-private:
-	Token(const std::string &name) : name_(name) {}
-
-	static std::unordered_map<std::string, Token *> existing_tokens_;
-	std::string name_;
 public:
 	// disallow copying
 	Token & operator=(const Token &) = delete;
@@ -25,6 +20,20 @@ public:
 	std::string name() const {
 		return name_;
 	}
+
+	double real_value() const {
+		return real_value_;
+	}
+
+	void set_real_value(double real_value) {
+		real_value_ = real_value;
+	}
+private:
+	Token(const std::string &name) : name_(name), real_value_(0) {}
+
+	static std::unordered_map<std::string, Token *> existing_tokens_;
+	std::string name_;
+	double real_value_;
 };
 
 std::unordered_map<std::string, Token *> Token::existing_tokens_ = std::unordered_map<std::string, Token *>();
