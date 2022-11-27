@@ -1,0 +1,1 @@
+clang++ -std=c++17 $1 -o OUT && ./OUT && rm ./OUT
