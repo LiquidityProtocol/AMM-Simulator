@@ -1,0 +1,9 @@
+Set up the GitHub repository
+Team building and distribution: together with Adithya Ravchandran and Fryderyk Sitnik I built appropriate team categories, collected people’s competences and preferences, and assigned people to the teams:
+Team categories: econ research, protocol research, building market simulator, building liquidity protocols
+Elected team leaders
+Everyone is assigned on Github
+As the project leader communicated with the team and overview the development process
+Helped those who have are not confident using GitHub to fork, create new branches and deploy
+Reviewed code and gave feedback on better implementation which aligns with my vision of the project as the project leader (for example The Nguyen pushed an initial version of the simulator and the protocol and we refined it to be in different classes to be more useable)
+Suggested to create a “template for the protocols” which became the poolInterface.hpp which let’s us easily implement new protocols
