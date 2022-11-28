@@ -1,1 +1,1 @@
-Week 8 (27/11/2022): Created the Account class that allows users to create account, deposit, and trade with pool. Adding the usd_price attribute to the Token class.
+Week 8 (27/11/2022): Creating the Account class that allows users to create account, deposit, and trade with pool. Writing test for Account.hpp. Adding the usd_price attribute to the Token class.
