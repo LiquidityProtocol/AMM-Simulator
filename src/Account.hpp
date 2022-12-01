@@ -39,17 +39,17 @@ public:
         total_value_ += quantity * token->real_value();
     }
 
-    double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
-        return pool->Swap(this, input_token, output_token, input_quantity);
-    }
+    // double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
+    //     return pool->Swap(this, input_token, output_token, input_quantity);
+    // }
 
-    double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities) {
-        return pool->Provide(this, provided_quantities);
-    }
+    // double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities) {
+    //     return pool->Provide(this, provided_quantities);
+    // }
 
-    std::unordered_map<Token *, double> Withdraw(PoolInterface *pool, double surrendered_quantity) {
-        return pool->Withdraw(this, surrendered_quantity);
-    }
+    // std::unordered_map<Token *, double> Withdraw(PoolInterface *pool, double surrendered_quantity) {
+    //     return pool->Withdraw(this, surrendered_quantity);
+    // }
 private:
     Account(const std::string &name) : name_(name), total_value_(0), wallet_() {}
 
