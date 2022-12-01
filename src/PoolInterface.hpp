@@ -26,6 +26,16 @@ public:
         }
     }
 
+    double GetSlippage(Token *input_token, Token *output_token, double input_quantity) {
+        if (!InPool(input_token) || !InPool(output_token)) {
+            throw std::invalid_argument("invalid token");
+        } else if (input_quantity <= 0) {
+            throw std::invalid_argument("invalid quantity");
+        } else {
+            return ComputeSlippage(input_token, output_token, input_quantity);
+        }
+    }
+
     bool InPool(Token *token) const {
         return quantities_.count(token);
     }
@@ -49,7 +59,35 @@ protected:
     std::unordered_map<Token *, double> quantities_;
     double pool_fee_;
 
-    virtual double ExecuteSwap(Token *input_token, Token *output_token, double input_quantity) = 0;
+    double ExecuteSwap(Token *input_token, Token *output_token, double input_quantity)  {
+        double fees = input_quantity * pool_fee_;
+        double output_quantity = ComputeSwappedQuantity(input_token, output_token, input_quantity - fees);
+
+        quantities_[input_token] += input_quantity;
+        quantities_[output_token] -= output_quantity;
+
+        return output_quantity;
+    }
+
+    virtual double ComputeInvariant() = 0;
+    virtual double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) = 0;
+    virtual double ComputeSpotExchangeRate(Token *input_token, Token *output_token) {
+        auto df = [&](Token *token) {
+            const double eps = 1e-6;
+            quantities_[token] -= eps;      double val1 = ComputeInvariant();
+            quantities_[token] += eps*2;    double val2 = ComputeInvariant();
+            quantities_[token] -= eps;
+
+            return  (val2 - val1) / (2*eps);
+        };
+        return  df(input_token) / df(output_token);
+    }
+    virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity)  {
+        double output_quantity = ComputeSwappedQuantity(input_token, output_token, input_quantity);
+        double exchange_rate = ComputeSpotExchangeRate(input_token, output_token);
+
+        return  input_quantity / output_quantity / exchange_rate - 1;
+    }
 };
 
 #endif
