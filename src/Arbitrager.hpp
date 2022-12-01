@@ -60,24 +60,28 @@ public:
 
    void Arbitrage(PoolInterface *pool) {
         std::unordered_map<Token *, double> wallet = GetWallet();
-        unordered_set<Token *> tokens_in_wallet = wallet.enum_keys();
+        std::vector<Token *> tokens_in_wallet;
+        tokens_in_wallet.reserve(wallet.size());
+        for(auto kv : wallet) {
+            tokens_in_wallet.push_back(kv.first);
+        }
         for (int i=0; i<wallet.size(); i++) {
             for (int k=0; k<wallet.size(); k++) {
                /*Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity)*/
-                if (tokens_in_wallet[k] >= 1) {
-                    if ( (*pool).InPool(tokens_in_wallet[k]) == true ) {
+                if (wallet[tokens_in_wallet[k]] >= 1) {
+                    if ( (*pool).InPool(*tokens_in_wallet[k]) == true ) {
                         std::unordered_set<Token *> tokens_in_pool = (*pool).tokens();
                         for (int i=0; i<tokens_in_pool.size(); i++) {
-                            double outputquantity = SimSwap(tokens_in_wallet[k], tokens_in_pool[i], 1);
-                            if (outputquantity*(tokens_in_pool[i].real_value()) + (wallet[k]-1)*(tokens_in_wallet[k].real_value()) > wallet[k]*(tokens_in_wallet[k].real_value())) {
-                                Swap(tokens_in_wallet[k], tokens_in_pool[i], 1);
-                            }
-                        }    
-                    }
-                }
-            }
+                            double outputquantity = (*pool).SimSwap(*tokens_in_wallet[k], *tokens_in_pool[i], 1);
+                            while (outputquantity*((*tokens_in_pool[i]).real_value()) + (wallet[tokens_in_wallet[k]]-1)*((*tokens_in_wallet[k]).real_value()) > wallet[tokens_in_wallet[k]]*((*tokens_in_wallet[k]).real_value())) {
+                                Trade(*pool, *tokens_in_wallet[k], *tokens_in_pool[i], 1);
+                            };
+                        };    
+                    };
+                };
+            };
               
-        }
+        };
    }
 
 };
