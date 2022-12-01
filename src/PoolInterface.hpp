@@ -26,6 +26,16 @@ public:
         }
     }
 
+    double SimSwap(Token *input_token, Token *output_token, double input_quantity) {
+        if (!InPool(input_token) || !InPool(output_token)) {
+            throw std::invalid_argument("invalid token");
+        } else if (input_quantity <= 0) {
+            throw std::invalid_argument("invalid quantity");
+        } else {
+            return SimulateSwap(input_token, output_token, input_quantity);
+        }
+    }
+
     bool InPool(Token *token) const {
         return quantities_.count(token);
     }
@@ -50,6 +60,7 @@ protected:
     double pool_fee_;
 
     virtual double ExecuteSwap(Token *input_token, Token *output_token, double input_quantity) = 0;
+    virtual double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) = 0;
 };
 
 #endif
