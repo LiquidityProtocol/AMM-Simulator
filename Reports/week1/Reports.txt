@@ -61,6 +61,24 @@ The Nguyen:
 - Add 2 basic liquidity protocols UniswapV2Pool and BalancerPool. Both inherit features from PoolInterface. Each protocol has its own algorithm to compute ouput quantity of swap operations, which is implemented in function ExecuteSwap.
 - Assist adding type Account. Similar to Token, Account is implemented such that each real account has only one intance of type Account representing it. Each instance of type Account can also be understood as a person. For now, accounts can interact with liquidity pools through swap operations (function Trade).
 
+Minh Pham:
+
+- Creating the Account class that allows users to create account, deposit, and trade with pool. 
+- Writing test for Account.hpp. Adding the usd_price attribute to the Token class.
+
+Matheo Le Masson:
+
+- Understand actual code
+    - Learn how to use VS Code, Github
+    - Understand existing code on liquidity pool : classes
+- Play with Automated Market Maker Simulator
+    - Understand algorithm behind it in order to implement it on our own afterwards
+    - A pool for 2 currencies
+        - Price at market price first
+        - To create a pool : has to put x bitcoin and y ETH (x*px = y*py)
+- Documentation
+    - Read article on pools and learned a couple of formulas
+- Understand working code and comment it to make it clearer
 
 Shubh Lashkery:
 
@@ -101,3 +119,12 @@ one will delve into research to understand the parameters and expected outputs o
 pool, while the other team will be tasked with understanding the code written by the liquidity pool 
 team. This will be my task, with Kaoutar, and what we will be doing during Week 2 (and most probably during Week 3 as well).
 
+Kaoutar Fahraoui:
+
+This week was all about trying to understand how a liquidity protocol works and how our work (as the econ research team) 
+would be useful to the project. Moreover, I tried to get as many research papers as possible treating about automated market makers.
+We came up to the conclusion that our work would mainly be to put in place a monte carlo market simultor that would test the liquidity
+pool that is being coded. For this matter, two teams would be formed: one that would dive into research in order to understand the 
+different inputs and expected outputs, as well as the specific functions, one other that would try to understand the codes written by 
+the liquidity pool team. At the end, the goal is to test if the coded liquidity pool is a valid one. Mia and I are going to take care 
+of understanding the liquidity pool codes in order to find all the inputs we should take into account in our monte carlo simulator. 
