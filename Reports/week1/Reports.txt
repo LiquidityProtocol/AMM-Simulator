@@ -54,3 +54,50 @@ My goal for this week was to get familiarized with Qt's tools for the front-end 
 I looked for a display were users input values for our simulator to work. Furthermore, I reviewed some past projects for ideas on graphing and found useful 
 libraries like qcustomplot. I will also look into graph making and other design tools.
 
+The Nguyen:
+
+- Add type Token for representing real tokens. Token is implemented such that each real token has only one intance of type Token representing it.
+- Add interface for all pools PoolInterface. PoolInterface is an abstract class, which means that it cannot be used to instantiate objects and serves only as an interface.
+- Add 2 basic liquidity protocols UniswapV2Pool and BalancerPool. Both inherit features from PoolInterface. Each protocol has its own algorithm to compute ouput quantity of swap operations, which is implemented in function ExecuteSwap.
+- Assist adding type Account. Similar to Token, Account is implemented such that each real account has only one intance of type Account representing it. Each instance of type Account can also be understood as a person. For now, accounts can interact with liquidity pools through swap operations (function Trade).
+
+
+Shubh Lashkery:
+
+This week I read a paper "SoK: Decentralized Exchanges 
+(DEX) with Automated Market Maker (AMM) Protocols" 
+(Xu, 2022), and understood the mechanisms through which 
+Liquidity Pools operate. Furthermore we decided the 
+structure and the framework through which we will operate.
+
+The Econ research team will test how parameters effect 
+different initiatives for stakeholders, and will hope 
+to build a monte-carlo method simulation of the liquidity
+pool to see how different values of parameters, effect 
+market outcome. And how to conclude from this data. 
+
+This will require research into how theoretical shifts 
+in parameters are expected to behave, and what parameters
+should be analysed. Then there will need to be code to 
+run these simulations. And finally a dissection of the 
+conclusions from the outcomes. 
+
+This means there will need to understand how the market 
+team's code works and how we can inherit their class, to
+run our simulations smoothly. 
+
+Mia Chambat:
+
+Hello, I am part of the Econ Research Team. For this first week, we were tasked 
+with understanding how liquidity protocols work and how our group can contribute 
+to the project. I tried to read as many research papers as possible and select 
+those that seemed useful for our project. The papers "Automated Market Making with 
+Synchronized Liquidity Pools" and "Impermanent Loss and Risk Profile of a Liquidity 
+Provider" proved to be very relevant to our project. They especially highlighted the 
+importance of coding both risks of liquidity pools: the slippage and the impermanent loss. 
+As a team, we concluded that our main task is to code a Monte Carlo market simulator to test 
+the codes of the liquidity pool and help improve it. We split into two groups of two for this: 
+one will delve into research to understand the parameters and expected outputs of the liquidity 
+pool, while the other team will be tasked with understanding the code written by the liquidity pool 
+team. This will be my task, with Kaoutar, and what we will be doing during Week 2 (and most probably during Week 3 as well).
+
