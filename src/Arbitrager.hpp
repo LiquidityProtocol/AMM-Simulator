@@ -69,12 +69,12 @@ public:
         /* For each of the currencies I test whether it is better to exchange it*/
             for (int k=0; k<wallet.size(); k++) {
                 if (wallet[*it] >= 1) {
-                    if ( (*pool).InPool(*(*it))) == true ) {
+                    if ( (*pool).InPool(*it) ) {
                         std::unordered_set<Token *> tokens_in_pool = (*pool).tokens();
                         for (auto i=tokens_in_pool.begin(); i != tokens_in_pool.end(); ++i) {
-                            double outputquantity = (*pool).SimSwap(*(*it), *(*i), 1);
+                            double outputquantity = (*pool).SimSwap(*it, *i, 1);
                             while (outputquantity*((*(*i)).real_value()) + (wallet[*it]-1)*((*(*it)).real_value()) > wallet[*it]*((*(*it)).real_value())) {
-                                Trade(*pool, *(*it), *(*i), 1);
+                                Trade(pool, *it, *i, 1);
                             }
                         }
                     }
