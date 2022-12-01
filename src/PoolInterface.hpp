@@ -82,7 +82,7 @@ public:
             throw std::invalid_argument("invalid provision");
         }
         Token* reference_token = *tokens().begin();
-        double generated_pool_token_quantity = input_quantities[pool_token_] / (GetQuantity(reference_token) / input_quantities[reference_token]);
+        double generated_pool_token_quantity = total_pool_token_quantity() / (GetQuantity(reference_token) / input_quantities[reference_token]);
         return generated_pool_token_quantity;
     }
 
