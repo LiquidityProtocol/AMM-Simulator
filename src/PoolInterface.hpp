@@ -35,6 +35,10 @@ public:
         return quantities_.find(token)->second;
     }
 
+    double pool_fee() const {
+        return pool_fee_;
+    }
+
     std::unordered_set<Token *> tokens() const {
         std::unordered_set<Token *> tokens;
         tokens.reserve(quantities_.size());
