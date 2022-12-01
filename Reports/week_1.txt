@@ -1,0 +1,14 @@
+- Understand actual code
+
+    - Learn how to use VS Code, Github
+    - Understand existing code on liquidity pool : classes
+- Play with Automated Market Maker Simulator
+    - Understand algorithm behind it in order to implement it on our own afterwards
+    - A pool for 2 currencies
+        - Price at market price first
+        - To create a pool : has to put x bitcoin and y ETH (x*px = y*py)
+- Documentation
+    - Read article on pools and learned a couple of formulas
+- Understand working code and comment it to make it clearer
+
+
