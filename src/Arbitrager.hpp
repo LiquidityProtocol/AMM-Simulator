@@ -75,13 +75,12 @@ public:
                             double outputquantity = (*pool).SimSwap(*tokens_in_wallet[k], *tokens_in_pool[i], 1);
                             while (outputquantity*((*tokens_in_pool[i]).real_value()) + (wallet[tokens_in_wallet[k]]-1)*((*tokens_in_wallet[k]).real_value()) > wallet[tokens_in_wallet[k]]*((*tokens_in_wallet[k]).real_value())) {
                                 Trade(*pool, *tokens_in_wallet[k], *tokens_in_pool[i], 1);
-                            };
-                        };    
-                    };
-                };
-            };
-              
-        };
+                            }
+                        } 
+                    }
+                }
+            }     
+        }
    }
 
 };
