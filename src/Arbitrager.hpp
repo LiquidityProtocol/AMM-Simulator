@@ -60,10 +60,10 @@ public:
 
    void Arbitrage(PoolInterface *pool) {
         std::unordered_map<Token *, double> wallet = GetWallet();
-        std::vector<Token *> tokens_in_wallet; /* Get all types of currency in my wallet*/
+        std::unordered_set<Token *> tokens_in_wallet; /* Get all types of currency in my wallet*/
         tokens_in_wallet.reserve(wallet.size());
         for(auto kv : wallet) {
-            tokens_in_wallet.push_back(kv.first);
+            tokens_in_wallet.insert(kv.first);
         }
         for (int i=0; i<wallet.size(); i++) { /* For each of the currencies I test whether it is better to exchange it*/
             for (int k=0; k<wallet.size(); k++) {
