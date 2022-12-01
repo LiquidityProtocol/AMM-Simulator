@@ -60,12 +60,12 @@ public:
 
    void Arbitrage(PoolInterface *pool) {
         std::unordered_map<Token *, double> wallet = GetWallet();
-        std::vector<Token *> tokens_in_wallet;
+        std::vector<Token *> tokens_in_wallet; /* Get all types of currency in my wallet*/
         tokens_in_wallet.reserve(wallet.size());
         for(auto kv : wallet) {
             tokens_in_wallet.push_back(kv.first);
         }
-        for (int i=0; i<wallet.size(); i++) {
+        for (int i=0; i<wallet.size(); i++) { /* For each of the currencies I test whether it is better to exchange it*/
             for (int k=0; k<wallet.size(); k++) {
                /*Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity)*/
                 if (wallet[tokens_in_wallet[k]] >= 1) {
@@ -76,7 +76,7 @@ public:
                             while (outputquantity*((*tokens_in_pool[i]).real_value()) + (wallet[tokens_in_wallet[k]]-1)*((*tokens_in_wallet[k]).real_value()) > wallet[tokens_in_wallet[k]]*((*tokens_in_wallet[k]).real_value())) {
                                 Trade(*pool, *tokens_in_wallet[k], *tokens_in_pool[i], 1);
                             }
-                        } 
+                        }
                     }
                 }
             }     
