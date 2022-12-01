@@ -65,15 +65,16 @@ public:
         for(auto kv : wallet) {
             tokens_in_wallet.insert(kv.first);
         }
-        for (int i=0; i<wallet.size(); i++) { /* For each of the currencies I test whether it is better to exchange it*/
+        for ( auto it = tokens_in_wallet.begin(); it != tokens_in_wallet.end(); ++it ) {
+        /* For each of the currencies I test whether it is better to exchange it*/
             for (int k=0; k<wallet.size(); k++) {
-                if (wallet[tokens_in_wallet[k]] >= 1) {
-                    if ( (*pool).InPool(*tokens_in_wallet[k]) == true ) {
+                if (wallet[*it] >= 1) {
+                    if ( (*pool).InPool(*(*it))) == true ) {
                         std::unordered_set<Token *> tokens_in_pool = (*pool).tokens();
-                        for (int i=0; i<tokens_in_pool.size(); i++) {
-                            double outputquantity = (*pool).SimSwap(*tokens_in_wallet[k], *tokens_in_pool[i], 1);
-                            while (outputquantity*((*tokens_in_pool[i]).real_value()) + (wallet[tokens_in_wallet[k]]-1)*((*tokens_in_wallet[k]).real_value()) > wallet[tokens_in_wallet[k]]*((*tokens_in_wallet[k]).real_value())) {
-                                Trade(*pool, *tokens_in_wallet[k], *tokens_in_pool[i], 1);
+                        for (auto i=tokens_in_pool.begin(); i != tokens_in_pool.end(); ++i) {
+                            double outputquantity = (*pool).SimSwap(*(*it), *(*i), 1);
+                            while (outputquantity*((*(*i)).real_value()) + (wallet[*it]-1)*((*(*it)).real_value()) > wallet[*it]*((*(*it)).real_value())) {
+                                Trade(*pool, *(*it), *(*i), 1);
                             }
                         }
                     }
