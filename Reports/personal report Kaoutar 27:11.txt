@@ -1,0 +1,7 @@
+This week was all about trying to understand how a liquidity protocol works and how our work (as the econ research team) 
+would be useful to the project. Moreover, I tried to get as many research papers as possible treating about automated market makers.
+We came up to the conclusion that our work would mainly be to put in place a monte carlo market simultor that would test the liquidity
+pool that is being coded. For this matter, two teams would be formed: one that would dive into research in order to understand the 
+different inputs and expected outputs, as well as the specific functions, one other that would try to understand the codes written by 
+the liquidity pool team. At the end, the goal is to test if the coded liquidity pool is a valid one. Mia and I are going to take care 
+of understanding the liquidity pool codes in order to find all the inputs we should take into account in our monte carlo simulator. 
