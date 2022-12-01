@@ -50,6 +50,11 @@ public:
             total_value_ += output_quantity * output_token->real_value();
         }
     }
+
+    std::unordered_map<Token *, double> GetWallet() {
+        return wallet_;
+    }
+
 private:
     Account(const std::string &name) : name_(name), total_value_(0), wallet_() {}
 

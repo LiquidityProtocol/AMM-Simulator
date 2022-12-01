@@ -55,6 +55,7 @@ public:
         }
         return tokens;
     }
+    
 protected:
     std::unordered_map<Token *, double> quantities_;
     double pool_fee_;
