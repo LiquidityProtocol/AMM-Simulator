@@ -25,7 +25,8 @@ public:
             return ExecuteSwap(input_token, output_token, input_quantity);
         }
     }
-    double Slippage(Token *input_token, Token *output_token, double input_quantity) {
+
+    double GetSlippage(Token *input_token, Token *output_token, double input_quantity) {
         if (!InPool(input_token) || !InPool(output_token)) {
             throw std::invalid_argument("invalid token");
         } else if (input_quantity <= 0) {
@@ -34,13 +35,15 @@ public:
             return ComputeSlippage(input_token, output_token, input_quantity);
         }
     }
-    double DivergenceLoss(double p, Token *token = nullptr) {
+
+    double GetDivergenceLoss(double p, Token *token = nullptr) {
         if (!InPool(token)) {
             throw std::invalid_argument("invalid token");
         } else if (p <= -1) {
             throw std::invalid_argument("invalid change rate");
-        } else
+        } else {
             return ComputeDivergenceLoss(p, token);
+        }
     }
 
     bool InPool(Token *token) const {
@@ -67,9 +70,9 @@ protected:
     double pool_fee_;
 
     virtual double ExecuteSwap(Token *input_token, Token *output_token, double input_quantity) = 0;
-    virtual double ComputeSwapQuantity(Token *input_token, Token *output_token, double input_quantity) = 0;
-    virtual double ComputeDivergenceLoss(double p, Token *token) = 0;
+    virtual double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) = 0;
     virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) = 0;
+    virtual double ComputeDivergenceLoss(double p, Token *token) = 0;
 };
 
 #endif
