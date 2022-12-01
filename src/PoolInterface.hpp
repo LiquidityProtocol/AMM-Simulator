@@ -39,6 +39,14 @@ public:
         return pool_fee_;
     }
 
+    Token * pool_token() const {
+        return pool_token_;
+    }
+
+    double total_pool_token_quantity() const {
+        return GetQuantity(pool_token_);
+    }
+
     std::unordered_set<Token *> tokens() const {
         std::unordered_set<Token *> tokens;
         tokens.reserve(quantities_.size());
