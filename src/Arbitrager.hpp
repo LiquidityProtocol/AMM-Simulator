@@ -57,6 +57,29 @@ public:
             pairsExcludingThisPair = pairs[:i] + pairs[i+1:]
             bestTrades = findArb(pairsExcludingThisPair, tempOut, tokenOut, maxHops-1, currentPairs + [pair], newPath, bestTrades, count)
     return bestTrades */
+
+   void Arbitrage(PoolInterface *pool) {
+        std::unordered_map<Token *, double> wallet = GetWallet();
+        unordered_set<Token *> tokens_in_wallet = wallet.enum_keys();
+        for (int i=0; i<wallet.size(); i++) {
+            for (int k=0; k<wallet.size(); k++) {
+               /*Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity)*/
+                if (tokens_in_wallet[k] >= 1) {
+                    if ( (*pool).InPool(tokens_in_wallet[k]) == true ) {
+                        std::unordered_set<Token *> tokens_in_pool = (*pool).tokens();
+                        for (int i=0; i<tokens_in_pool.size(); i++) {
+                            double outputquantity = SimSwap(tokens_in_wallet[k], tokens_in_pool[i], 1);
+                            if (outputquantity*(tokens_in_pool[i].real_value()) + (wallet[k]-1)*(tokens_in_wallet[k].real_value()) > wallet[k]*(tokens_in_wallet[k].real_value())) {
+                                Swap(tokens_in_wallet[k], tokens_in_pool[i], 1);
+                            }
+                        }    
+                    }
+                }
+            }
+              
+        }
+   }
+
 };
 
 
