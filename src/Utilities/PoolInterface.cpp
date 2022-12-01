@@ -107,6 +107,36 @@ std::unordered_map<Token *, double> PoolInterface::Withdraw(Account *provider, d
     return output_quantities;
 }
 
+double PoolInterface::GetSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+    if (!InPool(input_token) || !InPool(output_token)) {
+        throw std::invalid_argument("invalid token");
+    } else if (input_quantity <= 0) {
+        throw std::invalid_argument("invalid quantity");
+    } else {
+        return ComputeSlippage(input_token, output_token, input_quantity);
+    }
+}
+
+double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
+    // auto df = [&](Token *token) {
+    //     const double eps = 1e-6;
+    //     quantities_[token] -= eps;      double val1 = ComputeInvariant();
+    //     quantities_[token] += eps*2;    double val2 = ComputeInvariant();
+    //     quantities_[token] -= eps;
+
+    //     return  (val2 - val1) / (2*eps);
+    // };
+    // return  df(input_token) / df(output_token);
+    return 0;
+}
+
+double PoolInterface::ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+    double output_quantity = ComputeSwappedQuantity(input_token, output_token, input_quantity);
+    double exchange_rate = ComputeSpotExchangeRate(input_token, output_token);
+
+    return  input_quantity / output_quantity / exchange_rate - 1;
+}
+
 bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token *, double> &quantities) const {
     for (auto [token, quantity] : quantities) {
         if (account->GetQuantity(token) < quantity) {

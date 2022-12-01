@@ -82,8 +82,13 @@ public:
 
     std::unordered_map<Token *, double> SimulateWithdrawal(double surrendered_pool_token_quantity) const;
     std::unordered_map<Token *, double> Withdraw(Account *provider, double surrendered_pool_token_quantity);
+
+    double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
 protected:
     virtual double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const = 0;
+    virtual double ComputeInvariant() const = 0;
+    virtual double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const;
+    virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const;
 private:
     std::unordered_map<Token *, double> quantities_;
     double pool_fee_;
