@@ -39,16 +39,16 @@ public:
         total_value_ += quantity * token->real_value();
     }
 
-    void Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
-        if (input_quantity > GetQuantity(input_token)) {
-            throw std::invalid_argument("not enough " + input_token->name() + "s");
-        } else {
-            double output_quantity = pool->Swap(input_token, output_token, input_quantity);
-            Deposit(input_token, -input_quantity);
-            Deposit(output_token, output_quantity);
-            total_value_ -= input_quantity * input_token->real_value();
-            total_value_ += output_quantity * output_token->real_value();
-        }
+    double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
+        return pool->Swap(this, input_token, output_token, input_quantity);
+    }
+
+    double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities) {
+        return pool->Provide(this, provided_quantities);
+    }
+
+    std::unordered_map<Token *, double> Withdraw(PoolInterface *pool, double surrendered_quantity) {
+        return pool->Withdraw(this, surrendered_quantity);
     }
 private:
     Account(const std::string &name) : name_(name), total_value_(0), wallet_() {}
