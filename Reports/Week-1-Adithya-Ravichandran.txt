@@ -1,9 +1,0 @@
-Set up the Trello workspace
-Team building and distribution: together with Adithya Ravchandran and Levente Ludanyi I built appropriate team categories, collected people’s competences and preferences, and assigned people to the teams:
-Team categories: econ research, protocol research, building market simulator, building liquidity protocols
-Elected team leaders
-Everyone is assigned on Github
-Helped structure mechanism of how classes interact such that there would be a standardized pool interface class with which every single implemented protocol would work.
-Implemented modified version of Constant Sum protocol (px + y = k, where p is price, x and y are the tokens in the pool, and k is the constant) in ConstantSum.hpp
-Implemented testing function to check correctness of Constant Sum protocol.
-Made sure there was a clear and unconflicted structure to development for each team to avoid redundant work.
