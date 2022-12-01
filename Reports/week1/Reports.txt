@@ -1,0 +1,37 @@
+Fryderyk:
+
+- I Collected, distributed, and explained introductory resources about the project to all team members:
+    What is a liquidity pool
+    How do we want to build our market simulator?
+    What is the role of arbitrageurs in liquidity pools?
+- Team building and distribution: together with Adithya Ravchandran and Levente Ludanyi I built appropriate team categories, collected people’s competences and preferences, and assigned people to the teams:
+- Team categories: econ research, protocol research, building market simulator, building liquidity protocols
+    Elected team leaders
+    Everyone is assigned on Github
+    Collected initial materials for the econ and protocol research teams
+- With Adithya and Levente, I layed out the first two weeks of plans for the development teams
+
+Levente:
+
+
+Set up the GitHub repository
+- Team building and distribution: together with Adithya Ravchandran and Fryderyk Sitnik I built appropriate team categories, collected people’s competences and preferences, and assigned people to the teams:
+- Team categories: econ research, protocol research, building market simulator, building liquidity protocols
+    Elected team leaders
+    Everyone is assigned on Github
+- As the project leader communicated with the team and overview the development process
+- Helped those who have are not confident using GitHub to fork, create new branches and deploy
+- Reviewed code and gave feedback on better implementation which aligns with my vision of the project as the project leader
+
+Adithya:
+
+- Set up the Trello workspace
+- Team building and distribution: together with Adithya Ravchandran and Levente Ludanyi I built appropriate team categories, collected people’s competences and preferences, and assigned people to the teams:
+- Team categories: econ research, protocol research, building market simulator, building liquidity protocols
+    Elected team leaders
+    Everyone is assigned on Github
+- Helped structure mechanism of how classes interact such that there would be a standardized pool interface class with which every single implemented     protocol would work.
+- Implemented modified version of Constant Sum protocol (px + y = k, where p is price, x and y are the tokens in the pool, and k is the constant) in ConstantSum.hpp
+- Implemented testing function to check correctness of Constant Sum protocol.
+- Made sure there was a clear and unconflicted structure to development for each team to avoid redundant work.
+
