@@ -67,7 +67,6 @@ public:
         }
         for (int i=0; i<wallet.size(); i++) { /* For each of the currencies I test whether it is better to exchange it*/
             for (int k=0; k<wallet.size(); k++) {
-               /*Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity)*/
                 if (wallet[tokens_in_wallet[k]] >= 1) {
                     if ( (*pool).InPool(*tokens_in_wallet[k]) == true ) {
                         std::unordered_set<Token *> tokens_in_pool = (*pool).tokens();
@@ -79,7 +78,7 @@ public:
                         }
                     }
                 }
-            }     
+            }
         }
    }
 
