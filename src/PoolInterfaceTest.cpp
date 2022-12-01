@@ -79,5 +79,24 @@ int main() {
     assert(pool.GetQuantity(token1) == 40 && pool.GetQuantity(token2) == 80);
     assert(account->GetQuantity(pool.pool_token()) == 3 && account->GetQuantity(token1) == 70 && account->GetQuantity(token2) == 40);
 
+    try {
+        pool.SimulateSwap(token1, token3, 10);
+        assert(false);
+    } catch (std::invalid_argument &e) {
+        assert(std::string(e.what()) == "invalid token");
+    }
+    try {
+        pool.SimulateSwap(token3, token1, 10);
+        assert(false);
+    } catch (std::invalid_argument &e) {
+        assert(std::string(e.what()) == "invalid token");
+    }
+    assert(pool.SimulateSwap(token1, token2, 120) == 60);
+
+    double output_quantity = pool.Swap(account, token1, token2, 40);
+    assert(output_quantity == 40);
+    assert(pool.GetQuantity(token1) == 80 && pool.GetQuantity(token2) == 40);
+    assert(account->GetQuantity(pool.pool_token()) == 3 && account->GetQuantity(token1) == 30 && account->GetQuantity(token2) == 80);
+
     return 0;
 }
