@@ -8,9 +8,7 @@ int main() {
 
     UniswapV2Pool pool({{token1, 10}, {token2, 20}});
 
-    assert(pool.Swap(token1, token2, 10) == 10);
-    assert(pool.GetQuantity(token1) == 20);
-    assert(pool.GetQuantity(token2) == 10);
+    assert(pool.SimulateSwap(token1, token2, 10) == 10);
 
     return 0;
 }
