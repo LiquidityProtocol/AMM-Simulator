@@ -3,7 +3,6 @@
 
 #include <unordered_map>
 #include <stdexcept>
-#include "PoolInterface.hpp"
 #include "Token.hpp"
 
 class Account {
