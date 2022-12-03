@@ -1,5 +1,5 @@
 #include <cassert>
-#include "Utilities.hpp"
+#include "../Utilities/Utilities.hpp"
 
 int main () {
     Token *token1_pointer = Token::GetToken("token1");
