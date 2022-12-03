@@ -1,5 +1,4 @@
-#include "BalancerPool.hpp"
-#include "Token.hpp"
+#include "../Protocols/BalancerPool.hpp"
 
 int main() {
     Token *token1 = Token::GetToken("token1");
