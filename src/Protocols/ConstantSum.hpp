@@ -1,9 +1,8 @@
 #ifndef CONSTANTSUM_HPP
 #define CONSTANTSUM_HPP
 
-
-#include "../PoolInterface.hpp"
 #include <stdexcept>
+#include "../Utilities/Utilities.hpp"
 
 class ConstantSum : public PoolInterface {
     /*Implementation of modified constant sum protocol:

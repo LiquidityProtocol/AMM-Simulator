@@ -1,7 +1,7 @@
 #include <cassert>
 #include <unordered_set>
 #include <stdexcept>
-#include "UniswapV2Pool.hpp"
+#include "../Protocols/UniswapV2Pool.hpp"
 
 int main() {
     Token *token1 = Token::GetToken("token1");
