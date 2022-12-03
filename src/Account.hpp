@@ -10,33 +10,15 @@ public:
     Account & operator=(const Account &) = delete;
 	Account(const Account &) = delete;
 
-    static Account * GetAccount(const std::string &name) {
-		if (!existing_accounts_.count(name)) {
-			existing_accounts_[name] = new Account(name);
-		}
-		return existing_accounts_[name];
-	}
+    static Account * GetAccount(const std::string &name);
 
-    std::string name() const {
-        return name_;
-    }
+    std::string name() const;
+    double total_value() const;
 
-    double total_value() const {
-        return total_value_;
-    }
+    double GetQuantity(Token *token) const;
+    double GetValue(Token *token) const;
 
-    double GetQuantity(Token *token) const {
-        return wallet_.count(token) ? wallet_.find(token)->second : 0;
-    }
-
-    double GetValue(Token *token) const {
-        return GetQuantity(token) * token->real_value();
-    }
-
-    void Deposit(Token *token, double quantity) {
-        wallet_[token] += quantity;
-        total_value_ += quantity * token->real_value();
-    }
+    void Deposit(Token *token, double quantity);
 
     // double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     //     return pool->Swap(this, input_token, output_token, input_quantity);
@@ -57,7 +39,4 @@ private:
     double total_value_;
     std::unordered_map<Token *, double> wallet_;
 };
-
-std::unordered_map<std::string, Account *> Account::existing_accounts_ = std::unordered_map<std::string, Account *>();
-
 #endif
