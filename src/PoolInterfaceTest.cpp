@@ -1,9 +1,7 @@
 #include <cassert>
 #include <unordered_set>
 #include <stdexcept>
-#include "Token.hpp"
 #include "UniswapV2Pool.hpp"
-#include "Account.hpp"
 
 int main() {
     Token *token1 = Token::GetToken("token1");
@@ -40,7 +38,7 @@ int main() {
     account->Deposit(token2, 100);
 
     try {
-        pool.Provide(account, {{token1, 101}, {token2, 202}});
+        account->Provide(&pool, {{token1, 101}, {token2, 202}});
         assert(false);
     } catch (std::invalid_argument &e) {
         assert(std::string(e.what()) == "not enough quantities in wallet");
@@ -68,7 +66,7 @@ int main() {
     assert(output_quantities[token1] == pool.GetQuantity(token1) / 6 && output_quantities[token2] == pool.GetQuantity(token2) / 6);
 
     try {
-        pool.Withdraw(account, account->GetQuantity(pool.pool_token()) + 0.1);
+        account->Withdraw(&pool, account->GetQuantity(pool.pool_token()) + 0.1);
         assert(false);
     } catch (std::invalid_argument &e) {
         assert(std::string(e.what()) == "not enough quantities in wallet");
@@ -93,7 +91,7 @@ int main() {
     }
     assert(pool.SimulateSwap(token1, token2, 120) == 60);
 
-    double output_quantity = pool.Swap(account, token1, token2, 40);
+    double output_quantity = account->Trade(&pool, token1, token2, 40);
     assert(output_quantity == 40);
     assert(pool.GetQuantity(token1) == 80 && pool.GetQuantity(token2) == 40);
     assert(account->GetQuantity(pool.pool_token()) == 3 && account->GetQuantity(token1) == 30 && account->GetQuantity(token2) == 80);

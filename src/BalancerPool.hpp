@@ -4,8 +4,7 @@
 #include <unordered_map>
 #include <stdexcept>
 #include <cmath>
-#include "PoolInterface.hpp"
-#include "Token.hpp"
+#include "Utilities.hpp"
 
 class BalancerPool : public PoolInterface {
 public:

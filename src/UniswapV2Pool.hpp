@@ -1,7 +1,7 @@
 #ifndef UNISWAP_V2_POOL_HPP
 #define UNISWAP_V2_POOL_HPP
 
-#include "PoolInterface.hpp"
+#include "Utilities.hpp"
 
 class UniswapV2Pool : public PoolInterface {
 public:

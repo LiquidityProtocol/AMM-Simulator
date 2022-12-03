@@ -1,6 +1,4 @@
 #include <cassert>
-#include "Account.hpp"
-#include "Token.hpp"
 #include "UniswapV2Pool.hpp"
 
 int main() {

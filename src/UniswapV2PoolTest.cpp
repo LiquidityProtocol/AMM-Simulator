@@ -1,5 +1,4 @@
 #include <cassert>
-#include "Token.hpp"
 #include "UniswapV2Pool.hpp"
 
 int main() {
