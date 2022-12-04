@@ -135,3 +135,8 @@ Read research papers that are at the core of the project (SoK: Decentralized Exc
 Further informed myself by watching a ton of youtube videos on the math of automated market makers and liquidity protocols. 
 Got familiar with the different Github repositories that might be useful for later, and how to run them on VScode or Qt using make. 
 
+
+Amine Roudani
+This week I familiarized myself with liquidity protocols and AMM by actively reading and understanding the “SoK: Decentralized Exchanges DEX with Automated Market Maker AMM Protocols” research paper, and researching further. Moreover, I looked at the pros and cons of different liquidity protocols, and I looked at how the algorithms worked for slippage and divergence loss. I had a meeting with my teammates earlier today where we discussed any topics which we found tricky to understand. We compiled the pros & cons of various liquidity pool protocols into this google doc. (https://docs.google.com/document/d/1HUpTT339Z7z44kpRlpZAw7NPCl4zYhbKiotqQIAaShE/edit). Specifically, I wrote about uniswapv2, uniswapv3 and balancer in this doc. 
+
+
