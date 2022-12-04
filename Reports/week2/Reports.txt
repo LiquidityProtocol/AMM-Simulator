@@ -75,3 +75,6 @@ Martina Paez Berru:
 - Worked on line graphs in order to represent the amount of tokens in the liquidity pool.
 - I worked more with Qt's desgin and thought of the layout of the application (presentation) of the project.
 
+Duc Nguyen:
+- Create generalized formula for slippage
+- Fix the function of protocols (UniSwapV2, Balancer, ConstantSum)
