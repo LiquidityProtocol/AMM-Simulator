@@ -86,7 +86,7 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
 protected:
     virtual double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const = 0;
-    virtual double ComputeInvariant() const = 0;
+    virtual double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const = 0;
     virtual double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const;
     virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const;
 private:

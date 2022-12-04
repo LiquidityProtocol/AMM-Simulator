@@ -118,16 +118,20 @@ double PoolInterface::GetSlippage(Token *input_token, Token *output_token, doubl
 }
 
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
-    // auto df = [&](Token *token) {
-    //     const double eps = 1e-6;
-    //     quantities_[token] -= eps;      double val1 = ComputeInvariant();
-    //     quantities_[token] += eps*2;    double val2 = ComputeInvariant();
-    //     quantities_[token] -= eps;
+    std::unordered_set<Token *> Tokens = tokens();
+    std::unordered_map<Token *, double> clone_quantities;
 
-    //     return  (val2 - val1) / (2*eps);
-    // };
-    // return  df(input_token) / df(output_token);
-    return 0;
+    for(auto token : Tokens)
+        clone_quantities[token] = GetQuantity(token);
+    
+    auto df = [&](Token *token) {
+        const double eps = 1e-6;
+        clone_quantities[token] -= eps;     double val1 = ComputeInvariant(clone_quantities);
+        clone_quantities[token] += eps*2;   double val2 = ComputeInvariant(clone_quantities);
+
+        return  (val2 - val1) / (2*eps);
+    };
+    return  df(input_token) / df(output_token);
 }
 
 double PoolInterface::ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
