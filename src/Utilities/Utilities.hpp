@@ -6,6 +6,9 @@
 #include <string>
 #include <stdexcept>
 #include <algorithm>
+#include <vector>
+#include <iostream>
+#include <typeinfo>
 
 class Token {
 public:
@@ -27,7 +30,20 @@ private:
 	double real_value_;
 };
 
+
 class PoolInterface;
+
+class Operation {
+public: 
+    Operation(const std::string &type, std::string account, PoolInterface * pool, std::unordered_map<Token *, double> input, std::unordered_map<Token *, double> output);
+    void Print();
+private:
+    std::string operation_type_;
+    std::string account_;
+    PoolInterface * pool_;
+    std::unordered_map<Token *, double> input_;
+    std::unordered_map<Token *, double> output_;
+};
 
 class Account {
 public:
@@ -51,13 +67,16 @@ public:
     double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities);
 
     std::unordered_map<Token *, double> Withdraw(PoolInterface *pool, double surrendered_quantity);
+
+    std::vector<Operation*> GetLedger();
+
 private:
     Account(const std::string &name) : name_(name), total_value_(0), wallet_() {}
-
     static std::unordered_map<std::string, Account *> existing_accounts_;
     std::string name_;
     double total_value_;
     std::unordered_map<Token *, double> wallet_;
+    std::vector<Operation*> ledger_;
 };
 
 class PoolInterface {
@@ -88,6 +107,7 @@ private:
     std::unordered_map<Token *, double> quantities_;
     double pool_fee_;
     Token *pool_token_;
+    std::vector<Operation*> ledger_;
 
     bool CheckWallet(Account *account, const std::unordered_map<Token *, double> &quantities) const;
 

@@ -29,13 +29,26 @@ void Account::Deposit(Token *token, double quantity) {
 }
 
 double Account::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
-    return pool->Swap(this, input_token, output_token, input_quantity);
+    double output_quantity = pool->Swap(this, input_token, output_token, input_quantity);
+    Operation* operation = new Operation("TRADE", name(), pool, {{input_token, input_quantity}}, {{output_token, output_quantity}});
+    ledger_.push_back(operation);
+    return output_quantity;
 }
 
 double Account::Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities) {
-    return pool->Provide(this, provided_quantities);
+    double output_quantity = pool->Provide(this, provided_quantities);
+    Operation* operation = new Operation("PROVIDE", name(), pool, provided_quantities, {{pool->pool_token(), output_quantity}});
+    ledger_.push_back(operation);
+    return output_quantity;
 }
 
 std::unordered_map<Token *, double> Account::Withdraw(PoolInterface *pool, double surrendered_quantity) {
-    return pool->Withdraw(this, surrendered_quantity);
+    std::unordered_map<Token *, double> output_quantities = pool->Withdraw(this, surrendered_quantity);
+    Operation* operation = new Operation("WITHDRAW", name(), pool, {{pool->pool_token(), surrendered_quantity}}, output_quantities);
+    ledger_.push_back(operation);
+    return output_quantities;
+}
+
+std::vector<Operation*> Account::GetLedger(){
+    return ledger_;
 }
