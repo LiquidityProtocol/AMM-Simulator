@@ -53,7 +53,9 @@ double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, doub
     } else if (input_quantity <= 0) {
         throw std::invalid_argument("invalid quantity");
     } else {
-        return ComputeSwappedQuantity(input_token, output_token, input_quantity);
+        double fee_quantity = input_quantity * pool_fee();
+        double output_quantity = ComputeSwappedQuantity(input_token, output_token, input_quantity - fee_quantity);
+        return output_quantity;
     }
 }
 
@@ -151,6 +153,9 @@ bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token
 }
 
 void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity) {
+    if (GetQuantity(output_token) <= output_quantity)
+        throw std::invalid_argument("Not enough liquidity");
+    
     quantities_[input_token] += input_quantity;
     trader->Deposit(input_token, -input_quantity);
     quantities_[output_token] -= output_quantity;
