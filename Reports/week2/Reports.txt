@@ -1,0 +1,9 @@
+Adithya Ravichandran
+
+- As Git Leader, cleaned the repository and deleted redundant/unused branches to make repository easier to navigate
+- Began working together on an UniswapV2 arbitrage algorithm with Levente Ludanyi:
+    - Implemented a function to find all simple cycles in a graph with some tests
+    - Currently working on function to find optimal input amounts of each token given a set of pools
+    - Framework built to conduct arbitrage based on real used arbitrage algorithms in Uniswap
+- Fixed ConstantSum.hpp and added some documentation, planning to add more robust documentation in coming days
+- Added extra full team meeting on Wednesdays and helped assign tasks to different teams based on their goals
