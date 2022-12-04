@@ -1,0 +1,10 @@
+Minh Pham:
+- Create ledger Operation class and add Ledger to Account 
+- Create Feature Request template on Trello Board.
+
+Matheo Le Masson:
+- Code arbitrage function : arbitrager to benefit from market imperfections (see GitHub commits)
+- Code simswap and simulate swap functions to be able to execute arbitrage function (see GitHub commits)
+- Understand new code
+- Meeting to keep up with the project advances
+- Documentation on std::unordered set and maps, etc to be able to code the functions mentioned above
