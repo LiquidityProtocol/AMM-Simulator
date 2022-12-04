@@ -128,3 +128,10 @@ pool that is being coded. For this matter, two teams would be formed: one that w
 different inputs and expected outputs, as well as the specific functions, one other that would try to understand the codes written by 
 the liquidity pool team. At the end, the goal is to test if the coded liquidity pool is a valid one. Mia and I are going to take care 
 of understanding the liquidity pool codes in order to find all the inputs we should take into account in our monte carlo simulator. 
+
+
+Alessandro Massaad
+Read research papers that are at the core of the project (SoK: Decentralized Exchanges (DEX) with Automated Market Maker (AMM) Protocols, by Jiahua Xu, Krzysztof Paruch, Simon Cousaert, Yebo Feng; and Liquifi Protocol, by Igor Struchkov, Igor Mikhalev, Alexey Zubritskiy, Bihao Song). 
+Further informed myself by watching a ton of youtube videos on the math of automated market makers and liquidity protocols. 
+Got familiar with the different Github repositories that might be useful for later, and how to run them on VScode or Qt using make. 
+
