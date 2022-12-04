@@ -1,6 +1,9 @@
 #ifndef ARBITRAGER_HPP
 #define ARBITRAGER_HPP
 
+#include <iostream>
+#include <vector>
+#include <unordered_set>
 #include <unordered_map>
 #include <stdexcept>
 #include <cmath>
@@ -25,9 +28,31 @@ public:
 
     }
 
+    void find_cycles(std::vector<PoolInterface *> pools, Token *token, std::unordered_set<Token *> visited, std::vector<std::unordered_set<Token *>> &cycles) {
+        // Does not work completely yet
+        // find cycles from token to token
+        // store each cycle as a set of tokens in a vector
+        if (visited.count(token)) {
+            cycles.push_back(visited);
+        }
+
+        else {
+            visited.emplace(token);
+            for (auto pool : pools) {
+                if (pool->InPool(token)) {
+                    for (auto other_token : pool->tokens()) {
+                        if (other_token != token) {
+                            find_cycles(pools, other_token, visited, cycles);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
-   void Arbitrage(PoolInterface *pool) {
+
+    void Arbitrage(PoolInterface *pool) {
         std::unordered_map<Token *, double> wallet = GetWallet();
         std::unordered_set<Token *> tokens_in_wallet; // Get all types of currency in my wallet
         tokens_in_wallet.reserve(wallet.size());
