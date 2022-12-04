@@ -78,3 +78,7 @@ Martina Paez Berru:
 Duc Nguyen:
 - Create generalized formula for slippage
 - Fix the function of protocols (UniSwapV2, Balancer, ConstantSum)
+
+Amine Roudani
+- Researched further: Understood the Curve & Bancor
+- Coded functions for UniswapV3. Will review them with team leader tomorrow before pushing to rep. 
