@@ -1,0 +1,13 @@
+- I was working together with Adithya Ravichandran on the arbitrager algorithm, our goal is to implement an arbitrager in our market who benefits from
+the inefficiencies in the market, by doing so making the market efficient
+  - we implemented a first version of a cycle finding algorithm which finds the cycle in a graph of liquidty pool and a function which computes
+  the optimal traded amount to maximasise the profit
+  - we implemented tests as well
+- I overlooked Matheo's code who also worked an the arbitrager class
+
+- As the team leader I organised additional meetings with team members who requested and checked if everyone is contributing properly
+- Assigned tasks for next week and communicated the vision for the upcoming weeks
+- Our goal is to have a basic but functioning version of our project by the end of the first week of the break, I layed out the steps to achieve this
+and thought trough the needed functionalities.
+- Organised extra sessions for the team when we go through the existing code-base together and talk it through
+- Managed the subteam leaders and discussed further progress
