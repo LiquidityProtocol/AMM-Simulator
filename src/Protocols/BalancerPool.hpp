@@ -22,15 +22,15 @@ public:
             weights_ = weights;
         }
     }
-private:
-    std::unordered_map<Token *, double> weights_;
-
     double GetWeight(Token *token) const {
         if (!weights_.count(token)) {
             throw std::invalid_argument("invalid token");
         }
         return weights_.find(token)->second;
     }
+private:
+    std::unordered_map<Token *, double> weights_;
+
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 1;
         for(auto [token, quantity] : quantities)
