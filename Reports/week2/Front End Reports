@@ -1,0 +1,21 @@
+Jasmine Samson : 
+
+- Implemented a pie chart representing the proportion of each token in a specific pool
+- tested the implementation of the new widget using a random UniswapV2Pool pool (waiting for the implementation of pool environments by the Econ research team)
+- next week I will try implementing new widgets to include in a Qt desktop app (we still need to figure out with all the teams of the project the format of our User interface)
+
+Victoire Fabien:
+
+This week, I started experimenting with different visualization tools I found. I focused on charts and familiarized myself with it. 
+I was able to make line graphs and spline graphs which would then allow me to for example, represent the tokens in the pool. 
+My task this week was to experiment with QtCharts in particular.
+Next week, we will see with the front end team which tool works the best to represent what we want. 
+I will then focus solely on that tool to start to visually represent our project.
+
+Martina Paez Berru:
+
+- Worked with the qcustom plot library (had some issues with the download).
+- Worked on line graphs in order to represent the amount of tokens in the liquidity pool.
+- I worked more with Qt's desgin and thought of the layout of the application (presentation) of the project.
+
+
