@@ -8,3 +8,7 @@ Matheo Le Masson:
 - Understand new code
 - Meeting to keep up with the project advances
 - Documentation on std::unordered set and maps, etc to be able to code the functions mentioned above
+
+The Nguyen:
+- Add Provision and Withdrawal interactions between PoolInterface and Account.
+- Refactor the whole codebase to make the APIs more understandable.
