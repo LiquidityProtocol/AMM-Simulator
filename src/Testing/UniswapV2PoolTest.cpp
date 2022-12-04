@@ -1,6 +1,5 @@
 #include <cassert>
-#include "Token.hpp"
-#include "UniswapV2Pool.hpp"
+#include "../Protocols/UniswapV2Pool.hpp"
 
 int main() {
     Token *token1 = Token::GetToken("token1");
@@ -8,9 +7,7 @@ int main() {
 
     UniswapV2Pool pool({{token1, 10}, {token2, 20}});
 
-    assert(pool.Swap(token1, token2, 10) == 10);
-    assert(pool.GetQuantity(token1) == 20);
-    assert(pool.GetQuantity(token2) == 10);
+    assert(pool.SimulateSwap(token1, token2, 10) == 10);
 
     return 0;
 }

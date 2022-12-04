@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <stdexcept>
 #include <cmath>
-#include "PoolInterface.hpp"
+#include "../Utilities/Utilities.hpp"
 
 class BalancerPool : public PoolInterface {
 public:
@@ -25,11 +25,15 @@ public:
 private:
     std::unordered_map<Token *, double> weights_;
 
-    double ExecuteSwap(Token *input_token, Token *output_token, double input_quantity) {
-        double output_quantity = quantities_[output_token] - quantities_[output_token] * std::pow(quantities_[input_token] / (quantities_[input_token] + (1 - pool_fee_) * input_quantity), weights_[input_token] / weights_[output_token]);
-        quantities_[input_token] += input_quantity;
-        quantities_[output_token] -= output_quantity;
-        return output_quantity;
+    double GetWeight(Token *token) const {
+        if (!weights_.count(token)) {
+            throw std::invalid_argument("invalid token");
+        }
+        return weights_.find(token)->second;
+    }
+
+    double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const {
+        return GetQuantity(output_token) - GetQuantity(output_token) * std::pow(GetQuantity(input_token) / (GetQuantity(input_token) + (1 - pool_fee()) * input_quantity), GetWeight(input_token) / GetWeight(output_token));
     }
 };
 
