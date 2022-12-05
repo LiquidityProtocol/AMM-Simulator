@@ -30,13 +30,16 @@ private:
 	double real_value_;
 };
 
-
 class PoolInterface;
 
 class Operation {
 public: 
-    Operation(const std::string &type, std::string account, PoolInterface * pool, std::unordered_map<Token *, double> input, std::unordered_map<Token *, double> output);
-    void Print();
+    Operation(const std::string &type,
+              const std::string &account,
+              PoolInterface * pool,
+              std::unordered_map<Token *, double> input,
+              std::unordered_map<Token *, double> output);
+    friend std::ostream& operator << (std::ostream& os, const Operation& ops);
 private:
     std::string operation_type_;
     std::string account_;
@@ -62,11 +65,11 @@ public:
 
     void Deposit(Token *token, double quantity);
 
-    double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
+    void Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
 
-    double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities);
+    void Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities);
 
-    std::unordered_map<Token *, double> Withdraw(PoolInterface *pool, double surrendered_quantity);
+    void Withdraw(PoolInterface *pool, double surrendered_quantity);
 
     std::vector<Operation*> GetLedger();
 
@@ -94,13 +97,13 @@ public:
     std::unordered_set<Token *> tokens() const;
 
     double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
-    double Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);
+    Operation * Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);
 
     double SimulateProvision(std::unordered_map<Token *, double> input_quantities) const;
-    double Provide(Account *provider, std::unordered_map<Token *, double> input_quantities);
+    Operation * Provide(Account *provider, std::unordered_map<Token *, double> input_quantities);
 
     std::unordered_map<Token *, double> SimulateWithdrawal(double surrendered_pool_token_quantity) const;
-    std::unordered_map<Token *, double> Withdraw(Account *provider, double surrendered_pool_token_quantity);
+    Operation * Withdraw(Account *provider, double surrendered_pool_token_quantity);
 protected:
     virtual double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const = 0;
 private:

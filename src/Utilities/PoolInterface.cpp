@@ -57,13 +57,14 @@ double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, doub
     }
 }
 
-double PoolInterface::Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity) {
+Operation * PoolInterface::Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity) {
     if (!CheckWallet(trader, {{input_token, input_quantity}})) {
         throw std::invalid_argument("not enough quantities in wallet");
     }
     double output_quantity = SimulateSwap(input_token, output_token, input_quantity);
     ExecuteSwap(trader, input_token, output_token, input_quantity, output_quantity);
-    return output_quantity;
+
+    return new Operation("TRADE", trader->name(), this, {{input_token, input_quantity}}, {{output_token, output_quantity}});
 }
 
 double PoolInterface::SimulateProvision(std::unordered_map<Token *, double> input_quantities) const {
@@ -75,13 +76,13 @@ double PoolInterface::SimulateProvision(std::unordered_map<Token *, double> inpu
     return generated_pool_token_quantity;
 }
 
-double PoolInterface::Provide(Account *provider, std::unordered_map<Token *, double> input_quantities) {
+Operation * PoolInterface::Provide(Account *provider, std::unordered_map<Token *, double> input_quantities) {
     if (!CheckWallet(provider, input_quantities)) {
         throw std::invalid_argument("not enough quantities in wallet");
     }
     double generated_pool_token_quantity = SimulateProvision(input_quantities);
     ExecuteProvision(provider, input_quantities, generated_pool_token_quantity);
-    return generated_pool_token_quantity;
+    return new Operation("PROVIDE", provider->name(), this, input_quantities, {{pool_token(), generated_pool_token_quantity}});
 }
 
 std::unordered_map<Token *, double> PoolInterface::SimulateWithdrawal(double surrendered_pool_token_quantity) const {
@@ -98,13 +99,13 @@ std::unordered_map<Token *, double> PoolInterface::SimulateWithdrawal(double sur
     return output_quantities;
 }
 
-std::unordered_map<Token *, double> PoolInterface::Withdraw(Account *provider, double surrendered_pool_token_quantity) {
+Operation * PoolInterface::Withdraw(Account *provider, double surrendered_pool_token_quantity) {
     if (!CheckWallet(provider, {{pool_token_, surrendered_pool_token_quantity}})) {
         throw std::invalid_argument("not enough quantities in wallet");
     }
     std::unordered_map<Token *, double> output_quantities = SimulateWithdrawal(surrendered_pool_token_quantity);
     ExecuteWithdrawal(provider, surrendered_pool_token_quantity, output_quantities);
-    return output_quantities;
+    return new Operation("WITHDRAW", provider->name(), this, {{pool_token(), surrendered_pool_token_quantity}}, output_quantities);
 }
 
 bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token *, double> &quantities) const {
