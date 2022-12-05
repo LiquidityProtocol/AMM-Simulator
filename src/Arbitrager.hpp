@@ -52,30 +52,47 @@ public:
 
 
 
-    void Arbitrage(PoolInterface *pool) {
+    double Arbitrage_one_pool(PoolInterface *pool) {
+        double gain = 0;
         std::unordered_map<Token *, double> wallet = GetWallet();
         std::unordered_set<Token *> tokens_in_wallet; // Get all types of currency in my wallet
         tokens_in_wallet.reserve(wallet.size());
-        for(auto kv : wallet) {
-            tokens_in_wallet.insert(kv.first);
+        for(auto iterator_wallet : wallet) {
+            tokens_in_wallet.insert(iterator_wallet.first);
         }
-        for ( auto it = tokens_in_wallet.begin(); it != tokens_in_wallet.end(); ++it ) {
+        for ( auto iterator_tokens_wallet = tokens_in_wallet.begin(); iterator_tokens_wallet != tokens_in_wallet.end(); ++iterator_tokens_wallet ) {
         //For each of the currencies I test whether it is better to exchange it
             for (int k=0; k<wallet.size(); k++) {
-                if (wallet[*it] >= 1) {
-                    if ( (*pool).InPool(*it) ) {
+                if (wallet[*iterator_tokens_wallet] >= 1) {
+                    if ( (*pool).InPool(*iterator_tokens_wallet) ) {
                         std::unordered_set<Token *> tokens_in_pool = (*pool).tokens();
-                        for (auto i=tokens_in_pool.begin(); i != tokens_in_pool.end(); ++i) {
-                            double outputquantity = (*pool).SimSwap(*it, *i, 1);
-                            while (outputquantity*((*(*i)).real_value()) + (wallet[*it]-1)*((*(*it)).real_value()) > wallet[*it]*((*(*it)).real_value())) {
-                                Trade(pool, *it, *i, 1);
+                        for (auto iterator_tokens_pool=tokens_in_pool.begin(); iterator_tokens_pool != tokens_in_pool.end(); ++iterator_tokens_pool) {
+                            double outputquantity = (*pool).SimSwap(*iterator_tokens_wallet, *iterator_tokens_pool, 1);
+                            if ( outputquantity*((*(*iterator_tokens_pool)).real_value()) - (*(*iterator_tokens_wallet)).real_value() > gain) {
+                                //Save this operation if it is better than the previous ones
+                                //My gain is what I get - what I put (1 input token)
+                                gain = outputquantity*((*(*iterator_tokens_pool)).real_value()) - (*(*iterator_tokens_wallet)).real_value();
+                                Token output_token = *iterator_tokens_pool;
+                                Token input_token = *iterator_tokens_wallet;
                             }
                         }
                     }
                 }
             }
         }
+        if (gain > 0) {
+            Trade(*pool, *input_token, *output_token, 1); //If the best operation has strictly positive gain we do it
+        }
+        return gain;
    } 
+    /*
+   void Arbitrage_all_pools() {
+        double profit = 0;
+        Need a list with all pools to call Arbitrage_one_pool(*pool) for all pools to get which one is best.
+   }
+   */
+
+
 };
 
 //Optimal amount function which does not work yet
