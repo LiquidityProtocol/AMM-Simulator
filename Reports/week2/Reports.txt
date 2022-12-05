@@ -86,3 +86,6 @@ Amine Roudani
 Tu Nguyen
 - Test the PoolInterface with different cases
 - Will be working on the component of Market simulator.
+
+Alessandro:
+Further familiarized with the base classes and the tests for different classes.
