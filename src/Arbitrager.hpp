@@ -86,8 +86,9 @@ public:
                 }
             }
         }
+        //If the best operation has strictly positive gain we do it
         if (gain > 0) {
-            Trade(*pool, *input_token, *output_token, 1); //If the best operation has strictly positive gain we do it
+            Trade(*pool, *input_token, *output_token, 1); 
         }
         return gain;
    } 
