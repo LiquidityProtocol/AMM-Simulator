@@ -55,23 +55,29 @@ public:
     double Arbitrage_one_pool(PoolInterface *pool) {
         double gain = 0;
         std::unordered_map<Token *, double> wallet = GetWallet();
-        std::unordered_set<Token *> tokens_in_wallet; // Get all types of currency in my wallet
+        // Get all types of currency in my wallet in tokens_in_wallet
+        std::unordered_set<Token *> tokens_in_wallet; 
         tokens_in_wallet.reserve(wallet.size());
         for(auto iterator_wallet : wallet) {
             tokens_in_wallet.insert(iterator_wallet.first);
         }
+        //Iterate over each type of token I have in my wallet
         for ( auto iterator_tokens_wallet = tokens_in_wallet.begin(); iterator_tokens_wallet != tokens_in_wallet.end(); ++iterator_tokens_wallet ) {
-        //For each of the currencies I test whether it is better to exchange it
+            //For each of the currencies I found the gain of exchanging it
             for (int k=0; k<wallet.size(); k++) {
+                //If I have enough to exchange
                 if (wallet[*iterator_tokens_wallet] >= 1) {
+                    //If I can exchange this token in the pool (the pool has that token)
                     if ( (*pool).InPool(*iterator_tokens_wallet) ) {
                         std::unordered_set<Token *> tokens_in_pool = (*pool).tokens();
+                        //Iterate over all tokens in pool
                         for (auto iterator_tokens_pool=tokens_in_pool.begin(); iterator_tokens_pool != tokens_in_pool.end(); ++iterator_tokens_pool) {
+                            //Find output quantity of the output token if I exchange one input token
                             double outputquantity = (*pool).SimSwap(*iterator_tokens_wallet, *iterator_tokens_pool, 1);
                             if ( outputquantity*((*(*iterator_tokens_pool)).real_value()) - (*(*iterator_tokens_wallet)).real_value() > gain) {
                                 //Save this operation if it is better than the previous ones
-                                //My gain is what I get - what I put (1 input token)
-                                gain = outputquantity*((*(*iterator_tokens_pool)).real_value()) - (*(*iterator_tokens_wallet)).real_value();
+                                //My gain is what I get (outputquantity) - what I put (1 input token)
+                                gain = outputquantity*((*(*iterator_tokens_pool)).real_value()) - 1*(*(*iterator_tokens_wallet)).real_value();
                                 Token output_token = *iterator_tokens_pool;
                                 Token input_token = *iterator_tokens_wallet;
                             }
