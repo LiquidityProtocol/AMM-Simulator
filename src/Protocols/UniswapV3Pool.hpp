@@ -29,7 +29,21 @@ private:
     double C1, C2;
     double slippage_controller_;
 
-
+    double ComputeInvariant() const {
+        return slippage_controller_ * C1 * C2 /((sqrt(slippage_controller_) - 1) * (sqrt(slippage_controller_) - 1));
+    }
+    double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
+        double r1 = GetQuantity(input_token);
+        double r2 = GetQuantity(output_token);
+        return (r1 + C1/(sqrt(slippage_controller_) - 1))/(r2 + C2/(sqrt(slippage_controller_) - 1));
+    }
+    double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const {
+        double r1 = GetQuantity(input_token);
+        double r2 = GetQuantity(output_token);
+        double r1_prime = (r1 + input_quantity);
+        double B = (1-1/sqrt(slippage_controller_))*(1-1/sqrt(slippage_controller_));
+        return  r2 - (C1*C2/(B*(r1_prime + C1/(sqrt(slippage_controller_)-1))) - C2/(sqrt(slippage_controller_)-1));
+    }
 };
 
 #endif
