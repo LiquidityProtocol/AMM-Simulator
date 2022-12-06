@@ -65,7 +65,6 @@ Operation * PoolInterface::Swap(Account *trader, Token *input_token, Token *outp
     }
     double output_quantity = SimulateSwap(input_token, output_token, input_quantity);
     ExecuteSwap(trader, input_token, output_token, input_quantity, output_quantity);
-
     return new Operation("TRADE", trader->name(), this, {{input_token, input_quantity}}, {{output_token, output_quantity}});
 }
 

@@ -1,33 +1,46 @@
 #include "Utilities.hpp"
-#include <iostream>
 
-using namespace std;
-
-Operation::Operation(const std::string &type,
-                     const std::string &account,
-                     PoolInterface * pool,
+Operation::Operation(const std::string &operation_type,
+                     const std::string &account_name,
+                     PoolInterface *pool,
                      std::unordered_map<Token *, double> input,
                      std::unordered_map<Token *, double> output) {
-    operation_type_ = type;
-    account_ = account;
+    operation_type_ = operation_type;
+    account_name_ = account_name;
     pool_ = pool;
     input_ = input;
     output_ = output;
 };
 
-std::ostream& operator << (std::ostream& os, const Operation& ops)  {
-    os << "OPERATION " << to_string(reinterpret_cast<uint64_t>(&ops)) << ":\n";
-    os << ">>> TYPE: " << ops.operation_type_ << "\n";
-    os << ">>> ACCOUNT: " << ops.account_ << "\n";
-    os << ">>> POOL: " << ops.pool_ << "\n";
+std::string Operation::operation_type() const {
+    return operation_type_;
+}
+
+std::string Operation::account_name() const {
+    return account_name_;
+}
+
+std::unordered_map<Token *, double> Operation::input() const {
+    return input_;
+}
+
+std::unordered_map<Token *, double> Operation::output() const {
+    return output_;
+}
+
+std::ostream & operator<<(std::ostream &os, const Operation &op)  {
+    os << "OPERATION " << std::to_string(reinterpret_cast<uint64_t>(&op)) << ":\n";
+    os << ">>> TYPE: " << op.operation_type_ << "\n";
+    os << ">>> ACCOUNT: " << op.account_name_ << "\n";
+    os << ">>> POOL: " << op.pool_ << "\n";
     os << ">>> INPUT: ";
 
-    for(auto [token, quantity] : ops.input_)
+    for(auto [token, quantity] : op.input_)
         os << token->name() << ": " << quantity << "; ";
     
     os << "\n";
     os << ">>> OUTPUT: ";
-    for (auto [token, quantity]: ops.output_)
+    for (auto [token, quantity]: op.output_)
         os << token->name() << ": " << quantity << "; ";
     
     os << "\n\n";
