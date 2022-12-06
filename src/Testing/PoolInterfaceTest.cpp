@@ -44,7 +44,7 @@ int main() {
         assert(std::string(e.what()) == "not enough quantities in wallet");
     }
 
-    generated_pool_token_quantity = pool.Provide(account, {{token1, 50}, {token2, 100}});
+    generated_pool_token_quantity = account->Provide(&pool, {{token1, 50}, {token2, 100}});
     assert(generated_pool_token_quantity / pool.total_pool_token_quantity() == 50.0 / pool.GetQuantity(token1));
     assert(pool.GetQuantity(token1) == 60 && pool.GetQuantity(token2) == 120);
     assert(account->GetQuantity(pool.pool_token()) == generated_pool_token_quantity && account->GetQuantity(token1) == 50 && account->GetQuantity(token2) == 0);
@@ -72,7 +72,7 @@ int main() {
         assert(std::string(e.what()) == "not enough quantities in wallet");
     }
 
-    output_quantities = pool.Withdraw(account, pool.total_pool_token_quantity() / 3);
+    output_quantities = account->Withdraw(&pool, pool.total_pool_token_quantity() / 3);
     assert(output_quantities[token1] == 20 && output_quantities[token2] == 40);
     assert(pool.GetQuantity(token1) == 40 && pool.GetQuantity(token2) == 80);
     assert(account->GetQuantity(pool.pool_token()) == 3 && account->GetQuantity(token1) == 70 && account->GetQuantity(token2) == 40);
