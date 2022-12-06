@@ -53,7 +53,9 @@ double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, doub
     } else if (input_quantity <= 0) {
         throw std::invalid_argument("invalid quantity");
     } else {
-        return ComputeSwappedQuantity(input_token, output_token, input_quantity);
+        double fee_quantity = input_quantity * pool_fee();
+        double output_quantity = ComputeSwappedQuantity(input_token, output_token, input_quantity - fee_quantity);
+        return output_quantity;
     }
 }
 
@@ -108,6 +110,39 @@ Operation * PoolInterface::Withdraw(Account *provider, double surrendered_pool_t
     return new Operation("WITHDRAW", provider->name(), this, {{pool_token(), surrendered_pool_token_quantity}}, output_quantities);
 }
 
+double PoolInterface::GetSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+    if (!InPool(input_token) || !InPool(output_token)) {
+        throw std::invalid_argument("invalid token");
+    } else if (input_quantity <= 0) {
+        throw std::invalid_argument("invalid quantity");
+    } else {
+        return ComputeSlippage(input_token, output_token, input_quantity);
+    }
+}
+
+double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
+    std::unordered_map<Token *, double> clone_quantities;
+    for (auto token : tokens()) {
+        clone_quantities[token] = GetQuantity(token);
+    }
+    
+    auto df = [&](Token *token) {
+        static const double eps = 1e-6;
+        clone_quantities[token] -= eps;         double val1 = ComputeInvariant(clone_quantities);
+        clone_quantities[token] += 2 * eps;     double val2 = ComputeInvariant(clone_quantities);
+
+        return (val2 - val1) / (2 * eps);
+    };
+    return df(input_token) / df(output_token);
+}
+
+double PoolInterface::ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+    double output_quantity = ComputeSwappedQuantity(input_token, output_token, input_quantity);
+    double exchange_rate = ComputeSpotExchangeRate(input_token, output_token);
+
+    return input_quantity / output_quantity / exchange_rate - 1;
+}
+
 bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token *, double> &quantities) const {
     for (auto [token, quantity] : quantities) {
         if (account->GetQuantity(token) < quantity) {
@@ -118,6 +153,10 @@ bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token
 }
 
 void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity) {
+    if (GetQuantity(output_token) <= output_quantity) {
+        throw std::invalid_argument("not enough liquidity");
+    }
+    
     quantities_[input_token] += input_quantity;
     trader->Deposit(input_token, -input_quantity);
     quantities_[output_token] -= output_quantity;
