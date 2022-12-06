@@ -1,8 +1,6 @@
-#ifndef UNISWAPV3_POOL_HPP
-#define UNISWAPV3_POOL_HPP
+#ifndef UNISWAP_V3_POOL_HPP
+#define UNISWAP_V3_POOL_HPP
 
-#include <unordered_map>
-#include <stdexcept>
 #include <cmath>
 #include "../Utilities/Utilities.hpp"
 

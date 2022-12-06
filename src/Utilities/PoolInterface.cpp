@@ -120,27 +120,26 @@ double PoolInterface::GetSlippage(Token *input_token, Token *output_token, doubl
 }
 
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
-    std::unordered_set<Token *> Tokens = tokens();
     std::unordered_map<Token *, double> clone_quantities;
-
-    for(auto token : Tokens)
+    for (auto token : tokens()) {
         clone_quantities[token] = GetQuantity(token);
+    }
     
     auto df = [&](Token *token) {
-        const double eps = 1e-6;
-        clone_quantities[token] -= eps;     double val1 = ComputeInvariant(clone_quantities);
-        clone_quantities[token] += eps*2;   double val2 = ComputeInvariant(clone_quantities);
+        static const double eps = 1e-6;
+        clone_quantities[token] -= eps;         double val1 = ComputeInvariant(clone_quantities);
+        clone_quantities[token] += 2 * eps;     double val2 = ComputeInvariant(clone_quantities);
 
-        return  (val2 - val1) / (2*eps);
+        return (val2 - val1) / (2 * eps);
     };
-    return  df(input_token) / df(output_token);
+    return df(input_token) / df(output_token);
 }
 
 double PoolInterface::ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
     double output_quantity = ComputeSwappedQuantity(input_token, output_token, input_quantity);
     double exchange_rate = ComputeSpotExchangeRate(input_token, output_token);
 
-    return  input_quantity / output_quantity / exchange_rate - 1;
+    return input_quantity / output_quantity / exchange_rate - 1;
 }
 
 bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token *, double> &quantities) const {
@@ -153,8 +152,9 @@ bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token
 }
 
 void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity) {
-    if (GetQuantity(output_token) <= output_quantity)
-        throw std::invalid_argument("Not enough liquidity");
+    if (GetQuantity(output_token) <= output_quantity) {
+        throw std::invalid_argument("not enough liquidity");
+    }
     
     quantities_[input_token] += input_quantity;
     trader->Deposit(input_token, -input_quantity);

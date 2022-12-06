@@ -1,7 +1,6 @@
-#ifndef CONSTANTSUM_HPP
-#define CONSTANTSUM_HPP
+#ifndef CONSTANT_SUM_HPP
+#define CONSTANT_SUM_HPP
 
-#include <stdexcept>
 #include "../Utilities/Utilities.hpp"
 
 class ConstantSum : public PoolInterface {
@@ -11,18 +10,16 @@ class ConstantSum : public PoolInterface {
 public:
     ConstantSum(std::unordered_map<Token *, double> quantities,
                 std::unordered_map<Token *, double> slopes,
-                double pool_fee) : PoolInterface(quantities, pool_fee)  {
-        
-        bool valid_slope = true;
+                double pool_fee = 0) : PoolInterface(quantities, pool_fee) {
         double slope_sum = 0;
-
-        for(auto [token, slope] : slopes)  {
+        for (auto [token, slope] : slopes) {
             if (slope <= 0)
                 throw std::invalid_argument("invalid configuration of ConstantSum Protocol");
             slope_sum += slope;
         }
-        for(auto [token, slope] : slopes)
+        for (auto [token, slope] : slopes) {
             slopes_[token] = slope / slope_sum;
+        }
     }
     
     double GetSlope(Token *token) const {
@@ -33,21 +30,26 @@ public:
     }
 private:
     std::unordered_map<Token *, double> slopes_;
-    double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const    {
+
+    double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 0;
-        for(auto [token, quantity] : quantities)
-            ans *= quantity * GetSlope(token);
-        return  ans;
+        for (auto [token, quantity] : quantities) {
+            ans += quantity * GetSlope(token);
+        }
+        return ans;
     }
+
     double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
         return GetSlope(output_token) / GetSlope(input_token);
     }
+
     double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const {
-        return  input_quantity / ComputeSpotExchangeRate(input_token, output_token);
+        return input_quantity / ComputeSpotExchangeRate(input_token, output_token);
     }
+
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
-        return  0;
+        return 0;
     }
 };
 
-#endif // CONSTANTSUM_HPP
+#endif
