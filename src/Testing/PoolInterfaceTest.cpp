@@ -96,5 +96,9 @@ int main() {
     assert(pool.GetQuantity(token1) == 80 && pool.GetQuantity(token2) == 40);
     assert(account->GetQuantity(pool.pool_token()) == 3 && account->GetQuantity(token1) == 30 && account->GetQuantity(token2) == 80);
 
+    for (auto op : pool.ledger()) {
+        std::cout << *op;
+    }
+
     return 0;
 }

@@ -65,7 +65,8 @@ Operation * PoolInterface::Swap(Account *trader, Token *input_token, Token *outp
     }
     double output_quantity = SimulateSwap(input_token, output_token, input_quantity);
     ExecuteSwap(trader, input_token, output_token, input_quantity, output_quantity);
-    return new Operation("TRADE", trader->name(), this, {{input_token, input_quantity}}, {{output_token, output_quantity}});
+    ledger_.emplace_back(new Operation("TRADE", trader->name(), this, {{input_token, input_quantity}}, {{output_token, output_quantity}}));
+    return ledger_.back();
 }
 
 double PoolInterface::SimulateProvision(std::unordered_map<Token *, double> input_quantities) const {
@@ -83,7 +84,8 @@ Operation * PoolInterface::Provide(Account *provider, std::unordered_map<Token *
     }
     double generated_pool_token_quantity = SimulateProvision(input_quantities);
     ExecuteProvision(provider, input_quantities, generated_pool_token_quantity);
-    return new Operation("PROVIDE", provider->name(), this, input_quantities, {{pool_token(), generated_pool_token_quantity}});
+    ledger_.emplace_back(new Operation("PROVIDE", provider->name(), this, input_quantities, {{pool_token(), generated_pool_token_quantity}}));
+    return ledger_.back();
 }
 
 std::unordered_map<Token *, double> PoolInterface::SimulateWithdrawal(double surrendered_pool_token_quantity) const {
@@ -106,7 +108,8 @@ Operation * PoolInterface::Withdraw(Account *provider, double surrendered_pool_t
     }
     std::unordered_map<Token *, double> output_quantities = SimulateWithdrawal(surrendered_pool_token_quantity);
     ExecuteWithdrawal(provider, surrendered_pool_token_quantity, output_quantities);
-    return new Operation("WITHDRAW", provider->name(), this, {{pool_token(), surrendered_pool_token_quantity}}, output_quantities);
+    ledger_.emplace_back(new Operation("WITHDRAW", provider->name(), this, {{pool_token(), surrendered_pool_token_quantity}}, output_quantities));
+    return ledger_.back();
 }
 
 double PoolInterface::GetSlippage(Token *input_token, Token *output_token, double input_quantity) const {
@@ -117,6 +120,10 @@ double PoolInterface::GetSlippage(Token *input_token, Token *output_token, doubl
     } else {
         return ComputeSlippage(input_token, output_token, input_quantity);
     }
+}
+
+std::vector<Operation *> PoolInterface::ledger() const {
+    return ledger_;
 }
 
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
