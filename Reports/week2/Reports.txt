@@ -82,3 +82,10 @@ Duc Nguyen:
 Amine Roudani
 - Researched further: Understood the Curve & Bancor
 - Coded functions for UniswapV3. Will review them with team leader tomorrow before pushing to rep. 
+
+Tu Nguyen
+- Test the PoolInterface with different cases
+- Will be working on the component of Market simulator.
+
+Alessandro:
+Further familiarized with the base classes and the tests for different classes.
