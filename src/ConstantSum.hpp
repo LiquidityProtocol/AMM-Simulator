@@ -17,6 +17,13 @@ private:
         quantities_[output_token] -= output_quantity;
         return output_quantity;
     }
+
+    double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) {
+        if (input_quantity > quantities_[output_token]) {
+            throw std::invalid_argument("provided too many " + input_token->name() + "s");
+        }
+        return input_quantity;
+    }
 };
 
 #endif // CONSTANT_SUM_HPP

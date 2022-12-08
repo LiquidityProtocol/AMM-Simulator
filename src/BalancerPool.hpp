@@ -31,6 +31,10 @@ private:
         quantities_[output_token] -= output_quantity;
         return output_quantity;
     }
+
+    double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) {
+        return quantities_[output_token] - quantities_[output_token] * std::pow(quantities_[input_token] / (quantities_[input_token] + (1 - pool_fee_) * input_quantity), weights_[input_token] / weights_[output_token]);
+    }
 };
 
 #endif
