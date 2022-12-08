@@ -97,6 +97,7 @@ public:
         double profit = 0;
         Need a list with all pools to call Arbitrage_one_pool(*pool) for all pools to get which one is best.
    }
+   Once this is implemented take off Trade function in Arbitrage_one_pool to make only the best trade among all pools
    */
 
 
