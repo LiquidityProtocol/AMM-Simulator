@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCES=("Token.cpp" "Account.cpp")
+SOURCES=find ./../src/Utilities/ -name '*.cpp'
 COMPILER="clang++"
 
 TEST_FILE=$1
