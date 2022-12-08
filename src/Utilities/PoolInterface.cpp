@@ -196,3 +196,7 @@ void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool
     quantities_[pool_token_] -= surrendered_pool_token_quantity;
     provider->Deposit(pool_token_, -surrendered_pool_token_quantity);
 }
+
+PoolInterface::~PoolInterface(){
+
+}
