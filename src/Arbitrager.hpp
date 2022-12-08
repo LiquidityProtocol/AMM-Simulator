@@ -79,7 +79,7 @@ public:
                             if ( outputquantity*((*(*iterator_tokens_pool)).real_value()) - min_transaction*(*(*iterator_tokens_wallet)).real_value() > gain) {
                                 //Save this operation if it is better than the previous ones
                                 //My gain is what I get (outputquantity) - what I put (1 input token)
-                                gain = outputquantity*((*(*iterator_tokens_pool)).real_value()) - min_transaction*(*(*iterator_tokens_wallet)).real_value();
+                                gain = outputquantity*((*(*iterator_tokens_pool)).real_value()) - min_transaction*((*(*iterator_tokens_wallet)).real_value());
                                 Token output_token = *iterator_tokens_pool;
                                 Token input_token = *iterator_tokens_wallet;
                             }
