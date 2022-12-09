@@ -10,6 +10,7 @@ Token * Token::GetToken(const std::string &name) {
     */
     if (!existing_tokens_.count(name)) {
         existing_tokens_[name] = new Token(name);
+        existing_tokens_in_chronological_order.emplace_back(existing_tokens_[name]);
     }
     return existing_tokens_[name];
 }
@@ -45,4 +46,8 @@ void Token::set_real_value(double real_value) {
         * @return: None.
     */
     real_value_ = real_value;
+}
+
+std::vector<Token *> Token::existing_tokens() {
+    return existing_tokens_in_chronological_order;
 }

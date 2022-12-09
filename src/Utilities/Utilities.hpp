@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
-#include <typeinfo>
 
 class Token {
 public:
@@ -22,10 +21,13 @@ public:
 
 	double real_value() const;
 	void set_real_value(double real_value);
+
+    static std::vector<Token *> existing_tokens();
 private:
 	Token(const std::string &name) : name_(name), real_value_(0) {}
 
 	static std::unordered_map<std::string, Token *> existing_tokens_;
+    static std::vector<Token *> existing_tokens_in_chronological_order;
 	std::string name_;
 	double real_value_;
 };
@@ -79,10 +81,12 @@ public:
 
     std::vector<Operation *> ledger() const;
 
+    static std::vector<Account *> existing_accounts();
 private:
     Account(const std::string &name) : name_(name), total_value_(0), wallet_() {}
 
     static std::unordered_map<std::string, Account *> existing_accounts_;
+    static std::vector<Account *> existing_accounts_in_chronological_order;
     std::string name_;
     double total_value_;
     std::unordered_map<Token *, double> wallet_;

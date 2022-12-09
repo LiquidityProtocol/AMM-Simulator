@@ -3,6 +3,7 @@
 Account * Account::GetAccount(const std::string &name) {
     if (!existing_accounts_.count(name)) {
         existing_accounts_[name] = new Account(name);
+        existing_accounts_in_chronological_order.emplace_back(existing_accounts_[name]);
     }
     return existing_accounts_[name];
 }
@@ -45,4 +46,8 @@ std::unordered_map<Token *, double> Account::Withdraw(PoolInterface *pool, doubl
 
 std::vector<Operation *> Account::ledger() const {
     return ledger_;
+}
+
+std::vector<Account *> Account::existing_accounts() {
+    return existing_accounts_in_chronological_order;
 }
