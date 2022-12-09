@@ -11,7 +11,11 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     MainWindow.cpp \
-    src/Utilities/*.cpp
+    src/Utilities/Account.cpp\
+    src/Utilities/Initializer.cpp\
+    src/Utilities/Operation.cpp\
+    src/Utilities/PoolInterface.cpp\
+    src/Utilities/Token.cpp\
 
 HEADERS += \
     MainWindow.h \
