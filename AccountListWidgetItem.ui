@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>280</width>
-    <height>147</height>
+    <height>189</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -97,6 +97,40 @@ color: rgb(4, 13, 255);</string>
       <string notr="true">background-color: rgb(32, 255, 20);</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 0, 8);</string>
+       </property>
+       <property name="text">
+        <string>Mint</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 0, 8);</string>
+       </property>
+       <property name="text">
+        <string>Provide</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 0, 8);</string>
+       </property>
+       <property name="text">
+        <string>Withdraw</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

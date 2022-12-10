@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "src/Utilities/Utilities.hpp"
+#include "MintDialog.h"
 
 namespace Ui {
 class AccountListWidgetItem;
@@ -16,9 +17,16 @@ public:
     explicit AccountListWidgetItem(QWidget *parent = nullptr, Account *account = nullptr);
     ~AccountListWidgetItem();
 
+public slots:
+    void VerifyData(Token *token, double quantity);
+
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::AccountListWidgetItem *ui;
     Account *account_;
+    MintDialog *mint_dialog;
 };
 
 #endif // ACCOUNTLISTWIDGETITEM_H

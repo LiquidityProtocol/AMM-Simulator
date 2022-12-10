@@ -10,13 +10,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    Token::GetToken("Token1")->set_real_value(10);
+    Token::GetToken("Token2")->set_real_value(20);
+    Token::GetToken("Token4")->set_real_value(40);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 void MainWindow::on_pushButton_clicked()
 {
