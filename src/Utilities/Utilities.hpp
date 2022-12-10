@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <utility>
 
 class Token {
 public:
@@ -61,7 +62,7 @@ public:
     Account & operator=(const Account &) = delete;
 	Account(const Account &) = delete;
 
-    static Account * GetAccount(const std::string &name);
+    static std::pair<Account *, bool> GetAccount(const std::string &name);
 
     std::string name() const;
 

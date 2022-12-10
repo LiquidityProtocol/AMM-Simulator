@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AccountListWidgetItem.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp\
@@ -18,11 +19,13 @@ SOURCES += \
     src/Utilities/Token.cpp\
 
 HEADERS += \
+    AccountListWidgetItem.h \
     MainWindow.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/*.hpp
 
 FORMS += \
+    AccountListWidgetItem.ui \
     MainWindow.ui
 
 # Default rules for deployment.
