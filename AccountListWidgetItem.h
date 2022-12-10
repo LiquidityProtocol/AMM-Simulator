@@ -16,6 +16,8 @@ class AccountListWidgetItem : public QWidget
 public:
     explicit AccountListWidgetItem(QWidget *parent = nullptr, Account *account = nullptr);
     ~AccountListWidgetItem();
+    void CreateNewWalletItem(Token* token);
+    void UpdateWalletItem(Token* token);
 
 public slots:
     void VerifyData(Token *token, double quantity);

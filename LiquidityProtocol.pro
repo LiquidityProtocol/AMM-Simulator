@@ -11,25 +11,28 @@ CONFIG += c++17
 SOURCES += \
     AccountListWidgetItem.cpp \
     MintDialog.cpp \
+    WalletListWidgetItem.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp\
     src/Utilities/Initializer.cpp\
     src/Utilities/Operation.cpp\
     src/Utilities/PoolInterface.cpp\
-    src/Utilities/Token.cpp\
+    src/Utilities/Token.cpp
 
 HEADERS += \
     AccountListWidgetItem.h \
     MainWindow.h \
     MintDialog.h \
+    WalletListWidgetItem.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/*.hpp
 
 FORMS += \
     AccountListWidgetItem.ui \
     MainWindow.ui \
-    MintDialog.ui
+    MintDialog.ui \
+    WalletListWidgetItem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
