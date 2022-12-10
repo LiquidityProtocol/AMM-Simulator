@@ -27,6 +27,5 @@ void AccountListWidgetItem::VerifyData(Token *token, double quantity)
 void AccountListWidgetItem::on_pushButton_clicked()
 {
     mint_dialog = new MintDialog(this);
-    mint_dialog->setModal(true);
     mint_dialog->exec();
 }
