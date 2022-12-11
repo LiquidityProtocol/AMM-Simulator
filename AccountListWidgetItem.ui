@@ -20,7 +20,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -28,7 +28,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 0);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Account Name</string>
@@ -38,8 +38,7 @@
      <item>
       <widget class="QLineEdit" name="lineEdit">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(32, 255, 20);
-color: rgb(255, 16, 0);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -62,7 +61,7 @@ color: rgb(255, 16, 0);</string>
      <item>
       <widget class="QLabel" name="label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 0, 0);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>$</string>
@@ -72,8 +71,7 @@ color: rgb(255, 16, 0);</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_2">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(32, 255, 20);
-color: rgb(4, 13, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -97,7 +95,7 @@ color: rgb(4, 13, 255);</string>
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(32, 255, 20);</string>
+      <string notr="true"/>
      </property>
     </widget>
    </item>
