@@ -11,16 +11,18 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     MainWindow.cpp \
-    src/Utilities/Account.cpp\
-    src/Utilities/Initializer.cpp\
-    src/Utilities/Operation.cpp\
-    src/Utilities/PoolInterface.cpp\
-    src/Utilities/Token.cpp\
+    src/Utilities/Account.cpp \
+    src/Utilities/Initializer.cpp \
+    src/Utilities/Operation.cpp \
+    src/Utilities/PoolInterface.cpp \
+    src/Utilities/Token.cpp \
+    src/Utilities/TokensContainer.cpp \
+    src/Protocols/UniswapV2Pool.cpp \
 
 HEADERS += \
     MainWindow.h \
     src/Utilities/Utilities.hpp \
-    src/Protocols/*.hpp
+    src/Protocols/*.hpp \
 
 FORMS += \
     MainWindow.ui
