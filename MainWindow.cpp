@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    Token::GetToken("Token1").first->set_real_value(10);
-    Token::GetToken("Token2").first->set_real_value(20);
-    Token::GetToken("Token4").first->set_real_value(40);
+    Token::GetToken("Token1", 10);
+    Token::GetToken("Token2", 20);
+    Token::GetToken("Token4", 40);
 }
 
 MainWindow::~MainWindow()
