@@ -18,21 +18,26 @@ SOURCES += \
     src/Utilities/Initializer.cpp\
     src/Utilities/Operation.cpp\
     src/Utilities/PoolInterface.cpp\
-    src/Utilities/Token.cpp\
+    src/Utilities/Token.cpp
 
 HEADERS += \
     AccountListWidgetItem.h \
     MainWindow.h \
     MintDialog.h \
     TokenListWidgetItem.h \
+    WalletListWidgetItem.h \
     src/Utilities/Utilities.hpp \
-    src/Protocols/*.hpp
+    src/Protocols/BalancerPool.hpp \
+    src/Protocols/ConstantSum.hpp \
+    src/Protocols/UniswapV2Pool.hpp \
+    src/Protocols/UniswapV3Pool.hpp
 
 FORMS += \
     AccountListWidgetItem.ui \
     MainWindow.ui \
     MintDialog.ui \
-    TokenListWidgetItem.ui
+    TokenListWidgetItem.ui \
+    WalletListWidgetItem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
