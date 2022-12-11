@@ -1,0 +1,14 @@
+Minh Pham: 
+- Create wallet list widget GUI displaying tokens in account wallet.
+- Documenting account API.
+
+Alessandro:
+- implemented base structure for Front-End branch: 
+Created class template for visual graphs, and subclasses templates for the 2 types of graphs that we are going to use. 
+The classes still need to be linked to direct implementations with QSplineSeries and other Qt libraries that could be useful. 
+- implemented changes in the .pro file to get necessary requirements to run this branch using qmake
+
+
+Tu Nguyen
+- Completed: Add token section to the playground GUI, which enable users to create a new token with default price to be 0.
+- Working on: Allow user to custom the initial price of the token.
