@@ -21,6 +21,11 @@ The Nguyen:
 - Added Accounts Section into Playground GUI.
 - Reimplemented Token, Account, PoolInterface, and UniswapV2Pool to provide back-end to Playground.
 
+Fryderyk Sitnik:
+
+- I implemented a first version of divergence loss function. It doesn't yet work but I hope to solve all issues next week.
+- Along with Adithya and Levente I managed the team and helped resolve all team issues.
+
 Shubh:
 
 This week was spent really implementing instances of the 
