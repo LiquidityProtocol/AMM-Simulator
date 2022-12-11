@@ -1,1 +1,27 @@
 example
+
+Shubh - 
+
+This week was spent really implementing instances of the 
+classes which had already been written. I created the first 
+test simulation with a simple for loop, and no added sophistication.
+This simply kept track of the macro-objectives and is a 
+baseline to implement more complicated methods. 
+
+I also spent a lot of time working to build and run the 
+code in the proper manner, as on Thursday we still lacked 
+a cmake/qmake file which made running the code very hard. 
+
+Mia - 
+
+This week I worked on implementing a full-run test for 
+the Uniswap V2 Pool protocol. My main goal is to 
+showcase the edge cases of this protocol to present and 
+document its limits (slippage and divergence loss 
+especially). This will be used to evaluate the precision 
+of our teams’ implementation, as well as during the 
+presentation of our project in January. I dealt with 
+a few issues with committing and running my code as we
+don’t have a build configuration yet (this is why my 
+work is not on the project’s Github yet but it is 
+destined to be in the Slippage branch).
