@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>878</width>
-    <height>484</height>
+    <width>1377</width>
+    <height>859</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,14 +57,21 @@
            <string/>
           </property>
           <property name="placeholderText">
-           <string>Enter account name here</string>
+           <string>Enter token name here</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_3">
+          <property name="placeholderText">
+           <string>Enter token price here</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_2">
           <property name="text">
-           <string>Create a token</string>
+           <string>Create A New Token</string>
           </property>
          </widget>
         </item>
@@ -87,8 +94,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>878</width>
-     <height>22</height>
+     <width>1377</width>
+     <height>24</height>
     </rect>
    </property>
   </widget>

@@ -11,10 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    Token::GetToken("Token1", 10);
-    Token::GetToken("Token2", 20);
-    Token::GetToken("Token4", 40);
 }
 
 MainWindow::~MainWindow()
@@ -41,8 +37,10 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     std::string token_name = ui->lineEdit_2->text().toStdString();
+    double token_price = ui->lineEdit_3->text().toDouble();
     ui->lineEdit_2->clear();
-    Token *token; bool is_new; std::tie(token, is_new) = Token::GetToken(token_name);
+    ui->lineEdit_3->clear();
+    Token *token; bool is_new; std::tie(token, is_new) = Token::GetToken(token_name, token_price);
     if (!is_new) {
         QMessageBox::about(this, "Adding token failed", "This name has been used by another token!");
     } else {
@@ -53,4 +51,3 @@ void MainWindow::on_pushButton_2_clicked()
         ui->listWidget_2->setItemWidget(item, token_item);
     }
 }
-

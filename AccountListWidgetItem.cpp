@@ -2,6 +2,7 @@
 #include "ui_AccountListWidgetItem.h"
 #include "MintDialog.h"
 #include "WalletListWidgetItem.h"
+#include <QMessageBox>
 
 AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Account *account) :
     QWidget(parent),
@@ -32,6 +33,10 @@ void AccountListWidgetItem::VerifyData(Token *token, double quantity)
 
 void AccountListWidgetItem::on_pushButton_clicked()
 {
+    if (!Token::existing_tokens().size()) {
+        QMessageBox::about(this, "Minting failed", "There are no tokens at the moment!");
+        return;
+    }
     mint_dialog = new MintDialog(this);
     mint_dialog->exec();
 }

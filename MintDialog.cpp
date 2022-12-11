@@ -23,4 +23,3 @@ void MintDialog::on_pushButton_clicked()
 {
     emit SendData(Token::existing_tokens()[ui->comboBox->currentIndex()], ui->lineEdit->text().toDouble());
 }
-
