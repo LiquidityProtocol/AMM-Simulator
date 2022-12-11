@@ -12,6 +12,7 @@ SOURCES += \
     AccountListWidgetItem.cpp \
     MintDialog.cpp \
     TokenListWidgetItem.cpp \
+    WalletListWidgetItem.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp\
