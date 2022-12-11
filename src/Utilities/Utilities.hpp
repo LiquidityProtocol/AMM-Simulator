@@ -16,7 +16,7 @@ public:
 	Token & operator=(const Token &) = delete;
 	Token(const Token &) = delete;
 
-	static Token * GetToken(const std::string &name);
+    static std::pair<Token *, bool> GetToken(const std::string &name);
 
 	std::string name() const;
 

@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     AccountListWidgetItem.cpp \
     MintDialog.cpp \
+    TokenListWidgetItem.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp\
@@ -23,13 +24,15 @@ HEADERS += \
     AccountListWidgetItem.h \
     MainWindow.h \
     MintDialog.h \
+    TokenListWidgetItem.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/*.hpp
 
 FORMS += \
     AccountListWidgetItem.ui \
     MainWindow.ui \
-    MintDialog.ui
+    MintDialog.ui \
+    TokenListWidgetItem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
