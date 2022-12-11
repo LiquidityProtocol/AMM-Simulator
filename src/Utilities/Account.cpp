@@ -1,10 +1,12 @@
 #include "Utilities.hpp"
+#include "../Protocols/UniswapV2Pool.hpp"
 
-Account * Account::GetAccount(const std::string &name) {
-    if (!existing_accounts_.count(name)) {
-        existing_accounts_[name] = new Account(name);
+std::pair<Account *, bool> Account::GetAccount(const std::string &name) {
+    if (existing_accounts_.count(name)) {
+        return {existing_accounts_[name], false};
+    } else {
+        return {existing_accounts_[name] = new Account(name), true};
     }
-    return existing_accounts_[name];
 }
 
 std::string Account::name() const {
@@ -15,12 +17,16 @@ double Account::total_value() const {
     return total_value_;
 }
 
-double Account::GetQuantity(Token *token) const {
-    return wallet_.count(token) ? wallet_.find(token)->second : 0;
+std::unordered_map<Token *, double> Account::wallet() const {
+    return wallet_;
 }
 
-double Account::GetValue(Token *token) const {
-    return GetQuantity(token) * token->real_value();
+std::vector<Operation *> Account::ledger() const {
+    return ledger_;
+}
+
+double Account::GetQuantity(Token *token) const {
+    return wallet_.count(token) ? wallet_.find(token)->second : 0;
 }
 
 void Account::Deposit(Token *token, double quantity) {
@@ -28,21 +34,16 @@ void Account::Deposit(Token *token, double quantity) {
     total_value_ += quantity * token->real_value();
 }
 
-double Account::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
-    ledger_.emplace_back(pool->Swap(this, input_token, output_token, input_quantity));
-    return ledger_.back()->output()[output_token];
+void Account::Trade(Token *input_token, Token *output_token, double input_quantity) {
+    ledger_.emplace_back(UniswapV2Pool::Swap(this, input_token, output_token, input_quantity));
 }
 
-double Account::Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities) {
-    ledger_.emplace_back(pool->Provide(this, provided_quantities));
-    return ledger_.back()->output()[pool->pool_token()];
+void Account::Provide(Token *token1, Token *token2, double quantity1, double quantity2, double pool_fee = 0) {
+    ledger_.emplace_back(UniswapV2Pool::Provide(this, token1, token2, quantity1, quantity2, pool_fee));
 }
 
-std::unordered_map<Token *, double> Account::Withdraw(PoolInterface *pool, double surrendered_quantity) {
-    ledger_.emplace_back(pool->Withdraw(this, surrendered_quantity));
-    return ledger_.back()->output();
+void Account::Withdraw(Token *pool_token, double surrendered_pool_token_quantity) {
+    ledger_.emplace_back(UniswapV2Pool::Withdraw(this, pool_token, surrendered_pool_token_quantity));
 }
 
-std::vector<Operation *> Account::ledger() const {
-    return ledger_;
-}
+Account::Account(const std::string &name) : name_(name), total_value_(0), wallet_() {}
