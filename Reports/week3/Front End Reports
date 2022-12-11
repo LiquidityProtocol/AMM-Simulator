@@ -1,0 +1,22 @@
+Jasmine Samson:
+After changing the framework on which the frontend team will work on to build this user interface, 
+I started rewriting the code implementation to show a piechart representing the percentage of tokens in the pool. 
+Indeed, our previous framework was focusing on web development and qml which is less convenient and appropriate forthis project. 
+We now decided to use Qt Quick application (with widgets). I now know how to show new widgets and how to update the data.
+Next week,  I will be focusing on the layout using “qboxlayout" so that we can implement several widgets on the same window and not only using
+one “centralWidget” and will discuss with other teams how to extract the data to auto update our graphics.
+
+
+Victoire Fabien:
+This week, with the front end team, we looked at the different visualization methods we each used. 
+Now that quite a lot of research had been done over the past two weeks, we were able to start to formally code the front end part of the project.
+I added points to the graph to show the current amounts of tokens. I also started to play more with the customization of the graph (colors of the title and axis titles for example).
+I also committed documented code so that we could use the tools in the project.
+Next week, I plan on working more in the final (more formal) version of the front end code to implement some of the graph features.
+
+
+Martina Paez Berru:
+For this week we worked with the Market Simulator team to desgin the layout of the application using Qt Quick app. 
+I looked into using swipe view in order to display the market simulator in one tab, and the graphs in the other tab. Still trying with the newly introduced Qt quick application
+since it was shown to us just this week. I am planning on adding comments to explain some of the classes and functions we have implemented.
+I also worked with Victoire and Sandro in the coding of the graphs.
