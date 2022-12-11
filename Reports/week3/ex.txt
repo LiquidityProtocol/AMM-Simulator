@@ -25,3 +25,15 @@ a few issues with committing and running my code as we
 don’t have a build configuration yet (this is why my 
 work is not on the project’s Github yet but it is 
 destined to be in the Slippage branch).
+
+Kaoutar - 
+This week I focused on testing the edge cases of the 
+constant sum protocol. My task consisted in writing a 
+test code. The objective is to view the behaviour of 
+the pool on the edge cases and analysing its limits 
+(slippage and divergence loss). This way, we will be 
+able to showcase the limits of our team’s code 
+implementation. I was not able to run my code for 
+technical reasons ( no built configuration). Therefore,
+ I am waiting for the other teams to fix this issue 
+and commit my code.
