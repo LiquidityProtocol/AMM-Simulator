@@ -17,7 +17,7 @@ PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, dou
     } else {
         pool_fee_ = pool_fee;
     }
-    pool_token_ = Token::GetToken("PoolToken" + std::to_string(reinterpret_cast<uint64_t>(this)));
+    pool_token_ = Token::GetToken("PoolToken" + std::to_string(reinterpret_cast<uint64_t>(this))).first;
     quantities_[pool_token_] = 1;
 }
 

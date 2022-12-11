@@ -1,6 +1,6 @@
 #include "Utilities.hpp"
 
-Token * Token::GetToken(const std::string &name) {
+std::pair<Token *, bool>Token::GetToken(const std::string &name) {
     /*
         * Returns a pointer to the token with the given name.
         *
@@ -10,8 +10,10 @@ Token * Token::GetToken(const std::string &name) {
     */
     if (!existing_tokens_.count(name)) {
         existing_tokens_[name] = new Token(name);
+        existing_tokens_in_chronological_order.emplace_back(existing_tokens_[name]);
+        return {existing_tokens_[name], true};
     }
-    return existing_tokens_[name];
+    return {existing_tokens_[name], false};
 }
 
 std::string Token::name() const {
@@ -45,4 +47,8 @@ void Token::set_real_value(double real_value) {
         * @return: None.
     */
     real_value_ = real_value;
+}
+
+std::vector<Token *> Token::existing_tokens() {
+    return existing_tokens_in_chronological_order;
 }
