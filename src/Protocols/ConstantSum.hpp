@@ -1,7 +1,6 @@
-#ifndef CONSTANTSUM_HPP
-#define CONSTANTSUM_HPP
+#ifndef CONSTANT_SUM_HPP
+#define CONSTANT_SUM_HPP
 
-#include <stdexcept>
 #include "../Utilities/Utilities.hpp"
 
 class ConstantSum : public PoolInterface {
@@ -9,22 +8,48 @@ class ConstantSum : public PoolInterface {
     Description of Protocol: px+y=k; p is price when pool is initialised, x and y tokens respectively
     */
 public:
-    using PoolInterface::PoolInterface;
+    ConstantSum(std::unordered_map<Token *, double> quantities,
+                std::unordered_map<Token *, double> slopes,
+                double pool_fee = 0) : PoolInterface(quantities, pool_fee) {
+        double slope_sum = 0;
+        for (auto [token, slope] : slopes) {
+            if (slope <= 0)
+                throw std::invalid_argument("invalid configuration of ConstantSum Protocol");
+            slope_sum += slope;
+        }
+        for (auto [token, slope] : slopes) {
+            slopes_[token] = slope / slope_sum;
+        }
+    }
+    
+    double GetSlope(Token *token) const {
+        if (!slopes_.count(token)) {
+            throw std::invalid_argument("invalid token");
+        }
+        return slopes_.find(token)->second;
+    }
 private:
-    double GetT1inT2Price(Token *token1, Token *token2 ) const {
-        return (quantities_.find(token2)->second)/(quantities_.find(token1)->second);
+    std::unordered_map<Token *, double> slopes_;
+
+    double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
+        double ans = 0;
+        for (auto [token, quantity] : quantities) {
+            ans += quantity * GetSlope(token);
+        }
+        return ans;
     }
 
-    double ExecuteSwap(Token *input_token, Token *output_token, double input_quantity) {
+    double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
+        return GetSlope(output_token) / GetSlope(input_token);
+    }
 
-        double output_quantity = GetT1inT2Price(input_token, output_token)*input_quantity;
-        if (quantities_[output_token] < output_quantity) {
-            throw std::invalid_argument("Too few tokens in pool for swap");
-        }
-        quantities_[input_token] += input_quantity;
-        quantities_[output_token] -= output_quantity;
-        return output_quantity;
+    double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const {
+        return input_quantity / ComputeSpotExchangeRate(input_token, output_token);
+    }
+
+    double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+        return 0;
     }
 };
 
-#endif // CONSTANTSUM_HPP
+#endif

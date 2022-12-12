@@ -24,6 +24,7 @@ The goal is to build an environment where we can test the already existing algor
 | The Nguyen | the-nguyen | thenguyen33 |  |
 | Alessandro Massaad | alemassaad | alemassaad |  |
 | Mathéo Le Masson | Matheo-LeMasson | matheo-lemasson |  |
+| Gabriele Biroli | GabrieleBiroli | gabrielebiroli |  |
 
 
 

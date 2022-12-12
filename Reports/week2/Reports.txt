@@ -1,0 +1,91 @@
+Adithya Ravichandran
+
+- As Git Leader, cleaned the repository and deleted redundant/unused branches to make repository easier to navigate
+- Began working together on an UniswapV2 arbitrage algorithm with Levente Ludanyi:
+    - Implemented a function to find all simple cycles in a graph with some tests
+    - Currently working on function to find optimal input amounts of each token given a set of pools
+    - Framework built to conduct arbitrage based on real used arbitrage algorithms in Uniswap
+- Fixed ConstantSum.hpp and added some documentation, planning to add more robust documentation in coming days
+- Added extra full team meeting on Wednesdays and helped assign tasks to different teams based on their goals
+
+Levente Ludanyi
+
+- I was working together with Adithya Ravichandran on the arbitrager algorithm, our goal is to implement an arbitrager in our market who benefits from
+the inefficiencies in the market, by doing so making the market efficient
+  - we implemented a first version of a cycle finding algorithm which finds the cycle in a graph of liquidty pool and a function which computes
+  the optimal traded amount to maximasise the profit
+  - we implemented tests as well
+- I overlooked Matheo's code who also worked an the arbitrager class
+
+- As the team leader I organised additional meetings with team members who requested and checked if everyone is contributing properly
+- Assigned tasks for next week and communicated the vision for the upcoming weeks
+- Our goal is to have a basic but functioning version of our project by the end of the first week of the break, I layed out the steps to achieve this
+and thought trough the needed functionalities.
+- Organised extra sessions for the team when we go through the existing code-base together and talk it through
+- Managed the subteam leaders and discussed further progress
+
+Fryderyk Sitnik
+
+1. Created a structure for the a function estimating divergence loss from providing liquidity on any liquidity pool:
+  - I noticed that one of the two biggest bottlenecks for implementing a new liquidity protocol is calculating divergence loss
+  - That is why I decided to come up with a general divergence loss estimator to increase the speed at which we deliver new protocols
+  - I came up with a estimator that can be used by the econ research team
+    - One can estimate the liquidity using any probabilistic distribution
+    - I consulted by choice both with the econ research and math research team and we agreed that this is a direction in which we should go
+  - I will implement the function next week
+2. With Adithya and Levente, I managed the entire team. I helped both the econ and the math research teams to set up new tasks
+  - Econ research team: I highlighted that it is important to focus on more narrow simulators, for example: a function that simulates only divergence loss or slippage. We set up a course of action on that the econ research team considers what distributions to use for simulations while I implement my estimator.
+  - Math research team: I advised the team not to spend time figuring out exact slippage and divergence loss formulae because we will solve it with estimators. The math research team takes care of the slippage estimator, while I do the divergence loss.
+3. I distributed more general tasks on Trello, now individual team leaders have the role to distribute them within the team
+
+
+Minh Pham:
+- Create ledger Operation class and add Ledger to Account 
+- Create Feature Request template on Trello Board.
+
+Matheo Le Masson:
+- Code arbitrage function : arbitrager to benefit from market imperfections (see GitHub commits)
+- Code simswap and simulate swap functions to be able to execute arbitrage function (see GitHub commits)
+- Understand new code
+- Meeting to keep up with the project advances
+- Documentation on std::unordered set and maps, etc to be able to code the functions mentioned above
+
+The Nguyen:
+- Add Provision and Withdrawal interactions between PoolInterface and Account.
+- Refactor the whole codebase to make the APIs more understandable.
+
+
+Jasmine Samson : 
+
+- Implemented a pie chart representing the proportion of each token in a specific pool
+- tested the implementation of the new widget using a random UniswapV2Pool pool (waiting for the implementation of pool environments by the Econ research team)
+- next week I will try implementing new widgets to include in a Qt desktop app (we still need to figure out with all the teams of the project the format of our User interface)
+
+Victoire Fabien:
+
+This week, I started experimenting with different visualization tools I found. I focused on charts and familiarized myself with it. 
+I was able to make line graphs and spline graphs which would then allow me to for example, represent the tokens in the pool. 
+My task this week was to experiment with QtCharts in particular.
+Next week, we will see with the front end team which tool works the best to represent what we want. 
+I will then focus solely on that tool to start to visually represent our project.
+
+Martina Paez Berru:
+
+- Worked with the qcustom plot library (had some issues with the download).
+- Worked on line graphs in order to represent the amount of tokens in the liquidity pool.
+- I worked more with Qt's desgin and thought of the layout of the application (presentation) of the project.
+
+Duc Nguyen:
+- Create generalized formula for slippage
+- Fix the function of protocols (UniSwapV2, Balancer, ConstantSum)
+
+Amine Roudani
+- Researched further: Understood the Curve & Bancor
+- Coded functions for UniswapV3. Will review them with team leader tomorrow before pushing to rep. 
+
+Tu Nguyen
+- Test the PoolInterface with different cases
+- Will be working on the component of Market simulator.
+
+Alessandro:
+Further familiarized with the base classes and the tests for different classes.
