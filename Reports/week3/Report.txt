@@ -1,8 +1,16 @@
+Adithya Ravichandran:
+
+- Resolved Cmake issues for multiple team members
+- Implemented first version of Pool Metrics Interface
+- Implemented documentation for PoolInterface.cpp
+
+
 Levente Ludanyi:
+
 - Set new goals for the team to have a first fully functionning product in 3 weeks, worked on the product vision and distributed the work accordingly
 - Resolved QT compliation issues for multiple team members
 - Implemented first version of the provision interface
-- Implemented documentation for header, and cpp files
+- Implemented documentation for Initializer, Operation and Token files
 
 
 Minh Pham: 
