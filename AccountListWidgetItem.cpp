@@ -31,7 +31,7 @@ void AccountListWidgetItem::VerifyData(Token *token, double quantity)
     }
     mint_dialog->accept();
 }
-
+/*
 void AccountListWidgetItem::VerifyPool(Token *token1, Token *token2, std::string protocol, std::vector<> pools)
 {
 
@@ -43,6 +43,7 @@ void AccountListWidgetItem::VerifyPool(Token *token1, Token *token2, std::string
     }
     provide_dialog->accept();
 }
+*/
 
 void AccountListWidgetItem::on_pushButton_clicked()
 {

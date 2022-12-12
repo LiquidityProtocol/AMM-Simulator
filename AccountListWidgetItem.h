@@ -22,7 +22,7 @@ public:
 
 public slots:
     void VerifyData(Token *token, double quantity);
-    void VerifyPool(Token *token1, Token *token2, std::string protocol);
+ //   void VerifyPool(Token *token1, Token *token2, std::string protocol);
 
 private slots:
     void on_pushButton_clicked();
