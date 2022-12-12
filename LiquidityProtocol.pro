@@ -38,6 +38,7 @@ HEADERS += \
 FORMS += \
     AccountListWidgetItem.ui \
     MainWindow.ui \
+    MetricsTable.ui \
     MintDialog.ui \
     TokenListWidgetItem.ui \
     WalletListWidgetItem.ui
