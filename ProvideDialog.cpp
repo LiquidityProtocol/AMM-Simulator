@@ -9,7 +9,7 @@ ProvideDialog::ProvideDialog(QWidget *parent) :
     ui(new Ui::ProvideDialog)
 {
     ui->setupUi(this);
-    connect(this, &ProvideDialog::SendData, qobject_cast<AccountListWidgetItem *>(parent), &AccountListWidgetItem::VerifyData);
+    connect(this, &ProvideDialog::SendData, qobject_cast<AccountListWidgetItem *>(parent), &MetricsTable::VerifyData);
 
     for (auto token : Token::existing_tokens()) {
         ui->comboBox->addItem(QString::fromStdString(token->name()));

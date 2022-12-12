@@ -20,14 +20,13 @@ MainWindow::MainWindow(QWidget *parent)
     Token::GetToken("Token2").first->set_real_value(20);
     Token::GetToken("Token4").first->set_real_value(40);
 
-    /*
-    UniswapV2Pool* pool_init;
-    pool_init -> ({{Token::GetToken("Token1").first, 20}, {Token::GetToken("Token2").first, 10}});
-    */
+
+    UniswapV2Pool::existing_pools()
+
 
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget_3);
     ui->listWidget_3->addItem(item);
-    MetricsTable *table_item = new MetricsTable(this, nullptr);
+    MetricsTable *table_item = new MetricsTable(this, &pool_init);
     item->setSizeHint(table_item->sizeHint());
     ui->listWidget_3->setItemWidget(item, table_item);
 
