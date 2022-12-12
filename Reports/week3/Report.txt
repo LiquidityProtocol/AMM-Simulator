@@ -1,3 +1,9 @@
+Levente Ludanyi:
+- Set new goals for the team to have a first fully functionning product in 3 weeks, worked on the product vision and distributed the work accordingly
+- Resolved QT compliation issues for multiple team members
+- Implemented first version of the provision interface
+- Implemented documentation for header, and cpp files
+
 
 Minh Pham: 
 
