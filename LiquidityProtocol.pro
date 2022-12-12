@@ -12,6 +12,7 @@ SOURCES += \
     AccountListWidgetItem.cpp \
     MetricsTable.cpp \
     MintDialog.cpp \
+    ProvideDialog.cpp \
     TokenListWidgetItem.cpp \
     WalletListWidgetItem.cpp \
     main.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     MainWindow.h \
     MetricsTable.h \
     MintDialog.h \
+    ProvideDialog.h \
     TokenListWidgetItem.h \
     WalletListWidgetItem.h \
     src/Utilities/Utilities.hpp \
@@ -39,6 +41,7 @@ FORMS += \
     AccountListWidgetItem.ui \
     MainWindow.ui \
     MintDialog.ui \
+    ProvideDialog.ui \
     TokenListWidgetItem.ui \
     WalletListWidgetItem.ui
 
