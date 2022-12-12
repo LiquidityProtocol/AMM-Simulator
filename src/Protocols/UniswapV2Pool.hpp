@@ -5,6 +5,8 @@
 
 class UniswapV2Pool : public PoolInterface {
 public:
+    static std::vector<UniswapV2Pool *> existing_pools();
+
     static UniswapV2Pool * GetPool(Token *token1, Token *token2);
 
     static bool Existing(Token *token1, Token *token2);
@@ -19,6 +21,7 @@ public:
     static Operation * Withdraw(Account *provider, Token *pool_token, double surrendered_pool_token_quantity);
 private:
     static std::unordered_map<TokensContainer, UniswapV2Pool *> existing_pools_;
+    static std::vector<UniswapV2Pool *> existing_pools_in_chronological_order_;
 
     using PoolInterface::PoolInterface;
 

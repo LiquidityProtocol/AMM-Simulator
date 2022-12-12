@@ -1,5 +1,9 @@
 #include "UniswapV2Pool.hpp"
 
+std::vector<UniswapV2Pool *> UniswapV2Pool::existing_pools() {
+    return existing_pools_in_chronological_order_;
+}
+
 UniswapV2Pool * UniswapV2Pool::GetPool(Token *token1, Token *token2) {
     TokensContainer tokens_container({token1, token2});
     if (existing_pools_.count(tokens_container)) {
@@ -45,7 +49,8 @@ Operation * UniswapV2Pool::Provide(Account *provider, Token *token1, Token *toke
     if (Existing(token1, token2)) {
         pool = existing_pools_[TokensContainer({token1, token2})];
     } else {
-        pool = existing_pools_[TokensContainer({token1, token2})] = new UniswapV2Pool({token1, token2}, pool_fee);
+        existing_pools_in_chronological_order_.emplace_back(new UniswapV2Pool({token1, token2}, pool_fee));
+        pool = existing_pools_[TokensContainer({token1, token2})] = existing_pools_in_chronological_order_.back();
     }
     return pool->SpecificProvide(provider, {{token1, quantity1}, {token2, quantity2}});
 }
@@ -63,6 +68,7 @@ Operation * UniswapV2Pool::Withdraw(Account *provider, Token *pool_token, double
         PoolInterface *pool = pool_token->pool();
         Operation *operation = pool->SpecificWithdraw(provider, surrendered_pool_token_quantity);
         if (!pool->GetQuantity(pool_token)) {
+            existing_pools_in_chronological_order_.erase(std::remove(existing_pools_in_chronological_order_.begin(), existing_pools_in_chronological_order_.end(), pool), existing_pools_in_chronological_order_.end());
             existing_pools_.erase(TokensContainer(pool->tokens()));
         }
         return operation;

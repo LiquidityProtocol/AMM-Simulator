@@ -12,3 +12,5 @@ std::unordered_map<std::string, Account *> Account::existing_accounts_ = std::un
 std::vector<Account *> Account::existing_accounts_in_chronological_order = std::vector<Account *>();
 
 std::unordered_map<TokensContainer, UniswapV2Pool *> UniswapV2Pool::existing_pools_ = std::unordered_map<TokensContainer, UniswapV2Pool *>();
+
+std::vector<UniswapV2Pool *> UniswapV2Pool::existing_pools_in_chronological_order_ = std::vector<UniswapV2Pool *>();
