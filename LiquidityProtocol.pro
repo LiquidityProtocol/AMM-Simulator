@@ -10,7 +10,9 @@ CONFIG += c++17
 
 SOURCES += \
     AccountListWidgetItem.cpp \
+    MetricsTable.cpp \
     MintDialog.cpp \
+    ProvideDialog.cpp \
     TokenListWidgetItem.cpp \
     WalletListWidgetItem.cpp \
     main.cpp \
@@ -26,7 +28,9 @@ SOURCES += \
 HEADERS += \
     AccountListWidgetItem.h \
     MainWindow.h \
+    MetricsTable.h \
     MintDialog.h \
+    ProvideDialog.h \
     TokenListWidgetItem.h \
     WalletListWidgetItem.h \
     src/Utilities/Utilities.hpp \
@@ -38,7 +42,9 @@ HEADERS += \
 FORMS += \
     AccountListWidgetItem.ui \
     MainWindow.ui \
+    MetricsTable.ui \
     MintDialog.ui \
+    ProvideDialog.ui \
     TokenListWidgetItem.ui \
     WalletListWidgetItem.ui
 

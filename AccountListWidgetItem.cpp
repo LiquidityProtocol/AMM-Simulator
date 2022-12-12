@@ -1,11 +1,10 @@
 #include "AccountListWidgetItem.h"
 #include "ui_AccountListWidgetItem.h"
 #include "MintDialog.h"
+#include "ProvideDialog.h"
 #include "WalletListWidgetItem.h"
-#include <QMessageBox>
 
 AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Account *account) :
-    QWidget(parent),
     ui(new Ui::AccountListWidgetItem),
     account_(account)
 {
@@ -30,6 +29,19 @@ void AccountListWidgetItem::VerifyData(Token *token, double quantity)
     }
     mint_dialog->accept();
 }
+/*
+void AccountListWidgetItem::VerifyPool(Token *token1, Token *token2, std::string protocol, std::vector<> pools)
+{
+
+    std::vector<> current_pool{token1, token2, protocol};
+    if(std::find(pools.begin(), pools.end(), pool) != pools.end()){
+        CreateNewPool(token1, token2, protocol);
+    }else{
+        UpdatePool(token1, token2, protocol);
+    }
+    provide_dialog->accept();
+}
+*/
 
 void AccountListWidgetItem::on_pushButton_clicked()
 {
@@ -39,6 +51,12 @@ void AccountListWidgetItem::on_pushButton_clicked()
     }
     mint_dialog = new MintDialog(this);
     mint_dialog->exec();
+}
+
+void AccountListWidgetItem::on_pushButton_2_clicked()
+{
+    provide_dialog = new ProvideDialog(this);
+    provide_dialog->exec();
 }
 
 void AccountListWidgetItem::CreateNewWalletItem(Token* token){

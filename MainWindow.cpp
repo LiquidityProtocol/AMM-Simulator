@@ -3,14 +3,24 @@
 #include "src/Utilities/Utilities.hpp"
 #include "AccountListWidgetItem.h"
 #include "TokenListWidgetItem.h"
+#include "MetricsTable.h"
 #include <QMessageBox>
 #include <tuple>
+#include "cassert"
+
+#include "src/Protocols/UniswapV2Pool.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget_3);
+    ui->listWidget_3->addItem(item);
+    MetricsTable *table_item = new MetricsTable(this, &pool_init);
+    item->setSizeHint(table_item->sizeHint());
+    ui->listWidget_3->setItemWidget(item, table_item);
 }
 
 MainWindow::~MainWindow()
@@ -32,6 +42,7 @@ void MainWindow::on_pushButton_clicked()
         item->setSizeHint(account_item->sizeHint());
         ui->listWidget->setItemWidget(item, account_item);
     }
+
 }
 
 void MainWindow::on_pushButton_2_clicked()
