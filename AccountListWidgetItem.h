@@ -33,7 +33,6 @@ private:
     Account *account_;
     MintDialog *mint_dialog;
     ProvideDialog *provide_dialog;
-
 };
 
 #endif // ACCOUNTLISTWIDGETITEM_H
