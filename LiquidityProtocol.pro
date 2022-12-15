@@ -1,5 +1,6 @@
 QT       += core gui
-QT += core gui charts
+QT       += core gui charts
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +17,7 @@ SOURCES += \
     ProvideDialog.cpp \
     TokenListWidgetItem.cpp \
     WalletListWidgetItem.cpp \
+    graphwindow.cpp \
     graphs.cpp \
     main.cpp \
     MainWindow.cpp \
@@ -35,6 +37,7 @@ HEADERS += \
     ProvideDialog.h \
     TokenListWidgetItem.h \
     WalletListWidgetItem.h \
+    graphwindow.h \
     graphs.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
@@ -50,6 +53,7 @@ FORMS += \
     ProvideDialog.ui \
     TokenListWidgetItem.ui \
     WalletListWidgetItem.ui \
+    graphwindow.ui
     graphs.ui
 
 # Default rules for deployment.
