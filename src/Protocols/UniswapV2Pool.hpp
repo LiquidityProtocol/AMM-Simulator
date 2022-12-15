@@ -6,7 +6,7 @@
 class UniswapV2Pool : public PoolInterface {
 public:
     using PoolInterface::PoolInterface;
-private:
+
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 1;
         for (auto [token, quantity] : quantities) {

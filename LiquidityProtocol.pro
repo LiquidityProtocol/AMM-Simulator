@@ -12,15 +12,20 @@ SOURCES += \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp\
+    src/Utilities/FirstSimulation.cpp \
     src/Utilities/Initializer.cpp\
     src/Utilities/Operation.cpp\
     src/Utilities/PoolInterface.cpp\
-    src/Utilities/Token.cpp\
+    src/Utilities/Token.cpp
 
 HEADERS += \
     MainWindow.h \
+    src/Utilities/FirstSimulation.hpp \
     src/Utilities/Utilities.hpp \
-    src/Protocols/*.hpp
+    src/Protocols/BalancerPool.hpp\
+    src/Protocols/ConstantSum.hpp\
+    src/Protocols/UniswapV2Pool.hpp\
+    src/Protocols/UniswapV3Pool.hpp\
 
 FORMS += \
     MainWindow.ui

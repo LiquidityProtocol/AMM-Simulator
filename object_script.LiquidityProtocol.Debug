@@ -1,0 +1,10 @@
+debug/main.o
+debug/MainWindow.o
+debug/Account.o
+debug/FirstSimulation.o
+debug/Initializer.o
+debug/Operation.o
+debug/PoolInterface.o
+debug/Token.o
+debug/FirstSimulation.o
+debug/moc_MainWindow.o

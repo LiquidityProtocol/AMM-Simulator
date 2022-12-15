@@ -115,12 +115,12 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
 
     std::vector<Operation *> ledger() const;
-protected:
+
     virtual double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const = 0;
     virtual double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const = 0;
     virtual double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const;
     virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const;
-private:
+
     std::unordered_map<Token *, double> quantities_;
     double pool_fee_;
     Token *pool_token_;
