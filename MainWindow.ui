@@ -86,6 +86,30 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Pool Information</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="listWidget_3"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="text">
+         <string>Graphs</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -95,7 +119,7 @@
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

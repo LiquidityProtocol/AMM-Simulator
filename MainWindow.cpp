@@ -5,12 +5,19 @@
 #include "TokenListWidgetItem.h"
 #include <QMessageBox>
 #include <tuple>
+#include "graphs.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+//    QListWidgetItem *item = new QListWidgetItem(ui->listWidget_3);
+//    ui->listWidget_3->addItem(item);
+//    MetricsTable *table_item = new MetricsTable(this, &pool_init);
+//    item->setSizeHint(table_item->sizeHint());
+//    ui->listWidget_3->setItemWidget(item, table_item);
 }
 
 MainWindow::~MainWindow()
@@ -51,3 +58,14 @@ void MainWindow::on_pushButton_2_clicked()
         ui->listWidget_2->setItemWidget(item, token_item);
     }
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+   // Graphs graphs;
+   // graphs.setModal(true);
+   // graphs.exec();
+    graphs = new Graphs(this);
+    graphs->show();
+
+}
+

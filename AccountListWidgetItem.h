@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "src/Utilities/Utilities.hpp"
 #include "MintDialog.h"
+#include "ProvideDialog.h"
 
 namespace Ui {
 class AccountListWidgetItem;
@@ -21,14 +22,17 @@ public:
 
 public slots:
     void VerifyData(Token *token, double quantity);
+ //   void VerifyPool(Token *token1, Token *token2, std::string protocol);
 
 private slots:
     void on_pushButton_clicked();
+    void on_pushButton_2_clicked();
 
 private:
     Ui::AccountListWidgetItem *ui;
     Account *account_;
     MintDialog *mint_dialog;
+    ProvideDialog *provide_dialog;
 };
 
 #endif // ACCOUNTLISTWIDGETITEM_H
