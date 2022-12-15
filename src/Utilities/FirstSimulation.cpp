@@ -14,7 +14,7 @@ enum Players {
     Arbritageur = 2
 };
 
-/*/double action_type(double market_price_ratio, double pool_price_ratio) {
+double action_type(double market_price_ratio, double pool_price_ratio) {
     double l2t = 0.02;
     std::default_random_engine generator;
     std::uniform_real_distribution<double> distribution(0.0,1.0);
@@ -38,8 +38,24 @@ enum Players {
 }
 
 
-double trade_simulation(){
-    return 0;
+int trade_sim_tokenchoice(int tok_num){
+    std::default_random_engine generator;
+    std::uniform_real_distribution<double> distribution(0.0,1.0);
+    double sample = distribution(generator);
+    double bucket_size = 1/tok_num;
+
+    double token = sample/bucket_size;
+
+    return floor(token);
+}
+
+double trade_sim_tradeval(double market_token, double trader_token){
+    double mean_trade = market_token/50;
+    double var_trade = trader_token/10;
+
+
+    std::default_random_engine generator;
+    std::normal_distribution<double> distribution(mean_trade,var_trade);
 }
 
 double arb_simulation(){
@@ -50,7 +66,7 @@ double provision_simulation(){
     return 0;
 }
 
-/*/
+
 void print(std::vector<double> const &input)
 {
     std::cout << "Hello!!!" << std::endl;
@@ -114,7 +130,7 @@ void SimulationOne(){
     print(pool_quantity_1);
     print(pool_quantity_2);
 }
-/*/
+
 void SimulationTwo(){
     Token *token1 = Token::GetToken("token1");
     Token *token2 = Token::GetToken("token2");
@@ -159,4 +175,4 @@ void SimulationTwo(){
     }
 
 }
-/*/
+

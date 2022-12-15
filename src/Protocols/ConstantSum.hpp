@@ -47,6 +47,10 @@ private:
         return input_quantity / ComputeSpotExchangeRate(input_token, output_token);
     }
 
+    double ComputeInputRequirement(Token *input_token, Token *output_token, double output_quantity) const {
+        return ComputeSpotExchangeRate(input_token,output_token) * output_quantity;
+    }
+
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
         return 0;
     }

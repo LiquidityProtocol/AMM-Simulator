@@ -103,6 +103,7 @@ public:
 
     std::unordered_set<Token *> tokens() const;
 
+    double SimulateTradeDemand(Token *input_token, Token *output_token, double output_quantity) const;
     double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
     Operation * Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);
 
@@ -120,6 +121,7 @@ public:
     virtual double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const = 0;
     virtual double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const;
     virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const;
+    virtual double ComputeInputRequirement(Token *input_token, Token *output_token, double output_quantity) const = 0;
 
     std::unordered_map<Token *, double> quantities_;
     double pool_fee_;

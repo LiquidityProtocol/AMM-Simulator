@@ -98,6 +98,18 @@ std::unordered_set<Token *> PoolInterface::tokens() const {
     return tokens;
 }
 
+double PoolInterface::SimulateTradeDemand(Token *input_token, Token *output_token, double output_quantity) const{
+    if (!InPool(input_token) || !InPool(output_token)) {
+        throw std::invalid_argument("invalid token");
+    } else if (output_quantity <= 0) {
+        throw std::invalid_argument("invalid quantity");
+    } else {
+        double input_quantity = ComputeInputRequirement(input_token, output_token, output_quantity);
+        double actual_input = input_quantity / (1 - pool_fee());
+        return actual_input;
+    }
+}
+
 double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const {
     /*
      * This method simulates a swap of tokens in the pool.

@@ -23,6 +23,10 @@ public:
         return GetQuantity(output_token) - GetQuantity(input_token) * GetQuantity(output_token) / (GetQuantity(input_token) + input_quantity);
     }
 
+    double ComputeInputRequirement(Token *input_token, Token *output_token, double output_quantity) const {
+        return ( GetQuantity(output_token) * GetQuantity(input_token) ) / ( GetQuantity(output_token) - output_quantity ) - GetQuantity(input_token);
+    }
+
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
         return input_quantity / GetQuantity(input_token);
     }
