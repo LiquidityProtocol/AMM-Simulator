@@ -2,6 +2,8 @@
 #define UNISWAP_V2_POOL_HPP
 
 #include "../Utilities/Utilities.hpp"
+#include <fstream>
+using namespace std;
 
 class UniswapV2Pool : public PoolInterface {
 public:
@@ -28,6 +30,7 @@ public:
     }
 
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+        output_token= Token::GetToken("token1");
         return input_quantity / GetQuantity(input_token);
     }
 };

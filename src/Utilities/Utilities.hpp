@@ -22,8 +22,8 @@ public:
 
 	double real_value() const;
 	void set_real_value(double real_value);
-private:
-	Token(const std::string &name) : name_(name), real_value_(0) {}
+
+    Token(const std::string &name) : name_(name), real_value_(0) {}
 
 	static std::unordered_map<std::string, Token *> existing_tokens_;
 	std::string name_;
