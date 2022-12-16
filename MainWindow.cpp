@@ -5,6 +5,7 @@
 #include "TokenListWidgetItem.h"
 #include <QMessageBox>
 #include <tuple>
+#include "graphs.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -57,3 +58,14 @@ void MainWindow::on_pushButton_2_clicked()
         ui->listWidget_2->setItemWidget(item, token_item);
     }
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+   // Graphs graphs;
+   // graphs.setModal(true);
+   // graphs.exec();
+    graphs = new Graphs(this);
+    graphs->show();
+
+}
+
