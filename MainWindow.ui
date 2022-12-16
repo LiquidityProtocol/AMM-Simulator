@@ -101,13 +101,6 @@
       <item>
        <widget class="QListWidget" name="listWidget_3"/>
       </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="text">
-         <string>Graphs</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>
@@ -119,7 +112,7 @@
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
