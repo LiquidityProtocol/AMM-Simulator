@@ -1,6 +1,4 @@
 QT       += core gui
-QT       += core gui charts
-
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,8 +15,6 @@ SOURCES += \
     ProvideDialog.cpp \
     TokenListWidgetItem.cpp \
     WalletListWidgetItem.cpp \
-    graphwindow.cpp \
-    graphs.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp \
@@ -27,7 +23,7 @@ SOURCES += \
     src/Utilities/PoolInterface.cpp \
     src/Utilities/Token.cpp \
     src/Utilities/TokensContainer.cpp \
-    src/Protocols/UniswapV2Pool.cpp
+    src/Protocols/UniswapV2Pool.cpp \
 
 HEADERS += \
     AccountListWidgetItem.h \
@@ -37,8 +33,6 @@ HEADERS += \
     ProvideDialog.h \
     TokenListWidgetItem.h \
     WalletListWidgetItem.h \
-    graphwindow.h \
-    graphs.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
@@ -52,9 +46,7 @@ FORMS += \
     MintDialog.ui \
     ProvideDialog.ui \
     TokenListWidgetItem.ui \
-    WalletListWidgetItem.ui \
-    graphwindow.ui
-    graphs.ui
+    WalletListWidgetItem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
