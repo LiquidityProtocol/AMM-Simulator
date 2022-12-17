@@ -1,0 +1,3 @@
+This week I started implementing Curve Protol using the whitepapers.
+Implementing this protocol will require more functions than other because
+of some extented features.
