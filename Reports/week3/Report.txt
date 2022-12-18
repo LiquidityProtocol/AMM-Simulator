@@ -105,3 +105,8 @@ Matheo LM:
 - Generalize to min_transaction
 - Add SimulateSwap to constant sum protocol and balancer protocol
 - Start work on FrontEnd to display accounts, tokens, amount of tokens to understand working functions (Understand actual code Playground.hpp and Playground.cpp, Learn on QML how to code buttons, Create 4 buttons (name, supply, value, mint) for each token)
+
+Amine Roudani
+Finished the implementation of UniswapV3. Fixed some problems with the computations.
+Researched and started implementing the Curve protocol. 
+
