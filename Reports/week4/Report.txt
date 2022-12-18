@@ -2,3 +2,7 @@ Adithya Ravichandran
 
 - Continued implementation of Provide Dialog along with Levente Ludanyi.
 - Finished MetricsTable class to visualise metrics about each and every pool.
+
+Matheo LM:
+- This week I coded an error message informing the user that he has entered an invalid input (a word/letter and not a number) for the price of the token, the amount of token to provide, and the amount to mint to an account.
+- We switched from qml to qwidget so I had to familiarize myself with this new language to code the message and understand new interface
