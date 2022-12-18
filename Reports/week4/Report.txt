@@ -1,0 +1,4 @@
+Adithya Ravichandran
+
+- Continued implementation of Provide Dialog along with Levente Ludanyi.
+- Finished MetricsTable class to visualise metrics about each and every pool.
