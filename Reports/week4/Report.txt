@@ -47,15 +47,21 @@ MARTINA PAEZ BERRU:
 - This week there was an error with the duplication of the branches and comitting, but I will work on imporving the layout and obtaining the images of the already existing coins. 
 - I will continue adding more details to the layout and commenting on the code to explain the functions.
 
+Jasmine Samson:
+
+- This week I had a better idea of how to organise our work. I learned how to use push buttons to display graphs and already used it to show one of the pie charts I implemented on week2.
+- I will either be using the widgets I previously implemented such as line charts , pie charts ,.. or push buttons and use the slots to create new windows in order to show the graphs I have obtained so far.
+- Next week, I will make sure to organise and dispose our widgets on the user interface and make sure that we have a working version of the project.
+
 Kaoutar Fahraoui:
 
-This week I continued my code of the test for constantsum. Not yet finalised.
+- This week I continued my code of the test for constantsum. Not yet finalised.
 
 Mia Chambat:
 
 - This week I worked on fully finalizing the first simulation of the Uniswap V2 Pool test (in the Simulations branch). 
-In addition, I started working on graphing the results of my test. 
-These graphs will be used in our final presentation to show the edge cases of our three protocols: Uniswap V2 Pool, Constant Sum and the Balancer Test.
+- In addition, I started working on graphing the results of my test. 
+- These graphs will be used in our final presentation to show the edge cases of our three protocols: Uniswap V2 Pool, Constant Sum and the Balancer Test.
 
 Shubh Lashkery: 
 
