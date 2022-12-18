@@ -9,3 +9,7 @@ Matheo LM:
 
 Amine Roudani
 Worked further on the implementation of Curve using whitepapers. This involved analyzing and understanding the math behind it, as well as developing the various functions in the class. Also worked on developing tests for curve and V3. 
+
+Minh Pham:
+- Create the trade UI (still wait for the backend update to choose protocol.
+- Research about the market simulator of Hash.ai for the next stage of development.
