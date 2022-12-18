@@ -26,6 +26,12 @@ Duc Nguyen:
 - Assign the implementation of Curve protocol
 
 
+Julien Girod:
+- This week I started implementing Curve Protol using the whitepapers.
+- Implementing this protocol will require more functions than other because
+ of some extented features.
+
+
 Victoire FABIEN:
 
 - This week, we started to have a clearer idea of the front end initial result (initial interface). 
