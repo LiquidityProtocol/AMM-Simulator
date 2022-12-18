@@ -20,9 +20,11 @@ Minh Pham:
 - Create the trade UI (still wait for the backend update to choose protocol.
 - Research about the market simulator of Hash.ai for the next stage of development.
 
-Duc Nguyen
+
+Duc Nguyen:
 - Help the team member debug the implementation of UniSwapV3 and Balancer
 - Assign the implementation of Curve protocol
+
 
 Victoire FABIEN:
 
