@@ -6,3 +6,6 @@ Adithya Ravichandran
 Matheo LM:
 - This week I coded an error message informing the user that he has entered an invalid input (a word/letter and not a number) for the price of the token, the amount of token to provide, and the amount to mint to an account.
 - We switched from qml to qwidget so I had to familiarize myself with this new language to code the message and understand new interface
+
+Amine Roudani
+Worked further on the implementation of Curve using whitepapers. This involved analyzing and understanding the math behind it, as well as developing the various functions in the class. Also worked on developing tests for curve and V3. 
