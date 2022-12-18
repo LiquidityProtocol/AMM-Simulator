@@ -18,25 +18,19 @@ public:
 	Token & operator=(const Token &) = delete;
 	Token(const Token &) = delete;
 
-	static std::pair<Token *, bool> GetToken(const std::string &name, double real_value = 0);
-
-    static Token * GetPoolToken(PoolInterface *pool);
-
-    static std::vector<Token *> existing_tokens();
+    friend class Playground;
 
 	std::string name() const;
 	double real_value() const;
     PoolInterface * pool() const;
 
 private:
-	static std::unordered_map<std::string, Token *> existing_tokens_;
-    static std::vector<Token *> existing_tokens_in_chronological_order;
-
 	std::string name_;
 	double real_value_;
     PoolInterface *pool_;
     
-	Token(const std::string &name, double real_value = 0, PoolInterface *pool = nullptr);
+	Token(const std::string &name, double real_value);
+    Token(PoolInterface *pool);
 };
 
 class Operation {
