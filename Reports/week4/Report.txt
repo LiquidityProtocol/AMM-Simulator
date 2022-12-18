@@ -47,3 +47,6 @@ MARTINA PAEZ BERRU:
 - This week there was an error with the duplication of the branches and comitting, but I will work on imporving the layout and obtaining the images of the already existing coins. 
 - I will continue adding more details to the layout and commenting on the code to explain the functions.
 
+The Nguyen:
+
+- Implement playground back-end for allowing user to choose protocol.
