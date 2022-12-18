@@ -47,3 +47,19 @@ MARTINA PAEZ BERRU:
 - This week there was an error with the duplication of the branches and comitting, but I will work on imporving the layout and obtaining the images of the already existing coins. 
 - I will continue adding more details to the layout and commenting on the code to explain the functions.
 
+Kaoutar Fahraoui:
+
+This week I continued my code of the test for constantsum. Not yet finalised.
+
+Mia Chambat:
+
+- This week I worked on fully finalizing the first simulation of the Uniswap V2 Pool test (in the Simulations branch). 
+In addition, I started working on graphing the results of my test. 
+These graphs will be used in our final presentation to show the edge cases of our three protocols: Uniswap V2 Pool, Constant Sum and the Balancer Test.
+
+Shubh Lashkery: 
+
+- I mapped out a way to implement the simulator - witha focus on the trader function
+- I implemented a method to calculate the required input for a give output
+- I added some depth to the simulator and made sure it consistently ran with the make file.
+
