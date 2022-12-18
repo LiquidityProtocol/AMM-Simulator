@@ -1,3 +1,9 @@
+Levente Ludanyi:
+
+- Continued implementation of Provide Dialog along with Adithya Ravichandran.
+- Focused on the ProvideDialog to visualise newly created pools and interact with existing ones.
+
+
 Adithya Ravichandran:
 
 - Continued implementation of Provide Dialog along with Levente Ludanyi.
