@@ -99,4 +99,14 @@ Martina Paez Berru:
 For this week we worked with the Market Simulator team to design the layout of the application using Qt Quick app. 
 I looked into using swipe view in order to display the market simulator in one tab, and the graphs in the other tab. Still trying with the newly introduced Qt quick application since it was shown to us just this week. I am planning on adding comments to explain some of the classes and functions we have implemented. I also worked with Victoire and Sandro in the coding of the graphs.
 
+Matheo LM:
+- Make arbitrager code more readable (Comment, Name variables/functions more clearly)
+- Make arbitrage function more robust (Do what is best each time (not only do if beneficial) )
+- Generalize to min_transaction
+- Add SimulateSwap to constant sum protocol and balancer protocol
+- Start work on FrontEnd to display accounts, tokens, amount of tokens to understand working functions (Understand actual code Playground.hpp and Playground.cpp, Learn on QML how to code buttons, Create 4 buttons (name, supply, value, mint) for each token)
+
+Amine Roudani
+Finished the implementation of UniswapV3. Fixed some problems with the computations.
+Researched and started implementing the Curve protocol. 
 
