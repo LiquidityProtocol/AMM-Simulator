@@ -8,21 +8,18 @@ class Curve : public PoolInterface {
 public:
     Curve(std::unordered_map<Token *, double> quantities,
                   double pool_fee, 
-                  double leverage=0) : PoolInterface(quantities, pool_fee) {
+                  double leverage = 0) : PoolInterface(quantities, pool_fee) {
     
-    if(leverage<0){
+        if(leverage<0) {
             throw std::invalid_argument("leverage can go from zero to infinity only");
+        } else {
+            leverage_ = leverage;
+        }
     }
-    else{
-        leverage_ = leverage;
-    }
-}
-
 private:
-    
     double leverage_;
 
-    double SumInvariant(std::unordered_map<Token *, double> quantities){
+    double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double sum = 0;
         double product = 1;
         int n = quantities.size();
@@ -30,24 +27,15 @@ private:
             sum += quantity;
             product *= quantity;
         }
-        if (leverage_ < 1e-10){
-            return std::pow(product, 1/n) * n;
-        } 
-        if (leverage_ == 1){
-            return std::pow(product * sum, 1 / (n + 1)) * std::pow(n, n/(n+1));
+        if (leverage_ < 1e-6) {
+            return std::pow(product, 1 / n) * n;
+        } else if (leverage_ > 1e10)    {
+            return sum;
+        } else if (abs(leverage_ == 1) < 1e-10) {
+            return std::pow(product * sum * std::pow(n, n), 1 / (n + 1));
         }
-
-        if (n == 2){
-            return;
-
-        }
-        // raise Exception("cannot handle unequal asset pool with n>2")
-
+        throw std::invalid_argument("unable to compute invariant");
     }
-
-
-
-
     double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
         return ;
     }
