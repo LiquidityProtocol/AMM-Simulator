@@ -1,0 +1,36 @@
+Mia Chambat 
+This week (week 2), I was tasked, with Kaoutar,
+to understand and summarize how to aggregate the 
+data and make it analysable to run our Monte Carlo 
+simulation. For this, we analyzed papers and different 
+existing Monte Carlo projects and summed this all up in 
+a collaborative document. In addition, we made sue to 
+understand the different functions already implemented 
+in the project and how they will be useful for us. 
+The next step that now needs finalizing is to determine 
+the exact functions we will be using and divide them up 
+between the members of our Econ Research Team.  
+
+Kaoutar Fahraoui
+
+This week, I reviewed all the current codes written by 
+my teammates, made some annotations in order to 
+understand the written codes and to determine which 
+classes are we inheriting from for our simulation. 
+The goal is to find a way to aggregate all the data and 
+make it analysable. 
+
+Shubh Lashkery
+
+I went into a deep dive in to the Random library to see 
+how we could implement some of the random walk simulations
+especially since we would like to be able to have a sample 
+that is responsive to the current parameters of the system.
+
+Furthermore I looked into the already implemented functions 
+and started to use them to implement the simulation.
+
+The main thing to do will be to create a rudimentary class
+through which explansions can occur through simply addiding
+extra and modified member functions. However creating a 
+simple working class will be the first main priority.
