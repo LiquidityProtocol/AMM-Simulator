@@ -123,3 +123,31 @@ double Playground::ExecuteInitialProvision(Account *provider, PROTOCOL protocol,
     }
     return ExecuteProvision(provider, protocol, provided_quantities);
 }
+
+std::unordered_map<Token *, double> Playground::SimulateWithdrawal(Token *token, double surrendered_quantity) const {
+    if (!token->pool()) {
+        throw std::invalid_argument("this is not a pool token");
+    }
+    return token->pool()->SimulateWithdrawal(surrendered_quantity);
+}
+
+std::unordered_map<Token *, double> Playground::ExecuteWithdrawal(Account *provider, Token *token, double surrendered_quantity) {
+    if (!token->pool()) {
+        throw std::invalid_argument("this is not a pool token");
+    }
+    std::unordered_map<Token *, double> output_quantities = provider->Withdraw(token->pool(), surrendered_quantity);
+    if (!token->pool()->total_pool_token_quantity()) {
+        PROTOCOL protocol;
+        if (typeid(token->pool()) == typeid(UniswapV2Pool)) {
+            protocol = PROTOCOL::UNISWAP_V2;
+        } else if (typeid(token->pool()) == typeid(UniswapV3Pool)) {
+            protocol = PROTOCOL::UNISWAP_V3;
+        } else if (typeid(token->pool()) == typeid(ConstantSum)) {
+            protocol = PROTOCOL::CONSTANT_SUM;
+        } else if (typeid(token->pool()) == typeid(BalancerPool)) {
+            protocol = PROTOCOL::BALANCER;
+        }
+        existing_pools_[protocol].erase(token->pool()->tokens_container_);
+    }
+    return output_quantities;
+}

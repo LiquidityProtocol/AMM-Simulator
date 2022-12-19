@@ -25,6 +25,9 @@ public:
     double ExecuteInitialProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities, double pool_fee, double slippage_controller);
     double ExecuteInitialProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities, double pool_fee, const std::unordered_map<Token *, double> &weights);
 
+    std::unordered_map<Token *, double> SimulateWithdrawal(Token *token, double surrendered_quantity) const;
+    std::unordered_map<Token *, double> ExecuteWithdrawal(Account *provider, Token *token, double surrendered_quantity);
+
 private:
     std::unordered_map<std::string, Token *> existing_tokens_;
     std::unordered_map<std::string, Account *> existing_accounts_;
