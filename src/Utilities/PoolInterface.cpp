@@ -142,6 +142,9 @@ double PoolInterface::SimulateProvision(std::unordered_map<Token *, double> inpu
      *
      * @return: the quantity of pool tokens that would be received if the provision were to occur
      */
+    if (!total_pool_token_quantity()) {
+        return INITIAL_POOL_TOKEN_SUPPLY;
+    }
     if (!ValidProvision(input_quantities)) {
         throw std::invalid_argument("invalid provision");
     }
