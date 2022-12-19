@@ -32,6 +32,16 @@ std::unordered_set<Account *> Playground::existing_accounts() const {
     return accounts;
 }
 
+std::unordered_set<PoolInterface *> Playground::existing_pools() const {
+    std::unordered_set<PoolInterface *> pools;
+    for (const auto &[protocol, tokens_container_to_pool] : existing_pools_) {
+        for (const auto &[tokens_container, pool] : tokens_container_to_pool) {
+            pools.emplace(pool);
+        }
+    }
+    return pools;
+}
+
 bool Playground::Existing(PROTOCOL protocol, const std::unordered_set<Token *> &tokens) const {
     return existing_pools_.count(protocol) && existing_pools_.find(protocol)->second.count(TokensContainer(tokens));
 }

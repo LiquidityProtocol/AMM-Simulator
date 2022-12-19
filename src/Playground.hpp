@@ -12,6 +12,8 @@ public:
     std::pair<Account *, bool> GetAccount(const std::string &name);
     std::unordered_set<Account *> existing_accounts() const;
 
+    std::unordered_set<PoolInterface *> existing_pools() const;
+
     bool Existing(PROTOCOL protocol, const std::unordered_set<Token *> &tokens) const;
     PoolInterface * GetPool(PROTOCOL protocol, const std::unordered_set<Token *> &tokens) const;
 
