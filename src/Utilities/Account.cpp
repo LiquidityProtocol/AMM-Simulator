@@ -1,14 +1,4 @@
 #include "Utilities.hpp"
-#include "../Protocols/UniswapV2Pool.hpp"
-
-std::pair<Account *, bool> Account::GetAccount(const std::string &name) {
-    if (existing_accounts_.count(name)) {
-        return {existing_accounts_[name], false};
-    } else {
-        existing_accounts_in_chronological_order.emplace_back(new Account(name));
-        return {existing_accounts_[name] = existing_accounts_in_chronological_order.back(), true};
-    }
-}
 
 std::string Account::name() const {
     return name_;
@@ -35,19 +25,21 @@ void Account::Deposit(Token *token, double quantity) {
     total_value_ += quantity * token->real_value();
 }
 
-void Account::Trade(Token *input_token, Token *output_token, double input_quantity) {
-    ledger_.emplace_back(UniswapV2Pool::Swap(this, input_token, output_token, input_quantity));
+double Account::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
+    ledger_.emplace_back(pool->Swap(this, input_token, output_token, input_quantity));
+    return ledger_.back()->output()[output_token];
 }
 
-void Account::Provide(Token *token1, Token *token2, double quantity1, double quantity2, double pool_fee = 0) {
-    ledger_.emplace_back(UniswapV2Pool::Provide(this, token1, token2, quantity1, quantity2, pool_fee));
+double Account::Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities) {
+    ledger_.emplace_back(pool->Provide(this, provided_quantities));
+    return ledger_.back()->output()[pool->pool_token()];
 }
 
-void Account::Withdraw(Token *pool_token, double surrendered_pool_token_quantity) {
-    ledger_.emplace_back(UniswapV2Pool::Withdraw(this, pool_token, surrendered_pool_token_quantity));
+std::unordered_map<Token *, double> Account::Withdraw(PoolInterface *pool, double surrendered_quantity) {
+    ledger_.emplace_back(pool->Withdraw(this, surrendered_quantity));
+    return ledger_.back()->output();
 }
 
-std::vector<Account *> Account::existing_accounts() {
-    return existing_accounts_in_chronological_order;
-}
-Account::Account(const std::string &name) : name_(name), total_value_(0), wallet_() {}
+Account::Account(const std::string &name)
+    : name_(name)
+    , total_value_(0) {}

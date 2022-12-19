@@ -6,7 +6,13 @@
 
 class BalancerPool : public PoolInterface {
 public:
-    BalancerPool(std::unordered_map<Token *, double> quantities, std::unordered_map<Token *, double> weights, double pool_fee = 0) : PoolInterface(quantities, pool_fee) {
+    friend class Playground;
+private:
+    BalancerPool(
+        std::unordered_set<Token *> tokens,
+        double pool_fee,
+        std::unordered_map<Token *, double> weights
+    ) : PoolInterface(tokens, pool_fee) {
         double weights_sum = 0;
         for (auto [token, weight] : weights) {
             if (weight <= 0) {
@@ -27,7 +33,7 @@ public:
         }
         return weights_.find(token)->second;
     }
-private:
+
     std::unordered_map<Token *, double> weights_;
 
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {

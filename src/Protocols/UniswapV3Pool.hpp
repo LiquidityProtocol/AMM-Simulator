@@ -6,9 +6,13 @@
 
 class UniswapV3Pool : public PoolInterface {
 public:
-    UniswapV3Pool(std::unordered_map<Token *, double> quantities,
-                  double pool_fee, 
-                  double slippage_controller) : PoolInterface(quantities, pool_fee) {
+    friend class Playground;
+private:
+    UniswapV3Pool(
+        std::unordered_set<Token *> tokens,
+        double pool_fee, 
+        double slippage_controller
+    ) : PoolInterface(tokens, pool_fee) {
         if(slippage_controller<1){
             throw std::invalid_argument("invalid slippage controller");
         }
@@ -16,18 +20,17 @@ public:
             slippage_controller_ = slippage_controller;
         }
     
-        double r1 = quantities.begin() -> second;
-        double r2 = (++quantities.begin()) -> second;
+        double r1 = 0;
+        double r2 = 0;
 
         double C1 = r1;
         double C2 = r2;
     }
 
-private:
     double C1, C2;
     double slippage_controller_;
 
-    double ComputeInvariant() const {
+    double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         return slippage_controller_ * C1 * C2 /((sqrt(slippage_controller_) - 1) * (sqrt(slippage_controller_) - 1));
     }
     double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {

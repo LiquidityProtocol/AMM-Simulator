@@ -1,6 +1,8 @@
 #include "Utilities.hpp"
 
-PoolInterface::PoolInterface(std::unordered_set<Token *> tokens, double pool_fee) {
+PoolInterface::PoolInterface(std::unordered_set<Token *> tokens, double pool_fee)
+    : tokens_container_(TokensContainer(tokens))
+    , pool_fee_(pool_fee) {
     if (tokens.size() < 2) {
         throw std::invalid_argument("not enough tokens");
     }
@@ -11,8 +13,7 @@ PoolInterface::PoolInterface(std::unordered_set<Token *> tokens, double pool_fee
     for (auto token : tokens) {
         quantities_[token] = 0;
     }
-    pool_fee_ = pool_fee;
-    quantities_[pool_token_ = Token::GetPoolToken(this)] = 0;
+    quantities_[pool_token_ = new Token(this)] = 0;
 }
 
 bool PoolInterface::InPool(Token *token) const {
@@ -92,7 +93,7 @@ std::unordered_set<Token *> PoolInterface::tokens() const {
     return tokens;
 }
 
-double PoolInterface::SpecificSimulateSwap(Token *input_token, Token *output_token, double input_quantity) const {
+double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const {
     /*
      * This method simulates a swap of tokens in the pool.
      *
@@ -113,7 +114,7 @@ double PoolInterface::SpecificSimulateSwap(Token *input_token, Token *output_tok
     }
 }
 
-Operation * PoolInterface::SpecificSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity) {
+Operation * PoolInterface::Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity) {
     /*
      * This method swaps tokens in the pool.
      *
@@ -127,13 +128,13 @@ Operation * PoolInterface::SpecificSwap(Account *trader, Token *input_token, Tok
     if (!CheckWallet(trader, {{input_token, input_quantity}})) {
         throw std::invalid_argument("not enough quantities in wallet");
     }
-    double output_quantity = SpecificSimulateSwap(input_token, output_token, input_quantity);
+    double output_quantity = SimulateSwap(input_token, output_token, input_quantity);
     ExecuteSwap(trader, input_token, output_token, input_quantity, output_quantity);
     ledger_.emplace_back(new Operation("TRADE", trader->name(), this, {{input_token, input_quantity}}, {{output_token, output_quantity}}));
     return ledger_.back();
 }
 
-double PoolInterface::SpecificSimulateProvision(std::unordered_map<Token *, double> input_quantities) const {
+double PoolInterface::SimulateProvision(std::unordered_map<Token *, double> input_quantities) const {
     /*
      * This method simulates the provision of liquidity to the pool.
      *
@@ -141,9 +142,6 @@ double PoolInterface::SpecificSimulateProvision(std::unordered_map<Token *, doub
      *
      * @return: the quantity of pool tokens that would be received if the provision were to occur
      */
-    if (!GetQuantity(pool_token())) {
-        return FIRST_POOL_TOKEN_SUPPLY;
-    }
     if (!ValidProvision(input_quantities)) {
         throw std::invalid_argument("invalid provision");
     }
@@ -152,7 +150,7 @@ double PoolInterface::SpecificSimulateProvision(std::unordered_map<Token *, doub
     return generated_pool_token_quantity;
 }
 
-Operation * PoolInterface::SpecificProvide(Account *provider, std::unordered_map<Token *, double> input_quantities) {
+Operation * PoolInterface::Provide(Account *provider, std::unordered_map<Token *, double> input_quantities) {
     /*
      * This method provides liquidity to the pool.
      *
@@ -164,13 +162,13 @@ Operation * PoolInterface::SpecificProvide(Account *provider, std::unordered_map
     if (!CheckWallet(provider, input_quantities)) {
         throw std::invalid_argument("not enough quantities in wallet");
     }
-    double generated_pool_token_quantity = SpecificSimulateProvision(input_quantities);
+    double generated_pool_token_quantity = SimulateProvision(input_quantities);
     ExecuteProvision(provider, input_quantities, generated_pool_token_quantity);
     ledger_.emplace_back(new Operation("PROVIDE", provider->name(), this, input_quantities, {{pool_token(), generated_pool_token_quantity}}));
     return ledger_.back();
 }
 
-std::unordered_map<Token *, double> PoolInterface::SpecificSimulateWithdrawal(double surrendered_pool_token_quantity) const {
+std::unordered_map<Token *, double> PoolInterface::SimulateWithdrawal(double surrendered_pool_token_quantity) const {
     /*
      * This method simulates the withdrawal of liquidity from the pool.
      *
@@ -191,7 +189,7 @@ std::unordered_map<Token *, double> PoolInterface::SpecificSimulateWithdrawal(do
     return output_quantities;
 }
 
-Operation * PoolInterface::SpecificWithdraw(Account *provider, double surrendered_pool_token_quantity) {
+Operation * PoolInterface::Withdraw(Account *provider, double surrendered_pool_token_quantity) {
     /*
      * This method withdraws liquidity from the pool.
      *
@@ -203,7 +201,7 @@ Operation * PoolInterface::SpecificWithdraw(Account *provider, double surrendere
     if (!CheckWallet(provider, {{pool_token_, surrendered_pool_token_quantity}})) {
         throw std::invalid_argument("not enough quantities in wallet");
     }
-    std::unordered_map<Token *, double> output_quantities = SpecificSimulateWithdrawal(surrendered_pool_token_quantity);
+    std::unordered_map<Token *, double> output_quantities = SimulateWithdrawal(surrendered_pool_token_quantity);
     ExecuteWithdrawal(provider, surrendered_pool_token_quantity, output_quantities);
     ledger_.emplace_back(new Operation("WITHDRAW", provider->name(), this, {{pool_token(), surrendered_pool_token_quantity}}, output_quantities));
     return ledger_.back();
