@@ -49,7 +49,7 @@ void MainWindow::on_create_account_pushButton_clicked()
     } else {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
         ui->listWidget->addItem(item);
-        AccountListWidgetItem *account_item = new AccountListWidgetItem(this, account, playground_);
+        AccountListWidgetItem *account_item = new AccountListWidgetItem(this, playground_, account);
         item->setSizeHint(account_item->sizeHint());
         ui->listWidget->setItemWidget(item, account_item);
     }
