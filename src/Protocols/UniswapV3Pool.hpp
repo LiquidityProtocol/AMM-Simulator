@@ -9,7 +9,7 @@ public:
     UniswapV3Pool(std::unordered_map<Token *, double> quantities,
                   double pool_fee, 
                   double slippage_controller) : PoolInterface(quantities, pool_fee) {
-        if (slippage_controller < 1) {
+        if (slippage_controller <= 1) {
             throw std::invalid_argument("invalid slippage controller");
         } else {
             slippage_controller_ = slippage_controller;
@@ -24,15 +24,17 @@ private:
     std::unordered_map<Token *, double> weights_;
     double slippage_controller_;
 
-    double ComputeInvariant() const {
+    double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 1;
 
-        for(auto [token, weight] : weights_)
-            ans *= weight;
-        
-        ans *= slippage_controller_;
-        ans /= (sqrt(slippage_controller_) - 1);
-        ans /= (sqrt(slippage_controller_) - 1);
+        for (auto [token, weight] : weights_) {
+            auto it = quantities.find(token);
+            if (it != quantities.end()) {
+                ans *= (it->second + weight / (sqrt(slippage_controller_) - 1));
+            } else {
+                throw std::invalid_argument("invalid input quantities");
+            }
+        }
 
         return ans;
     }
@@ -49,9 +51,15 @@ private:
         double B = sqrt(slippage_controller_) - 1;
 
         double r1_prime = (r1 + input_quantity);
-        double r2_prime = ComputeInvariant() / (r1_prime + C1 / B) - C2 / B;
+        double r2_prime = ComputeInvariant(quantities_) / (r1_prime + C1 / B) - C2 / B;
 
         return r2 - r2_prime;
+    }
+    double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+        double r1 = GetQuantity(input_token);
+        double C1 = getWeight(input_token);
+
+        return input_quantity / (r1 + C1 / (sqrt(slippage_controller_) - 1));
     }
 };
 
