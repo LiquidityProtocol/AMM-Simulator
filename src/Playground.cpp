@@ -54,6 +54,9 @@ PoolInterface * Playground::GetPool(PROTOCOL protocol, const std::unordered_set<
 }
 
 std::unordered_set<PoolInterface *> Playground::GetPools(PROTOCOL protocol, Token *input_token, Token *output_token) const {
+    if (!existing_pools_.count(protocol)) {
+        return {};
+    }
     std::unordered_set<PoolInterface *> pools;
     for (const auto &[tokens_container, pool] : existing_pools_.find(protocol)->second) {
         if (pool->InPool(input_token) && pool->InPool(output_token)) {
