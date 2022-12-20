@@ -1,6 +1,13 @@
 #!/bin/bash
 
-SOURCES=$(find Utilities -name '*.cpp')
+SOURCES1=$(find Utilities -name '*.cpp')
+SOURCES2=$(find Simulation -name '*.cpp')
+SOURCES3=$(find Protocols -name '*.cpp')
+
+# echo ${SOURCES1[@]}
+# echo ${SOURCES2[@]}
+
+SOURCES=(${SOURCES1[@]} ${SOURCES2[@]} ${SOURCES3[@]})
 COMPILER="clang++"
 
 TEST_FILE=$1
