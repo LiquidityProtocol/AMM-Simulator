@@ -8,23 +8,36 @@ int main () {
     Token *token2 = playground.GetToken("token2", 20).first;
     assert(playground.existing_tokens() == std::unordered_set<Token *>({token1, token2}));
 
-    Account *acc1 = playground.GetAccount("acc1").first;
-    acc1->Deposit(token1, 1000);
-    acc1->Deposit(token2, 2000);
-    playground.ExecuteInitialProvision(acc1, PROTOCOL::UNISWAP_V2, {{token1, 10}, {token2, 20}}, 0);
+    Account *alice = playground.GetAccount("Alice").first;
+    alice->Deposit(token1, 100);
+    alice->Deposit(token2, 100);
+
+    playground.ExecuteInitialProvision(alice, PROTOCOL::UNISWAP_V2, {{token1, 20}, {token2, 40}}, 0.01);
     PoolInterface *pool = playground.GetPool(PROTOCOL::UNISWAP_V2, {token1, token2});
+    assert(pool->total_pool_token_quantity() == 1);
 
-    playground.ExecuteSwap(acc1, pool, token1, token2, 10);
+    playground.ExecuteSwap(alice, pool, token1, token2, 10);
+    assert(alice->GetQuantity(token1) == 70);
+    assert(abs(alice->GetQuantity(token2) - 73.2441) < 1e-4);
+    playground.ExecuteSwap(alice, pool, token1, token2, 10);
+    assert(alice->GetQuantity(token1) == 60);
+    assert(abs(alice->GetQuantity(token2) - 79.8828) < 1e-4);
+    assert(pool->GetQuantity(token1) == 40);
+    assert(abs(pool->GetQuantity(token2) - 20.117) < 1e-3);
 
-    std::cout << pool->total_pool_token_quantity() << '\n';
-    std::unordered_map<Token*, double> output = playground.ExecuteWithdrawal(acc1, pool->pool_token(), 1); 
-    
-    for (auto op: acc1->ledger()) {
+    playground.ExecuteWithdrawal(alice, pool->pool_token(), alice->GetQuantity(pool->pool_token()));
+    assert(alice->GetQuantity(token1) == 100);
+    assert(abs(alice->GetQuantity(token2) - 100) < 1e-4);
+    assert(!playground.Existing(PROTOCOL::UNISWAP_V2, {token1, token2}));
+
+    for (auto op : alice->ledger()) {
         std::cout << *op;
     }
-    for (auto data: acc1->wallet()) {
+    for (auto data : alice->wallet()) {
         std::cout << data.first->name() << ": " << data.second << "\n";
     }
+
+    std::cout << "Success!\n";
 
     return 0;
 }
