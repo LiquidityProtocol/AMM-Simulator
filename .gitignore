@@ -34,3 +34,6 @@
 
 # Configuration build file
 ./vscode/*
+
+#QT Config
+*.pro.user
