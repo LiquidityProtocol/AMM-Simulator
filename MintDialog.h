@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "src/Utilities/Utilities.hpp"
+#include "src/Playground.hpp"
 
 namespace Ui {
 class MintDialog;
@@ -13,7 +14,7 @@ class MintDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit MintDialog(QWidget *parent = nullptr);
+    explicit MintDialog(QWidget *parent = nullptr, Playground *playground = nullptr);
     ~MintDialog();
 
 signals:
@@ -24,6 +25,7 @@ private slots:
 
 private:
     Ui::MintDialog *ui;
+    Playground *playground_;
 };
 
 #endif // MINTDIALOG_H

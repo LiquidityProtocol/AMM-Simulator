@@ -102,7 +102,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="mint_pushButton">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 0, 8);</string>
        </property>
@@ -112,7 +112,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="trade_pushButton">
+       <property name="text">
+        <string>Trade</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="provide_pushButton">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 0, 8);</string>
        </property>
@@ -122,7 +129,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="withdraw_pushButton">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 0, 8);</string>
        </property>

@@ -4,10 +4,11 @@
 #include "WalletListWidgetItem.h"
 #include <QMessageBox>
 
-AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Account *account) :
+AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Account *account, Playground *playground) :
     QWidget(parent),
     ui(new Ui::AccountListWidgetItem),
-    account_(account)
+    account_(account),
+    playground_(playground)
 {
     ui->setupUi(this);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
@@ -31,16 +32,6 @@ void AccountListWidgetItem::VerifyData(Token *token, double quantity)
     mint_dialog->accept();
 }
 
-void AccountListWidgetItem::on_pushButton_clicked()
-{
-    if (!Token::existing_tokens().size()) {
-        QMessageBox::about(this, "Minting failed", "There are no tokens at the moment!");
-        return;
-    }
-    mint_dialog = new MintDialog(this);
-    mint_dialog->exec();
-}
-
 void AccountListWidgetItem::CreateNewWalletItem(Token* token){
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
@@ -59,3 +50,21 @@ void AccountListWidgetItem::UpdateWalletItem(Token* token){
         ui->listWidget->setItemWidget(item, wallet_item);
     }
 }
+
+void AccountListWidgetItem::on_mint_pushButton_clicked()
+{
+    if (!playground_->existing_tokens().size()) {
+        QMessageBox::about(this, "Minting failed", "There are no tokens at the moment!");
+        return;
+    }
+    mint_dialog = new MintDialog(this, playground_);
+    mint_dialog->exec();
+}
+
+
+void AccountListWidgetItem::on_trade_pushButton_clicked()
+{
+    trade_dialog = new TradeDialog(this, playground_, account_);
+    trade_dialog->exec();
+}
+
