@@ -80,7 +80,11 @@ std::unordered_set<Token *> PoolInterface::tokens() const {
      *
      * @return: the set of tokens in the pool
      */
-    return std::unordered_set<Token *>(tokens_container_.tokens().begin(), tokens_container_.tokens().end());
+    std::unordered_set<Token *> tokens;
+    for (auto token : tokens_container_.tokens()) {
+        tokens.emplace(token);
+    }
+    return tokens;
 }
 
 double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const {
