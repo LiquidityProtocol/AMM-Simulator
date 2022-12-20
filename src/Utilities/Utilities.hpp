@@ -41,6 +41,7 @@ public:
     std::vector<Token *> tokens() const;
 
     bool operator==(const TokensContainer &other) const;
+
 private:
     std::vector<Token *> tokens_;
 };
@@ -60,11 +61,13 @@ namespace std {
 
 class Operation {
 public:
-    Operation(const std::string &operation_type,
-              const std::string &account_name,
-              PoolInterface *pool,
-              std::unordered_map<Token *, double> input,
-              std::unordered_map<Token *, double> output);
+    Operation(
+        const std::string &operation_type,
+        const std::string &account_name,
+        PoolInterface *pool,
+        const std::unordered_map<Token *, double> &input,
+        const std::unordered_map<Token *, double> &output
+    );
 
     std::string operation_type() const;
     std::string account_name() const;
@@ -72,6 +75,7 @@ public:
     std::unordered_map<Token *, double> output() const;
 
     friend std::ostream & operator<<(std::ostream &os, const Operation &op);
+
 private:
     std::string operation_type_;
     std::string account_name_;
@@ -85,6 +89,7 @@ public:
     Account & operator=(const Account &) = delete;
 	Account(const Account &) = delete;
 
+    friend class PoolInterface;
     friend class Playground;
 
     std::string name() const;
@@ -130,6 +135,7 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
 
     std::vector<Operation *> ledger() const;
+
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 1;
 
@@ -139,6 +145,7 @@ protected:
     virtual double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const = 0;
     virtual double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const;
     virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const;
+
 private:
     TokensContainer tokens_container_;
     std::unordered_map<Token *, double> quantities_;
@@ -156,6 +163,8 @@ private:
     Operation * Withdraw(Account *provider, double surrendered_pool_token_quantity);
 
     bool CheckWallet(Account *account, const std::unordered_map<Token *, double> &quantities) const;
+
+    void UpdateWallet(Account *account, Token *token, double quantity) const;
 
     void ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity);
 
