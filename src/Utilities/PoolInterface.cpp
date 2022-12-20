@@ -285,6 +285,11 @@ bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token
     return true;
 }
 
+void PoolInterface::UpdateWallet(Account *account, Token *token, double quantity) const {
+    account->wallet_[token] += quantity;
+    account->total_value_ += quantity * token->real_value();
+}
+
 void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity) {
     /*
      * This method executes a swap.
@@ -302,9 +307,9 @@ void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *outp
     }
     
     quantities_[input_token] += input_quantity;
-    trader->Deposit(input_token, -input_quantity);
+    UpdateWallet(trader, input_token, -input_quantity);
     quantities_[output_token] -= output_quantity;
-    trader->Deposit(output_token, output_quantity);
+    UpdateWallet(trader, output_token, output_quantity);
 }
 
 bool PoolInterface::ValidProvision(std::unordered_map<Token *, double> quantities) const {
@@ -345,10 +350,10 @@ void PoolInterface::ExecuteProvision(Account *provider, std::unordered_map<Token
      */
     for (auto [token, quantity] : input_quantities) {
         quantities_[token] += quantity;
-        provider->Deposit(token, -quantity);
+        UpdateWallet(provider, token, -quantity);
     }
     quantities_[pool_token_] += generated_pool_token_quantity;
-    provider->Deposit(pool_token_, generated_pool_token_quantity);
+    UpdateWallet(provider, pool_token_, generated_pool_token_quantity);
 }
 
 void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities) {
@@ -365,8 +370,8 @@ void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool
      */
     for (auto [token, quantity] : output_quantities) {
         quantities_[token] -= quantity;
-        provider->Deposit(token, quantity);
+        UpdateWallet(provider, token, quantity);
     }
     quantities_[pool_token_] -= surrendered_pool_token_quantity;
-    provider->Deposit(pool_token_, -surrendered_pool_token_quantity);
+    UpdateWallet(provider, pool_token_, -surrendered_pool_token_quantity);
 }

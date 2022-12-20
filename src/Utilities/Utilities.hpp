@@ -89,6 +89,7 @@ public:
     Account & operator=(const Account &) = delete;
 	Account(const Account &) = delete;
 
+    friend class PoolInterface;
     friend class Playground;
 
     std::string name() const;
@@ -162,6 +163,8 @@ private:
     Operation * Withdraw(Account *provider, double surrendered_pool_token_quantity);
 
     bool CheckWallet(Account *account, const std::unordered_map<Token *, double> &quantities) const;
+
+    void UpdateWallet(Account *account, Token *token, double quantity) const;
 
     void ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity);
 

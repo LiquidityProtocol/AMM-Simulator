@@ -15,16 +15,16 @@ int main () {
     PoolInterface *pool = playground.GetPool(PROTOCOL::UNISWAP_V2, {token1, token2});
 
     playground.ExecuteSwap(acc1, pool, token1, token2, 10);
-    
 
-    std::cout << pool->GetQuantity(pool->pool_token());
+    std::cout << pool->total_pool_token_quantity() << '\n';
     std::unordered_map<Token*, double> output = playground.ExecuteWithdrawal(acc1, pool->pool_token(), 1); 
     
-    for (auto op: acc1->ledger()){
+    for (auto op: acc1->ledger()) {
         std::cout << *op;
     }
-    for (auto data: acc1->wallet()){
+    for (auto data: acc1->wallet()) {
         std::cout << data.first->name() << ": " << data.second << "\n";
     }
+
     return 0;
 }
