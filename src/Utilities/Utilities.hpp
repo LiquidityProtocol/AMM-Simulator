@@ -113,6 +113,7 @@ public:
     Operation * Withdraw(Account *provider, double surrendered_pool_token_quantity);
 
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
+    double GetSpotPrice(Token *input_token, Token *output_token) const;
 
     std::vector<Operation *> ledger() const;
 protected:

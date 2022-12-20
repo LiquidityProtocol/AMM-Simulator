@@ -231,6 +231,10 @@ double PoolInterface::GetSlippage(Token *input_token, Token *output_token, doubl
     }
 }
 
+double PoolInterface::GetSpotPrice(Token *input_token, Token *output_token) const {
+    return ComputeSpotExchangeRate(input_token, output_token);
+}
+
 std::vector<Operation *> PoolInterface::ledger() const {
     /*
      * This method returns the ledger of the pool.
