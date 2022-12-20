@@ -232,7 +232,11 @@ double PoolInterface::GetSlippage(Token *input_token, Token *output_token, doubl
 }
 
 double PoolInterface::GetSpotPrice(Token *input_token, Token *output_token) const {
-    return ComputeSpotExchangeRate(input_token, output_token);
+    if (!InPool(input_token) || !InPool(output_token)) {
+        throw std::invalid_argument("invalid token");
+    } else {
+        return ComputeSpotExchangeRate(input_token, output_token);
+    }
 }
 
 std::vector<Operation *> PoolInterface::ledger() const {
