@@ -6,6 +6,7 @@
 class UniswapV2Pool : public PoolInterface {
 public:
     friend class Playground;
+
 private:
     using PoolInterface::PoolInterface;
 

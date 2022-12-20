@@ -2,7 +2,7 @@
 
 TokensContainer::TokensContainer(const std::unordered_set<Token *> &tokens) {
     tokens_ = std::vector<Token *>(tokens.begin(), tokens.end());
-    sort(tokens_.begin(), tokens_.end(), [](Token *a, Token *b) { return a->name() < b->name(); });
+    sort(tokens_.begin(), tokens_.end(), [](Token *a, Token *b) {return a->name() < b->name();});
 }
 
 std::vector<Token *> TokensContainer::tokens() const {

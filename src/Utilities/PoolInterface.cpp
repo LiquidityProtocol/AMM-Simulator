@@ -36,10 +36,7 @@ double PoolInterface::GetQuantity(Token *token) const {
      *
      * @return: the quantity of the token in the pool
      */
-    if (!InPool(token)) {
-        throw std::invalid_argument("invalid token");
-    }
-    return quantities_.find(token)->second;
+    return InPool(token) ? quantities_.find(token)->second : 0;
 }
 
 double PoolInterface::pool_fee() const {
@@ -83,14 +80,7 @@ std::unordered_set<Token *> PoolInterface::tokens() const {
      *
      * @return: the set of tokens in the pool
      */
-    std::unordered_set<Token *> tokens;
-    tokens.reserve(quantities_.size());
-    for (auto [token, quantity] : quantities_) {
-        if (token != pool_token_) {
-            tokens.emplace(token);
-        }
-    }
-    return tokens;
+    return std::unordered_set<Token *>(tokens_container_.tokens().begin(), tokens_container_.tokens().end());
 }
 
 double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const {
@@ -185,7 +175,7 @@ std::unordered_map<Token *, double> PoolInterface::SimulateWithdrawal(double sur
         throw std::invalid_argument("invalid quantity");
     }
     std::unordered_map<Token *, double> output_quantities;
-    double ratio = surrendered_pool_token_quantity / GetQuantity(pool_token_);
+    double ratio = surrendered_pool_token_quantity / total_pool_token_quantity();
     for (auto token : tokens()) {
         output_quantities[token] = GetQuantity(token) * ratio;
     }
