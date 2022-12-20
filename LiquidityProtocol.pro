@@ -12,34 +12,37 @@ SOURCES += \
     AccountListWidgetItem.cpp \
     MintDialog.cpp \
     TokenListWidgetItem.cpp \
+    TradeDialog.cpp \
     WalletListWidgetItem.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp \
-    src/Utilities/Initializer.cpp \
     src/Utilities/Operation.cpp \
     src/Utilities/PoolInterface.cpp \
     src/Utilities/Token.cpp \
     src/Utilities/TokensContainer.cpp \
-    src/Protocols/UniswapV2Pool.cpp \
+    src/Playground.cpp
 
 HEADERS += \
     AccountListWidgetItem.h \
     MainWindow.h \
     MintDialog.h \
     TokenListWidgetItem.h \
+    TradeDialog.h \
     WalletListWidgetItem.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
     src/Protocols/UniswapV2Pool.hpp \
-    src/Protocols/UniswapV3Pool.hpp
+    src/Protocols/UniswapV3Pool.hpp \
+    src/Playground.hpp
 
 FORMS += \
     AccountListWidgetItem.ui \
     MainWindow.ui \
     MintDialog.ui \
     TokenListWidgetItem.ui \
+    TradeDialog.ui \
     WalletListWidgetItem.ui
 
 # Default rules for deployment.
