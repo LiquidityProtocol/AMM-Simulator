@@ -1,3 +1,6 @@
+#ifndef PROTOCOLS_HPP
+#define PROTOCOLS_HPP
+
 #include "UniswapV2Pool.hpp"
 #include "UniswapV3Pool.hpp"
 #include "ConstantSum.hpp"
@@ -9,3 +12,5 @@ enum PROTOCOL {
     CONSTANT_SUM,
     BALANCER
 };
+
+#endif

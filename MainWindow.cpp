@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     playground_ = new Playground;
+    Token* token1 = playground_->GetToken("token1", 10).first;
+    Token* token2 = playground_->GetToken("token2", 20).first;
+    Account* acc1 = playground_->GetAccount("account1").first;
+    playground_->ExecuteInitialProvision(acc1, UNISWAP_V2, {{token1, 1}, {token2, 2}}, 0);
 }
 
 MainWindow::~MainWindow()

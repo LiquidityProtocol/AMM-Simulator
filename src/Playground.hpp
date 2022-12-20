@@ -6,6 +6,7 @@
 
 class Playground {
 public:
+    std::unordered_map <std::string, PROTOCOL> protocols = {{"UniswapV2", UNISWAP_V2}, {{"UniswapV3"}, UNISWAP_V3}, {"Constant Sum", CONSTANT_SUM}, {"Balancer", BALANCER}};
     std::pair<Token *, bool> GetToken(const std::string &name, double real_value = 0);
     std::unordered_set<Token *> existing_tokens() const;
 
