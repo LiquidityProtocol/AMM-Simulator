@@ -33,6 +33,7 @@ HEADERS += \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
+    src/Protocols/Protocols.hpp \
     src/Protocols/UniswapV2Pool.hpp \
     src/Protocols/UniswapV3Pool.hpp \
     src/Playground.hpp
