@@ -4,7 +4,7 @@
 #include "WalletListWidgetItem.h"
 #include <QMessageBox>
 
-AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Account *account, Playground *playground) :
+AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playground, Account *account) :
     QWidget(parent),
     ui(new Ui::AccountListWidgetItem),
     account_(account),

@@ -16,7 +16,7 @@ class AccountListWidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit AccountListWidgetItem(QWidget *parent = nullptr, Account *account = nullptr, Playground* playground=nullptr);
+    explicit AccountListWidgetItem(QWidget *parent = nullptr, Playground* playground = nullptr, Account *account = nullptr);
     ~AccountListWidgetItem();
     void CreateNewWalletItem(Token* token);
     void UpdateWalletItem(Token* token);
