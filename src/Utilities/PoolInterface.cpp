@@ -18,7 +18,10 @@ PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, dou
         pool_fee_ = pool_fee;
     }
     pool_token_ = Token::GetToken("PoolToken" + std::to_string(reinterpret_cast<uint64_t>(this)));
-    quantities_[pool_token_] = 1;
+    quantities_[pool_token_] = 0;
+
+    for (auto [token, quantity] : quantities)
+        quantities_[pool_token_] += quantity;
 }
 
 bool PoolInterface::InPool(Token *token) const {
