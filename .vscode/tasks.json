@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: clang++ build active file",
+      "command": "/usr/bin/clang++",
+      "args": [
+        "-std=c++17",
+        "-fcolor-diagnostics",
+        "-fansi-escape-codes",
+        "-g",
+        "/Users/minhpham1606/Code/Liquidity-Protocol-Project/src/Utilities/*.cpp",
+        // "../Playground.cpp",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "compiler: /usr/bin/clang++"
+    }
+  ]
+}

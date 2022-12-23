@@ -19,9 +19,11 @@ public:
 private slots:
     void on_input_token_comboBox_currentTextChanged(const QString &arg1);
 
-    void on_output_token_comboBox_currentTextChanged(const QString &arg1);
+//    void on_protocol_comboBox_currentTextChanged(const QString &arg1);
 
-    void on_protocol_comboBox_currentTextChanged(const QString &arg1);
+    void on_output_token_comboBox_currentTextChanged(const QString &output_token);
+
+    void on_protocol_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::TradeDialog *ui;

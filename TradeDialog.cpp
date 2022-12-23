@@ -14,6 +14,7 @@ TradeDialog::TradeDialog(QWidget *parent, Playground *playground, Account *accou
     for(const auto &[protocol_name, protocol]: playground_->protocols){
         ui->protocol_comboBox->addItem(QString::fromStdString(protocol_name));
     }
+    ui->protocol_comboBox->setCurrentIndex(-1);
 
 }
 
@@ -33,37 +34,37 @@ void TradeDialog::on_input_token_comboBox_currentTextChanged(const QString &curr
 }
 
 
+//void TradeDialog::on_output_token_comboBox_currentTextChanged(const QString &output_token)
+//{
+//    ui->pool_comboBox->clear();
+//    Token *input = playground_->GetToken(ui->input_token_comboBox->currentText().toStdString()).first;
+//    Token *output = playground_->GetToken(output_token.toStdString()).first;
+//    PROTOCOL protocol = playground_->protocols[ui->protocol_comboBox->currentText().toStdString()];
+//    std::unordered_set<PoolInterface*> pools = playground_->GetPools(protocol, input, output);
+//    for(auto pool: pools){
+//        QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
+//        ui->pool_comboBox->addItem(pool_name);
+//    }
+//}
+
 void TradeDialog::on_output_token_comboBox_currentTextChanged(const QString &output_token)
 {
-    Token *input = playground_->GetToken(ui->input_token_comboBox->currentText().toStdString()).first;
-    std::cout << ui->output_token_comboBox->currentText().toStdString();
-    if(ui->protocol_comboBox->currentText().size() && ui->output_token_comboBox->currentText().size()){
-
-//        Token *output = playground_->GetToken(output_token.toStdString()).first;
-//        PROTOCOL protocol = playground_->protocols[ui->protocol_comboBox->currentText().toStdString()];
-//        std::unordered_set<PoolInterface*> pools = playground_->GetPools(protocol, input, output);
-//        for(auto pool: pools){
-//            QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
-//            ui->pool_comboBox->addItem(pool_name);
-//        }
-    }
-
-
+    ui->protocol_comboBox->setCurrentIndex(-1);
 }
 
 
-void TradeDialog::on_protocol_comboBox_currentTextChanged(const QString &protocol_name)
+void TradeDialog::on_protocol_comboBox_currentIndexChanged(int index)
 {
-//    Token *input = playground_->GetToken(ui->input_token_comboBox->currentText().toStdString()).first;
-//    PROTOCOL protocol = playground_->protocols[protocol_name.toStdString()];
-//    if(ui->output_token_comboBox->count()){
-//        Token *output = playground_->GetToken(ui->output_token_comboBox->currentText().toStdString()).first;
-//        std::unordered_set<PoolInterface*> pools = playground_->GetPools(protocol, input, output);
-//        for(auto pool: pools){
-//            QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
-//            ui->pool_comboBox->addItem(pool_name);
-
-//        }
-//    }
+    if (index != -1){
+        ui->pool_comboBox->clear();
+            Token *input = playground_->GetToken(ui->input_token_comboBox->currentText().toStdString()).first;
+            Token *output = playground_->GetToken(ui->output_token_comboBox->currentText().toStdString()).first;
+            PROTOCOL protocol = playground_->protocols[ui->protocol_comboBox->itemText(index).toStdString()];
+            std::unordered_set<PoolInterface*> pools = playground_->GetPools(protocol, input, output);
+//            for(auto pool: pools){
+//                QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
+//                ui->pool_comboBox->addItem(pool_name);
+//            }
+    }
 }
 

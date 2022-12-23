@@ -13,7 +13,6 @@ int main () {
     acc1->Deposit(token2, 2000);
     playground.ExecuteInitialProvision(acc1, PROTOCOL::UNISWAP_V2, {{token1, 10}, {token2, 20}}, 0);
     PoolInterface *pool = playground.GetPool(PROTOCOL::UNISWAP_V2, {token1, token2});
-
     playground.ExecuteSwap(acc1, pool, token1, token2, 10);
     
 

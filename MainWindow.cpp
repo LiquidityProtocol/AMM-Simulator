@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     Token* token1 = playground_->GetToken("token1", 10).first;
     Token* token2 = playground_->GetToken("token2", 20).first;
     Account* acc1 = playground_->GetAccount("account1").first;
+    acc1->Deposit(token1, 100);
+    acc1->Deposit(token2, 100);
     playground_->ExecuteInitialProvision(acc1, UNISWAP_V2, {{token1, 1}, {token2, 2}}, 0);
 }
 
