@@ -16,6 +16,9 @@ public:
     explicit TradeDialog(QWidget *parent = nullptr, Playground* playground=nullptr, Account* account_=nullptr);
     ~TradeDialog();
 
+signals:
+    void SendData(PoolInterface* pool, Token* input_token, Token* output_token, double quantity);
+
 private slots:
     void on_input_token_comboBox_currentTextChanged(const QString &arg1);
 
@@ -28,6 +31,8 @@ private slots:
     void on_pool_comboBox_currentIndexChanged(int index);
 
     void on_input_quantity_lineEdit_textChanged(const QString &arg1);
+
+    void on_pushButton_clicked();
 
 private:
     Ui::TradeDialog *ui;

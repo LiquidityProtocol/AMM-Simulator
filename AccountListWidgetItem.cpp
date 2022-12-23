@@ -70,15 +70,17 @@ void AccountListWidgetItem::on_trade_pushButton_clicked()
 
 void AccountListWidgetItem::VerifyTrade(PoolInterface* pool, Token* input_token, Token* output_token, double input_quantity){
     if(input_quantity > account_->GetQuantity(input_token)){
-        QMessageBox::about(this, "Trade failed" ,"Not enough token!");
+        QMessageBox::about(trade_dialog, "Trade failed" ,"Not enough token!");
         return;
     }else{
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
-        for (int i = 0; i < ui->listWidget->count(); i++){
-            QListWidgetItem* item = ui->listWidget->item(i);
-            WalletListWidgetItem* wallet_item = qobject_cast<WalletListWidgetItem*>(ui->listWidget->itemWidget(item));
-            Token* token = wallet_item->GetToken();
-            wallet_item->UpdateTokenQuantity(account_->GetQuantity(token));
+        ui->listWidget->clear();
+        for (const auto &[token, quantity]: account_->wallet()){
+            if(quantity){
+                CreateNewWalletItem(token);
+            }
         }
+        trade_dialog->accept();
     }
+
 }

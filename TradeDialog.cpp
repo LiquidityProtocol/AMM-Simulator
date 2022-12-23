@@ -1,5 +1,6 @@
 #include "TradeDialog.h"
 #include "ui_TradeDialog.h"
+#include "AccountListWidgetItem.h"
 
 TradeDialog::TradeDialog(QWidget *parent, Playground *playground, Account *account) :
     QDialog(parent),
@@ -8,6 +9,7 @@ TradeDialog::TradeDialog(QWidget *parent, Playground *playground, Account *accou
     account_(account)
 {
     ui->setupUi(this);
+    connect(this, &TradeDialog::SendData, qobject_cast<AccountListWidgetItem*>(parent), &AccountListWidgetItem::VerifyTrade);
     for(const auto &[token, quantity]: account_->wallet()){
         ui->input_token_comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
     }
@@ -59,7 +61,7 @@ void TradeDialog::on_pool_comboBox_currentIndexChanged(int index)
 {
     if(index != -1){
         current_pool_ = ui->pool_comboBox->itemData(index).value<PoolInterface*>();
-        double input_quantity = ui->input_token_comboBox->currentText().toDouble();
+        double input_quantity = ui->input_quantity_lineEdit->text().toDouble();
         if(input_quantity > 0){
             double output_quantity = playground_->SimulateSwap(current_pool_, input_token_, output_token_, input_quantity);
             ui->output_quantity_lineEdit->setText(QString::number(output_quantity));
@@ -75,5 +77,11 @@ void TradeDialog::on_input_quantity_lineEdit_textChanged(const QString &input_qu
         double output_quantity = playground_->SimulateSwap(current_pool_, input_token_, output_token_, input_quantity);
         ui->output_quantity_lineEdit->setText(QString::number(output_quantity));
     }
+}
+
+
+void TradeDialog::on_pushButton_clicked()
+{
+    emit SendData(current_pool_, input_token_, output_token_, ui->input_quantity_lineEdit->text().toDouble());
 }
 
