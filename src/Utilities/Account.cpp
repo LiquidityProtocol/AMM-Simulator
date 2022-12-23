@@ -21,9 +21,16 @@ double Account::GetQuantity(Token *token) const {
 }
 
 void Account::Deposit(Token *token, double quantity) {
+    if (token->pool()) {
+        throw std::invalid_argument("pool token deposition is not allowed");
+    }
     wallet_[token] += quantity;
     total_value_ += quantity * token->real_value();
 }
+
+Account::Account(const std::string &name)
+    : name_(name)
+    , total_value_(0) {}
 
 double Account::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     ledger_.emplace_back(pool->Swap(this, input_token, output_token, input_quantity));
@@ -39,7 +46,3 @@ std::unordered_map<Token *, double> Account::Withdraw(PoolInterface *pool, doubl
     ledger_.emplace_back(pool->Withdraw(this, surrendered_quantity));
     return ledger_.back()->output();
 }
-
-Account::Account(const std::string &name)
-    : name_(name)
-    , total_value_(0) {}

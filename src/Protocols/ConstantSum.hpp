@@ -9,7 +9,10 @@ class ConstantSum : public PoolInterface {
     */
 public:
     friend class Playground;
+
 private:
+    std::unordered_map<Token *, double> slopes_;
+
     ConstantSum(
         std::unordered_set<Token *> tokens,
         double pool_fee,
@@ -33,8 +36,6 @@ private:
         return slopes_.find(token)->second;
     }
 
-    std::unordered_map<Token *, double> slopes_;
-
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 0;
         for (auto [token, quantity] : quantities) {
@@ -56,4 +57,4 @@ private:
     }
 };
 
-#endif
+#endif // CONSTANT_SUM_HPP

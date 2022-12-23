@@ -7,7 +7,10 @@
 class BalancerPool : public PoolInterface {
 public:
     friend class Playground;
+
 private:
+    std::unordered_map<Token *, double> weights_;
+
     BalancerPool(
         std::unordered_set<Token *> tokens,
         double pool_fee,
@@ -34,8 +37,6 @@ private:
         return weights_.find(token)->second;
     }
 
-    std::unordered_map<Token *, double> weights_;
-
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 1;
         for (auto [token, quantity] : quantities) {
@@ -59,4 +60,4 @@ private:
     }
 };
 
-#endif
+#endif // BALANCER_POOL_HPP

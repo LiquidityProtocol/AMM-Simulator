@@ -54,6 +54,9 @@ PoolInterface * Playground::GetPool(PROTOCOL protocol, const std::unordered_set<
 }
 
 std::unordered_set<PoolInterface *> Playground::GetPools(PROTOCOL protocol, Token *input_token, Token *output_token) const {
+    if (!existing_pools_.count(protocol)) {
+        return {};
+    }
     std::unordered_set<PoolInterface *> pools;
     for (const auto &[tokens_container, pool] : existing_pools_.find(protocol)->second) {
         if (pool->InPool(input_token) && pool->InPool(output_token)) {
@@ -148,13 +151,13 @@ std::unordered_map<Token *, double> Playground::ExecuteWithdrawal(Account *provi
     std::unordered_map<Token *, double> output_quantities = provider->Withdraw(token->pool(), surrendered_quantity);
     if (!token->pool()->total_pool_token_quantity()) {
         PROTOCOL protocol;
-        if (typeid(token->pool()) == typeid(UniswapV2Pool)) {
+        if (typeid(*(token->pool())) == typeid(UniswapV2Pool)) {
             protocol = PROTOCOL::UNISWAP_V2;
-        } else if (typeid(token->pool()) == typeid(UniswapV3Pool)) {
+        } else if (typeid(*(token->pool())) == typeid(UniswapV3Pool)) {
             protocol = PROTOCOL::UNISWAP_V3;
-        } else if (typeid(token->pool()) == typeid(ConstantSum)) {
+        } else if (typeid(*(token->pool())) == typeid(ConstantSum)) {
             protocol = PROTOCOL::CONSTANT_SUM;
-        } else if (typeid(token->pool()) == typeid(BalancerPool)) {
+        } else if (typeid(*(token->pool())) == typeid(BalancerPool)) {
             protocol = PROTOCOL::BALANCER;
         }
         existing_pools_[protocol].erase(token->pool()->tokens_container_);

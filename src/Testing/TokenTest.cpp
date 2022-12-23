@@ -1,14 +1,18 @@
 #include <cassert>
-#include "../Utilities/Utilities.hpp"
+#include "../Playground.hpp"
 
 int main () {
-    Token *token1_pointer = Token::GetToken("token1");
-    Token *token2_pointer = Token::GetToken("token2");
-    Token *another_token1_pointer = Token::GetToken("token1");
+    Playground playground;
 
-    assert(token1_pointer != token2_pointer);
-    assert(token1_pointer == another_token1_pointer);
-    assert(token1_pointer->name() == "token1");
+    Token *token1 = playground.GetToken("token1").first;
+    Token *token2 = playground.GetToken("token2").first;
+    Token *another_token1 = playground.GetToken("token1").first;
+
+    assert(token1 != token2);
+    assert(token1 == another_token1);
+    assert(token1->name() == "token1");
+
+    std::cout << "Success!\n";
 
     return 0;
 }
