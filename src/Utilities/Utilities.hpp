@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <utility>
+#include <QVariant>
 
 class PoolInterface;
 
@@ -174,5 +175,8 @@ private:
 
     void ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities);
 };
+
+Q_DECLARE_METATYPE(PoolInterface*);
+Q_DECLARE_METATYPE(Token*);
 
 #endif // UTILITIES_HPP

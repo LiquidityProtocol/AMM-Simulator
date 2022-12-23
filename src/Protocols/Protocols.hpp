@@ -5,6 +5,7 @@
 #include "UniswapV3Pool.hpp"
 #include "ConstantSum.hpp"
 #include "BalancerPool.hpp"
+#include <QVariant>
 
 enum PROTOCOL {
     UNISWAP_V2,
@@ -13,4 +14,5 @@ enum PROTOCOL {
     BALANCER
 };
 
+Q_DECLARE_METATYPE(PROTOCOL);
 #endif

@@ -20,6 +20,10 @@ std::string WalletListWidgetItem::GetTokenName(){
     return token_->name();
 }
 
+Token* WalletListWidgetItem::GetToken(){
+    return token_;
+}
+
 void WalletListWidgetItem::UpdateTokenQuantity(double quantity){
     ui->lineEdit_quantity->setText(QString::number(quantity));
 }

@@ -21,8 +21,10 @@ public:
     void CreateNewWalletItem(Token* token);
     void UpdateWalletItem(Token* token);
 
+
 public slots:
     void VerifyData(Token *token, double quantity);
+    void VerifyTrade(PoolInterface* pool, Token* input_token, Token* output_token, double input_quantity);
 
 private slots:
     void on_mint_pushButton_clicked();

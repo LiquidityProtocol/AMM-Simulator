@@ -16,6 +16,7 @@ public:
     ~WalletListWidgetItem();
     std::string GetTokenName();
     void UpdateTokenQuantity(double quantity);
+    Token* GetToken();
 
 private:
     Ui::WalletListWidgetItem *ui;

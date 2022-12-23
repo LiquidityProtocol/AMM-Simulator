@@ -15,3 +15,7 @@ TokenListWidgetItem::~TokenListWidgetItem()
 {
     delete ui;
 }
+
+Token* TokenListWidgetItem::token(){
+    return token_;
+}

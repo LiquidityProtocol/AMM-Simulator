@@ -25,10 +25,18 @@ private slots:
 
     void on_protocol_comboBox_currentIndexChanged(int index);
 
+    void on_pool_comboBox_currentIndexChanged(int index);
+
+    void on_input_quantity_lineEdit_textChanged(const QString &arg1);
+
 private:
     Ui::TradeDialog *ui;
     Playground *playground_;
     Account* account_;
+    PoolInterface* current_pool_;
+    Token* input_token_;
+    Token* output_token_;
+    PROTOCOL protocol_;
 };
 
 #endif // TRADEDIALOG_H
