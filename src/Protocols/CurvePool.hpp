@@ -8,28 +8,17 @@ double solve(int n, double a, double b); // solve equation x^n + ax + b = 0
 
 class CurvePool : public PoolInterface {
 public:
-    CurvePool(std::unordered_map<Token *, double> quantities,
+    CurvePool(std::unordered_set<Token *> tokens,
                   double pool_fee, 
-                  double leverage = 0) : PoolInterface(quantities, pool_fee) {
+                  double leverage = 0) : PoolInterface(tokens, pool_fee) {
                     
         if (leverage < 0) {
             throw std::invalid_argument("invalid leverage");
         } else {
             leverage_ = leverage;
         }
-        double S = 0;
-        double P = 1;
-        int n = quantities.size();
-
-        for (auto [token, quantity] : quantities) {
-            S += quantity / scale_;
-            P *= quantity / scale_;
-        }
-        // A * (S / C - 1) = (C / n) ** n / P - 1
-        constant_ = solve(n + 1, std::pow(n, n) * P * (leverage - 1), -std::pow(n, n) * P * leverage * S);
     }
 private:
-    const double scale_ = 1000;
     double leverage_;
     double constant_;
 
@@ -49,7 +38,30 @@ private:
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         // the params of this function is not related
         // I only take into account the invariant of the pool
-        return constant_ * scale_ * GetQuantity(pool_token());
+        static double *constant_ = NULL;
+
+        if (quantities == this->quantities()) {
+            if (constant_) {
+                return (*constant_) * GetQuantity(pool_token());
+            } else {
+                const double scale = 10000;
+                double S = 0;
+                double P = 1;
+
+                int n = quantities.size();
+                
+                for (auto [token, quantity] : quantities) {
+                    S += quantity / scale;
+                    P *= quantity / scale;
+                }
+                constant_ = new double(solve(n + 1, std::pow(n, n) * P * (leverage_ - 1), -std::pow(n, n) * P * leverage_ * S));
+
+                // A * (S / C - 1) = (C / n) ** n / P - 1
+                return *constant_;
+            }
+        } else {
+            throw std::invalid_argument("Not passing snapshot of this pool");
+        }
     }
     double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
         double r1 = GetQuantity(input_token);
@@ -58,7 +70,7 @@ private:
         double P = Product();
         double C = ComputeInvariant({});
 
-        int n = quantities_.size() - 1;
+        int n = quantities().size();
 
         double spot_price = r1 / r2;
 
@@ -69,9 +81,9 @@ private:
     }
 
     double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const {
-        int n = quantities_.size() - 1;
+        int n = quantities().size();
 
-        double C = ComputeInvariant(quantities_);
+        double C = ComputeInvariant(quantities());
         double X = std::pow((C / n),n);
 
         double prod_exo = 1;    // new pool product excluding output asset

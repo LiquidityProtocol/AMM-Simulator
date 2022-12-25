@@ -7,13 +7,13 @@
 #include "CurvePool.hpp"
 #include "ConstantSum.hpp"
 
-enum Protocol {
+enum PROTOCOL {
     UNISWAP_V2 = 0,
     UNISWAP_V3 = 1,
     BALANCER = 2,
     CURVE = 3,
     CONSTANT_SUM = 4
 };
-Protocol getPoolType(PoolInterface *pool);
+PROTOCOL getPoolType(PoolInterface *pool);
 
 #endif
