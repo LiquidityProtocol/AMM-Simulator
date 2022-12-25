@@ -1,7 +1,7 @@
 #include "WalletListWidgetItem.h"
 #include "ui_WalletListWidgetItem.h"
 
-WalletListWidgetItem::WalletListWidgetItem(QWidget *parent, Token* token, double quantity) :
+WalletListWidgetItem::WalletListWidgetItem(QWidget *parent, Token *token, double quantity) :
     QWidget(parent),
     ui(new Ui::WalletListWidgetItem),
     token_(token)
@@ -20,7 +20,7 @@ std::string WalletListWidgetItem::GetTokenName(){
     return token_->name();
 }
 
-Token* WalletListWidgetItem::GetToken(){
+Token * WalletListWidgetItem::token() const {
     return token_;
 }
 

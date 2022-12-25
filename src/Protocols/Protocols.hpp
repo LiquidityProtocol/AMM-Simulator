@@ -14,5 +14,13 @@ enum PROTOCOL {
     BALANCER
 };
 
+static const std::unordered_map<PROTOCOL, std::string> PROTOCOL_NAME({
+        {PROTOCOL::UNISWAP_V2, "UNISWAP V2"},
+        {PROTOCOL::UNISWAP_V3, "UNISWAP V3"},
+        {PROTOCOL::CONSTANT_SUM, "CONSTANT SUM"},
+        {PROTOCOL::BALANCER, "BALANCER"}
+});
+
 Q_DECLARE_METATYPE(PROTOCOL);
-#endif
+
+#endif // PROTOCOLS_HPP

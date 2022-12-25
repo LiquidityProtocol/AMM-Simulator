@@ -36,7 +36,6 @@ HEADERS += \
     src/Protocols/Protocols.hpp \
     src/Protocols/UniswapV2Pool.hpp \
     src/Protocols/UniswapV3Pool.hpp \
-    src/Protocols/Protocols.hpp \
     src/Playground.hpp
 
 FORMS += \
