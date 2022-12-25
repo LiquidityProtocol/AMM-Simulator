@@ -8,11 +8,11 @@
 #include "ConstantSum.hpp"
 
 enum Protocol {
-    UNISWAPV2 = 0,
-    UNISWAPV3 = 1,
+    UNISWAP_V2 = 0,
+    UNISWAP_V3 = 1,
     BALANCER = 2,
     CURVE = 3,
-    CONSTANTSUM = 4
+    CONSTANT_SUM = 4
 };
 Protocol getPoolType(PoolInterface *pool);
 
