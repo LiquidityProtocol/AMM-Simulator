@@ -110,3 +110,6 @@ Amine Roudani
 Finished the implementation of UniswapV3. Fixed some problems with the computations.
 Researched and started implementing the Curve protocol. 
 
+Gabriele Biroli
+
+This week I was assigned to find the limits of the balancer pool protocol. The balancer pool protocol is what determines how assets in the liquidity pool are managed and traded. However, the tester of the class having not yet been coded, I worked on writing the tester as well as I figured out what were the possible and most important issues and limits of the protocol. Having no fees or rewards associated with trading in the pool, it wasn’t easy to find limits that hadn’t been already thought of (such as the types of assets that can be included in the pool, or the minimum and maximum amount of each asset that can be added to the pool). Now it remains to see how the overall performance and efficiency of the pool may be limited by factors such as the level of liquidity in the it and the complexity of the trading rules.
