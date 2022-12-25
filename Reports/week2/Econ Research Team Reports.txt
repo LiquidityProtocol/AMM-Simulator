@@ -34,3 +34,16 @@ The main thing to do will be to create a rudimentary class
 through which explansions can occur through simply addiding
 extra and modified member functions. However creating a 
 simple working class will be the first main priority.
+
+Gabriele Biroli
+
+This week, Shubh and I were tasked to do further research on 
+parameters effects on agents’ outcomes. Hence, we ran some 
+simulations taking a random sample and spent the week learning 
+the standard template library (random one). 
+Furthermore, we read through the other teams’ code as well, 
+in order to understand and determine which already implemented 
+functions will be useful for us further on in the project. Now, 
+this week we will focus on starting to code the simulation and 
+understanding how to measure key determinants of Slippage and 
+Divergence Loss.
