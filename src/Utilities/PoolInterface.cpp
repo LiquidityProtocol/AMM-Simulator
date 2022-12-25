@@ -1,24 +1,19 @@
 #include "Utilities.hpp"
 
-PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, double pool_fee) : quantities_(quantities) {
-    /*
-     * This constructor is used to create a new pool.
-     *
-     * @param quantities: a map of token pointers to quantities of each token in the pool
-     * @param pool_fee: the fee charged by the pool for each trade
-     *
-     * @return: none
-     */
-    if (quantities.size() < 2) {
+PoolInterface::PoolInterface(std::unordered_set<Token *> tokens, double pool_fee)
+    : tokens_container_(TokensContainer(tokens))
+    , pool_fee_(pool_fee) {
+    if (tokens.size() < 2) {
         throw std::invalid_argument("not enough tokens");
     }
     if (pool_fee < 0 || pool_fee > 1) {
         throw std::invalid_argument("invalid pool fee");
-    } else {
-        pool_fee_ = pool_fee;
     }
-    pool_token_ = Token::GetToken("PoolToken" + std::to_string(reinterpret_cast<uint64_t>(this)));
-    quantities_[pool_token_] = 1;
+
+    for (auto token : tokens) {
+        quantities_[token] = 0;
+    }
+    quantities_[pool_token_ = new Token(this)] = 0;
 }
 
 bool PoolInterface::InPool(Token *token) const {
@@ -41,10 +36,7 @@ double PoolInterface::GetQuantity(Token *token) const {
      *
      * @return: the quantity of the token in the pool
      */
-    if (!InPool(token)) {
-        throw std::invalid_argument("invalid token");
-    }
-    return quantities_.find(token)->second;
+    return InPool(token) ? quantities_.find(token)->second : 0;
 }
 
 double PoolInterface::pool_fee() const {
@@ -89,11 +81,8 @@ std::unordered_set<Token *> PoolInterface::tokens() const {
      * @return: the set of tokens in the pool
      */
     std::unordered_set<Token *> tokens;
-    tokens.reserve(quantities_.size());
-    for (auto [token, quantity] : quantities_) {
-        if (token != pool_token_) {
-            tokens.emplace(token);
-        }
+    for (auto token : tokens_container_.tokens()) {
+        tokens.emplace(token);
     }
     return tokens;
 }
@@ -147,6 +136,9 @@ double PoolInterface::SimulateProvision(std::unordered_map<Token *, double> inpu
      *
      * @return: the quantity of pool tokens that would be received if the provision were to occur
      */
+    if (!total_pool_token_quantity()) {
+        return INITIAL_POOL_TOKEN_SUPPLY;
+    }
     if (!ValidProvision(input_quantities)) {
         throw std::invalid_argument("invalid provision");
     }
@@ -187,7 +179,7 @@ std::unordered_map<Token *, double> PoolInterface::SimulateWithdrawal(double sur
         throw std::invalid_argument("invalid quantity");
     }
     std::unordered_map<Token *, double> output_quantities;
-    double ratio = surrendered_pool_token_quantity / GetQuantity(pool_token_);
+    double ratio = surrendered_pool_token_quantity / total_pool_token_quantity();
     for (auto token : tokens()) {
         output_quantities[token] = GetQuantity(token) * ratio;
     }
@@ -297,6 +289,11 @@ bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token
     return true;
 }
 
+void PoolInterface::UpdateWallet(Account *account, Token *token, double quantity) const {
+    account->wallet_[token] += quantity;
+    account->total_value_ += quantity * token->real_value();
+}
+
 void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity) {
     /*
      * This method executes a swap.
@@ -314,9 +311,9 @@ void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *outp
     }
     
     quantities_[input_token] += input_quantity;
-    trader->Deposit(input_token, -input_quantity);
+    UpdateWallet(trader, input_token, -input_quantity);
     quantities_[output_token] -= output_quantity;
-    trader->Deposit(output_token, output_quantity);
+    UpdateWallet(trader, output_token, output_quantity);
 }
 
 bool PoolInterface::ValidProvision(std::unordered_map<Token *, double> quantities) const {
@@ -357,10 +354,10 @@ void PoolInterface::ExecuteProvision(Account *provider, std::unordered_map<Token
      */
     for (auto [token, quantity] : input_quantities) {
         quantities_[token] += quantity;
-        provider->Deposit(token, -quantity);
+        UpdateWallet(provider, token, -quantity);
     }
     quantities_[pool_token_] += generated_pool_token_quantity;
-    provider->Deposit(pool_token_, generated_pool_token_quantity);
+    UpdateWallet(provider, pool_token_, generated_pool_token_quantity);
 }
 
 void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities) {
@@ -377,8 +374,8 @@ void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool
      */
     for (auto [token, quantity] : output_quantities) {
         quantities_[token] -= quantity;
-        provider->Deposit(token, quantity);
+        UpdateWallet(provider, token, quantity);
     }
     quantities_[pool_token_] -= surrendered_pool_token_quantity;
-    provider->Deposit(pool_token_, -surrendered_pool_token_quantity);
+    UpdateWallet(provider, pool_token_, -surrendered_pool_token_quantity);
 }

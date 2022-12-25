@@ -1,21 +1,32 @@
 #include <cassert>
-#include "../Protocols/UniswapV2Pool.hpp"
+#include "../Playground.hpp"
 
 int main() {
-    Token *token1 = Token::GetToken("token1");
-    Token *token2 = Token::GetToken("token2");
-    UniswapV2Pool pool({{token1, 10}, {token2, 20}});
+    Playground playground;
 
-    Operation op("PROVIDE", "Alice", &pool, {{token1, 10}}, {{token2, 20}});
+    Token *token1 = playground.GetToken("token1", 10).first;
+    Token *token2 = playground.GetToken("token2", 20).first;
 
-    assert(op.operation_type() == "PROVIDE");
-    assert(op.account_name() == "Alice");
-    assert(op.input().size() == 1);
-    assert(op.input()[token1] == 10);
-    assert(op.output().size() == 1);
-    assert(op.output()[token2] == 20);
+    Account *alice = playground.GetAccount("Alice").first;
+    alice->Deposit(token1, 100);
+    alice->Deposit(token2, 100);
 
-    std::cout << op;
+    playground.ExecuteInitialProvision(alice, PROTOCOL::UNISWAP_V2, {{token1, 20}, {token2, 40}}, 0.01);
+    PoolInterface *pool = playground.GetPool(PROTOCOL::UNISWAP_V2, {token1, token2});
+
+    Operation *op = alice->ledger().back();
+
+    assert(op->operation_type() == "PROVIDE");
+    assert(op->account_name() == alice->name());
+    assert(op->input().size() == 2);
+    assert(op->input()[token1] == 20);
+    assert(op->input()[token2] == 40);
+    assert(op->output().size() == 1);
+    assert(op->output()[pool->pool_token()] == 1);
+
+    std::cout << *op;
+
+    std::cout << "Success!\n";
 
     return 0;
 }

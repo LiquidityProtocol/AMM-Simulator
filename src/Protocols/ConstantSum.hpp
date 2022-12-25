@@ -8,9 +8,16 @@ class ConstantSum : public PoolInterface {
     Description of Protocol: px+y=k; p is price when pool is initialised, x and y tokens respectively
     */
 public:
-    ConstantSum(std::unordered_map<Token *, double> quantities,
-                std::unordered_map<Token *, double> slopes,
-                double pool_fee = 0) : PoolInterface(quantities, pool_fee) {
+    friend class Playground;
+
+private:
+    std::unordered_map<Token *, double> slopes_;
+
+    ConstantSum(
+        std::unordered_set<Token *> tokens,
+        double pool_fee,
+        std::unordered_map<Token *, double> slopes
+    ) : PoolInterface(tokens, pool_fee) {
         double slope_sum = 0;
         for (auto [token, slope] : slopes) {
             if (slope <= 0)
@@ -28,8 +35,6 @@ public:
         }
         return slopes_.find(token)->second;
     }
-private:
-    std::unordered_map<Token *, double> slopes_;
 
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 0;
@@ -52,4 +57,4 @@ private:
     }
 };
 
-#endif
+#endif // CONSTANT_SUM_HPP
