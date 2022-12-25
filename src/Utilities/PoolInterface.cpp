@@ -86,6 +86,14 @@ std::unordered_set<Token *> PoolInterface::tokens() const {
     }
     return tokens;
 }
+std::unordered_map<Token *, double> PoolInterface::quantities() const {
+    std::unordered_map<Token *, double> quantities;
+
+    for (auto token : tokens()) {
+        quantities[token] = GetQuantity(token);
+    }
+    return quantities;
+}
 
 double PoolInterface::SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const {
     /*
