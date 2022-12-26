@@ -18,8 +18,6 @@ class AccountListWidgetItem : public QWidget
 public:
     explicit AccountListWidgetItem(QWidget *parent = nullptr, Playground* playground = nullptr, Account *account = nullptr);
     ~AccountListWidgetItem();
-    void CreateNewWalletItem(Token* token);
-    void UpdateWalletItem(Token* token);
 
 public slots:
     void VerifyData(Token *token, double quantity);
@@ -35,6 +33,8 @@ private:
     MintDialog *mint_dialog;
     TradeDialog *trade_dialog;
     Playground *playground_;
+
+    void UpdateWallet();
 };
 
 #endif // ACCOUNTLISTWIDGETITEM_H
