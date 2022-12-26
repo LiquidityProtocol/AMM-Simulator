@@ -17,7 +17,7 @@ template<typename T> T CommunityActor::GetQuantity() const {
 }
 
 void CommunityActor::refill(Token *token) {
-    wallet_[token] = 1e9;
+    wallet_[token] = 1e18;
 }
 void CommunityActor::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     refill(input_token);
