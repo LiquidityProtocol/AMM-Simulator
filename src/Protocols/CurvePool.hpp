@@ -21,7 +21,6 @@ private:
         }
     }
     double leverage_;
-    double constant_;
 
     double Sum() const {
         double ans = 0;
@@ -39,11 +38,11 @@ private:
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         // the params of this function is not related
         // I only take into account the invariant of the pool
-        static double *constant_ = NULL;
+        static double constant_ = 0;
 
         if (quantities == this->quantities()) {
             if (constant_) {
-                return (*constant_) * GetQuantity(pool_token());
+                return constant_ * GetQuantity(pool_token());
             } else {
                 const double scale = 10000;
                 double S = 0;
@@ -55,10 +54,8 @@ private:
                     S += quantity / scale;
                     P *= quantity / scale;
                 }
-                constant_ = new double(solve(n + 1, std::pow(n, n) * P * (leverage_ - 1), -std::pow(n, n) * P * leverage_ * S));
-
                 // A * (S / C - 1) = (C / n) ** n / P - 1
-                return *constant_;
+                return constant_ = solve(n + 1, std::pow(n, n) * P * (leverage_ - 1), -std::pow(n, n) * P * leverage_ * S) * scale;
             }
         } else {
             throw std::invalid_argument("Not passing snapshot of this pool");
