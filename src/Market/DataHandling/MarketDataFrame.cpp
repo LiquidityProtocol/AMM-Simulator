@@ -50,7 +50,45 @@ std::string get_std_time(long epochtime) {
     strftime(string, 80, "%Y-%m-%d", gmtime(&t));
     return string;
 }
-    
+
+std::ostream & operator << (std::ostream &os, const Transaction &a) {
+    os << std::fixed << std::setprecision(5);
+    os << "Date: " << get_std_time(a.GetTimeStamp()) << "\n";
+    os << a.GetType() << "\n";
+
+    os << ">> " << a.symbol_[0] << ": " << "Amount = " << a.amount_[0] << ", Volume = " << a.volume_[0] << "\n";
+    os << ">> " << a.symbol_[1] << ": " << "Amount = " << a.amount_[1] << ", Volume = " << a.volume_[1] << "\n";
+}
+
+Transaction::Transaction(long timestamp, std::string *symbols, double *amount, double *volume) : timestamp_(timestamp) {
+    symbol_ = symbols;
+    amount_ = amount;
+    volume_ = volume;
+
+    if (amount[0] > 0 && amount[1] > 0) {
+        type_ = "MINT";
+    } else if (amount[0] < 0 && amount[1] < 0) {
+        type_ = "BURN";
+    } else {
+        type_ = "SWAP";
+    }
+}
+std::vector<std::string> Transaction::GetSymbol() const {
+    return {symbol_[0], symbol_[1]};
+}
+std::vector<double> Transaction::GetAmount() const {
+    return {amount_[0], amount_[1]};
+}
+std::vector<double> Transaction::GetVolume() const {
+    return {volume_[0], volume_[1]};
+}
+std::string Transaction::GetType() const {
+    return type_;
+}
+long Transaction::GetTimeStamp() const {
+    return timestamp_;
+}
+
 // Takes .csv data in type-amount0-amount1-date format and makes it into a map of maps
 MarketDataFrame::MarketDataFrame(char txt_file[FILENAME_MAX], char csv_file[FILENAME_MAX]) {
     std::ifstream txt(txt_file);
@@ -112,20 +150,31 @@ MarketDataFrame::MarketDataFrame(char txt_file[FILENAME_MAX], char csv_file[FILE
     }
 };
 
+Transaction MarketDataFrame::operator[](int i) {
+    long timestamp = timestamps[i];
+
+    std::string *Symbols = new std::string[2];
+    double *Amount = new double[2];
+    double *Volume = new double[2];
+
+    int cnt = 0;
+
+    for (auto [symbol, amount] : transactions[timestamp]) {
+        Symbols[cnt] = symbol;
+        Amount[cnt] = amount;
+        Volume[cnt] = token_volume[timestamp][symbol];
+
+        cnt++;
+    }
+    return Transaction(timestamp, Symbols, Amount, Volume);
+}
+size_t MarketDataFrame::size() const {
+    return timestamps.size();
+}
+
 // int main() {
-//     MarketDataFrame a("data/sample_poolconfig.txt", "data/sample_transactions.csv");
+//     MarketDataFrame dt("data/sample_poolconfig.txt", "data/sample_transactions.csv");
 
-//     for (int i = 0 ; i < 10 ; ++i) {
-//         long timestamp = a.timestamps[a.timestamps.size() - i - 1];
-        
-//         std::cerr << "Date: " << get_std_time(timestamp) << "\n";
-
-//         for (auto [symbol, amount] : a.transactions[timestamp])
-//             std::cerr << ">> " << symbol << ": " << amount << "\n";
-        
-//         std::cerr << "  Volume:\n";
-
-//         for (auto [symbol, volume] : a.token_volume[timestamp])
-//             std::cerr << ">> " << symbol << ": " << volume << "\n";
-//     }
+//     std::cerr << dt.size() << "\n";
+//     std::cerr << dt[5];
 // }
