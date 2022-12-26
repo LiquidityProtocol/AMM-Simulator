@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <stdio.h>
+#include <cstdlib>
 #include <cassert>
 #include "MarketDataFrame.hpp"
 
@@ -58,6 +59,8 @@ std::ostream & operator << (std::ostream &os, const Transaction &a) {
 
     os << ">> " << a.symbol_[0] << ": " << "Amount = " << a.amount_[0] << ", Volume = " << a.volume_[0] << "\n";
     os << ">> " << a.symbol_[1] << ": " << "Amount = " << a.amount_[1] << ", Volume = " << a.volume_[1] << "\n";
+
+    return os;
 }
 
 Transaction::Transaction(long timestamp, std::string *symbols, double *amount, double *volume) : timestamp_(timestamp) {
@@ -90,7 +93,16 @@ long Transaction::GetTimeStamp() const {
 }
 
 // Takes .csv data in type-amount0-amount1-date format and makes it into a map of maps
-MarketDataFrame::MarketDataFrame(char txt_file[FILENAME_MAX], char csv_file[FILENAME_MAX]) {
+MarketDataFrame::MarketDataFrame(std::string pool_id) {
+    std::string txt_file = "data/" + pool_id + "/poolconfig.txt";
+    std::string csv_file = "data/" + pool_id + "/transactions.csv";
+
+    if (FILE *file = fopen(csv_file.c_str(), "r")) {
+        fclose(file);
+    } else {
+        system(("python3 ./UniSwapQuery.py " + pool_id).c_str());
+    }
+
     std::ifstream txt(txt_file);
     std::ifstream csv(csv_file);
     std::string line;
@@ -172,9 +184,9 @@ size_t MarketDataFrame::size() const {
     return timestamps.size();
 }
 
-// int main() {
-//     MarketDataFrame dt("data/sample_poolconfig.txt", "data/sample_transactions.csv");
+int main() {
+    MarketDataFrame dt("0x6c6bc977e13df9b0de53b251522280bb72383700");
 
-//     std::cerr << dt.size() << "\n";
-//     std::cerr << dt[5];
-// }
+    std::cerr << dt.size() << "\n";
+    std::cerr << dt[5];
+}

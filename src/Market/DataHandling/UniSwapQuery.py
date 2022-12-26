@@ -10,6 +10,7 @@ import urllib.request
 import math
 import sys
 import csv
+import os
 
 # Look at the USDC/ETH 0.3% pool
 POOL_ID = '0x6c6bc977e13df9b0de53b251522280bb72383700'
@@ -23,7 +24,7 @@ TICK_BASE = 1.0001
 
 # GraphQL query to get the pool information
 query = """{
-  pool(id: "0x6c6bc977e13df9b0de53b251522280bb72383700") {
+  pool(id: "%s") {
     swaps(orderBy: timestamp, orderDirection: desc, first: 1000) {
       amount0
       amount1
@@ -48,7 +49,7 @@ query = """{
       volume
     }
   }
-}"""
+}""" % (POOL_ID)
 
 # Query the subgraph
 req = urllib.request.Request(URL)
@@ -80,10 +81,13 @@ for burn in pool["burns"]:	# Remove liquidity
 transactions = sorted(transactions, key = lambda x: x["timestamp"])[-1000:]
 field_names = ["type", "amount0", "amount1", "timestamp"]
 
-with open('data/sample_transactions.csv', 'w') as csvfile:
+if not os.path.exists(f'data/{POOL_ID}'):
+    os.system(f'mkdir data/{POOL_ID}')
+
+with open(f'data/{POOL_ID}/transactions.csv', 'w') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=field_names)
     writer.writerows(transactions)
 
-with open('data/sample_poolconfig.txt','w') as file:
+with open(f'data/{POOL_ID}/poolconfig.txt','w') as file:
     file.write(f"{token0_symbol} {token0_amount}\n")
     file.write(f"{token1_symbol} {token1_amount}")

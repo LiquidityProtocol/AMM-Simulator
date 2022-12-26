@@ -39,7 +39,7 @@ private:
 
 class MarketDataFrame {
 public:
-    MarketDataFrame(char txt_file[FILENAME_MAX], char csv[FILENAME_MAX]);
+    MarketDataFrame(std::string pool_id);
     MarketDataFrame() = default;
 
     Transaction operator [](int i);
