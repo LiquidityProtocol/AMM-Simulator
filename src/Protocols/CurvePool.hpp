@@ -8,6 +8,8 @@ double solve(int n, double a, double b); // solve equation x^n + ax + b = 0
 
 class CurvePool : public PoolInterface {
 public:
+    friend class Playground;
+private:
     CurvePool(std::unordered_set<Token *> tokens,
                   double pool_fee, 
                   double leverage = 0) : PoolInterface(tokens, pool_fee) {
@@ -18,7 +20,6 @@ public:
             leverage_ = leverage;
         }
     }
-private:
     double leverage_;
     double constant_;
 
