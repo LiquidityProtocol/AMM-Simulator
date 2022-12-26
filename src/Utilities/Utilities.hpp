@@ -101,7 +101,7 @@ public:
 
     void Deposit(Token *token, double quantity);
     
-private:
+protected:
     std::string name_;
     std::unordered_map<Token *, double> wallet_;
     double total_value_;
@@ -121,6 +121,7 @@ public:
 
     friend class Account;
     friend class Playground;
+    friend class CommunityActor;
 
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;
