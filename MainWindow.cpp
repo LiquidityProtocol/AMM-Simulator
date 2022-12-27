@@ -20,21 +20,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_create_token_pushButton_clicked()
+void MainWindow::on_create_toekn_pushButton_clicked()
 {
     std::string token_name = ui->lineEdit_2->text().toStdString();
-    double token_price = ui->lineEdit_3->text().toDouble();
-    ui->lineEdit_2->clear();
-    ui->lineEdit_3->clear();
-    Token *token; bool is_new; std::tie(token, is_new) = playground_->GetToken(token_name, token_price);
-    if (!is_new) {
-        QMessageBox::about(this, "Adding token failed", "This name has been used by another token!");
-    } else {
-        QListWidgetItem *item = new QListWidgetItem(ui->listWidget_2);
-        ui->listWidget_2->addItem(item);
-        TokenListWidgetItem *token_item = new TokenListWidgetItem(this, token);
-        item->setSizeHint(token_item->sizeHint());
-        ui->listWidget_2->setItemWidget(item, token_item);
+    QString userinput = ui->lineEdit_3->text();
+    int flag = 0;
+    int error = 0;
+    QList<QChar> digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    for (int i = 0; i < userinput.size(); i++) {
+       if (userinput[i] == '.') {
+           flag += 1;
+       }
+       else if ( (std::find(digits.begin(), digits.end(), userinput[i]) != digits.end()) != true ) {
+           error += 1;
+       }
+    }
+    if (flag > 1 || error != 0) {
+        QMessageBox::about(this, "Adding token failed", "The price of the token should be a number");
+        ui->lineEdit_3->clear();
+    }else{
+        double token_price = ui->lineEdit_3->text().toDouble();
+        Token *token; bool is_new; std::tie(token, is_new) = playground_->GetToken(token_name, token_price);
+        if (!is_new) {
+            QMessageBox::about(this, "Adding token failed", "This name has been used by another token!");
+            ui->lineEdit_2->clear();
+        }else {
+            ui->lineEdit_2->clear();
+            ui->lineEdit_3->clear();
+            QListWidgetItem *item = new QListWidgetItem(ui->listWidget_2);
+            ui->listWidget_2->addItem(item);
+            TokenListWidgetItem *token_item = new TokenListWidgetItem(this, token);
+            item->setSizeHint(token_item->sizeHint());
+            ui->listWidget_2->setItemWidget(item, token_item);
+        }
     }
 }
 
