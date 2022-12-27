@@ -14,12 +14,10 @@ public:
     template<typename T> T total_value() const;
     template<typename T> T ledger() const;
     template<typename T> T GetQuantity() const;
-
-    void Deposit(Token *token, double quantity);
 private:
     CommunityActor(int MarketCount);
 
-    void refill(Token *token);
+    void refill(Token *token, double amount);
     void Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
     void Provide(PoolInterface *pool, double nPoolTokens);
     void Withdraw(PoolInterface *pool, double nPoolTokens);

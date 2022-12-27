@@ -376,7 +376,7 @@ bool PoolInterface::ValidProvision(std::unordered_map<Token *, double> quantitie
         if (reference_ratio == -1) {
             reference_ratio = GetQuantity(token) / quantities[token];
         } else {
-            if (GetQuantity(token) / quantities[token] != reference_ratio) {
+            if (abs(GetQuantity(token) / quantities[token] - reference_ratio) > 1e-4) {
                 return false;
             }
         }

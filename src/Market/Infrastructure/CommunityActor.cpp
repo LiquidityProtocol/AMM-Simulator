@@ -1,5 +1,6 @@
 #include "CommunityActor.hpp"
 #include "../../Playground.hpp"
+#include <cassert>
 
 CommunityActor::CommunityActor(int MarketCount) : Account("CommunityActor" + std::to_string(MarketCount)) {}
 
@@ -16,8 +17,8 @@ template<typename T> T CommunityActor::GetQuantity() const {
     throw std::invalid_argument("cannot get config of community");
 }
 
-void CommunityActor::refill(Token *token) {
-    wallet_[token] = 1e18;
+void CommunityActor::refill(Token *token, double amount = 1e9) {
+    wallet_[token] = amount;
 }
 void CommunityActor::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     refill(input_token);
