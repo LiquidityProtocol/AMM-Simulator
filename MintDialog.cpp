@@ -50,6 +50,7 @@ void MintDialog::on_pushButton_clicked()
    if (flag > 1 || error != 0) {
        /*QMessageBox::about(this, "Minting failed", "Invalid input!");*/
        QMessageBox::about(this, "Minting token failed", "Please mint a number of tokens!");
+       ui->lineEdit->clear();
    }
    else {
        emit SendData(playground_->GetToken(ui->comboBox->currentText().toStdString()).first, ui->lineEdit->text().toDouble());

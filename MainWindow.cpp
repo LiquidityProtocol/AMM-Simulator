@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_create_toekn_pushButton_clicked()
+void MainWindow::on_create_token_pushButton_clicked()
 {
     std::string token_name = ui->lineEdit_2->text().toStdString();
     double token_price = ui->lineEdit_3->text().toDouble();
