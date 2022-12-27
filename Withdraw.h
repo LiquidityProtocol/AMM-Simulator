@@ -14,7 +14,7 @@ class Withdraw : public QDialog
     Q_OBJECT
 
 public:
-    explicit Withdraw(QWidget *parent = nullptr, Playground *playground = nullptr);
+    explicit Withdraw(QWidget *parent = nullptr, Playground *playground = nullptr, Account* account_=nullptr);
     ~Withdraw();
 
 signals:
@@ -26,6 +26,7 @@ private slots:
 private:
     Ui::Withdraw *ui;
     Playground *playground_;
+    Account* account_;
 };
 
 #endif // Withdraw_H

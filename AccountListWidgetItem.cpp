@@ -68,3 +68,12 @@ void AccountListWidgetItem::on_trade_pushButton_clicked()
     trade_dialog->exec();
 }
 
+/*void AccountListWidgetItem::on_withdraw_pushButton_clicked()
+{
+    if (!playground_->existing_tokens().size()) {
+        QMessageBox::about(this, "Minting failed", "There are no tokens at the moment!");
+        return;
+    }
+    mint_dialog = new MintDialog(this, playground_);
+    mint_dialog->exec();
+}*/
