@@ -14,6 +14,7 @@ SOURCES += \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
+    Withdraw.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
+    Withdraw.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
@@ -44,7 +46,8 @@ FORMS += \
     MintDialog.ui \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
-    WalletListWidgetItem.ui
+    WalletListWidgetItem.ui \
+    Withdraw.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
