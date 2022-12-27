@@ -9,10 +9,21 @@ double solve(int n, double a, double b); // solve equation x^n + ax + b = 0
 class CurvePool : public PoolInterface {
 public:
     friend class Playground;
+    friend class Market;
 private:
     CurvePool(std::unordered_set<Token *> tokens,
                   double pool_fee, 
                   double leverage = 0) : PoolInterface(tokens, pool_fee) {
+                    
+        if (leverage < 0) {
+            throw std::invalid_argument("invalid leverage");
+        } else {
+            leverage_ = leverage;
+        }
+    }
+    CurvePool(std::unordered_map<Token *, double> quantities,
+                  double pool_fee, 
+                  double leverage = 0) : PoolInterface(quantities, pool_fee) {
                     
         if (leverage < 0) {
             throw std::invalid_argument("invalid leverage");

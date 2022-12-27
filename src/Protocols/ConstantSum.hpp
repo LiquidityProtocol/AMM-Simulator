@@ -9,6 +9,7 @@ class ConstantSum : public PoolInterface {
     */
 public:
     friend class Playground;
+    friend class Market;
 
 private:
     std::unordered_map<Token *, double> slopes_;
@@ -18,6 +19,20 @@ private:
         double pool_fee,
         std::unordered_map<Token *, double> slopes
     ) : PoolInterface(tokens, pool_fee) {
+        double slope_sum = 0;
+        for (auto [token, slope] : slopes) {
+            if (slope <= 0)
+                throw std::invalid_argument("invalid configuration of ConstantSum Protocol");
+            slope_sum += slope;
+        }
+        for (auto [token, slope] : slopes) {
+            slopes_[token] = slope / slope_sum;
+        }
+    }
+    ConstantSum(std::unordered_map<Token *, double> quantities,
+                double pool_fee,
+                std::unordered_map<Token *, double> slopes
+    ) : PoolInterface(quantities, pool_fee) {
         double slope_sum = 0;
         for (auto [token, slope] : slopes) {
             if (slope <= 0)

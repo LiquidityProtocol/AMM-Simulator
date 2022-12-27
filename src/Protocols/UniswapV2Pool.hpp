@@ -6,6 +6,7 @@
 class UniswapV2Pool : public PoolInterface {
 public:
     friend class Playground;
+    friend class Market;
 
 private:
     using PoolInterface::PoolInterface;

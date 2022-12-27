@@ -4,27 +4,41 @@
 #include <cmath>
 #include "../Utilities/Utilities.hpp"
 
-// Fixing
-
 class UniswapV3Pool : public PoolInterface {
 public:
     friend class Playground;
+    friend class Market;
 private:
     UniswapV3Pool(std::unordered_set<Token *> tokens,
                   double pool_fee, 
                   double slippage_controller) : PoolInterface(tokens, pool_fee) {
+        
+        throw std::invalid_argument("fail to initialized UniSwapV3");
+
         if (slippage_controller <= 1) {
             throw std::invalid_argument("invalid slippage controller");
         } else {
             slippage_controller_ = slippage_controller;
         }
     }
-    double getWeight(Token *token) const {
-        return weights_.find(token) -> second;
+    UniswapV3Pool(std::unordered_map<Token *, double> quantities,
+                  double pool_fee, 
+                  double slippage_controller) : PoolInterface(quantities, pool_fee) {
+        
+        if (slippage_controller <= 1) {
+            throw std::invalid_argument("invalid slippage controller");
+        } else {
+            slippage_controller_ = slippage_controller;
+        }
+        weights_ = quantities;
     }
 
     std::unordered_map<Token *, double> weights_;
     double slippage_controller_;
+    
+    double getWeight(Token *token) const {
+        return GetQuantity(pool_token()) * weights_.find(token) -> second;
+    }
 
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 1;
