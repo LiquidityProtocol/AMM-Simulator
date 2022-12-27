@@ -18,7 +18,7 @@
 
 class Transaction {
 public:
-    friend class MarketDataFrame;
+    friend class PoolDataFrame;
     friend std::ostream & operator << (std::ostream &os, const Transaction &a);
 
     std::vector<std::string> GetSymbol() const;
@@ -37,10 +37,10 @@ private:
     double *volume_;
 };
 
-class MarketDataFrame {
+class PoolDataFrame {
 public:
-    MarketDataFrame(std::string pool_id);
-    MarketDataFrame() = default;
+    PoolDataFrame(std::string pool_id);
+    PoolDataFrame() = default;
 
     Transaction operator [](int i);
     size_t size() const;

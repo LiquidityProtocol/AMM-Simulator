@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <cassert>
-#include "MarketDataFrame.hpp"
+#include "PoolDataFrame.hpp"
 
 // Find epoch time from normal YYYY-MM-DD
 long get_epoch_time(std::string date) {
@@ -93,7 +93,7 @@ long Transaction::GetTimeStamp() const {
 }
 
 // Takes .csv data in type-amount0-amount1-date format and makes it into a map of maps
-MarketDataFrame::MarketDataFrame(std::string pool_id) {
+PoolDataFrame::PoolDataFrame(std::string pool_id) {
     std::string txt_file = "data/" + pool_id + "/poolconfig.txt";
     std::string csv_file = "data/" + pool_id + "/transactions.csv";
 
@@ -162,7 +162,7 @@ MarketDataFrame::MarketDataFrame(std::string pool_id) {
     }
 };
 
-Transaction MarketDataFrame::operator[](int i) {
+Transaction PoolDataFrame::operator[](int i) {
     long timestamp = timestamps[i];
 
     std::string *Symbols = new std::string[2];
@@ -180,12 +180,12 @@ Transaction MarketDataFrame::operator[](int i) {
     }
     return Transaction(timestamp, Symbols, Amount, Volume);
 }
-size_t MarketDataFrame::size() const {
+size_t PoolDataFrame::size() const {
     return timestamps.size();
 }
 
 int main() {
-    MarketDataFrame dt("0x6c6bc977e13df9b0de53b251522280bb72383700");
+    PoolDataFrame dt("0x6c6bc977e13df9b0de53b251522280bb72383700");
 
     std::cerr << dt.size() << "\n";
     std::cerr << dt[5];
