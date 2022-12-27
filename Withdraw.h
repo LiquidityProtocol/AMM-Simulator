@@ -1,5 +1,5 @@
-#ifndef WITHDRAW_H
-#define WITHDRAW_H
+#ifndef Withdraw_H
+#define Withdraw_H
 
 #include <QDialog>
 #include "src/Utilities/Utilities.hpp"
@@ -28,4 +28,4 @@ private:
     Playground *playground_;
 };
 
-#endif // WITHDRAW_H
+#endif // Withdraw_H
