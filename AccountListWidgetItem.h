@@ -6,6 +6,7 @@
 #include "MintDialog.h"
 #include "src/Playground.hpp"
 #include "TradeDialog.h"
+#include "WithdrawDialog.h"
 
 namespace Ui {
 class AccountListWidgetItem;
@@ -22,6 +23,7 @@ public:
 public slots:
     void VerifyMintRequest(Token *token, double quantity);
     void VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
+    void VerifyWithdrawRequest(PoolInterface *pool);
 
 private slots:
     void on_mint_pushButton_clicked();
@@ -32,6 +34,7 @@ private:
     Account *account_;
     MintDialog *mint_dialog;
     TradeDialog *trade_dialog;
+    WithdrawDialog *withdraw_dialog;
     Playground *playground_;
 
     void UpdateWallet();

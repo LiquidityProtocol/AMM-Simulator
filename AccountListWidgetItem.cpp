@@ -70,3 +70,13 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
         QMessageBox::about(trade_dialog, "Trade failed", e.what());
     }
 }
+
+void AccountListWidgetItem::VerifyWithdrawRequest(PoolInterface *pool) {
+    try {
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
+        UpdateWallet();
+        trade_dialog->accept();
+    } catch (std::exception &e) {
+        QMessageBox::about(trade_dialog, "Trade failed", e.what());
+    }
+}
