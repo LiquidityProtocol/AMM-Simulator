@@ -22,6 +22,24 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_create_toekn_pushButton_clicked()
 {
+   QString userinput = ui->lineEdit_3->text();
+   int flag = 0;
+   int error = 0;   QList<QChar> digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+   for (int i = 0; i < userinput.size(); i++) {
+      if (userinput[i] == '.') {
+          flag += 1;
+      }
+      else if ( (std::find(digits.begin(), digits.end(), userinput[i]) != digits.end()) != true ) {
+          error += 1;
+      }
+   }
+
+   if (flag > 1 || error != 0) {
+       QMessageBox::about(this, "Minting token failed", "Please mint a number of tokens!");
+       ui->lineEdit_2->clear();
+       ui->lineEdit_3->clear();
+   }
+   else {
     std::string token_name = ui->lineEdit_2->text().toStdString();
     double token_price = ui->lineEdit_3->text().toDouble();
     ui->lineEdit_2->clear();
@@ -36,6 +54,7 @@ void MainWindow::on_create_toekn_pushButton_clicked()
         item->setSizeHint(token_item->sizeHint());
         ui->listWidget_2->setItemWidget(item, token_item);
     }
+  }
 }
 
 
