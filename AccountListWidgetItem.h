@@ -23,7 +23,7 @@ public:
 public slots:
     void VerifyMintRequest(Token *token, double quantity);
     void VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
-    void VerifyWithdrawRequest(PoolInterface *pool);
+    void VerifyWithdrawRequest(Token *input_token, double surrendered_quantity);
 
 private slots:
     void on_mint_pushButton_clicked();

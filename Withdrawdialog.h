@@ -12,8 +12,6 @@ class Selection_2 {
 public:
     PoolInterface *pool_;
     Token *input_token_;
-    Token *output_token_;
-    double input_quantity_;
 
     Selection_2();
 
@@ -30,7 +28,7 @@ public:
     ~WithdrawDialog();
 
 signals:
-    void WithdrawRequest(PoolInterface *pool);
+    void WithdrawRequest(PoolInterface *pool, Token *input_token, double surrendered_quantity);
 
 private slots:
     void on_protocol_comboBox_currentIndexChanged(int index);

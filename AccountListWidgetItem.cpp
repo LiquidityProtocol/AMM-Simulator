@@ -71,12 +71,13 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
     }
 }
 
-void AccountListWidgetItem::VerifyWithdrawRequest(PoolInterface *pool) {
+void AccountListWidgetItem::VerifyWithdrawRequest(Token *input_token, double surrendered_quantity) {
     try {
+        playground_->ExecuteWithdrawal(account_, input_token, surrendered_quantity);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
-        trade_dialog->accept();
+        withdraw_dialog->accept();
     } catch (std::exception &e) {
-        QMessageBox::about(trade_dialog, "Trade failed", e.what());
+        QMessageBox::about(withdraw_dialog, "Withdraw failed", e.what());
     }
 }

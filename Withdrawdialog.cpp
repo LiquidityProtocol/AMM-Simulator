@@ -50,7 +50,7 @@ void WithdrawDialog::on_pool_comboBox_currentIndexChanged(int index)
 
 void WithdrawDialog::on_pushButton_clicked()
 {
-    emit WithdrawRequest(selection_.pool_);
+    emit WithdrawRequest(selection_.pool_, selection_.input_token_, account_->GetQuantity(selection_.input_token_));
 }
 
 void WithdrawDialog::UpdateSelection()
@@ -74,14 +74,16 @@ void WithdrawDialog::UpdateOutputQuantity()
 Selection_2::Selection_2()
 {
     pool_ = nullptr;
+    input_token_ = nullptr;
 }
 
 bool Selection_2::Valid() const
 {
-    return pool_;
+    return pool_ && input_token_;
 }
 
 void Selection_2::Reset()
 {
     pool_ = nullptr;
+    input_token_ = nullptr;
 }
