@@ -18,7 +18,7 @@ public:
     ~MintDialog();
 
 signals:
-    void SendData(Token *token, double quantity);
+    void MintRequest(Token *token, double quantity);
 
 private slots:
     void on_pushButton_clicked();

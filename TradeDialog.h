@@ -30,7 +30,7 @@ public:
     ~TradeDialog();
 
 signals:
-    void SendData(PoolInterface *pool, Token *input_token, Token *output_token, double quantity);
+    void TradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double quantity);
 
 private slots:
     void on_input_token_comboBox_currentTextChanged(const QString &input_token_name);

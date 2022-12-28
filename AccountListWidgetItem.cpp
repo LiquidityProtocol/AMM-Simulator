@@ -20,12 +20,16 @@ AccountListWidgetItem::~AccountListWidgetItem()
     delete ui;
 }
 
-void AccountListWidgetItem::VerifyData(Token *token, double quantity)
+void AccountListWidgetItem::VerifyMintRequest(Token *token, double quantity)
 {
-    account_->Deposit(token, quantity);
-    ui->lineEdit_2->setText(QString::number(account_->total_value()));
-    UpdateWallet();
-    mint_dialog->accept();
+    try {
+        account_->Deposit(token, quantity);
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
+        UpdateWallet();
+        mint_dialog->accept();
+    } catch (std::exception &e) {
+        QMessageBox::about(mint_dialog, "Mint failed", e.what());
+    }
 }
 
 void AccountListWidgetItem::on_mint_pushButton_clicked()
@@ -56,9 +60,10 @@ void AccountListWidgetItem::UpdateWallet()
     }
 }
 
-void AccountListWidgetItem::VerifyTrade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
+void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     try {
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         trade_dialog->accept();
     } catch (std::exception &e) {

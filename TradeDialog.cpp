@@ -12,7 +12,7 @@ TradeDialog::TradeDialog(QWidget *parent, Playground *playground, Account *accou
     selection_()
 {
     ui->setupUi(this);
-    connect(this, &TradeDialog::SendData, qobject_cast<AccountListWidgetItem*>(parent), &AccountListWidgetItem::VerifyTrade);
+    connect(this, &TradeDialog::TradeRequest, qobject_cast<AccountListWidgetItem*>(parent), &AccountListWidgetItem::VerifyTradeRequest);
     for (const auto &[token, quantity] : account_->wallet()) {
         ui->input_token_comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
     }
@@ -82,7 +82,7 @@ void TradeDialog::on_input_quantity_lineEdit_textChanged(const QString &input_qu
 void TradeDialog::on_pushButton_clicked()
 {
     if (selection_.Valid()) {
-        emit SendData(selection_.pool_, selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
+        emit TradeRequest(selection_.pool_, selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
     } else {
         QMessageBox::about(this, "Invalid trade request", "Please enter all required informations!");
     }
