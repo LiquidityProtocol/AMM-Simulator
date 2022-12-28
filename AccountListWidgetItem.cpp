@@ -48,6 +48,12 @@ void AccountListWidgetItem::on_trade_pushButton_clicked()
     trade_dialog->exec();
 }
 
+void AccountListWidgetItem::on_withdraw_pushButton_clicked()
+{
+    withdraw_dialog = new WithdrawDialog(this, playground_, account_);
+    withdraw_dialog->exec();
+}
+
 void AccountListWidgetItem::UpdateWallet()
 {
     ui->listWidget->clear();

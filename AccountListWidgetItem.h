@@ -6,7 +6,7 @@
 #include "MintDialog.h"
 #include "src/Playground.hpp"
 #include "TradeDialog.h"
-#include "WithdrawDialog.h"
+#include "withdrawDialog.h"
 
 namespace Ui {
 class AccountListWidgetItem;
@@ -28,6 +28,7 @@ public slots:
 private slots:
     void on_mint_pushButton_clicked();
     void on_trade_pushButton_clicked();
+    void on_withdraw_pushButton_clicked();
 
 private:
     Ui::AccountListWidgetItem *ui;

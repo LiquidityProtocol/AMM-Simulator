@@ -51,7 +51,17 @@ void WithdrawDialog::on_pool_comboBox_currentIndexChanged(int index)
 void WithdrawDialog::on_pushButton_clicked()
 {
     std::vector<Operation *> ledger = account_->ledger();
-    emit WithdrawRequest(selection_.pool_, selection_.input_token_, account_->GetQuantity(selection_.input_token_));
+    std::unordered_map<Token *, double> Pool_token;
+    for (int i = 0; i < ledger.size(); i++) {
+       if (ledger[i]->account_name() == account_->name()) {
+           if (ledger[i]->pool() == selection_.pool_) {
+               Pool_token = ledger[i]->input();
+           }
+       }
+    }
+    for (auto& x: Pool_token) {
+        emit WithdrawRequest(x.first, x.second);
+    }
 }
 
 void WithdrawDialog::UpdateSelection()

@@ -28,7 +28,7 @@ public:
     ~WithdrawDialog();
 
 signals:
-    void WithdrawRequest(PoolInterface *pool, Token *input_token, double surrendered_quantity);
+    void WithdrawRequest(Token *input_token, double surrendered_quantity);
 
 private slots:
     void on_protocol_comboBox_currentIndexChanged(int index);
