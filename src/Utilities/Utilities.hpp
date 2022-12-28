@@ -21,6 +21,7 @@ public:
 
     friend class PoolInterface;
     friend class Playground;
+    friend class Market;
 
 	std::string name() const;
 	double real_value() const;
@@ -92,6 +93,7 @@ public:
 
     friend class PoolInterface;
     friend class Playground;
+    friend class Market;
 
     std::string name() const;
     std::unordered_map<Token *, double> wallet() const;
@@ -102,7 +104,7 @@ public:
 
     void Deposit(Token *token, double quantity);
     
-private:
+protected:
     std::string name_;
     std::unordered_map<Token *, double> wallet_;
     double total_value_;
@@ -122,6 +124,8 @@ public:
 
     friend class Account;
     friend class Playground;
+    friend class CommunityActor;
+    friend class Market;
 
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;
@@ -132,15 +136,20 @@ public:
     double total_pool_token_quantity() const;
 
     std::unordered_set<Token *> tokens() const;
+    std::unordered_map<Token *, double> quantities() const;
 
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
+    double GetSpotPrice(Token *input_token, Token *output_token) const;
 
     std::vector<Operation *> ledger() const;
 
 protected:
-    static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 1;
+    static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 
     PoolInterface(std::unordered_set<Token *> tokens, double pool_fee);
+    PoolInterface(std::unordered_map<Token *, double> quantities, double pool_fee);
+
+    virtual ~PoolInterface() = default;
 
     virtual double ComputeSwappedQuantity(Token *input_token, Token *output_token, double input_quantity) const = 0;
     virtual double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const = 0;
