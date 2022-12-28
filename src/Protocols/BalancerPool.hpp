@@ -30,9 +30,10 @@ private:
             weights_ = weights;
         }
     }
-    BalancerPool(std::unordered_map<Token *, double> quantities,
-                double pool_fee,
-                std::unordered_map<Token *, double> weights
+    BalancerPool(
+        std::unordered_map<Token *, double> quantities,
+        double pool_fee,
+        std::unordered_map<Token *, double> weights
     ) : PoolInterface(quantities, pool_fee) {
         double weights_sum = 0;
         for (auto [token, weight] : weights) {

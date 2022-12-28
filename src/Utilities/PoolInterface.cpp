@@ -1,7 +1,7 @@
 #include "Utilities.hpp"
 
 template<typename T1, typename T2>
-std::unordered_set<T1> getKeys(const std::unordered_map<T1, T2> &mp) {
+std::unordered_set<T1> GetKeys(const std::unordered_map<T1, T2> &mp) {
     std::unordered_set<T1> keys;
 
     for (auto [key, val] : mp)
@@ -25,10 +25,9 @@ PoolInterface::PoolInterface(std::unordered_set<Token *> tokens, double pool_fee
     }
     quantities_[pool_token_ = new Token(this)] = 0;
 }
-PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, double pool_fee) :
-    pool_fee_(pool_fee),
-    tokens_container_(TokensContainer(getKeys<Token *, double>(quantities))) {
-
+PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, double pool_fee)
+    : pool_fee_(pool_fee)
+    , tokens_container_(TokensContainer(GetKeys<Token *, double>(quantities))) {
     for (auto [token, quantity] : quantities)
         if (quantity <= 0)
             throw std::invalid_argument("invalid initialization");
@@ -41,7 +40,7 @@ PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, dou
     }
 
     quantities_ = quantities;
-    quantities_[pool_token_ = new Token(this)] = 1;
+    quantities_[pool_token_ = new Token(this)] = INITIAL_POOL_TOKEN_SUPPLY;
 }
 
 bool PoolInterface::InPool(Token *token) const {
@@ -114,6 +113,7 @@ std::unordered_set<Token *> PoolInterface::tokens() const {
     }
     return tokens;
 }
+
 std::unordered_map<Token *, double> PoolInterface::quantities() const {
     std::unordered_map<Token *, double> quantities;
 

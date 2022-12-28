@@ -29,9 +29,10 @@ private:
             slopes_[token] = slope / slope_sum;
         }
     }
-    ConstantSum(std::unordered_map<Token *, double> quantities,
-                double pool_fee,
-                std::unordered_map<Token *, double> slopes
+    ConstantSum(
+        std::unordered_map<Token *, double> quantities,
+        double pool_fee,
+        std::unordered_map<Token *, double> slopes
     ) : PoolInterface(quantities, pool_fee) {
         double slope_sum = 0;
         for (auto [token, slope] : slopes) {

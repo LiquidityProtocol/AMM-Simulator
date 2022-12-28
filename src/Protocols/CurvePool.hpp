@@ -10,28 +10,32 @@ class CurvePool : public PoolInterface {
 public:
     friend class Playground;
     friend class Market;
+
 private:
-    CurvePool(std::unordered_set<Token *> tokens,
-                  double pool_fee, 
-                  double leverage = 0) : PoolInterface(tokens, pool_fee) {
-                    
-        if (leverage < 0) {
-            throw std::invalid_argument("invalid leverage");
-        } else {
-            leverage_ = leverage;
-        }
-    }
-    CurvePool(std::unordered_map<Token *, double> quantities,
-                  double pool_fee, 
-                  double leverage = 0) : PoolInterface(quantities, pool_fee) {
-                    
-        if (leverage < 0) {
-            throw std::invalid_argument("invalid leverage");
-        } else {
-            leverage_ = leverage;
-        }
-    }
     double leverage_;
+
+    CurvePool(
+        std::unordered_set<Token *> tokens,
+        double pool_fee, 
+        double leverage = 0
+    ) : PoolInterface(tokens, pool_fee) {
+        if (leverage < 0) {
+            throw std::invalid_argument("invalid leverage");
+        } else {
+            leverage_ = leverage;
+        }
+    }
+    CurvePool(
+        std::unordered_map<Token *, double> quantities,
+        double pool_fee, 
+        double leverage = 0
+    ) : PoolInterface(quantities, pool_fee) {
+        if (leverage < 0) {
+            throw std::invalid_argument("invalid leverage");
+        } else {
+            leverage_ = leverage;
+        }
+    }
 
     double Sum() const {
         double ans = 0;
@@ -72,6 +76,7 @@ private:
             throw std::invalid_argument("Not passing snapshot of this pool");
         }
     }
+    
     double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
         double r1 = GetQuantity(input_token);
         double r2 = GetQuantity(output_token);
@@ -119,4 +124,4 @@ private:
     }
 };
 
-#endif
+#endif // CURVE_POOL_HPP
