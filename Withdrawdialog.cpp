@@ -50,6 +50,7 @@ void WithdrawDialog::on_pool_comboBox_currentIndexChanged(int index)
 
 void WithdrawDialog::on_pushButton_clicked()
 {
+    std::vector<Operation *> ledger = account_->ledger();
     emit WithdrawRequest(selection_.pool_, selection_.input_token_, account_->GetQuantity(selection_.input_token_));
 }
 
