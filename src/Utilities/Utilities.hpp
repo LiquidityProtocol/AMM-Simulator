@@ -144,7 +144,7 @@ public:
     std::vector<Operation *> ledger() const;
 
 protected:
-    static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 1;
+    static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 
     PoolInterface(std::unordered_set<Token *> tokens, double pool_fee);
     PoolInterface(std::unordered_map<Token *, double> quantities, double pool_fee);

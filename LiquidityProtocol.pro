@@ -16,6 +16,8 @@ SOURCES += \
     WalletListWidgetItem.cpp \
     main.cpp \
     MainWindow.cpp \
+    src/Protocols/CurvePool.cpp \
+    src/Protocols/Protocols.cpp \
     src/Utilities/Account.cpp \
     src/Utilities/Operation.cpp \
     src/Utilities/PoolInterface.cpp \
@@ -33,6 +35,7 @@ HEADERS += \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
+    src/Protocols/CurvePool.hpp \
     src/Protocols/Protocols.hpp \
     src/Protocols/UniswapV2Pool.hpp \
     src/Protocols/UniswapV3Pool.hpp \
