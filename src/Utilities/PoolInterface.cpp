@@ -335,6 +335,9 @@ bool PoolInterface::CheckWallet(Account *account, const std::unordered_map<Token
 
 void PoolInterface::UpdateWallet(Account *account, Token *token, double quantity) const {
     account->wallet_[token] += quantity;
+    if (!account->wallet_[token]) {
+        account->wallet_.erase(token);
+    }
     account->total_value_ += quantity * token->real_value();
 }
 

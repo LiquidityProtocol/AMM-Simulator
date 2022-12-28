@@ -113,6 +113,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="trade_pushButton">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 0, 8);</string>
+       </property>
        <property name="text">
         <string>Trade</string>
        </property>

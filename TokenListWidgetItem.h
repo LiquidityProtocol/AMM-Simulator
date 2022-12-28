@@ -15,6 +15,7 @@ class TokenListWidgetItem : public QWidget
 public:
     explicit TokenListWidgetItem(QWidget *parent = nullptr, Token *token = nullptr);
     ~TokenListWidgetItem();
+    Token *token() const;
 
 private:
     Ui::TokenListWidgetItem *ui;

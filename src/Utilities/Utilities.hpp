@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <utility>
+#include <QVariant>
 
 class PoolInterface;
 
@@ -143,7 +144,7 @@ public:
     std::vector<Operation *> ledger() const;
 
 protected:
-    static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 1;
+    static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 
     PoolInterface(std::unordered_set<Token *> tokens, double pool_fee);
     PoolInterface(std::unordered_map<Token *, double> quantities, double pool_fee);
@@ -183,5 +184,8 @@ private:
 
     void ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities);
 };
+
+Q_DECLARE_METATYPE(PoolInterface *);
+Q_DECLARE_METATYPE(Token *);
 
 #endif // UTILITIES_HPP

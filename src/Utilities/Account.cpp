@@ -25,6 +25,9 @@ void Account::Deposit(Token *token, double quantity) {
         throw std::invalid_argument("pool token deposition is not allowed");
     }
     wallet_[token] += quantity;
+    if (!wallet_[token]) {
+        wallet_.erase(token);
+    }
     total_value_ += quantity * token->real_value();
 }
 
