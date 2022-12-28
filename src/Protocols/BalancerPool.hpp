@@ -7,6 +7,7 @@
 class BalancerPool : public PoolInterface {
 public:
     friend class Playground;
+    friend class Market;
 
 private:
     std::unordered_map<Token *, double> weights_;
@@ -16,6 +17,24 @@ private:
         double pool_fee,
         std::unordered_map<Token *, double> weights
     ) : PoolInterface(tokens, pool_fee) {
+        double weights_sum = 0;
+        for (auto [token, weight] : weights) {
+            if (weight <= 0) {
+                throw std::invalid_argument("invalid weights");
+            }
+            weights_sum += weight;
+        }
+        if (weights_sum != 1) {
+            throw std::invalid_argument("invalid weights");
+        } else {
+            weights_ = weights;
+        }
+    }
+    BalancerPool(
+        std::unordered_map<Token *, double> quantities,
+        double pool_fee,
+        std::unordered_map<Token *, double> weights
+    ) : PoolInterface(quantities, pool_fee) {
         double weights_sum = 0;
         for (auto [token, weight] : weights) {
             if (weight <= 0) {
