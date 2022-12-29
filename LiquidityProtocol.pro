@@ -25,13 +25,13 @@ SOURCES += \
     #src/Testing/ConstantSumTest.cpp\
     #src/Testing/OperationTest.cpp\
     #src/Testing/PoolInterfaceTest.cpp\
-    src/Testing/UniswapV2PoolTest.cpp\
-    src/Utilities/UniswapV2PoolSimulation.cpp
+#    src/Testing/UniswapV2PoolTest.cpp\
+#    src/Utilities/UniswapV2PoolSimulation.cpp
 
 HEADERS += \
     MainWindow.h \
     src/Utilities/FirstSimulation.hpp \
-    src/Utilities/UniswapV2PoolSimulation.hpp \
+#    src/Utilities/UniswapV2PoolSimulation.hpp \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp\
     src/Protocols/ConstantSum.hpp\
