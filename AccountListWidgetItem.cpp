@@ -70,3 +70,20 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
         QMessageBox::about(trade_dialog, "Trade failed", e.what());
     }
 }
+
+void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provision)
+{
+    provide_dialog->accept();
+    if (initial_provision) {
+        new_pool_provision_dialog = new NewPoolProvisionDialog(this);
+        new_pool_provision_dialog->exec();
+    } else {
+
+    }
+}
+
+void AccountListWidgetItem::on_provide_pushButton_clicked()
+{
+    provide_dialog = new ProvideDialog(this);
+    provide_dialog->exec();
+}
