@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     AccountListWidgetItem.cpp \
+    ExistingPoolProvisionDialog.cpp \
     MintDialog.cpp \
     NewPoolProvisionDialog.cpp \
     ProvideDialog.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 
 HEADERS += \
     AccountListWidgetItem.h \
+    ExistingPoolProvisionDialog.h \
     MainWindow.h \
     MintDialog.h \
     NewPoolProvisionDialog.h \
@@ -47,6 +49,7 @@ HEADERS += \
 
 FORMS += \
     AccountListWidgetItem.ui \
+    ExistingPoolProvisionDialog.ui \
     MainWindow.ui \
     MintDialog.ui \
     NewPoolProvisionDialog.ui \

@@ -78,7 +78,8 @@ void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provisio
         new_pool_provision_dialog = new NewPoolProvisionDialog(this);
         new_pool_provision_dialog->exec();
     } else {
-
+        existing_pool_provision_dialog = new ExistingPoolProvisionDialog(this, playground_);
+        existing_pool_provision_dialog->exec();
     }
 }
 

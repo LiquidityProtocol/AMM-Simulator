@@ -6,6 +6,7 @@
 #include "TradeDialog.h"
 #include "ProvideDialog.h"
 #include "NewPoolProvisionDialog.h"
+#include "ExistingPoolProvisionDialog.h"
 #include "src/Playground.hpp"
 
 namespace Ui {
@@ -37,6 +38,7 @@ private:
     TradeDialog *trade_dialog;
     ProvideDialog *provide_dialog;
     NewPoolProvisionDialog *new_pool_provision_dialog;
+    ExistingPoolProvisionDialog *existing_pool_provision_dialog;
     Playground *playground_;
 
     void UpdateWallet();
