@@ -74,11 +74,31 @@ void WithdrawDialog::UpdateSelection()
 
 void WithdrawDialog::UpdateOutputQuantity()
 {
-    if (selection_.Valid()) {
-        double output_quantity = 0;
-        ui->output_quantity_lineEdit->setText(QString::number(output_quantity));
-    } else {
-        ui->output_quantity_lineEdit->clear();
+    std::vector<Operation *> ledger = account_->ledger();
+    std::unordered_map<Token *, double> Pool_token;
+    for (int i = 0; i < ledger.size(); i++) {
+       if (ledger[i]->account_name() == account_->name()) {
+           if (ledger[i]->pool() == selection_.pool_) {
+               Pool_token = ledger[i]->input();
+           }
+       }
+    }
+    for (auto& x: Pool_token) {
+        if (selection_.Valid()) {
+            double output_quantity = 0;
+            std::unordered_map<Token *, double> Output = playground_->SimulateWithdrawal(x.first, x.second);
+            auto it = Output.begin();
+            auto it2 = Output.end();
+            ui->output_1_name_lineEdit->setText(QString::fromStdString((it->first)->name()));
+            ui->output_1_quantity_lineEdit->setText(QString::number(it->second));
+            ui->output_2_name_lineEdit->setText(QString::fromStdString((it2->first)->name()));
+            ui->output_2_quantity_lineEdit->setText(QString::number(it2->second));
+        } else {
+            ui->output_1_quantity_lineEdit->clear();
+            ui->output_1_name_lineEdit->clear();
+            ui->output_2_quantity_lineEdit->clear();
+            ui->output_2_name_lineEdit->clear();
+        }
     }
 }
 
