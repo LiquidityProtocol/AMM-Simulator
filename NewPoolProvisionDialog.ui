@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
+    <width>363</width>
     <height>367</height>
    </rect>
   </property>
@@ -67,6 +67,22 @@
       </property>
      </column>
      <item row="2" column="0">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flags">
+       <set>NoItemFlags</set>
+      </property>
+     </item>
+     <item row="2" column="1">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="flags">
+       <set>NoItemFlags</set>
+      </property>
+     </item>
+     <item row="2" column="2">
       <property name="text">
        <string/>
       </property>
