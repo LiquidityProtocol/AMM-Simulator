@@ -101,12 +101,19 @@ double Playground::ExecuteInitialProvision(Account *provider, PROTOCOL protocol,
     for (const auto &[token, quantity] : provided_quantities) {
         tokens.emplace(token);
     }
-    if (!Existing(protocol, tokens)) {
+    if (Existing(protocol, tokens)) {
+        throw std::invalid_argument("this pool already exists");
+    } else {
         if (protocol == PROTOCOL::UNISWAP_V2) {
             existing_pools_[protocol][TokensContainer(tokens)] = new UniswapV2Pool(tokens, pool_fee);
         }
+        try {
+            return ExecuteProvision(provider, protocol, provided_quantities);
+        } catch (std::invalid_argument &e) {
+            existing_pools_[protocol].erase(TokensContainer(tokens));
+            throw e;
+        }
     }
-    return ExecuteProvision(provider, protocol, provided_quantities);
 }
 
 double Playground::ExecuteInitialProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities, double pool_fee, double slippage_controller) {
@@ -114,7 +121,9 @@ double Playground::ExecuteInitialProvision(Account *provider, PROTOCOL protocol,
     for (const auto &[token, quantity] : provided_quantities) {
         tokens.emplace(token);
     }
-    if (!Existing(protocol, tokens)) {
+    if (Existing(protocol, tokens)) {
+        throw std::invalid_argument("this pool already exists");
+    } else {
         if (protocol == PROTOCOL::UNISWAP_V3) {
             existing_pools_[protocol][TokensContainer(tokens)] = new UniswapV3Pool(provided_quantities, pool_fee, slippage_controller);
             for (auto &[token, quantity] : existing_pools_[protocol][TokensContainer(tokens)]->quantities_) {
@@ -123,8 +132,13 @@ double Playground::ExecuteInitialProvision(Account *provider, PROTOCOL protocol,
         } else if (protocol == PROTOCOL::CURVE) {
             existing_pools_[protocol][TokensContainer(tokens)] = new CurvePool(tokens, pool_fee, slippage_controller);
         }
+        try {
+            return ExecuteProvision(provider, protocol, provided_quantities);
+        } catch (std::invalid_argument &e) {
+            existing_pools_[protocol].erase(TokensContainer(tokens));
+            throw e;
+        }
     }
-    return ExecuteProvision(provider, protocol, provided_quantities);
 }
 
 double Playground::ExecuteInitialProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities, double pool_fee, const std::unordered_map<Token *, double> &weights) {
@@ -132,14 +146,21 @@ double Playground::ExecuteInitialProvision(Account *provider, PROTOCOL protocol,
     for (const auto &[token, quantity] : provided_quantities) {
         tokens.emplace(token);
     }
-    if (!Existing(protocol, tokens)) {
+    if (Existing(protocol, tokens)) {
+        throw std::invalid_argument("this pool already exists");
+    } else {
         if (protocol == PROTOCOL::CONSTANT_SUM) {
             existing_pools_[protocol][TokensContainer(tokens)] = new ConstantSum(tokens, pool_fee, weights);
         } else if (protocol == PROTOCOL::BALANCER) {
             existing_pools_[protocol][TokensContainer(tokens)] = new BalancerPool(tokens, pool_fee, weights);
         }
+        try {
+            return ExecuteProvision(provider, protocol, provided_quantities);
+        } catch (std::invalid_argument &e) {
+            existing_pools_[protocol].erase(TokensContainer(tokens));
+            throw e;
+        }
     }
-    return ExecuteProvision(provider, protocol, provided_quantities);
 }
 
 std::unordered_map<Token *, double> Playground::SimulateWithdrawal(Token *token, double surrendered_quantity) const {
