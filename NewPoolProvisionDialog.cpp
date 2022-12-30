@@ -11,6 +11,9 @@ NewPoolProvisionDialog::NewPoolProvisionDialog(QWidget *parent) :
         ui->comboBox_protocol->addItem(QString::fromStdString(protocol_name), protocol);
     }
     ui->comboBox_protocol->setCurrentIndex(-1);
+    QSizePolicy sp_retain = ui->tableWidget_tokens->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->tableWidget_tokens->setSizePolicy(sp_retain);
     ui->tableWidget_tokens->setHidden(true);
 //    for (int row = 0; row < ui->tableWidget_tokens->rowCount() - 1; ++row) {
 //        ui->tableWidget_tokens->setCellWidget(row, 0, new QComboBox);
@@ -56,4 +59,3 @@ void NewPoolProvisionDialog::on_tableWidget_tokens_cellClicked(int row, int colu
 {
     std::cerr << row << ' ' << column << '\n';
 }
-
