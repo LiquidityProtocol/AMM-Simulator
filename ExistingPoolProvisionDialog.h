@@ -18,6 +18,7 @@ public:
 
 signals:
     void ExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> input_quantities);
+    //void ExistingProvideRequest2(PROTOCOL protocol, std::unordered_map<Token *, double> input_quantities);
 
 private slots:
     void on_comboBox_pool_activated(int index);

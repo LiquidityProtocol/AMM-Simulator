@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <tuple>
 #include "src/Playground.hpp"
+#include "PoolListWidgetItem.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     playground_ = new Playground;
+
 }
 
 MainWindow::~MainWindow()
@@ -56,3 +58,10 @@ void MainWindow::on_create_account_pushButton_clicked()
 
 }
 
+void MainWindow::VerifyAddPoolInfo(PoolInterface* curr_pool) {
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget_pool);
+    ui->listWidget_pool->addItem(item);
+    PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, curr_pool);
+    //item->setSizeHint(account_item->sizeHint());
+    ui->listWidget_pool->setItemWidget(item, pool_item);
+}

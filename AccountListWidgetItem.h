@@ -8,6 +8,7 @@
 #include "NewPoolProvisionDialog.h"
 #include "ExistingPoolProvisionDialog.h"
 #include "src/Playground.hpp"
+#include "MainWindow.h"
 
 namespace Ui {
 class AccountListWidgetItem;
@@ -35,6 +36,9 @@ private slots:
     void on_mint_pushButton_clicked();
     void on_trade_pushButton_clicked();
     void on_provide_pushButton_clicked();
+
+signals:
+    void AddPoolInfo(PoolInterface* pool);
 
 private:
     Ui::AccountListWidgetItem *ui;

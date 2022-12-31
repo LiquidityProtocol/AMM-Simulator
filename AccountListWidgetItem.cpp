@@ -11,6 +11,7 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
     playground_(playground)
 {
     ui->setupUi(this);
+    connect(this, &AccountListWidgetItem::AddPoolInfo, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyAddPoolInfo);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
     ui->lineEdit_2->setText(QString::number(account_->total_value()));
 }
@@ -94,6 +95,12 @@ void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, std::unorde
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
+
+        std::unordered_set<Token *> tokens;
+        for ( auto [token, quantity] : quantities) {
+            tokens.emplace(token);
+        }
+        PoolInterface *curr_pool = playground_->GetPool(protocol, tokens);
         new_pool_provision_dialog->accept();
     }  catch (std::exception &e) {
         QMessageBox::about(new_pool_provision_dialog, "Provide failed", e.what());

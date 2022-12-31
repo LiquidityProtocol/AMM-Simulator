@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "src/Playground.hpp"
+#include "src/Protocols/Protocols.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,11 +17,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void VerifyAddPoolInfo(PoolInterface* pool);
+
 private slots:
 
     void on_create_toekn_pushButton_clicked();
 
     void on_create_account_pushButton_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;

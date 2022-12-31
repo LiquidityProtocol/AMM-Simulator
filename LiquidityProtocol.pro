@@ -13,6 +13,7 @@ SOURCES += \
     ExistingPoolProvisionDialog.cpp \
     MintDialog.cpp \
     NewPoolProvisionDialog.cpp \
+    PoolListWidgetItem.cpp \
     ProvideDialog.cpp \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     MainWindow.h \
     MintDialog.h \
     NewPoolProvisionDialog.h \
+    PoolListWidgetItem.h \
     ProvideDialog.h \
     TokenListWidgetItem.h \
     TradeDialog.h \
@@ -53,6 +55,7 @@ FORMS += \
     MainWindow.ui \
     MintDialog.ui \
     NewPoolProvisionDialog.ui \
+    PoolListWidgetItem.ui \
     ProvideDialog.ui \
     TokenListWidgetItem.ui \
     TradeDialog.ui \

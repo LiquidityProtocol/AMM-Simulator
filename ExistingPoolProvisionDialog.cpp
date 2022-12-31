@@ -11,7 +11,7 @@ ExistingPoolProvisionDialog::ExistingPoolProvisionDialog(QWidget *parent, Playgr
 {
     ui->setupUi(this);
     connect(this, &ExistingPoolProvisionDialog::ExistingProvideRequest, qobject_cast<AccountListWidgetItem *>(parent), &AccountListWidgetItem::VerifyExistingProvideRequest);
-
+    //connect(this, &ExistingPoolProvisionDialog::ExistingProvideRequest2, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyExistingProvideRequest);
     ui->comboBox_pool->setCurrentIndex(-1);
     std::unordered_set<PoolInterface *> pools = playground_->existing_pools();
     for (auto pool : pools) {
@@ -132,7 +132,6 @@ void ExistingPoolProvisionDialog::on_pushButton_provide_clicked()
 
     PoolInterface *curr_pool = qvariant_cast<PoolInterface *>(ui->comboBox_pool->currentData());
     PROTOCOL curr_protocol = GetPoolType(curr_pool);
-    Token *input_token = qvariant_cast<Token *>(ui->comboBox_input_token->currentData());
     QString invalid = QString("Invalid input");
 
     std::unordered_map<Token *, double> input_quantities;
@@ -150,6 +149,7 @@ void ExistingPoolProvisionDialog::on_pushButton_provide_clicked()
         }
     }
     emit ExistingProvideRequest(curr_protocol, input_quantities);
+    //emit ExistingProvideRequest2(curr_protocol, input_quantities);
 }
 
 
