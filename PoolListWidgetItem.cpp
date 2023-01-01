@@ -28,6 +28,11 @@ PoolListWidgetItem::~PoolListWidgetItem()
     delete ui;
 }
 
+PoolInterface *PoolListWidgetItem::pool() const
+{
+    return pool_;
+}
+
 void PoolListWidgetItem::on_comboBox_spotPrice_activated(int index)
 {
     if (index!=-1){

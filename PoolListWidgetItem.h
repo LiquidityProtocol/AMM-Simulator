@@ -15,6 +15,7 @@ class PoolListWidgetItem : public QWidget
 public:
     explicit PoolListWidgetItem(QWidget *parent = nullptr, PoolInterface *pool = nullptr);
     ~PoolListWidgetItem();
+    PoolInterface *pool() const;
 
 private slots:
     void on_comboBox_spotPrice_activated(int index);

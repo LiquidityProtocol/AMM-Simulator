@@ -3,6 +3,7 @@
 #include "MintDialog.h"
 #include "WalletListWidgetItem.h"
 #include <QMessageBox>
+#include "MainWindow.h"
 
 AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playground, Account *account) :
     QWidget(parent),
@@ -11,7 +12,7 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
     playground_(playground)
 {
     ui->setupUi(this);
-    connect(this, &AccountListWidgetItem::AddPoolInfo, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyAddPoolInfo);
+    connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
     ui->lineEdit_2->setText(QString::number(account_->total_value()));
 }
@@ -66,6 +67,15 @@ void AccountListWidgetItem::UpdateWallet()
     }
 }
 
+void AccountListWidgetItem::SendUpdatePoolDisplayRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities)
+{
+    std::unordered_set<Token *> tokens;
+    for (auto [token, quantity] : quantities) {
+        tokens.emplace(token);
+    }
+    emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, tokens));
+}
+
 void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     try {
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
@@ -95,12 +105,7 @@ void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, std::unorde
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
-
-        std::unordered_set<Token *> tokens;
-        for ( auto [token, quantity] : quantities) {
-            tokens.emplace(token);
-        }
-        PoolInterface *curr_pool = playground_->GetPool(protocol, tokens);
+        SendUpdatePoolDisplayRequest(protocol, quantities);
         new_pool_provision_dialog->accept();
     }  catch (std::exception &e) {
         QMessageBox::about(new_pool_provision_dialog, "Provide failed", e.what());
@@ -113,6 +118,7 @@ void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, std::unorde
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, slippage_controller);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
+        SendUpdatePoolDisplayRequest(protocol, quantities);
         new_pool_provision_dialog->accept();
     }  catch (std::exception &e) {
         QMessageBox::about(new_pool_provision_dialog, "Provide failed", e.what());
@@ -125,18 +131,20 @@ void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, std::unorde
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, weights);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
+        SendUpdatePoolDisplayRequest(protocol, quantities);
         new_pool_provision_dialog->accept();
     }  catch (std::exception &e) {
         QMessageBox::about(new_pool_provision_dialog, "Provide failed", e.what());
     }
 }
 
-void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> provided_quantities)
+void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> quantities)
 {
     try {
-        playground_->ExecuteProvision(account_, protocol, provided_quantities);
+        playground_->ExecuteProvision(account_, protocol, quantities);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
+        SendUpdatePoolDisplayRequest(protocol, quantities);
         existing_pool_provision_dialog->accept();
     }  catch (std::exception &e) {
         QMessageBox::about(existing_pool_provision_dialog, "Provide failed", e.what());

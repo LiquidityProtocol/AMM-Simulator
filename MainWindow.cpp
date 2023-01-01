@@ -3,10 +3,10 @@
 #include "src/Utilities/Utilities.hpp"
 #include "AccountListWidgetItem.h"
 #include "TokenListWidgetItem.h"
+#include "PoolListWidgetItem.h"
 #include <QMessageBox>
 #include <tuple>
 #include "src/Playground.hpp"
-#include "PoolListWidgetItem.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     playground_ = new Playground;
-
 }
 
 MainWindow::~MainWindow()
@@ -55,13 +54,22 @@ void MainWindow::on_create_account_pushButton_clicked()
         item->setSizeHint(account_item->sizeHint());
         ui->listWidget->setItemWidget(item, account_item);
     }
-
 }
 
-void MainWindow::VerifyAddPoolInfo(PoolInterface* curr_pool) {
+void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
+    for (int i = 0; i < ui->listWidget_pool->count(); ++i) {
+        QListWidgetItem *item = ui->listWidget_pool->item(i);
+        QWidget *item_widget = ui->listWidget_pool->itemWidget(item);
+        if (qobject_cast<PoolListWidgetItem *>(item_widget)->pool() == pool) {
+            PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
+            item->setSizeHint(pool_item->sizeHint());
+            ui->listWidget_pool->setItemWidget(item, pool_item);
+            return;
+        }
+    }
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget_pool);
     ui->listWidget_pool->addItem(item);
-    PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, curr_pool);
-    //item->setSizeHint(account_item->sizeHint());
+    PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
+    item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }

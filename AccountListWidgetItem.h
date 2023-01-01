@@ -8,7 +8,6 @@
 #include "NewPoolProvisionDialog.h"
 #include "ExistingPoolProvisionDialog.h"
 #include "src/Playground.hpp"
-#include "MainWindow.h"
 
 namespace Ui {
 class AccountListWidgetItem;
@@ -38,7 +37,7 @@ private slots:
     void on_provide_pushButton_clicked();
 
 signals:
-    void AddPoolInfo(PoolInterface* pool);
+    void UpdatePoolDisplayRequest(PoolInterface *pool);
 
 private:
     Ui::AccountListWidgetItem *ui;
@@ -51,6 +50,7 @@ private:
     Playground *playground_;
 
     void UpdateWallet();
+    void SendUpdatePoolDisplayRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities);
 };
 
 #endif // ACCOUNTLISTWIDGETITEM_H

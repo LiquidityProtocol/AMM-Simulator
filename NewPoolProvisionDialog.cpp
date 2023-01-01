@@ -13,9 +13,6 @@ NewPoolProvisionDialog::NewPoolProvisionDialog(QWidget *parent, Playground *play
     connect(this, &NewPoolProvisionDialog::ProvideRequest1, qobject_cast<AccountListWidgetItem *>(parent), &AccountListWidgetItem::VerifyProvideRequest1);
     connect(this, &NewPoolProvisionDialog::ProvideRequest2, qobject_cast<AccountListWidgetItem *>(parent), &AccountListWidgetItem::VerifyProvideRequest2);
     connect(this, &NewPoolProvisionDialog::ProvideRequest3, qobject_cast<AccountListWidgetItem *>(parent), &AccountListWidgetItem::VerifyProvideRequest3);
-
-    //connect(this, &NewPoolProvisionDialog::NewProvideRequestPoolUpdate, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyProvideRequestPoolCreate);
-
     for (const auto &[protocol, protocol_name] : PROTOCOL_NAME) {
         ui->comboBox_protocol->addItem(QString::fromStdString(protocol_name), protocol);
     }
@@ -103,7 +100,6 @@ void NewPoolProvisionDialog::on_pushButton_provide_clicked()
     }
     PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->comboBox_protocol->currentData());
     std::unordered_map<Token *, double> quantities;
-    std::unordered_set<Token *> tokens;
     for (int i = 0; i < (int)comboBoxes_tokens_.size(); ++i) {
         if (comboBoxes_tokens_[i]->currentIndex() == -1) {
             continue;
