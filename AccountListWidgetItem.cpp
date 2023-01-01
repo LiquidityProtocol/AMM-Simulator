@@ -86,11 +86,25 @@ void AccountListWidgetItem::SendUpdatePoolDisplayRequest2(PROTOCOL protocol, con
     emit UpdatePoolDisplayRequest2(playground_->GetPool(protocol, tokens), last_quants, last_spots);
 }
 
+void AccountListWidgetItem::SendUpdatePoolDisplayRequest3(PoolInterface* pool, std::unordered_map<Token *, double> last_quants, std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots) {
+    emit UpdatePoolDisplayRequest2(pool, last_quants, last_spots);
+}
+
 void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     try {
+        std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots;
+        for (auto inp_token : pool->tokens()) {
+            for (auto token : pool->tokens()) {
+                last_spots[inp_token][token] = pool->GetSpotPrice(inp_token, token);
+            }
+        }
+        std::unordered_map<Token *, double> last_quants = pool->quantities();
+
+
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
+        SendUpdatePoolDisplayRequest3(pool, last_quants, last_spots);
         trade_dialog->accept();
     } catch (std::exception &e) {
         QMessageBox::about(trade_dialog, "Trade failed", e.what());
