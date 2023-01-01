@@ -32,7 +32,7 @@ ExistingPoolProvisionDialog::ExistingPoolProvisionDialog(QWidget *parent, Playgr
     ui->label_input_token->setHidden(true);
     ui->lineEdit_input_token->setHidden(true);
 
-    ui->pushButton_provide->setHidden(true);
+    ui->pushButton_provide->setDisabled(true);
 }
 
 ExistingPoolProvisionDialog::~ExistingPoolProvisionDialog()
@@ -63,7 +63,7 @@ void ExistingPoolProvisionDialog::on_comboBox_protocol_activated(int index)
         ui->label_input_token->setHidden(true);
         ui->lineEdit_input_token->setHidden(true);
 
-        ui->pushButton_provide->setHidden(true);
+        ui->pushButton_provide->setDisabled(true);
     }
 }
 
@@ -97,7 +97,7 @@ void ExistingPoolProvisionDialog::on_comboBox_pool_activated(int index)
         ui->comboBox_input_token->setHidden(false);
         ui->lineEdit_input_token->setHidden(false);
 
-        ui->pushButton_provide->setHidden(false);
+        ui->pushButton_provide->setDisabled(false);
     }
 }
 

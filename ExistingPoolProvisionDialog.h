@@ -17,7 +17,7 @@ public:
     ~ExistingPoolProvisionDialog();
 
 signals:
-    void ExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> quantities);
+    void ExistingProvideRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities);
 
 private slots:
     void on_comboBox_protocol_activated(int index);

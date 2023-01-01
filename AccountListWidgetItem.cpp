@@ -88,7 +88,7 @@ void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provisio
     }
 }
 
-void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee)
+void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee)
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
@@ -100,7 +100,7 @@ void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, std::unorde
     }
 }
 
-void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee, double slippage_controller)
+void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, double slippage_controller)
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, slippage_controller);
@@ -112,7 +112,7 @@ void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, std::unorde
     }
 }
 
-void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee, std::unordered_map<Token *, double> weights)
+void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, const std::unordered_map<Token *, double> &weights)
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, weights);
@@ -124,7 +124,7 @@ void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, std::unorde
     }
 }
 
-void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> quantities)
+void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities)
 {
     try {
         playground_->ExecuteProvision(account_, protocol, quantities);

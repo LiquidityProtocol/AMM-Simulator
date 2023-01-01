@@ -18,9 +18,9 @@ public:
     ~NewPoolProvisionDialog();
 
 signals:
-    void ProvideRequest1(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee);
-    void ProvideRequest2(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee, double slippage_controller);
-    void ProvideRequest3(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee, std::unordered_map<Token *, double> weights);
+    void ProvideRequest1(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee);
+    void ProvideRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, double slippage_controller);
+    void ProvideRequest3(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, const std::unordered_map<Token *, double> &weights);
 
 private slots:
     void on_comboBox_protocol_activated(int index);
