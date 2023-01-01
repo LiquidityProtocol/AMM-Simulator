@@ -70,8 +70,6 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget_pool);
     ui->listWidget_pool->addItem(item);
     PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
-//    pool_item->set_last_quantities(inp_quantities);
-//    pool_item->set_last_spot_prices(inp_spots);
     item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }

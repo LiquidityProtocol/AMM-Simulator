@@ -22,7 +22,10 @@ public:
 private slots:
     void on_comboBox_spotPrice_activated(int index);
 
+    void on_comboBox_secondToken_activated(int index);
+
 private:
+    void TokenGraph(Token* input_token, Token* output_token);
     Ui::PoolListWidgetItem *ui;
     PoolInterface *pool_;
     std::unordered_map<Token *, double> last_quantities;

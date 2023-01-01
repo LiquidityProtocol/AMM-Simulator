@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
 
@@ -20,6 +20,7 @@ SOURCES += \
     WalletListWidgetItem.cpp \
     main.cpp \
     MainWindow.cpp \
+    qcustomplot.cpp \
     src/Protocols/CurvePool.cpp \
     src/Protocols/Protocols.cpp \
     src/Utilities/Account.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
+    qcustomplot.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
