@@ -21,6 +21,7 @@ public:
     double SimulateSwap(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) const;
     double ExecuteSwap(Account *trader, PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) const;
 
+    std::unordered_set<PoolInterface *> GetPools(PROTOCOL protocol);
     double SimulateProvision(PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities) const;
     double ExecuteProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities) const;
     double ExecuteInitialProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities, double pool_fee);

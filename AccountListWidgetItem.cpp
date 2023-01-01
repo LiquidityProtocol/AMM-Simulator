@@ -124,10 +124,10 @@ void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, std::unorde
     }
 }
 
-void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> provided_quantities)
+void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> quantities)
 {
     try {
-        playground_->ExecuteProvision(account_, protocol, provided_quantities);
+        playground_->ExecuteProvision(account_, protocol, quantities);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         existing_pool_provision_dialog->accept();

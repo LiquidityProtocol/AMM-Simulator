@@ -29,7 +29,7 @@ public slots:
     void VerifyProvideRequest1(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee);
     void VerifyProvideRequest2(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee, double slippage_controller);
     void VerifyProvideRequest3(PROTOCOL protocol, std::unordered_map<Token *, double> quantities, double pool_fee, std::unordered_map<Token *, double> weights);
-    void VerifyExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> input_quantities);
+    void VerifyExistingProvideRequest(PROTOCOL protocol, std::unordered_map<Token *, double> quantities);
 
 private slots:
     void on_mint_pushButton_clicked();

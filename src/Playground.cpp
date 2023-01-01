@@ -74,6 +74,17 @@ double Playground::ExecuteSwap(Account *trader, PoolInterface *pool, Token *inpu
     return trader->Trade(pool, input_token, output_token, input_quantity);
 }
 
+std::unordered_set<PoolInterface *> Playground::GetPools(PROTOCOL protocol) {
+    if (!existing_pools_.count(protocol)) {
+        return {};
+    }
+    std::unordered_set<PoolInterface *> pools;
+    for (const auto &[tokens_container, pool] : existing_pools_.find(protocol)->second) {
+        pools.emplace(pool);
+    }
+    return pools;
+}
+
 double Playground::SimulateProvision(PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities) const {
     std::unordered_set<Token *> tokens; tokens.reserve(provided_quantities.size());
     for (const auto &[token, quantity] : provided_quantities) {
