@@ -102,6 +102,19 @@ void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provisio
 void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee)
 {
     try {
+//        std::unordered_set<Token *> tokens;
+//        std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots;
+//        for (auto [inp_token, inp_quantity] : quantities) {
+//            tokens.emplace(inp_token);
+//        }
+//        PoolInterface *curr_pool = playground_->GetPool(protocol, tokens);
+//        for (auto [inp_token, inp_quantity] : quantities) {
+//            for (auto [token, quantity] : quantities) {
+//                last_spots[inp_token][token] = curr_pool->GetSpotPrice(inp_token, token);
+//            }
+//        }
+//        std::unordered_map<Token *, double> last_quants = curr_pool->quantities();
+
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
@@ -115,6 +128,7 @@ void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::
 void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, double slippage_controller)
 {
     try {
+
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, slippage_controller);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
@@ -128,6 +142,7 @@ void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::
 void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, const std::unordered_map<Token *, double> &weights)
 {
     try {
+
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, weights);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
@@ -141,6 +156,8 @@ void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::
 void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities)
 {
     try {
+
+        std::unordered_map<Token *, double> last_quantities(quantities);
         playground_->ExecuteProvision(account_, protocol, quantities);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
