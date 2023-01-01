@@ -38,6 +38,8 @@ NewPoolProvisionDialog::NewPoolProvisionDialog(QWidget *parent, Playground *play
     ui->comboBox_poolFee->setHidden(true);
     ui->label_slippageController->setHidden(true);
     ui->lineEdit_slippageController->setHidden(true);
+
+    ui->pushButton_provide->setDisabled(true);
 }
 
 NewPoolProvisionDialog::~NewPoolProvisionDialog()
@@ -66,6 +68,8 @@ void NewPoolProvisionDialog::on_comboBox_protocol_activated(int index)
             ui->label_slippageController->setHidden(true);
             ui->lineEdit_slippageController->setHidden(true);
         }
+
+        ui->pushButton_provide->setDisabled(false);
     }
 }
 
