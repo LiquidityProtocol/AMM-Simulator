@@ -75,3 +75,26 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
     item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }
+
+void MainWindow::VerifyUpdatePoolDisplayRequest2(PoolInterface *pool, std::unordered_map<Token *, double> last_quants, std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots)
+{
+    for (int i = 0; i < ui->listWidget_pool->count(); ++i) {
+        QListWidgetItem *item = ui->listWidget_pool->item(i);
+        QWidget *item_widget = ui->listWidget_pool->itemWidget(item);
+        if (qobject_cast<PoolListWidgetItem *>(item_widget)->pool() == pool) {
+            PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
+            pool_item->set_last_quantities(last_quants);
+            pool_item->set_last_spot_prices(last_spots);
+            item->setSizeHint(pool_item->sizeHint());
+            ui->listWidget_pool->setItemWidget(item, pool_item);
+            return;
+        }
+    }
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget_pool);
+    ui->listWidget_pool->addItem(item);
+    PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
+    pool_item->set_last_quantities(last_quants);
+    pool_item->set_last_spot_prices(last_spots);
+    item->setSizeHint(pool_item->sizeHint());
+    ui->listWidget_pool->setItemWidget(item, pool_item);
+}

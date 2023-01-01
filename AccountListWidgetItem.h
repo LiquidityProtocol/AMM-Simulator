@@ -38,6 +38,8 @@ private slots:
 
 signals:
     void UpdatePoolDisplayRequest(PoolInterface *pool);
+    void UpdatePoolDisplayRequest2(PoolInterface *pool, std::unordered_map<Token *, double> last_quants, std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots);
+
 
 private:
     Ui::AccountListWidgetItem *ui;
@@ -51,6 +53,7 @@ private:
 
     void UpdateWallet();
     void SendUpdatePoolDisplayRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities);
+    void SendUpdatePoolDisplayRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, std::unordered_map<Token *, double> last_quants, std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots);
 };
 
 #endif // ACCOUNTLISTWIDGETITEM_H

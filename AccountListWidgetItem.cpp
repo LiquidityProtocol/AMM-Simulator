@@ -13,6 +13,7 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
 {
     ui->setupUi(this);
     connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest);
+    connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest2, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest2);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
     ui->lineEdit_2->setText(QString::number(account_->total_value()));
 }
@@ -76,6 +77,15 @@ void AccountListWidgetItem::SendUpdatePoolDisplayRequest(PROTOCOL protocol, cons
     emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, tokens));
 }
 
+void AccountListWidgetItem::SendUpdatePoolDisplayRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, std::unordered_map<Token *, double> last_quants, std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots)
+{
+    std::unordered_set<Token *> tokens;
+    for (auto [token, quantity] : quantities) {
+        tokens.emplace(token);
+    }
+    emit UpdatePoolDisplayRequest2(playground_->GetPool(protocol, tokens), last_quants, last_spots);
+}
+
 void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     try {
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
@@ -102,18 +112,6 @@ void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provisio
 void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee)
 {
     try {
-//        std::unordered_set<Token *> tokens;
-//        std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots;
-//        for (auto [inp_token, inp_quantity] : quantities) {
-//            tokens.emplace(inp_token);
-//        }
-//        PoolInterface *curr_pool = playground_->GetPool(protocol, tokens);
-//        for (auto [inp_token, inp_quantity] : quantities) {
-//            for (auto [token, quantity] : quantities) {
-//                last_spots[inp_token][token] = curr_pool->GetSpotPrice(inp_token, token);
-//            }
-//        }
-//        std::unordered_map<Token *, double> last_quants = curr_pool->quantities();
 
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
@@ -156,12 +154,22 @@ void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::
 void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities)
 {
     try {
-
-        std::unordered_map<Token *, double> last_quantities(quantities);
+        std::unordered_set<Token *> tokens;
+        std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots;
+        for (auto [inp_token, inp_quantity] : quantities) {
+            tokens.emplace(inp_token);
+        }
+        PoolInterface *curr_pool = playground_->GetPool(protocol, tokens);
+        for (auto [inp_token, inp_quantity] : quantities) {
+            for (auto [token, quantity] : quantities) {
+                last_spots[inp_token][token] = curr_pool->GetSpotPrice(inp_token, token);
+            }
+        }
+        std::unordered_map<Token *, double> last_quants = curr_pool->quantities();
         playground_->ExecuteProvision(account_, protocol, quantities);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
-        SendUpdatePoolDisplayRequest(protocol, quantities);
+        SendUpdatePoolDisplayRequest2(protocol, quantities, last_quants, last_spots);
         existing_pool_provision_dialog->accept();
     }  catch (std::exception &e) {
         QMessageBox::about(existing_pool_provision_dialog, "Provide failed", e.what());
