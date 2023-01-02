@@ -18,8 +18,12 @@ public:
     PoolInterface *pool() const;
     void set_last_quantities(std::unordered_map<Token *, double> input_quantities);
     void set_last_spot_prices(std::unordered_map<Token *, std::unordered_map<Token *, double>> input_spots);
+    int get_comboBox_spotPrice_index();
+    int get_comboBox_secondToken_index();
+    void set_comboBox_spotPrice_index(int idx);
+    void set_comboBox_secondToken_index(int idx);
 
-private slots:
+public slots:
     void on_comboBox_spotPrice_activated(int index);
 
     void on_comboBox_secondToken_activated(int index);

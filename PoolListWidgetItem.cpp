@@ -24,6 +24,12 @@ PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool) :
 
     ui->label_secondToken->setHidden(true);
     ui->comboBox_secondToken->setHidden(true);
+
+    QSizePolicy sp_retain = ui->tableWidget_poolInformation->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+
+    QSizePolicy sp_retain2 = ui->widgetGraph->sizePolicy();
+    sp_retain2.setRetainSizeWhenHidden(true);
     ui->widgetGraph->setHidden(true);
 
 
@@ -183,8 +189,24 @@ void PoolListWidgetItem::on_comboBox_secondToken_activated(int index)
         ui->widgetGraph->setHidden(false);
         ui->widgetGraph->clearGraphs();
         Token *input_token = qvariant_cast<Token *>(ui->comboBox_spotPrice->currentData());
-        Token *second_token = qvariant_cast<Token *>(ui->comboBox_spotPrice->currentData());
+        Token *second_token = qvariant_cast<Token *>(ui->comboBox_secondToken->currentData());
         TokenGraph(input_token,second_token);
     }
+}
+
+int PoolListWidgetItem::get_comboBox_spotPrice_index() {
+    return ui->comboBox_spotPrice->currentIndex();
+}
+
+int PoolListWidgetItem::get_comboBox_secondToken_index() {
+    return ui->comboBox_secondToken->currentIndex();
+}
+
+void PoolListWidgetItem::set_comboBox_spotPrice_index(int idx) {
+    ui->comboBox_spotPrice->setCurrentIndex(idx);
+}
+
+void PoolListWidgetItem::set_comboBox_secondToken_index(int idx){
+        ui->comboBox_secondToken->setCurrentIndex(idx);
 }
 
