@@ -30,6 +30,7 @@ SOURCES += \
 #    src/Testing/UniswapV2PoolTest.cpp\
  \#    src/Utilities/UniswapV2PoolSimulation.cpp
     src/Utilities/cdf_uniform_distrib.cpp \
+    src/Utilities/mean_list.cpp \
     src/Utilities/normal_distribution_generator.cpp
 
 HEADERS += \
@@ -45,6 +46,7 @@ HEADERS += \
     src/Protocols/UniswapV3Pool.hpp\
     src/Protocols/UniswapV2Pool.hpp\
     src/Utilities/cdf_uniform_distrib.h \
+    src/Utilities/mean_list.h \
     src/Utilities/normal_distribution_generator.h
 
 FORMS += \
