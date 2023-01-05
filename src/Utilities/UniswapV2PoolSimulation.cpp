@@ -85,7 +85,7 @@ void UniswapV2PoolTest1(){
 };
 
 
-// Swaps that increase in size - Range 500 - Steps 10
+// Swaps that increase in proportion/size - Range 10 - steps 1
 
 void UniswapV2PoolTest2(){
     Token *token1 = Token::GetToken("token1");
@@ -113,11 +113,11 @@ void UniswapV2PoolTest2(){
     std::vector<double> pool_quantity_2 = {20};
 
 
-    for (int i = 0; i < 500; i+=10){
+    for (int i = 0; i < 10; i++){
 
-        double swap_quantity = pool.SimulateSwap(token1, token2, 1);
+        double swap_quantity = pool.SimulateSwap(token1, token2, i);
 
-        double slip = pool.ComputeSlippage(token1, token2, 1);
+        double slip = pool.ComputeSlippage(token1, token2, i);
         slippages.push_back(slip);
 
         pool.ExecuteSwap(trader, token1, token2, 1, swap_quantity);
@@ -148,8 +148,7 @@ void UniswapV2PoolTest2(){
 
 };
 
-// Swaps with  unbalanced initial endowment - Steps 1 - Range 100
-
+// Swaps with (very) unbalanced initial endowment - Steps 1 - Range 100
 
 void UniswapV2PoolTest3(){
     Token *token1 = Token::GetToken("token1");
