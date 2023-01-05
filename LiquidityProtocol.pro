@@ -10,13 +10,18 @@ CONFIG += c++17
 
 SOURCES += \
     AccountListWidgetItem.cpp \
+    ExistingPoolProvisionDialog.cpp \
     MintDialog.cpp \
+    NewPoolProvisionDialog.cpp \
+    ProvideDialog.cpp \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
     Withdrawdialog.cpp \
     main.cpp \
     MainWindow.cpp \
+    src/Protocols/CurvePool.cpp \
+    src/Protocols/Protocols.cpp \
     src/Utilities/Account.cpp \
     src/Utilities/Operation.cpp \
     src/Utilities/PoolInterface.cpp \
@@ -26,8 +31,11 @@ SOURCES += \
 
 HEADERS += \
     AccountListWidgetItem.h \
+    ExistingPoolProvisionDialog.h \
     MainWindow.h \
     MintDialog.h \
+    NewPoolProvisionDialog.h \
+    ProvideDialog.h \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
@@ -35,6 +43,7 @@ HEADERS += \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
+    src/Protocols/CurvePool.hpp \
     src/Protocols/Protocols.hpp \
     src/Protocols/UniswapV2Pool.hpp \
     src/Protocols/UniswapV3Pool.hpp \
@@ -42,8 +51,11 @@ HEADERS += \
 
 FORMS += \
     AccountListWidgetItem.ui \
+    ExistingPoolProvisionDialog.ui \
     MainWindow.ui \
     MintDialog.ui \
+    NewPoolProvisionDialog.ui \
+    ProvideDialog.ui \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
     WalletListWidgetItem.ui \
