@@ -1,0 +1,112 @@
+Adithya Ravichandran:
+
+- Resolved Cmake issues for multiple team members
+- Implemented first version of Pool Metrics Interface
+- Implemented documentation for PoolInterface.cpp
+
+
+Levente Ludanyi:
+
+- Set new goals for the team to have a first fully functionning product in 3 weeks, worked on the product vision and distributed the work accordingly
+- Resolved QT compliation issues for multiple team members
+- Implemented first version of the provision interface
+- Implemented documentation for Initializer, Operation and Token files
+
+
+Minh Pham: 
+
+- Create wallet list widget GUI displaying tokens in account wallet.
+- Documenting account API.
+
+Alessandro:
+
+- implemented base structure for Front-End branch: 
+Created class template for visual graphs, and subclasses templates for the 2 types of graphs that we are going to use. 
+The classes still need to be linked to direct implementations with QSplineSeries and other Qt libraries that could be useful. 
+- implemented changes in the .pro file to get necessary requirements to run this branch using qmake
+
+Tu Nguyen:
+
+- Completed: Add token section to the playground GUI, which enable users to create a new token with default price to be 0.
+- Working on: Allow user to custom the initial price of the token.
+
+The Nguyen:
+
+- Added Accounts Section into Playground GUI.
+- Reimplemented Token, Account, PoolInterface, and UniswapV2Pool to provide back-end to Playground.
+
+Fryderyk Sitnik:
+
+- I implemented a first version of divergence loss function. It doesn't yet work but I hope to solve all issues next week.
+- Along with Adithya and Levente I managed the team and helped resolve all team issues.
+
+Shubh:
+
+This week was spent really implementing instances of the 
+classes which had already been written. I created the first 
+test simulation with a simple for loop, and no added sophistication.
+This simply kept track of the macro-objectives and is a 
+baseline to implement more complicated methods. 
+
+I also spent a lot of time working to build and run the 
+code in the proper manner, as on Thursday we still lacked 
+a cmake/qmake file which made running the code very hard. 
+
+Mia:
+
+This week I worked on implementing a full-run test for 
+the Uniswap V2 Pool protocol. My main goal is to 
+showcase the edge cases of this protocol to present and 
+document its limits (slippage and divergence loss 
+especially). This will be used to evaluate the precision 
+of our teams’ implementation, as well as during the 
+presentation of our project in January. I dealt with 
+a few issues with committing and running my code as we
+don’t have a build configuration yet (this is why my 
+work is not on the project’s Github yet but it is 
+destined to be in the Slippage branch).
+
+Kaoutar:
+
+This week I focused on testing the edge cases of the 
+constant sum protocol. My task consisted in writing a 
+test code. The objective is to view the behaviour of 
+the pool on the edge cases and analysing its limits 
+(slippage and divergence loss). This way, we will be 
+able to showcase the limits of our team’s code 
+implementation.
+
+
+Jasmine Samson:
+
+After changing the framework on which the frontend team will work on to build this user interface, 
+I started rewriting the code implementation to show a piechart representing the percentage of tokens in the pool. 
+Indeed, our previous framework was focusing on web development and qml which is less convenient and appropriate forthis project. 
+We now decided to use Qt Quick application (with widgets). I now know how to show new widgets and how to update the data.
+Next week,  I will be focusing on the layout using “qboxlayout" so that we can implement several widgets on the same window and not only using
+one “centralWidget” and will discuss with other teams how to extract the data to auto update our graphics.
+
+
+Victoire Fabien:
+
+This week, with the front end team, we looked at the different visualization methods we each used. 
+Now that quite a lot of research had been done over the past two weeks, we were able to start to formally code the front end part of the project.
+I added points to the graph to show the current amounts of tokens. I also started to play more with the customization of the graph (colors of the title and axis titles for example). I also committed documented code so that we could use the tools in the project. Next week, I plan on working more in the final (more formal) version of the front end code to implement some of the graph features.
+
+
+Martina Paez Berru:
+
+For this week we worked with the Market Simulator team to design the layout of the application using Qt Quick app. 
+I looked into using swipe view in order to display the market simulator in one tab, and the graphs in the other tab. Still trying with the newly introduced Qt quick application since it was shown to us just this week. I am planning on adding comments to explain some of the classes and functions we have implemented. I also worked with Victoire and Sandro in the coding of the graphs.
+
+Matheo LM:
+- Make arbitrager code more readable (Comment, Name variables/functions more clearly)
+- Make arbitrage function more robust (Do what is best each time (not only do if beneficial) )
+- Generalize to min_transaction
+- Add SimulateSwap to constant sum protocol and balancer protocol
+- Start work on FrontEnd to display accounts, tokens, amount of tokens to understand working functions (Understand actual code Playground.hpp and Playground.cpp, Learn on QML how to code buttons, Create 4 buttons (name, supply, value, mint) for each token)
+
+Amine Roudani
+Finished the implementation of UniswapV3. Fixed some problems with the computations.
+Researched and started implementing the Curve protocol. 
+
