@@ -85,7 +85,6 @@ void WithdrawDialog::UpdateOutputQuantity()
     }
     for (auto& x: Pool_token) {
         if (selection_.Valid()) {
-            double output_quantity = 0;
             std::unordered_map<Token *, double> Output = playground_->SimulateWithdrawal(x.first, x.second);
             auto it = Output.begin();
             auto it2 = Output.end();
@@ -94,10 +93,10 @@ void WithdrawDialog::UpdateOutputQuantity()
             ui->output_2_name_lineEdit->setText(QString::fromStdString((it2->first)->name()));
             ui->output_2_quantity_lineEdit->setText(QString::number(it2->second));
         } else {
-            ui->output_1_quantity_lineEdit->clear();
             ui->output_1_name_lineEdit->clear();
-            ui->output_2_quantity_lineEdit->clear();
+            ui->output_1_quantity_lineEdit->clear();
             ui->output_2_name_lineEdit->clear();
+            ui->output_2_quantity_lineEdit->clear();
         }
     }
 }
