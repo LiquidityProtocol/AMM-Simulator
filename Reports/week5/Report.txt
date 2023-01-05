@@ -1,0 +1,5 @@
+Adithya Ravichandran:
+- Finished implementing provide functionality along with The Nguyen
+- Fixed implementation of withdraw functionality
+- Create PoolListWidgetItem, a class to display all metrics about a pool, and connected it to the trade, provide and withdraw functionalities
+- Chose graphing framework to work with PoolListWidgetItem and wrote template for FrontEnd team to work with
