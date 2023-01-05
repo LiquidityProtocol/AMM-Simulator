@@ -20,6 +20,11 @@ AccountListWidgetItem::~AccountListWidgetItem()
     delete ui;
 }
 
+Account *AccountListWidgetItem::account() const
+{
+    return account_;
+}
+
 void AccountListWidgetItem::VerifyMintRequest(Token *token, double quantity)
 {
     try {
@@ -86,4 +91,70 @@ void AccountListWidgetItem::VerifyWithdrawRequest(Token *input_token, double sur
     } catch (std::exception &e) {
         QMessageBox::about(withdraw_dialog, "Withdraw failed", e.what());
     }
+}
+
+void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provision)
+{
+    provide_dialog->accept();
+    if (initial_provision) {
+        new_pool_provision_dialog = new NewPoolProvisionDialog(this, playground_);
+        new_pool_provision_dialog->exec();
+    } else {
+        existing_pool_provision_dialog = new ExistingPoolProvisionDialog(this, playground_);
+        existing_pool_provision_dialog->exec();
+    }
+}
+
+void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee)
+{
+    try {
+        playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
+        UpdateWallet();
+        new_pool_provision_dialog->accept();
+    }  catch (std::exception &e) {
+        QMessageBox::about(new_pool_provision_dialog, "Provide failed", e.what());
+    }
+}
+
+void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, double slippage_controller)
+{
+    try {
+        playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, slippage_controller);
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
+        UpdateWallet();
+        new_pool_provision_dialog->accept();
+    }  catch (std::exception &e) {
+        QMessageBox::about(new_pool_provision_dialog, "Provide failed", e.what());
+    }
+}
+
+void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, const std::unordered_map<Token *, double> &weights)
+{
+    try {
+        playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, weights);
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
+        UpdateWallet();
+        new_pool_provision_dialog->accept();
+    }  catch (std::exception &e) {
+        QMessageBox::about(new_pool_provision_dialog, "Provide failed", e.what());
+    }
+}
+
+void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities)
+{
+    try {
+        playground_->ExecuteProvision(account_, protocol, quantities);
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
+        UpdateWallet();
+        existing_pool_provision_dialog->accept();
+    }  catch (std::exception &e) {
+        QMessageBox::about(existing_pool_provision_dialog, "Provide failed", e.what());
+    }
+}
+
+void AccountListWidgetItem::on_provide_pushButton_clicked()
+{
+    provide_dialog = new ProvideDialog(this);
+    provide_dialog->exec();
 }

@@ -10,7 +10,10 @@ CONFIG += c++17
 
 SOURCES += \
     AccountListWidgetItem.cpp \
+    ExistingPoolProvisionDialog.cpp \
     MintDialog.cpp \
+    NewPoolProvisionDialog.cpp \
+    ProvideDialog.cpp \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
@@ -28,8 +31,11 @@ SOURCES += \
 
 HEADERS += \
     AccountListWidgetItem.h \
+    ExistingPoolProvisionDialog.h \
     MainWindow.h \
     MintDialog.h \
+    NewPoolProvisionDialog.h \
+    ProvideDialog.h \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
@@ -45,8 +51,11 @@ HEADERS += \
 
 FORMS += \
     AccountListWidgetItem.ui \
+    ExistingPoolProvisionDialog.ui \
     MainWindow.ui \
     MintDialog.ui \
+    NewPoolProvisionDialog.ui \
+    ProvideDialog.ui \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
     WalletListWidgetItem.ui \
