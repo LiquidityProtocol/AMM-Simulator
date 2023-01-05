@@ -28,7 +28,8 @@ SOURCES += \
     #src/Testing/OperationTest.cpp\
     #src/Testing/PoolInterfaceTest.cpp\
 #    src/Testing/UniswapV2PoolTest.cpp\
-#    src/Utilities/UniswapV2PoolSimulation.cpp
+ \#    src/Utilities/UniswapV2PoolSimulation.cpp
+    src/Utilities/cdf_uniform_distrib.cpp
 
 HEADERS += \
     MainWindow.h \
@@ -42,6 +43,7 @@ HEADERS += \
     src/Protocols/UniswapV2Pool.hpp\
     src/Protocols/UniswapV3Pool.hpp\
     src/Protocols/UniswapV2Pool.hpp\
+    src/Utilities/cdf_uniform_distrib.h
 
 FORMS += \
     MainWindow.ui
