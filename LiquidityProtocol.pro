@@ -20,7 +20,8 @@ SOURCES += \
     src/Utilities/Initializer.cpp\
     src/Utilities/Operation.cpp\
     src/Utilities/PoolInterface.cpp\
-    src/Utilities/Token.cpp\
+    src/Utilities/Token.cpp \
+    src/Utilities/Unif_Distrib_random.cpp
     #src/Testing/AccountTest.cpp\
     #src/Testing/TokenTest.cpp\
     #src/Testing/BalancerPoolTest.cpp\
@@ -39,6 +40,7 @@ HEADERS += \
     src/Protocols/constantsumtest.hpp \
     src/Utilities/FirstSimulation.hpp \
 #    src/Utilities/UniswapV2PoolSimulation.hpp \
+    src/Utilities/Unif_Distrib_random.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp\
     src/Protocols/ConstantSum.hpp\
