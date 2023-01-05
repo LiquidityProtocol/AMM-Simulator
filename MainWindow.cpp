@@ -35,7 +35,7 @@ void MainWindow::on_create_toekn_pushButton_clicked()
    }
 
    if (flag > 1 || error != 0) {
-       QMessageBox::about(this, "Minting token failed", "Please mint a number of tokens!");
+       QMessageBox::about(this, "Adding token failed", "Please put a number as the price of the tokens");
        ui->lineEdit_2->clear();
        ui->lineEdit_3->clear();
    }
