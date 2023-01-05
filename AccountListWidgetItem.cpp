@@ -107,7 +107,6 @@ void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::
 void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, double slippage_controller)
 {
     try {
-
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, slippage_controller);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
@@ -121,7 +120,6 @@ void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::
 void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, const std::unordered_map<Token *, double> &weights)
 {
     try {
-
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, weights);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
