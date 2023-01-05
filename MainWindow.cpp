@@ -60,8 +60,15 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
     for (int i = 0; i < ui->listWidget_pool->count(); ++i) {
         QListWidgetItem *item = ui->listWidget_pool->item(i);
         QWidget *item_widget = ui->listWidget_pool->itemWidget(item);
-        if (qobject_cast<PoolListWidgetItem *>(item_widget)->pool() == pool) {
-            PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
+        PoolListWidgetItem *old_pool_item = qobject_cast<PoolListWidgetItem *>(item_widget);
+        if (old_pool_item->pool() == pool) {
+            int input_token_idx = qobject_cast<PoolListWidgetItem *>(item_widget)->get_comboBox_spotPrice_index();
+            int second_token_idx = qobject_cast<PoolListWidgetItem *>(item_widget)->get_comboBox_secondToken_index();
+            PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool, old_pool_item->curr_quantities(), old_pool_item->curr_spot_prices());
+            pool_item->set_comboBox_spotPrice_index(input_token_idx);
+            pool_item->set_comboBox_secondToken_index(second_token_idx);
+            pool_item->on_comboBox_spotPrice_activated(input_token_idx);
+            pool_item->on_comboBox_secondToken_activated(second_token_idx);
             item->setSizeHint(pool_item->sizeHint());
             ui->listWidget_pool->setItemWidget(item, pool_item);
             return;
@@ -72,26 +79,4 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
     PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
     item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
-}
-
-void MainWindow::VerifyUpdatePoolDisplayRequest2(PoolInterface *pool, std::unordered_map<Token *, double> last_quants, std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots)
-{
-    for (int i = 0; i < ui->listWidget_pool->count(); ++i) {
-        QListWidgetItem *item = ui->listWidget_pool->item(i);
-        QWidget *item_widget = ui->listWidget_pool->itemWidget(item);
-        if (qobject_cast<PoolListWidgetItem *>(item_widget)->pool() == pool) {
-            int input_token_idx = qobject_cast<PoolListWidgetItem *>(item_widget)->get_comboBox_spotPrice_index();
-            int second_token_idx = qobject_cast<PoolListWidgetItem *>(item_widget)->get_comboBox_secondToken_index();
-            PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
-            pool_item->set_last_quantities(last_quants);
-            pool_item->set_last_spot_prices(last_spots);
-            pool_item->set_comboBox_spotPrice_index(input_token_idx);
-            pool_item->set_comboBox_secondToken_index(second_token_idx);
-            pool_item->on_comboBox_spotPrice_activated(input_token_idx);
-            pool_item->on_comboBox_secondToken_activated(second_token_idx);
-            item->setSizeHint(pool_item->sizeHint());
-            ui->listWidget_pool->setItemWidget(item, pool_item);
-            return;
-        }
-    }
 }

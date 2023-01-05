@@ -2,10 +2,12 @@
 #include "ui_PoolListWidgetItem.h"
 #include "src/Protocols/Protocols.hpp"
 
-PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool) :
+PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool, const std::unordered_map<Token *, double> &input_quantities, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spots) :
     QWidget(parent),
     ui(new Ui::PoolListWidgetItem),
-    pool_(pool)
+    pool_(pool),
+    last_quantities_(input_quantities),
+    last_spot_prices_(input_spots)
 {
     ui->setupUi(this);
     ui->label_poolName->setText(QString::fromStdString(pool_->pool_token()->name()));
@@ -27,13 +29,19 @@ PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool) :
 
     QSizePolicy sp_retain = ui->tableWidget_poolInformation->sizePolicy();
     sp_retain.setRetainSizeWhenHidden(true);
+    ui->tableWidget_poolInformation->setSizePolicy(sp_retain);
 
     QSizePolicy sp_retain2 = ui->widgetGraph->sizePolicy();
     sp_retain2.setRetainSizeWhenHidden(true);
+    ui->widgetGraph->setSizePolicy(sp_retain2);
     ui->widgetGraph->setHidden(true);
 
-
-
+    curr_quantities_ = pool->quantities();
+    for (auto inp_token : pool->tokens()) {
+        for (auto token : pool->tokens()) {
+            curr_spot_prices_[inp_token][token] = pool->GetSpotPrice(inp_token, token);
+        }
+    }
 }
 
 PoolListWidgetItem::~PoolListWidgetItem()
@@ -46,12 +54,14 @@ PoolInterface *PoolListWidgetItem::pool() const
     return pool_;
 }
 
-void PoolListWidgetItem::set_last_quantities(std::unordered_map<Token *, double> input_quantities) {
-    last_quantities = input_quantities;
+std::unordered_map<Token *, double> PoolListWidgetItem::curr_quantities() const
+{
+    return curr_quantities_;
 }
 
-void PoolListWidgetItem::set_last_spot_prices(std::unordered_map<Token *, std::unordered_map<Token *, double>> input_spots) {
-    last_spot_prices = input_spots;
+std::unordered_map<Token *, std::unordered_map<Token *, double> > PoolListWidgetItem::curr_spot_prices() const
+{
+    return curr_spot_prices_;
 }
 
 void PoolListWidgetItem::TokenGraph(Token* input_token, Token* output_token) {
@@ -90,13 +100,13 @@ void PoolListWidgetItem::on_comboBox_spotPrice_activated(int index)
             }
         }
 
-        if (last_quantities.size()>0) {
+        if (last_quantities_.size()>0) {
             int token_count = 0;
             for (auto token : pool_->tokens()) {
 
                 std::string token_volume = token->name() + " volume";
                 ui->tableWidget_poolInformation->setVerticalHeaderItem(token_count, new QTableWidgetItem(QString::fromStdString(token_volume)));
-                double delta_volume = pool_->GetQuantity(token)-last_quantities[token];
+                double delta_volume = pool_->GetQuantity(token)-last_quantities_[token];
 
                 ui->tableWidget_poolInformation->setItem(token_count, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetQuantity(token)))));
                 if (delta_volume>0) {
@@ -112,13 +122,13 @@ void PoolListWidgetItem::on_comboBox_spotPrice_activated(int index)
                     ui->tableWidget_poolInformation->item(token_count, 1)->setForeground(QBrush(QColor(150, 0, 0)));
                 }
 
-                ui->tableWidget_poolInformation->setItem(token_count, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(last_quantities[token]))));
+                ui->tableWidget_poolInformation->setItem(token_count, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(last_quantities_[token]))));
 
                 token_count+=1;
 
                 std::string token_price = token->name() + " price";
                 ui->tableWidget_poolInformation->setVerticalHeaderItem(token_count, new QTableWidgetItem(QString::fromStdString(token_price)));
-                double last_price = last_spot_prices[input_token][token];
+                double last_price = last_spot_prices_[input_token][token];
                 double delta_price = pool_->GetSpotPrice(input_token,token)-last_price;
 
                 ui->tableWidget_poolInformation->setItem(token_count, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetSpotPrice(input_token, token)))));

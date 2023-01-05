@@ -18,7 +18,6 @@ public:
 
 public slots:
     void VerifyUpdatePoolDisplayRequest(PoolInterface *pool);
-    void VerifyUpdatePoolDisplayRequest2(PoolInterface *pool, std::unordered_map<Token *, double> last_quants, std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spots);
 
 private slots:
     void on_create_toekn_pushButton_clicked();
