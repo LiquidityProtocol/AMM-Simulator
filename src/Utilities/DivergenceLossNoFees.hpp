@@ -1,6 +1,7 @@
 #include "Utilities.hpp"
 #include "../Protocols/UniswapV2Pool.hpp"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 // First I implement it for one pool using Gaussian Distribution
@@ -24,3 +25,23 @@ double Divergence_loss_sim_no_fee(double iteration_counter) {
     }
     return 0;
 }
+//this class calculates the divergence loss for a liquidity pool based on the current 
+//value, reference value, threshold, and decay factor
+class DivergenceLoss {
+  public:
+    DivergenceLoss(double threshold, double decay) : threshold_(threshold), decay_(decay) {}
+
+    // Computes divergence loss given the current value and the reference value
+    double operator()(double value, double reference) {
+      double divergence = std::abs(value - reference);
+      if (divergence > threshold_) {
+        return decay_ * (divergence - threshold_);
+      } else {
+        return 0.0;
+      }
+    }
+
+  private:
+    double threshold_;
+    double decay_;
+};
