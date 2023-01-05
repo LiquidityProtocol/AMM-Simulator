@@ -13,8 +13,6 @@ QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter
 SOURCES += \
     main.cpp \
     MainWindow.cpp \
-    src/Protocols/constantsummontecarlo.cpp \
-    src/Protocols/constantsumtest.cpp \
     src/Utilities/Account.cpp\
     src/Utilities/FirstSimulation.cpp \
     src/Utilities/Initializer.cpp\
@@ -32,8 +30,6 @@ SOURCES += \
 
 HEADERS += \
     MainWindow.h \
-    src/Protocols/constantsummontecarlo.hpp \
-    src/Protocols/constantsumtest.hpp \
     src/Utilities/FirstSimulation.hpp \
 #    src/Utilities/UniswapV2PoolSimulation.hpp \
     src/Utilities/Utilities.hpp \
