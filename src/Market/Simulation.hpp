@@ -3,6 +3,7 @@
 
 #include "../Protocols/Protocols.hpp"
 #include "../Utilities/Utilities.hpp"
+#include "../Playground.hpp"
 
 #include <cmath>
 #include <random>
@@ -35,7 +36,7 @@ private:
 
     // pool config
     double poolShareValue_;
-    std::unordered_map<Token *, std::unordered_map<Token *, double>> spotPriceMat; // pool config
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMat; // pool config
 };
 class ActionHistory {
 public:
@@ -49,7 +50,7 @@ private:
 
 class Simulation {
 public:
-    Simulation(PoolInterface *pool, int nArbs, int nEpochs);
+    Simulation(Playground *playground, std::pair<PROTOCOL, std::unordered_set<Token*> > pool_info, int nArbs = 50, int nEpochs = 100);
     ~Simulation() = default;
 
     void runEpoch();
@@ -62,7 +63,10 @@ private:
     int nArbs_;
     int epoch;
     PoolInterface *pool_;
-    Protocol poolType_;
+    PROTOCOL poolType_;
+    Playground *playground_;
+    std::pair<PROTOCOL, std::unordered_set<Token*> > pool_info_;
+
 
     Account *simulationTrader;
     Account *simulationProvider;

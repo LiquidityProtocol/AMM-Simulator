@@ -1,6 +1,7 @@
 #include "Simulation.hpp"
 #include <iostream>
 
+
 std::normal_distribution<double> Simulation::distribution = std::normal_distribution<double>(0.0, 1.0);
 std::default_random_engine Simulation::generator = std::default_random_engine();
 
@@ -48,20 +49,23 @@ ActionInfo ActionHistory::operator[](int i) const {
     return history_[i];
 }
 
-Simulation::Simulation(PoolInterface *pool, int nArbs = 50, int nEpochs = 100) {
+Simulation::Simulation(Playground *playground, std::pair< PROTOCOL, std::unordered_set<Token*> > pool_info, int nArbs, int nEpochs) {
     nEpochs_ = nEpochs;
     nArbs_ = nArbs;
     epoch = 0;
+    playground_ = playground;
+    pool_info_ = pool_info;
+    pool_ = playground_->GetPool(pool_info.first, pool_info.second);
 
-    simulationTrader = Account::GetAccount("Simulation Trader");
-    simulationProvider = Account::GetAccount("Simulation Provider");
+    simulationTrader = playground_->GetAccount("Simulation Trader").first;
+    simulationProvider = playground_->GetAccount("Simulation Provider").first;
 
-    for (auto token : pool->tokens()) {
+    for (auto token : pool_->tokens()) {
         simulationTrader->Deposit(token, 100000);
         simulationProvider->Deposit(token, 100000);
     }
-    pool_ = pool;
-    poolType_ = getPoolType(pool);
+    
+    poolType_ = getPoolType(pool_);
 }
 void Simulation::runEpoch() {
     if (converged_) {
@@ -81,7 +85,7 @@ void Simulation::runEpoch() {
             // std::cerr << "Combi found a profit pair!!!\n";
             // std::cerr << token1->name() << "\n";
             // std::cerr << token2->name() << "\n";
-            double output_quantity = pool_->SimulateSwap(token1, token2, quantity);
+            double output_quantity = playground_->SimulateSwap(pool_, token1, token2, quantity);
             double current_profit = output_quantity * token2->real_value() - quantity * token1->real_value();
 
             // std::cerr << current_profit <<"\n";
@@ -102,7 +106,7 @@ void Simulation::runEpoch() {
         double sample = distribution(generator) * nArbs_ * 0.01;
         double slippage = pool_->GetSlippage(input_token, output_token, input_quantity * (1 + sample));
 
-        simulationTrader->Trade(pool_, input_token, output_token, input_quantity * (1 + sample));
+        playground_->ExecuteSwap(simulationTrader, pool_, input_token, output_token, input_quantity * (1 + sample));
         history_.addEvent(ActionInfo(TRADE, pool_, slippage));
     } else {
         converged_ = true;
@@ -120,7 +124,7 @@ void Simulation::Provide(double expectedPoolTokenQuantity) {
 
         quantities[token] = quantity;
     }
-    simulationProvider->Provide(pool_, quantities);
+    playground_->ExecuteProvision(simulationProvider, pool_info_.first, quantities);
     history_.addEvent(ActionInfo(PROVIDE, pool_, expectedPoolTokenQuantity));
 }
 ActionHistory Simulation::getHistory() {
