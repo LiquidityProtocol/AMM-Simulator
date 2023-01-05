@@ -39,7 +39,7 @@ private:
     Ui::WithdrawDialog *ui;
     Playground *playground_;
     Account *account_;
-    Selection_2 selection_;
+    Selection_2 selection_2;
 
     void UpdateSelection();
     void UpdateOutputQuantity();

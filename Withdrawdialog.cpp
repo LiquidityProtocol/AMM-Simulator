@@ -43,6 +43,17 @@ void WithdrawDialog::on_protocol_comboBox_currentIndexChanged(int index)
 
 void WithdrawDialog::on_pool_comboBox_currentIndexChanged(int index)
 {
+    if (index == -1) {
+        ui->pool_comboBox->clear();
+    } else {
+        ui->pool_comboBox->clear();
+        PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->protocol_comboBox->currentData());
+        std::unordered_set<PoolInterface *> pools = playground_->GetPoolsbyProtocol(protocol);
+        for (auto pool : pools) {
+            QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
+            ui->pool_comboBox->addItem(pool_name, QVariant::fromValue(pool));
+        }
+    }
     UpdateSelection();
     UpdateOutputQuantity();
 }
@@ -51,24 +62,26 @@ void WithdrawDialog::on_pool_comboBox_currentIndexChanged(int index)
 void WithdrawDialog::on_pushButton_clicked()
 {
     std::vector<Operation *> ledger = account_->ledger();
-    std::unordered_map<Token *, double> Pool_token;
+    std::vector< std::unordered_map<Token *, double> > Pool_tokens;
     for (int i = 0; i < ledger.size(); i++) {
        if (ledger[i]->account_name() == account_->name()) {
-           if (ledger[i]->pool() == selection_.pool_) {
-               Pool_token = ledger[i]->input();
+           if (ledger[i]->pool() == selection_2.pool_) {
+               Pool_tokens.push_back(ledger[i]->output());
            }
        }
     }
-    for (auto& x: Pool_token) {
-        emit WithdrawRequest(x.first, x.second);
+    for(int i=0; i < Pool_tokens.size(); i++){
+        for (auto it=Pool_tokens[i].begin(); it!=Pool_tokens[i].end(); it++) {
+            emit WithdrawRequest(it->first, it->second);
+        }
     }
 }
 
 void WithdrawDialog::UpdateSelection()
 {
-    selection_.Reset();
+    selection_2.Reset();
     if (ui->pool_comboBox->currentIndex() != -1) {
-        selection_.pool_ = qvariant_cast<PoolInterface *>(ui->pool_comboBox->currentData());
+        selection_2.pool_ = qvariant_cast<PoolInterface *>(ui->pool_comboBox->currentData());
     }
 }
 
@@ -78,13 +91,13 @@ void WithdrawDialog::UpdateOutputQuantity()
     std::unordered_map<Token *, double> Pool_token;
     for (int i = 0; i < ledger.size(); i++) {
        if (ledger[i]->account_name() == account_->name()) {
-           if (ledger[i]->pool() == selection_.pool_) {
+           if (ledger[i]->pool() == selection_2.pool_) {
                Pool_token = ledger[i]->input();
            }
        }
     }
     for (auto& x: Pool_token) {
-        if (selection_.Valid()) {
+        if (selection_2.Valid()) {
             std::unordered_map<Token *, double> Output = playground_->SimulateWithdrawal(x.first, x.second);
             auto it = Output.begin();
             auto it2 = Output.end();

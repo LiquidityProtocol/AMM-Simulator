@@ -95,8 +95,7 @@ void TradeDialog::on_pushButton_clicked()
    }
 
    if (flag > 1 || error != 0) {
-       /*QMessageBox::about(this, "Minting failed", "Invalid input!");*/
-       QMessageBox::about(this, "Minting token failed", "Please mint a number of tokens!");
+       QMessageBox::about(this, "Trading failed", "Please trade a number of tokens!");
    }
    else {
        if (selection_.Valid()) {

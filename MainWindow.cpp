@@ -36,7 +36,6 @@ void MainWindow::on_create_toekn_pushButton_clicked()
 
    if (flag > 1 || error != 0) {
        QMessageBox::about(this, "Adding token failed", "Please put a number as the price of the tokens");
-       ui->lineEdit_2->clear();
        ui->lineEdit_3->clear();
    }
    else {
@@ -47,6 +46,7 @@ void MainWindow::on_create_toekn_pushButton_clicked()
     Token *token; bool is_new; std::tie(token, is_new) = playground_->GetToken(token_name, token_price);
     if (!is_new) {
         QMessageBox::about(this, "Adding token failed", "This name has been used by another token!");
+        ui->lineEdit_2->clear();
     } else {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget_2);
         ui->listWidget_2->addItem(item);
