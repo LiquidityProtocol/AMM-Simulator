@@ -1,5 +1,5 @@
-#include "Withdrawdialog.h"
-#include "ui_Withdrawdialog.h"
+#include "WithdrawDialog.h"
+#include "ui_WithdrawDialog.h"
 #include "AccountListWidgetItem.h"
 #include "src/Protocols/Protocols.hpp"
 #include <QMessageBox>
@@ -13,9 +13,23 @@ WithdrawDialog::WithdrawDialog(QWidget *parent, Playground *playground, Account 
     ui->setupUi(this);
     connect(this, &WithdrawDialog::WithdrawRequest, qobject_cast<AccountListWidgetItem*>(parent), &AccountListWidgetItem::VerifyWithdrawRequest);
     for (const auto &[protocol, protocol_name] : PROTOCOL_NAME) {
-        ui->protocol_comboBox->addItem(QString::fromStdString(protocol_name), protocol);
+        ui->comboBox_protocol->addItem(QString::fromStdString(protocol_name), protocol);
     }
-    ui->protocol_comboBox->setCurrentIndex(-1);
+    ui->comboBox_protocol->setCurrentIndex(-1);
+
+    ui->label_pool->setHidden(true);
+    ui->comboBox_pool->setHidden(true);
+
+    QSizePolicy sp_retain = ui->tableWidget_pool->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->tableWidget_pool->setSizePolicy(sp_retain);
+    ui->tableWidget_pool->setHidden(true);
+
+    ui->lineEdit_withdraw->setHidden(true);
+
+    ui->pushButton_withdraw->setDisabled(true);
+
+
 }
 
 WithdrawDialog::~WithdrawDialog()
@@ -23,98 +37,89 @@ WithdrawDialog::~WithdrawDialog()
     delete ui;
 }
 
-void WithdrawDialog::on_protocol_comboBox_currentIndexChanged(int index)
+void WithdrawDialog::on_comboBox_protocol_activated(int index)
 {
-    if (index == -1) {
-        ui->pool_comboBox->clear();
-    } else {
-        ui->pool_comboBox->clear();
-        PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->protocol_comboBox->currentData());
-        std::unordered_set<PoolInterface *> pools = playground_->GetPoolsbyProtocol(protocol);
+    if (index != -1) {
+        PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->comboBox_protocol->currentData());
+        ui->comboBox_pool->clear();
+        std::unordered_set<PoolInterface *> pools = playground_->GetPools(protocol);
         for (auto pool : pools) {
             QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
-            ui->pool_comboBox->addItem(pool_name, QVariant::fromValue(pool));
+            ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
         }
-    }
-    UpdateSelection();
-    UpdateOutputQuantity();
-}
+        ui->comboBox_pool->setCurrentIndex(-1);
+        ui->label_pool->setHidden(false);
+        ui->comboBox_pool->setHidden(false);
 
+        ui->tableWidget_pool->setHidden(true);
 
-void WithdrawDialog::on_pool_comboBox_currentIndexChanged(int index)
-{
-    UpdateSelection();
-    UpdateOutputQuantity();
-}
+        ui->lineEdit_withdraw->setHidden(true);
 
-
-void WithdrawDialog::on_pushButton_clicked()
-{
-    std::vector<Operation *> ledger = account_->ledger();
-    std::unordered_map<Token *, double> Pool_token;
-    for (int i = 0; i < ledger.size(); i++) {
-       if (ledger[i]->account_name() == account_->name()) {
-           if (ledger[i]->pool() == selection_.pool_) {
-               Pool_token = ledger[i]->input();
-           }
-       }
-    }
-    for (auto& x: Pool_token) {
-        emit WithdrawRequest(x.first, x.second);
+        ui->pushButton_withdraw->setDisabled(true);
     }
 }
 
-void WithdrawDialog::UpdateSelection()
+void WithdrawDialog::on_comboBox_pool_activated(int index)
 {
-    selection_.Reset();
-    if (ui->pool_comboBox->currentIndex() != -1) {
-        selection_.pool_ = qvariant_cast<PoolInterface *>(ui->pool_comboBox->currentData());
+    if (index != -1) {
+        PoolInterface *curr_pool = qvariant_cast<PoolInterface *>(ui->comboBox_pool->currentData());
+
+        ui->tableWidget_pool->setRowCount(0);
+        for (auto [token, quantity] : curr_pool->quantities()) {
+            int row = ui->tableWidget_pool->rowCount();
+            ui->tableWidget_pool->insertRow(row);
+            ui->tableWidget_pool->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(token->name())));
+            ui->tableWidget_pool->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(quantity))));
+            ui->tableWidget_pool->setItem(row, 2, new QTableWidgetItem("0"));
+        }
+        ui->tableWidget_pool->setHidden(false);
+
+        ui->lineEdit_withdraw->setHidden(false);
+
+        ui->pushButton_withdraw->setDisabled(false);
     }
 }
 
-void WithdrawDialog::UpdateOutputQuantity()
+void WithdrawDialog::on_lineEdit_withdraw_textChanged(const QString &withdraw_provision_text)
 {
-    std::vector<Operation *> ledger = account_->ledger();
-    std::unordered_map<Token *, double> Pool_token;
-    for (int i = 0; i < ledger.size(); i++) {
-       if (ledger[i]->account_name() == account_->name()) {
-           if (ledger[i]->pool() == selection_.pool_) {
-               Pool_token = ledger[i]->input();
-           }
-       }
-    }
-    for (auto& x: Pool_token) {
-        if (selection_.Valid()) {
-            double output_quantity = 0;
-            std::unordered_map<Token *, double> Output = playground_->SimulateWithdrawal(x.first, x.second);
-            auto it = Output.begin();
-            auto it2 = Output.end();
-            ui->output_1_name_lineEdit->setText(QString::fromStdString((it->first)->name()));
-            ui->output_1_quantity_lineEdit->setText(QString::number(it->second));
-            ui->output_2_name_lineEdit->setText(QString::fromStdString((it2->first)->name()));
-            ui->output_2_quantity_lineEdit->setText(QString::number(it2->second));
-        } else {
-            ui->output_1_quantity_lineEdit->clear();
-            ui->output_1_name_lineEdit->clear();
-            ui->output_2_quantity_lineEdit->clear();
-            ui->output_2_name_lineEdit->clear();
+    PoolInterface *curr_pool = qvariant_cast<PoolInterface *>(ui->comboBox_pool->currentData());
+
+    double withdraw_percentage = ui->lineEdit_withdraw->text().toDouble();
+
+    if (withdraw_percentage>0 && withdraw_percentage<=100) {
+        Token *pool_token = curr_pool->pool_token();
+        double withdrawal_quantity = account_->GetQuantity(pool_token)*withdraw_percentage/100;
+        std::unordered_map<Token *, double> quantities = playground_->SimulateWithdrawal(pool_token, withdrawal_quantity);
+
+        int row = 0;
+        for (auto [token, quant] : quantities) {
+            ui->tableWidget_pool->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(quant))));
+            row++;
+        }
+        }
+    else {
+        for (int row = 0; row < ui->tableWidget_pool->rowCount(); ++row) {
+            ui->tableWidget_pool->setItem(row, 2, new QTableWidgetItem("0"));
         }
     }
 }
 
-Selection_2::Selection_2()
+void WithdrawDialog::on_pushButton_withdraw_clicked()
 {
-    pool_ = nullptr;
-    input_token_ = nullptr;
+    if (ui->comboBox_pool->currentIndex() == -1) {
+        QMessageBox::about(this, "Withdraw failed", "Please choose pool!");
+        return;
+    }
+
+    PoolInterface *curr_pool = qvariant_cast<PoolInterface *>(ui->comboBox_pool->currentData());
+
+    double withdraw_percentage = ui->lineEdit_withdraw->text().toDouble();
+    Token *pool_token = curr_pool->pool_token();
+    double withdrawal_quantity = account_->GetQuantity(pool_token)*withdraw_percentage/100;
+
+    emit WithdrawRequest(pool_token, withdrawal_quantity);
 }
 
-bool Selection_2::Valid() const
-{
-    return pool_ && input_token_;
-}
 
-void Selection_2::Reset()
-{
-    pool_ = nullptr;
-    input_token_ = nullptr;
-}
+
+

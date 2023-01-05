@@ -17,7 +17,7 @@ SOURCES += \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
-    Withdrawdialog.cpp \
+    WithdrawDialog.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Protocols/CurvePool.cpp \
@@ -39,7 +39,7 @@ HEADERS += \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
-    Withdrawdialog.h \
+    WithdrawDialog.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
@@ -59,7 +59,7 @@ FORMS += \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
     WalletListWidgetItem.ui \
-    Withdrawdialog.ui
+    WithdrawDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

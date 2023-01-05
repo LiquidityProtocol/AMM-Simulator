@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>313</width>
-    <height>278</height>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,117 +15,69 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_Protocol">
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_protocol">
        <property name="text">
         <string>Protocol</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="protocol_comboBox"/>
+      <widget class="QComboBox" name="comboBox_protocol"/>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_pool">
      <item>
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label_pool">
        <property name="text">
         <string>Pool</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="pool_comboBox"/>
+      <widget class="QComboBox" name="comboBox_pool"/>
      </item>
     </layout>
    </item>
    <item>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
-   <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_1">
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Output Token 1</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="output_1_name_lineEdit">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Quantity</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="output_1_quantity_lineEdit">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-    </item>
-    <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Output Token 2</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="output_2_name_lineEdit">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Quantity</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="output_2_quantity_lineEdit">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-   </item>
-   </layout>
+    <widget class="QTableWidget" name="tableWidget_pool">
+     <column>
+      <property name="text">
+       <string>Token</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Quantity</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Withdrawal</string>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+     </column>
+    </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QLineEdit" name="lineEdit_withdraw">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>% to withdraw</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_withdraw">
      <property name="text">
       <string>Withdraw</string>
      </property>

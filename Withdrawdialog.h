@@ -8,16 +8,7 @@ namespace Ui {
 class WithdrawDialog;
 }
 
-class Selection_2 {
-public:
-    PoolInterface *pool_;
-    Token *input_token_;
 
-    Selection_2();
-
-    bool Valid() const;
-    void Reset();
-};
 
 class WithdrawDialog : public QDialog
 {
@@ -31,18 +22,15 @@ signals:
     void WithdrawRequest(Token *input_token, double surrendered_quantity);
 
 private slots:
-    void on_protocol_comboBox_currentIndexChanged(int index);
-    void on_pool_comboBox_currentIndexChanged(int index);
-    void on_pushButton_clicked();
+    void on_comboBox_protocol_activated(int index);
+    void on_comboBox_pool_activated(int index);
+    void on_lineEdit_withdraw_textChanged(const QString &withdraw_provision_text);
+    void on_pushButton_withdraw_clicked();
 
 private:
     Ui::WithdrawDialog *ui;
     Playground *playground_;
     Account *account_;
-    Selection_2 selection_;
-
-    void UpdateSelection();
-    void UpdateOutputQuantity();
 };
 
 #endif // WithdrawDIALOG_H

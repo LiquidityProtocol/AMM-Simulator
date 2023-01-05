@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "MintDialog.h"
 #include "TradeDialog.h"
-#include "withdrawDialog.h"
+#include "WithdrawDialog.h"
 #include "ProvideDialog.h"
 #include "NewPoolProvisionDialog.h"
 #include "ExistingPoolProvisionDialog.h"
