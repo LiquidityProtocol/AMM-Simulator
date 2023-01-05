@@ -1,6 +1,6 @@
 {
     "files.associations": {
-        "cassert": "cpp"
-    },
-    "C_Cpp.intelliSenseEngineFallback": "enabled"
+     
+        "unordered_map": "cpp"
+    }
 }
