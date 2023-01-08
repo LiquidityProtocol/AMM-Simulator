@@ -31,7 +31,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QListView" name="listView"/>
+     <widget class="QListWidget" name="listWidget_pool"/>
     </item>
     <item>
      <widget class="QPushButton" name="pushButton">

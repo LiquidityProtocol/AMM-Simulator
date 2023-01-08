@@ -19,12 +19,8 @@ Market::Market() {
     A = new CommunityActor(MarketIndex);
 
     // create some initial tokens of the market
-    addToken("USDT", 1);
-    addToken("USDC", 1);
-    addToken("DAI", 1);
     addToken("ETH", 122);
     addToken("UNI", 5.19);
-    addToken("MKR", 54.2);
 
     for (auto token1 : tokens_)
     for (auto token2 : tokens_) {
