@@ -1,3 +1,9 @@
+Levente Ludanyi:
+- Due to medical treatment I was absent from this week
+- Implemented the the dynamic graph in the liquidity protocol interface along with Adithya Ravichandran
+- Had multiple meetings with the leaders of the subteams to give them tasks and to converge to our final product
+- Assigned tasks and managed all teams
+
 Adithya Ravichandran:
 - Finished implementing provide functionality along with The Nguyen
 - Fixed implementation of withdraw functionality
