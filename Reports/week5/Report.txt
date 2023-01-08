@@ -34,6 +34,10 @@ Matheo LM:
 - New function in Operations so that we can access the pool in which the operation was done
 - Debugging with Tu
 
+Tu Nguyen:
+- Working on the Withdraw class with Matheo
+- We work on ourselves at home and debug together in class to create the button for user to withdraw pool token
+- Researching further on the convergence of pool in market simulator with Duc Nguyen to find the best coefficient for the trading formular.
 
 Amine:
 - Finalized my math research document which I had been working on for the past weeks.
