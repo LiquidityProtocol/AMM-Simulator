@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     AccountListWidgetItem.cpp \
+    ChangeModeDialog.cpp \
     ExistingPoolProvisionDialog.cpp \
     MintDialog.cpp \
     NewPoolProvisionDialog.cpp \
     PoolListWidgetItem.cpp \
     ProvideDialog.cpp \
+    SimulationPlayground.cpp \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
@@ -32,12 +34,14 @@ SOURCES += \
 
 HEADERS += \
     AccountListWidgetItem.h \
+    ChangeModeDialog.h \
     ExistingPoolProvisionDialog.h \
     MainWindow.h \
     MintDialog.h \
     NewPoolProvisionDialog.h \
     PoolListWidgetItem.h \
     ProvideDialog.h \
+    SimulationPlayground.h \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
@@ -53,12 +57,14 @@ HEADERS += \
 
 FORMS += \
     AccountListWidgetItem.ui \
+    ChangeModeDialog.ui \
     ExistingPoolProvisionDialog.ui \
     MainWindow.ui \
     MintDialog.ui \
     NewPoolProvisionDialog.ui \
     PoolListWidgetItem.ui \
     ProvideDialog.ui \
+    SimulationPlayground.ui \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
     WalletListWidgetItem.ui
