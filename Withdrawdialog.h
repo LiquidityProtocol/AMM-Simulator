@@ -1,5 +1,5 @@
-#ifndef WithdrawDIALOG_H
-#define WithdrawDIALOG_H
+#ifndef WITHDRAWDIALOG_H
+#define WITHDRAWDIALOG_H
 
 #include <QDialog>
 #include "src/Playground.hpp"
@@ -33,4 +33,4 @@ private:
     Account *account_;
 };
 
-#endif // WithdrawDIALOG_H
+#endif // WITHDRAWDIALOG_H

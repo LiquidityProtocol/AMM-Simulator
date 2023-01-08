@@ -90,6 +90,7 @@ void AccountListWidgetItem::VerifyWithdrawRequest(Token *input_token, double sur
         playground_->ExecuteWithdrawal(account_, input_token, surrendered_quantity);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
+        emit UpdatePoolDisplayRequest(input_token->pool());
         withdraw_dialog->accept();
     } catch (std::exception &e) {
         QMessageBox::about(withdraw_dialog, "Withdraw failed", e.what());
