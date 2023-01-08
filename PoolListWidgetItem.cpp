@@ -68,6 +68,7 @@ void PoolListWidgetItem::TokenGraph(Token* input_token, Token* output_token) {
     double input_token_quantity = pool_->GetQuantity(input_token);
     double output_token_quantity = pool_->GetQuantity(output_token);
     ui->widgetGraph->addGraph();
+    ui->widgetGraph->graph(0)->setPen(QPen(Qt::blue));
     ui->widgetGraph->graph(0)->addData(input_token_quantity, output_token_quantity);
     // give the axes some labels:
     ui->widgetGraph->xAxis->setLabel(QString::fromStdString(input_token->name()));
@@ -77,6 +78,8 @@ void PoolListWidgetItem::TokenGraph(Token* input_token, Token* output_token) {
     ui->widgetGraph->yAxis->setRange(0, 2*output_token_quantity);
     ui->widgetGraph->replot();
     ui->widgetGraph->setFixedHeight(200);
+
+
 }
 
 void PoolListWidgetItem::on_comboBox_spotPrice_activated(int index)
