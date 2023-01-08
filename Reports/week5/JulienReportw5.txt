@@ -1,0 +1,3 @@
+- researched about how divergence loss could be implemented in different ways
+- implemented a version of using treshold in divergencelossnofees
+- wrote an explaination of the above implementation and its idea
