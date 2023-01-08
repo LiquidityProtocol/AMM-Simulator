@@ -1,0 +1,7 @@
+The trader is following greedy algorithm:
+- randomly find a pair of tokens that are currently not aligned to the market price
+- trade the pair of price so that it aligns to the market price:
+    + Assume that the difference between the traded quantity and optimal quantity of 1 trader follow the normal distribution N(0, 1)
+               => the difference between the traded quantity and optimal quantity of n traders follow the normal distribution N(0, n)
+    
+- Do the same loop until the price converges to market price

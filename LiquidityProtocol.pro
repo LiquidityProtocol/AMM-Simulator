@@ -30,7 +30,9 @@ SOURCES += \
     src/Utilities/PoolInterface.cpp \
     src/Utilities/Token.cpp \
     src/Utilities/TokensContainer.cpp \
-    src/Playground.cpp
+    src/Playground.cpp \
+    src/Protocols/Protocols.cpp \
+    src/Protocols/CurvePool.cpp
 
 HEADERS += \
     AccountListWidgetItem.h \
