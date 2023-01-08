@@ -10,30 +10,30 @@ ProvideDialog::ProvideDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(this, &ProvideDialog::ProvisionTypeDeclaration, qobject_cast<AccountListWidgetItem *>(parent), &AccountListWidgetItem::VerifyProvisionTypeDeclaration);
-    int ret;
+//    int ret;
 
-    QMessageBox msgBox;
-    msgBox.setStyleSheet("background-color: rgb(176, 196, 222);");
-            msgBox.setText("The document has been modified.");
-            msgBox.setInformativeText("Do you want to provide to an existing pool?");
-            msgBox.setStandardButtons(QMessageBox::Yes |
-                                      QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::No);
-    ret = msgBox.exec();
+//    QMessageBox msgBox;
+//    msgBox.setStyleSheet("background-color: rgb(176, 196, 222);");
+//            msgBox.setText("The document has been modified.");
+//            msgBox.setInformativeText("Do you want to provide to an existing pool?");
+//            msgBox.setStandardButtons(QMessageBox::Yes |
+//                                      QMessageBox::No);
+//            msgBox.setDefaultButton(QMessageBox::No);
+//    ret = msgBox.exec();
 
-    switch (ret) {
-         case QMessageBox::Yes:
-             // Yes was clicked
-             emit ProvisionTypeDeclaration(false);
-             break;
-         case QMessageBox::No:
-             // No
-             emit ProvisionTypeDeclaration(true);
-             break;
-         default:
-             // should never be reached
-             break;
-       }
+//    switch (ret) {
+//         case QMessageBox::Yes:
+//             // Yes was clicked
+//             emit ProvisionTypeDeclaration(false);
+//             break;
+//         case QMessageBox::No:
+//             // No
+//             emit ProvisionTypeDeclaration(true);
+//             break;
+//         default:
+//             // should never be reached
+//             break;
+//       }
 }
 
 
