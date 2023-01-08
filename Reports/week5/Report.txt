@@ -29,3 +29,8 @@ Matheo LM:
 - New function in playground to get all pools following a certain protocol
 - New function in Operations so that we can access the pool in which the operation was done
 - Debugging with Tu
+
+
+Amine:
+- Finalized my math research document which I had been working on for the past weeks.
+- Worked on creating metric to evaluate the divergence loss of the protocol, which should be implemented in the arbitrager class
