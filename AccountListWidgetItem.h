@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "MintDialog.h"
 #include "TradeDialog.h"
+#include "WithdrawDialog.h"
 #include "ProvideDialog.h"
 #include "NewPoolProvisionDialog.h"
 #include "ExistingPoolProvisionDialog.h"
@@ -25,15 +26,18 @@ public:
 public slots:
     void VerifyMintRequest(Token *token, double quantity);
     void VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
+    void VerifyWithdrawRequest(Token *input_token, double surrendered_quantity);
     void VerifyProvisionTypeDeclaration(bool initial_provision);
     void VerifyProvideRequest1(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee);
     void VerifyProvideRequest2(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, double slippage_controller);
     void VerifyProvideRequest3(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, const std::unordered_map<Token *, double> &weights);
     void VerifyExistingProvideRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities);
 
+
 private slots:
     void on_mint_pushButton_clicked();
     void on_trade_pushButton_clicked();
+    void on_withdraw_pushButton_clicked();
     void on_provide_pushButton_clicked();
 
 signals:
@@ -44,6 +48,7 @@ private:
     Account *account_;
     MintDialog *mint_dialog;
     TradeDialog *trade_dialog;
+    WithdrawDialog *withdraw_dialog;
     ProvideDialog *provide_dialog;
     NewPoolProvisionDialog *new_pool_provision_dialog;
     ExistingPoolProvisionDialog *existing_pool_provision_dialog;

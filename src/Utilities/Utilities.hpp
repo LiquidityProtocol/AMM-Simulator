@@ -76,6 +76,7 @@ public:
 
     std::string operation_type() const;
     std::string account_name() const;
+    PoolInterface* pool() const;
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 
