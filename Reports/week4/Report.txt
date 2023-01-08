@@ -1,8 +1,17 @@
+Levente Ludanyi:
+
+- Continued implementation of Provide Dialog along with Adithya Ravichandran.
+- Focused on the ProvideDialog to visualise newly created pools and interact with existing ones.
+
+
 Adithya Ravichandran:
 
 - Continued implementation of Provide Dialog along with Levente Ludanyi.
 - Finished MetricsTable class to visualise metrics about each and every pool.
 
+Fryderyk Sitnik:
+- I finished the implementation of a divergence loss estimator for any wanted pool.
+- I started building a trading simulator that simulates a market outcome according to a wanted probability distribution
 
 Matheo Le Masson:
 
