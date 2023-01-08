@@ -1,8 +1,7 @@
 #include "ProvideDialog.h"
 #include "ui_ProvideDialog.h"
 #include "AccountListWidgetItem.h"
-#include <QMessageBox>
-
+//#include <QMessageBox>
 
 ProvideDialog::ProvideDialog(QWidget *parent) :
     QDialog(parent),
@@ -36,17 +35,12 @@ ProvideDialog::ProvideDialog(QWidget *parent) :
 //       }
 }
 
-
-
 ProvideDialog::~ProvideDialog()
 {
-
     delete ui;
 }
 
-
 void ProvideDialog::on_pushButton_newPool_clicked()
-
 {
     emit ProvisionTypeDeclaration(true);
 }

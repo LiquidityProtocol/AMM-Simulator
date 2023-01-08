@@ -56,7 +56,7 @@
      <item>
       <widget class="QLabel" name="label_poolFee">
        <property name="text">
-        <string>Pool Fee (%):</string>
+        <string>Pool fee (%):</string>
        </property>
       </widget>
      </item>

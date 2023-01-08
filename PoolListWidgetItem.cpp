@@ -2,44 +2,27 @@
 #include "ui_PoolListWidgetItem.h"
 #include "src/Protocols/Protocols.hpp"
 
-PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool, const std::unordered_map<Token *, double> &input_quantities, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spots) :
+PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool, const std::unordered_map<Token *, double> &input_quantities, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spot_prices) :
     QWidget(parent),
     ui(new Ui::PoolListWidgetItem),
     pool_(pool),
     last_quantities_(input_quantities),
-    last_spot_prices_(input_spots)
+    last_spot_prices_(input_spot_prices)
 {
     ui->setupUi(this);
+
     ui->label_poolName->setText(QString::fromStdString(pool_->pool_token()->name()));
-
-    PROTOCOL curr_protocol = GetPoolType(pool_);
-    std::string prot_name = PROTOCOL_NAME.at(curr_protocol);
-    ui->lineEdit_protocol->setText(QString::fromStdString(prot_name));
-
+    ui->lineEdit_protocol->setText(QString::fromStdString(PROTOCOL_NAME.at(GetPoolType(pool_))));
     ui->lineEdit_poolFee->setText(QString::fromStdString(std::to_string(pool_->pool_fee()*100)));
 
     for (auto token : pool_->tokens()) {
         ui->comboBox_spotPrice->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
     }
-    ui->comboBox_spotPrice->setCurrentIndex(-1);
-    ui->comboBox_secondToken->setCurrentIndex(-1);
-
-    ui->label_secondToken->setHidden(true);
-    ui->comboBox_secondToken->setHidden(true);
-
-    QSizePolicy sp_retain = ui->tableWidget_poolInformation->sizePolicy();
-    sp_retain.setRetainSizeWhenHidden(true);
-    ui->tableWidget_poolInformation->setSizePolicy(sp_retain);
-
-    QSizePolicy sp_retain2 = ui->widgetGraph->sizePolicy();
-    sp_retain2.setRetainSizeWhenHidden(true);
-    ui->widgetGraph->setSizePolicy(sp_retain2);
-    ui->widgetGraph->setHidden(true);
 
     curr_quantities_ = pool->quantities();
-    for (auto inp_token : pool->tokens()) {
+    for (auto input_token : pool->tokens()) {
         for (auto token : pool->tokens()) {
-            curr_spot_prices_[inp_token][token] = pool->GetSpotPrice(inp_token, token);
+            curr_spot_prices_[input_token][token] = pool->GetSpotPrice(input_token, token);
         }
     }
 }
@@ -64,162 +47,102 @@ std::unordered_map<Token *, std::unordered_map<Token *, double> > PoolListWidget
     return curr_spot_prices_;
 }
 
-void PoolListWidgetItem::TokenGraph(Token* input_token, Token* output_token) {
-    double input_token_quantity = pool_->GetQuantity(input_token);
-    double output_token_quantity = pool_->GetQuantity(output_token);
-    ui->widgetGraph->addGraph();
-    ui->widgetGraph->graph(0)->setPen(QPen(Qt::blue));
-    ui->widgetGraph->graph(0)->addData(input_token_quantity, output_token_quantity);
-    // give the axes some labels:
-    ui->widgetGraph->xAxis->setLabel(QString::fromStdString(input_token->name()));
-    ui->widgetGraph->yAxis->setLabel(QString::fromStdString(output_token->name()));
-    // set axes ranges, so we see all data:
-    ui->widgetGraph->xAxis->setRange(0, 2*input_token_quantity);
-    ui->widgetGraph->yAxis->setRange(0, 2*output_token_quantity);
-    ui->widgetGraph->replot();
-    ui->widgetGraph->setFixedHeight(200);
-
-
-}
-
-void PoolListWidgetItem::on_comboBox_spotPrice_activated(int index)
-{
-    if (index!=-1){
-        int token_number = pool_->tokens().size();
-
-        ui->tableWidget_poolInformation->clearContents();
-        ui->tableWidget_poolInformation->setRowCount(token_number*2);
-        Token *input_token = qvariant_cast<Token *>(ui->comboBox_spotPrice->currentData());
-
-        ui->comboBox_secondToken->clear();
-        ui->comboBox_secondToken->setCurrentIndex(-1);
-        ui->label_secondToken->setHidden(false);
-        ui->comboBox_secondToken->setHidden(false);
-
-        for (auto token : pool_->tokens()) {
-            if (token!=input_token)
-            {
-            ui->comboBox_secondToken->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
-            }
-        }
-
-        if (last_quantities_.size()>0) {
-            int token_count = 0;
-            for (auto token : pool_->tokens()) {
-
-                std::string token_volume = token->name() + " volume";
-                ui->tableWidget_poolInformation->setVerticalHeaderItem(token_count, new QTableWidgetItem(QString::fromStdString(token_volume)));
-                double delta_volume = pool_->GetQuantity(token)-last_quantities_[token];
-
-                ui->tableWidget_poolInformation->setItem(token_count, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetQuantity(token)))));
-                if (delta_volume>0) {
-                    ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(delta_volume))));
-                    ui->tableWidget_poolInformation->item(token_count, 1)->setForeground(QBrush(QColor(0, 150, 0)));
-                }
-                else if (delta_volume==0) {
-                    ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(delta_volume))));
-                    ui->tableWidget_poolInformation->item(token_count, 1)->setForeground(QBrush(QColor(180, 90, 20)));
-                }
-                else {
-                    ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(delta_volume))));
-                    ui->tableWidget_poolInformation->item(token_count, 1)->setForeground(QBrush(QColor(150, 0, 0)));
-                }
-
-                ui->tableWidget_poolInformation->setItem(token_count, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(last_quantities_[token]))));
-
-                token_count+=1;
-
-                std::string token_price = token->name() + " price";
-                ui->tableWidget_poolInformation->setVerticalHeaderItem(token_count, new QTableWidgetItem(QString::fromStdString(token_price)));
-                double last_price = last_spot_prices_[input_token][token];
-                double delta_price = pool_->GetSpotPrice(input_token,token)-last_price;
-
-                ui->tableWidget_poolInformation->setItem(token_count, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetSpotPrice(input_token, token)))));
-                if (delta_price>0) {
-                    ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(delta_price))));
-                    ui->tableWidget_poolInformation->item(token_count, 1)->setForeground(QBrush(QColor(0, 150, 0)));
-                }
-                else if (delta_price==0) {
-                    ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(delta_price))));
-                    ui->tableWidget_poolInformation->item(token_count, 1)->setForeground(QBrush(QColor(180, 90, 20)));
-                }
-                else {
-                    ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem( QString::fromStdString(std::to_string(delta_price))));
-                    ui->tableWidget_poolInformation->item(token_count, 1)->setForeground(QBrush(QColor(150, 0, 0)));
-                }
-                ui->tableWidget_poolInformation->setItem(token_count, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(last_price))));
-
-                token_count+=1;
-
-            }
-
-        }
-        else {
-            int token_count = 0;
-            for (auto token : pool_->tokens()) {
-
-                std::string token_volume = token->name() + " volume";
-                ui->tableWidget_poolInformation->setVerticalHeaderItem(token_count, new QTableWidgetItem(QString::fromStdString(token_volume)));
-
-                ui->tableWidget_poolInformation->setItem(token_count, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetQuantity(token)))));
-                ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem("-"));
-                ui->tableWidget_poolInformation->setItem(token_count, 2, new QTableWidgetItem("-"));
-
-                token_count+=1;
-
-                std::string token_price = token->name() + " price";
-                ui->tableWidget_poolInformation->setVerticalHeaderItem(token_count, new QTableWidgetItem(QString::fromStdString(token_price)));
-
-                ui->tableWidget_poolInformation->setItem(token_count, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetSpotPrice(input_token, token)))));
-                ui->tableWidget_poolInformation->setItem(token_count, 1, new QTableWidgetItem("-"));
-                ui->tableWidget_poolInformation->setItem(token_count, 2, new QTableWidgetItem("-"));
-
-                token_count+=1;
-
-            }
-        }
-
-        if (token_number==2) {
-            ui->widgetGraph->setHidden(false);
-            Token *token2;
-            for (auto token : pool_->tokens()) {
-                if (token!=input_token) {
-                    token2 = token;
-                }
-            }
-            TokenGraph(input_token,token2);
-        }
-
-    }
-}
-
-
-
-
-void PoolListWidgetItem::on_comboBox_secondToken_activated(int index)
-{
-    if (index!=-1 && ui->comboBox_spotPrice->currentIndex()!=-1) {
-        ui->widgetGraph->setHidden(false);
-        ui->widgetGraph->clearGraphs();
-        Token *input_token = qvariant_cast<Token *>(ui->comboBox_spotPrice->currentData());
-        Token *second_token = qvariant_cast<Token *>(ui->comboBox_secondToken->currentData());
-        TokenGraph(input_token,second_token);
-    }
-}
-
-int PoolListWidgetItem::get_comboBox_spotPrice_index() {
+int PoolListWidgetItem::get_comboBox_spotPrice_index() const {
     return ui->comboBox_spotPrice->currentIndex();
 }
 
-int PoolListWidgetItem::get_comboBox_secondToken_index() {
+int PoolListWidgetItem::get_comboBox_secondToken_index() const {
     return ui->comboBox_secondToken->currentIndex();
 }
 
-void PoolListWidgetItem::set_comboBox_spotPrice_index(int idx) {
-    ui->comboBox_spotPrice->setCurrentIndex(idx);
+void PoolListWidgetItem::set_comboBox_spotPrice_index(int index) {
+    ui->comboBox_spotPrice->setCurrentIndex(index);
 }
 
-void PoolListWidgetItem::set_comboBox_secondToken_index(int idx){
-        ui->comboBox_secondToken->setCurrentIndex(idx);
+void PoolListWidgetItem::set_comboBox_secondToken_index(int index){
+    ui->comboBox_secondToken->setCurrentIndex(index);
 }
 
+void PoolListWidgetItem::on_comboBox_spotPrice_currentIndexChanged(int index)
+{
+    if (index != -1) {
+        ui->tableWidget_poolInformation->clearContents();
+        ui->tableWidget_poolInformation->setRowCount(pool_->tokens().size() * 2);
+        Token *input_token = qvariant_cast<Token *>(ui->comboBox_spotPrice->currentData());
+
+        int curr_row = 0;
+        for (auto token : pool_->tokens()) {
+            ui->tableWidget_poolInformation->setVerticalHeaderItem(curr_row, new QTableWidgetItem(QString::fromStdString(token->name() + " volume")));
+
+            ui->tableWidget_poolInformation->setItem(curr_row, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetQuantity(token)))));
+            if (last_quantities_.size() > 0) {
+                double delta_volume = pool_->GetQuantity(token) - last_quantities_[token];
+                ui->tableWidget_poolInformation->setItem(curr_row, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(delta_volume))));
+                if (delta_volume > 0) {
+                    ui->tableWidget_poolInformation->item(curr_row, 1)->setForeground(QBrush(QColor(0, 150, 0)));
+                } else if (delta_volume == 0) {
+                    ui->tableWidget_poolInformation->item(curr_row, 1)->setForeground(QBrush(QColor(180, 90, 20)));
+                } else {
+                    ui->tableWidget_poolInformation->item(curr_row, 1)->setForeground(QBrush(QColor(150, 0, 0)));
+                }
+                ui->tableWidget_poolInformation->setItem(curr_row, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(last_quantities_[token]))));
+            } else {
+                ui->tableWidget_poolInformation->setItem(curr_row, 1, new QTableWidgetItem("-"));
+                ui->tableWidget_poolInformation->setItem(curr_row, 2, new QTableWidgetItem("-"));
+            }
+
+            ++curr_row;
+
+            ui->tableWidget_poolInformation->setVerticalHeaderItem(curr_row, new QTableWidgetItem(QString::fromStdString(token->name() + " price")));
+
+            ui->tableWidget_poolInformation->setItem(curr_row, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(pool_->GetSpotPrice(input_token, token)))));
+            if (last_quantities_.size() > 0) {
+                double last_price = last_spot_prices_[input_token][token];
+                double delta_price = pool_->GetSpotPrice(input_token, token) - last_price;
+                ui->tableWidget_poolInformation->setItem(curr_row, 1, new QTableWidgetItem(QString::fromStdString(std::to_string(delta_price))));
+                if (delta_price > 0) {
+                    ui->tableWidget_poolInformation->item(curr_row, 1)->setForeground(QBrush(QColor(0, 150, 0)));
+                } else if (delta_price == 0) {
+                    ui->tableWidget_poolInformation->item(curr_row, 1)->setForeground(QBrush(QColor(180, 90, 20)));
+                } else {
+                    ui->tableWidget_poolInformation->item(curr_row, 1)->setForeground(QBrush(QColor(150, 0, 0)));
+                }
+                ui->tableWidget_poolInformation->setItem(curr_row, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(last_price))));
+            } else {
+                ui->tableWidget_poolInformation->setItem(curr_row, 1, new QTableWidgetItem("-"));
+                ui->tableWidget_poolInformation->setItem(curr_row, 2, new QTableWidgetItem("-"));
+            }
+
+            ++curr_row;
+        }
+
+        ui->comboBox_secondToken->clear();
+        for (auto token : pool_->tokens()) {
+            if (token != input_token) {
+                ui->comboBox_secondToken->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
+            }
+        }
+    }
+}
+
+void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
+{
+    if (index != -1) {
+        Token *input_token = qvariant_cast<Token *>(ui->comboBox_spotPrice->currentData());
+        Token *output_token = qvariant_cast<Token *>(ui->comboBox_secondToken->currentData());
+        double input_token_quantity = pool_->GetQuantity(input_token);
+        double output_token_quantity = pool_->GetQuantity(output_token);
+        ui->widgetGraph->clearGraphs();
+        ui->widgetGraph->addGraph();
+        ui->widgetGraph->graph(0)->setPen(QPen(Qt::blue));
+        ui->widgetGraph->graph(0)->addData(input_token_quantity, output_token_quantity);
+        // give the axes some labels:
+        ui->widgetGraph->xAxis->setLabel(QString::fromStdString(input_token->name()));
+        ui->widgetGraph->yAxis->setLabel(QString::fromStdString(output_token->name()));
+        // set axes ranges, so we see all data:
+        ui->widgetGraph->xAxis->setRange(0, 2 * input_token_quantity);
+        ui->widgetGraph->yAxis->setRange(0, 2 * output_token_quantity);
+        ui->widgetGraph->replot();
+        ui->widgetGraph->setFixedHeight(200);
+    }
+}

@@ -67,8 +67,6 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
             PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool, old_pool_item->curr_quantities(), old_pool_item->curr_spot_prices());
             pool_item->set_comboBox_spotPrice_index(input_token_idx);
             pool_item->set_comboBox_secondToken_index(second_token_idx);
-            pool_item->on_comboBox_spotPrice_activated(input_token_idx);
-            pool_item->on_comboBox_secondToken_activated(second_token_idx);
             item->setSizeHint(pool_item->sizeHint());
             ui->listWidget_pool->setItemWidget(item, pool_item);
             return;
