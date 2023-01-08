@@ -1,15 +1,18 @@
 #include <cmath>
 #include <random>
 
-double sample_uniform_distribution(double mean, double variance) {
-    // Get a random number generator
-    std::random_device rd;
-    std::mt19937 generator(rd());
+uniform_distribution_generator::uniform_distribution_generator(double mean, double variance, int sample_size)
+{
+    double lower_bound = mean - sqrt(3 * variance);
+    double upper_bound = mean + sqrt(3 * variance);
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> d(lower_bound, upper_bound);
+    return d(gen);
+}
 
-    // Create a uniform distribution with the given mean and variance
-    std::uniform_real_distribution<double> distribution(mean - variance / 2, mean + variance / 2);
 
-    // Generate and return a sample from the distribution
-    return distribution(generator);
-    }
+
+
+
 

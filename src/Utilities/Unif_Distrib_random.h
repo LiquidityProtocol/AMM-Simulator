@@ -2,10 +2,10 @@
 #define UNIF_DISTRIB_RANDOM_H
 
 
-class CDF_Uniform_Distrib
+class uniform_distribution_generator
 {
 public:
-    CDF_Uniform_Distrib();
+     uniform_distribution_generator(double mean, double variance, int sample_size);
 };
 
 #endif // UNIF_DISTRIB_RANDOM_H
