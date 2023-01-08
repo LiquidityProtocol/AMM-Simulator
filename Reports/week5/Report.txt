@@ -20,6 +20,10 @@ Minh Pham:
 - Testing the playground, the market simulation on (simulation-utils branch) and update the code to work with new Playground class. 
 - Implement the simulation playground with timestep for pre-programmed scenario (in test version, will keep developing in the following weeks).  
 
+The Nguyen:
+- Implement and refactor Trade, Provision, and PoolItem for displaying pools informations in the Playground.
+- Fix bugs in back-end and front-end of the Playground.
+
 Alessandro:
 During the course of this week, I have continued my efforts on designing and implementing the visual interface for the liquidity protocol simulator. My primary focus has been on embedding the graphs of the tokens within the widgets of the interface, utilizing both the Qt Charts and Qt Widgets modules. I will continue to work on this task in the coming days, with the aim of completing the visual interface.
 
