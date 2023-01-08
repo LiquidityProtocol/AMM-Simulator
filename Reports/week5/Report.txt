@@ -9,6 +9,7 @@ Adithya Ravichandran:
 - Fixed implementation of withdraw functionality
 - Create PoolListWidgetItem, a class to display all metrics about a pool, and connected it to the trade, provide and withdraw functionalities
 - Chose graphing framework to work with PoolListWidgetItem and wrote template for FrontEnd team to work with
+- Implemented graphing with Levente Ludanyi
 
 Shubh: 
 - Finished Implementation and Commenting of Simple Stochastic Simulator
@@ -48,3 +49,20 @@ Tu Nguyen:
 Amine:
 - Finalized my math research document which I had been working on for the past weeks.
 - Worked on creating metric to evaluate the divergence loss of the protocol, which should be implemented in the arbitrager class
+
+rtina Paez Berru 
+This week I started working on the introductory window that explains our project, the liquidity protocol and the market simulator. It has a button that 
+switches to the main window. I want to make it pretty by adding images/emoticons and having some dynamic styling. 
+
+Jasmine Samson: 
+- Used stylesheets to design the QMessageBoxes used in Pool-Info-List-Item (background color, font) 
+- Used the built-in buttons of the class MessageBox to resolve the problem with the use of buttons which are not already implemented in the QMessageBox class (we initially were designing our own message box on a .ui window but this resulted in an incoherent design of message boxes) 
+- Kept up-to-date with the new implementations in the Pool-Info-List-Item branch
+
+
+Victoire Fabien: 
+- This week I worked with Jasmine. We started by working on the appearance of the graphs, we researched the different ways to personnalise them. 
+We also worked on the windows opened when some buttons are pressed to make the whole project more coherent. We implemented the same style for all message boxes. 
+- We used the built in button of the class MessageBox in order to achieve that. We also used stylesheet to improve the design of the project. 
+Amongst our modifications, we have changed the color some message boxes to make them stand out.
+- We also looked over the code for the pool info list item branch which had been modified, to be up to date with recent changes.
