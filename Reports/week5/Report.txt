@@ -3,3 +3,15 @@ Adithya Ravichandran:
 - Fixed implementation of withdraw functionality
 - Create PoolListWidgetItem, a class to display all metrics about a pool, and connected it to the trade, provide and withdraw functionalities
 - Chose graphing framework to work with PoolListWidgetItem and wrote template for FrontEnd team to work with
+
+Shubh: 
+- Finished Implementation and Commenting of Simple Stochastic Simulator
+- Created a perfect Arbitrage function
+- Planned out ways to extend simulator through rolling averages and more random movement
+- Delegated tasks to team member and explained ideas.
+
+Mia Chambat: 
+
+This week I worked on implementing two helper functions for the second full simulation of the 
+liquidity pool. The first one returns the mean of the last ten values of a list and the second 
+one, given a mean, variance and sample size, samples a normal distribution.
