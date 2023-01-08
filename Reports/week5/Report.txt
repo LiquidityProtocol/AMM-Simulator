@@ -66,3 +66,9 @@ We also worked on the windows opened when some buttons are pressed to make the w
 - We used the built in button of the class MessageBox in order to achieve that. We also used stylesheet to improve the design of the project. 
 Amongst our modifications, we have changed the color some message boxes to make them stand out.
 - We also looked over the code for the pool info list item branch which had been modified, to be up to date with recent changes.
+
+Julien:
+
+- researched about how divergence loss could be implemented in different ways
+- implemented a version of using treshold in divergencelossnofees
+- wrote an explaination of the above implementation and its idea
