@@ -151,9 +151,7 @@ void PoolListWidgetItem::Invariant_Curve(PROTOCOL curr_protocol, double input_to
             ui->widgetGraph->graph(1)->setData(curve_x_last, curve_y_last);
             ui->widgetGraph->legend->removeItem(0);
         }
-
     }
-
 }
 
 void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
@@ -196,13 +194,13 @@ void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
         curr_Point->addData(input_quants[0], output_quants[0]);
 
         if (!last_quantities_.empty()) {
-        QCPGraph* last_Point = new QCPGraph(ui->widgetGraph->xAxis, ui->widgetGraph->yAxis);
-        last_Point->setAdaptiveSampling(false);
-        last_Point->setLineStyle(QCPGraph::lsNone);
-        last_Point->setScatterStyle(QCPScatterStyle::ssCircle);
-        last_Point->setPen(QPen(QBrush(QColor(100,0,0)), 2));
-        last_Point->setName("last quantities");
-        last_Point->addData(input_quants[1], output_quants[1]);
+            QCPGraph* last_Point = new QCPGraph(ui->widgetGraph->xAxis, ui->widgetGraph->yAxis);
+            last_Point->setAdaptiveSampling(false);
+            last_Point->setLineStyle(QCPGraph::lsNone);
+            last_Point->setScatterStyle(QCPScatterStyle::ssCircle);
+            last_Point->setPen(QPen(QBrush(QColor(100,0,0)), 2));
+            last_Point->setName("last quantities");
+            last_Point->addData(input_quants[1], output_quants[1]);
         }
 
 //        QCPLayoutGrid *subLayout = new QCPLayoutGrid;

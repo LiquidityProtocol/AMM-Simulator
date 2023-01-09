@@ -29,7 +29,8 @@ SOURCES += \
     src/Utilities/PoolInterface.cpp \
     src/Utilities/Token.cpp \
     src/Utilities/TokensContainer.cpp \
-    src/Playground.cpp
+    src/Playground.cpp \
+    src/Utilities/Utilities.cpp
 
 HEADERS += \
     AccountListWidgetItem.h \
