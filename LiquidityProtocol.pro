@@ -18,11 +18,7 @@ SOURCES += \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
-<<<<<<< Updated upstream
     WithdrawDialog.cpp \
-=======
-    introductionwindow.cpp \
->>>>>>> Stashed changes
     main.cpp \
     MainWindow.cpp \
     qcustomplot.cpp \
@@ -46,7 +42,6 @@ HEADERS += \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
-    introductionwindow.h \
     qcustomplot.h \
     WithdrawDialog.h \
     src/Utilities/Utilities.hpp \
@@ -69,11 +64,7 @@ FORMS += \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
     WalletListWidgetItem.ui \
-<<<<<<< Updated upstream
     WithdrawDialog.ui
-=======
-    introductionwindow.ui
->>>>>>> Stashed changes
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
