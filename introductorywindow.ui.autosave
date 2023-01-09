@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>IntroductoryWindow</class>
+ <widget class="QMainWindow" name="IntroductoryWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>530</y>
+      <width>80</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>601</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="plainText">
+     <string>WELCOME TO OUR LIQUIDITY PROTOCOL PROJECT
+
+What is a Liquidity protocol and a Market Simulator?
+A liquidity protocol is a set of rules and standards that are used to facilitate the exchange of assets between buyers and sellers. The goal of a liquidity protocol is to ensure that there is always a buyer or seller available for a given asset, even if there is not a lot of demand for that asset at a particular moment in time. This helps to make markets more efficient and reduces the risk of price volatility.
+
+A market simulator is a tool that is used to model and simulate the behavior of financial markets. It can be used to test trading strategies, evaluate the performance of investment portfolios, or simply to gain a better understanding of how markets work. Market simulators typically use historical data to create a realistic simulation of market conditions, and they may also incorporate features such as real-time data feeds and the ability to place trades to create a more immersive experience.</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>10</y>
+      <width>171</width>
+      <height>361</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>17</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
