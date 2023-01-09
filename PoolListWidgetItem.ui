@@ -56,7 +56,7 @@
      <item>
       <widget class="QLabel" name="label_poolFee">
        <property name="text">
-        <string>Pool Fee (%):</string>
+        <string>Pool fee (%):</string>
        </property>
       </widget>
      </item>
@@ -103,6 +103,22 @@
         <property name="text">
          <string>Current Values</string>
         </property>
+        <property name="background">
+         <color>
+          <red>100</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </property>
+        <property name="foreground">
+         <brush brushstyle="NoBrush">
+          <color alpha="255">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </property>
        </column>
        <column>
         <property name="text">
@@ -112,6 +128,13 @@
        <column>
         <property name="text">
          <string>Last</string>
+        </property>
+        <property name="background">
+         <color>
+          <red>128</red>
+          <green>28</green>
+          <blue>176</blue>
+         </color>
         </property>
        </column>
       </widget>

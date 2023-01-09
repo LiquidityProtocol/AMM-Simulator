@@ -21,6 +21,7 @@ SOURCES += \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
+    WithdrawDialog.cpp \
     main.cpp \
     MainWindow.cpp \
     qcustomplot.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     TradeDialog.h \
     WalletListWidgetItem.h \
     qcustomplot.h \
+    WithdrawDialog.h \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \
@@ -74,7 +76,8 @@ FORMS += \
     SimulationPlayground.ui \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
-    WalletListWidgetItem.ui
+    WalletListWidgetItem.ui \
+    WithdrawDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

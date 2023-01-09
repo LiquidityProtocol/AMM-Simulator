@@ -17,6 +17,7 @@ public:
     bool Existing(PROTOCOL protocol, const std::unordered_set<Token *> &tokens) const;
     PoolInterface * GetPool(PROTOCOL protocol, const std::unordered_set<Token *> &tokens) const;
 
+    std::unordered_set<PoolInterface *> GetPoolsbyProtocol(PROTOCOL protocol) const;
     std::unordered_set<PoolInterface *> GetPools(PROTOCOL protocol, Token *input_token, Token *output_token) const;
     double SimulateSwap(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) const;
     double ExecuteSwap(Account *trader, PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) const;

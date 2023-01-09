@@ -55,6 +55,12 @@ void AccountListWidgetItem::on_trade_pushButton_clicked()
     trade_dialog->exec();
 }
 
+void AccountListWidgetItem::on_withdraw_pushButton_clicked()
+{
+    withdraw_dialog = new WithdrawDialog(this, playground_, account_);
+    withdraw_dialog->exec();
+}
+
 void AccountListWidgetItem::UpdateWallet()
 {
     ui->listWidget->clear();
@@ -79,6 +85,17 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
     }
 }
 
+void AccountListWidgetItem::VerifyWithdrawRequest(Token *input_token, double surrendered_quantity) {
+    try {
+        playground_->ExecuteWithdrawal(account_, input_token, surrendered_quantity);
+        ui->lineEdit_2->setText(QString::number(account_->total_value()));
+        UpdateWallet();
+        emit UpdatePoolDisplayRequest(input_token->pool());
+        withdraw_dialog->accept();
+    } catch (std::exception &e) {
+        QMessageBox::about(withdraw_dialog, "Withdraw failed", e.what());
+    }
+}
 void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provision)
 {
     provide_dialog->accept();
@@ -148,3 +165,4 @@ void AccountListWidgetItem::on_provide_pushButton_clicked()
     provide_dialog = new ProvideDialog(this);
     provide_dialog->exec();
 }
+
