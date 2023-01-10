@@ -48,21 +48,15 @@ The teams are more of a guidline, the tasks are not limited to what the team nam
 - Victoire
 - Martina
 
-### Liqudity Protocol
+### Playground
 - Minh
 - The
 - Levente
 - Adithya
 - Fryderyk
-
-
-### Playground
 - Tu
 - Alessandro
-- Adrien
 - Matheo
-- Adithya
-- Levente
 
 ## Building guide
 
