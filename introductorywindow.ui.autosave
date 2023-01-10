@@ -31,28 +31,77 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>40</y>
       <width>601</width>
-      <height>361</height>
+      <height>261</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:700;&quot;&gt;WELCOME TO OUR LIQUIDITY PROTOCOL PROJECT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Rockwell&quot;;</string>
+    </property>
     <property name="plainText">
-     <string>WELCOME TO OUR LIQUIDITY PROTOCOL PROJECT
-
+     <string>
 What is a Liquidity protocol and a Market Simulator?
-A liquidity protocol is a set of rules and standards that are used to facilitate the exchange of assets between buyers and sellers. The goal of a liquidity protocol is to ensure that there is always a buyer or seller available for a given asset, even if there is not a lot of demand for that asset at a particular moment in time. This helps to make markets more efficient and reduces the risk of price volatility.
+A liquidity protocol is a set of rules and standards that are used to facilitate trading on decentralized exchanges (DEXs): the exchange of assets between buyers and sellers. The goal of a liquidity protocol is to ensure that there is always a buyer or seller available for a given asset, even if there is not a lot of demand for that asset at a particular moment in time. This helps to make markets more efficient and reduces the risk of price volatility.
 
-A market simulator is a tool that is used to model and simulate the behavior of financial markets. It can be used to test trading strategies, evaluate the performance of investment portfolios, or simply to gain a better understanding of how markets work. Market simulators typically use historical data to create a realistic simulation of market conditions, and they may also incorporate features such as real-time data feeds and the ability to place trades to create a more immersive experience.</string>
+These protocols typically use a system of automated market makers (AMMs), which are algorithmically managed marketplaces that allow users to trade assets without the need for an order book or traditional market maker.
+
+The most well-known and widely used liquidity protocol is Uniswap. It's an open-source protocol that allows anyone to create and trade on their own custom markets using smart contracts.
+
+Uniswap uses liquidity pools to provide the necessary liquidity for trading. A liquidity pool is a smart contract that holds a balance of a certain asset and ETH. Anyone can add assets to the pool, which in turn increases the liquidity of the pool. In return for providing liquidity, the liquidity providers earn a small percentage of the trading fees from trades that occur within the pool.
+
+Market simulators are tools that can be used to test trading strategies and simulate the performance of different markets. They can be useful for traders, liquidity providers, and anyone who wants to understand how a market might behave under different conditions.
+
+
+</string>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="plainTextEdit_2">
     <property name="geometry">
      <rect>
       <x>620</x>
+      <y>40</y>
+      <width>171</width>
+      <height>261</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>601</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 18pt &quot;Ravie&quot;;
+color: rgb(255, 255, 255);
+background-color: rgb(192, 225, 255);</string>
+    </property>
+    <property name="plainText">
+     <string>LIQUIDITY PROTOCOL PROJECT
+</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
       <y>10</y>
       <width>171</width>
-      <height>361</height>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(192, 225, 255);</string>
+    </property>
+    <property name="plainText">
+     <string>Collaborators</string>
     </property>
    </widget>
   </widget>
