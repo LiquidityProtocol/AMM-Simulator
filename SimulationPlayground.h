@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "src/Market/Infrastructure/Market.hpp"
+#include <qcustomplot.h>
 
 namespace Ui {
 class SimulationPlayground;
@@ -15,7 +16,7 @@ class SimulationPlayground : public QDialog
 public:
     explicit SimulationPlayground(QWidget *parent = nullptr);
     ~SimulationPlayground();
-    void VerifyUpdatePoolDisplayRequest(PoolInterface *pool);
+    void UpdateGraph(PoolInterface *pool);
 
 private slots:
     void on_pushButton_clicked();
@@ -23,7 +24,10 @@ private slots:
 private:
     Ui::SimulationPlayground *ui;
     Market* market_;
-
+    QVector<double> epochs;
+    std::unordered_map<Token*, QVector<double> > inventory_quantities;
+    std::unordered_map<Token*, QCPGraph*>token_to_graph;
+    Token* test_token;
 };
 
 #endif // SIMULATIONPLAYGROUND_H

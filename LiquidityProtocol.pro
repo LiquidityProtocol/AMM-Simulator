@@ -15,6 +15,7 @@ SOURCES += \
     MarketInfo.cpp \
     MintDialog.cpp \
     NewPoolProvisionDialog.cpp \
+    PoolGraphItem.cpp \
     PoolListWidgetItem.cpp \
     ProvideDialog.cpp \
     SimulationPlayground.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     MarketInfo.h \
     MintDialog.h \
     NewPoolProvisionDialog.h \
+    PoolGraphItem.h \
     PoolListWidgetItem.h \
     ProvideDialog.h \
     SimulationPlayground.h \
@@ -71,6 +73,7 @@ FORMS += \
     MarketInfo.ui \
     MintDialog.ui \
     NewPoolProvisionDialog.ui \
+    PoolGraphItem.ui \
     PoolListWidgetItem.ui \
     ProvideDialog.ui \
     SimulationPlayground.ui \

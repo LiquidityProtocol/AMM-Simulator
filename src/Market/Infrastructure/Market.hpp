@@ -18,6 +18,7 @@ public:
 
     std::unordered_set<Token *> GetMarketTokens() const;
     std::unordered_set<PoolInterface *> GetMarketPools() const;
+    Token* getToken(std::string name);
 private:
     static int MarketCount;
     int MarketIndex;
