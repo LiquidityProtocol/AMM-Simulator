@@ -79,7 +79,7 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 - Click on `Open File or Project...`
 - Follow the path where you cloned the repository
 - Go to `src` folder
-- Click on `xyz.pro`
+- Click on `LiquidityProtocol.pro`
 - Click on Open
 - Run  `Ctrl+R`
 
@@ -99,9 +99,9 @@ Now you need to run this script that you can find in `scripts\build.sh`:
 rm -rf build
 mkdir build
 cd build
-qmake ../src/xyz.pro
+qmake ../src/LiquidityProtocol.pro
 make -j4
-./xyz-pp
+./LiquidityProtocol
 ```
 
 ## How use it
