@@ -12,13 +12,13 @@ The goal is to build an environment where we can test the already existing algor
 | Adithya Ravichandran | Ad1thya-R | ad1thya_r | Responsible for Git |
 | Levente Ludányi | ludlev2 | leventeludanyi | Project Leader |
 | Fryderyk Sitnik | fryderyk-sitnik | fryderyksitnik2 | Responsible for Trello |
-| Shubh Lashkery | shubhlashkery | shubhlashkery | Econ Research Team Leader |
+| Shubh Lashkery | shubhlashkery | shubhlashkery | Economics Team Leader |
 | Martina Paez Berru  | Martina-Paez-Berru | martinapaezberru | Frontend Team Leader |
 | Kaoutar Fahraoui | Kaoutar-Fahraoui | kaoutar.fahraoui |  |
 | Mia Chambat | miachambat | miachambat |  |
 | Amine Roudani | amineroudani | amineroudani |  |
 | Julien Girod | juliengirod | Julien Girod |  |
-| Duc Nguyen | combi2k2 | Duc Nguyen | Maths/Algorithm Research Team Leader |
+| Duc Nguyen | combi2k2 | Duc Nguyen | Protocols Team Leader |
 | Victoire Fabien | victoire-fabien | victoire-fabien |  |
 | Jasmine Samson | Jasmine-Samson | jasmine samson |  |
 | Minh Pham | minhpham160603 | minhpham1606 |  |
@@ -32,13 +32,13 @@ The goal is to build an environment where we can test the already existing algor
 
 ## Teams
 The teams are more of a guidline, the tasks are not limited to what the team names would indicate
-### Econ Research
+### Economics
 - Shubh
 - Gabriele
 - Kaoutar
 - Mia
 
-### Algorithm Research
+### Protocol
 - Amine
 - Julien
 - Duc
@@ -56,7 +56,7 @@ The teams are more of a guidline, the tasks are not limited to what the team nam
 - Fryderyk
 
 
-### Market Simulator
+### Playground
 - Tu
 - Alessandro
 - Adrien
