@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>925</width>
-    <height>662</height>
+    <width>1157</width>
+    <height>904</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,20 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>560</y>
-      <width>80</width>
-      <height>18</height>
+      <x>1020</x>
+      <y>810</y>
+      <width>91</width>
+      <height>21</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(192, 225, 255);</string>
+    </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Go to Playground</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -32,14 +38,15 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>681</width>
-      <height>31</height>
+      <width>801</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 18pt &quot;Ravie&quot;;
+background-color: rgb(254, 219, 251);
 color: rgb(255, 255, 255);
-background-color: rgb(192, 225, 255);</string>
+</string>
     </property>
     <property name="text">
      <string>Liquidity Protocol Playground </string>
@@ -48,38 +55,43 @@ background-color: rgb(192, 225, 255);</string>
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>681</width>
-      <height>271</height>
+      <x>30</x>
+      <y>90</y>
+      <width>781</width>
+      <height>251</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 9pt &quot;Rockwell&quot;;
+</string>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;What is a Liquidity protocol and a Market Simulator?&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;A liquidity protocol is a set of rules and standards that are used to facilitate trading on decentralized exchanges (DEXs): the exchange of assets between buyers and sellers. The goal of a liquidity protocol is to ensure that there is always a buyer or seller available for a given asset, even if there is not a lot of demand for that asset at a particular moment in time. This helps to make markets more efficient and reduces the risk of price volatility.&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;These protocols typically use a system of automated market makers (AMMs), which are algorithmically managed marketplaces that allow users to trade assets without the need for an order book or traditional market maker.&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;The most well-known and widely used liquidity protocol is Uniswap. It's an open-source protocol that allows anyone to create and trade on their own custom markets using smart contracts.&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Uniswap uses liquidity pools to provide the necessary liquidity for trading. A liquidity pool is a smart contract that holds a balance of a certain asset and ETH. Anyone can add assets to the pool, which in turn increases the liquidity of the pool. In return for providing liquidity, the liquidity providers earn a small percentage of the trading fees from trades that occur within the pool.&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Market simulators are tools that can be used to test trading strategies and simulate the performance of different markets. They can be useful for traders, liquidity providers, and anyone who wants to understand how a market might behave under different conditions.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Rockwell'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt; font-weight:700;&quot;&gt;What is a Liquidity protocol and a Market Simulator?&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt;A liquidity protocol is a set of rules and standards that are used to facilitate trading on decentralized exchanges (DEXs): the exchange of assets between buyers and sellers. The goal of a liquidity protocol is to ensure that there is always a buyer or seller available for a given asset, even if there is not a lot of demand for that asset at a particular moment in time. This helps to make markets more efficient and reduces the risk of price volatility.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt;These protocols typically use a system of automated market makers (AMMs), which are algorithmically managed marketplaces that allow users to trade assets without the need for an order book or traditional market maker.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt;The most well-known and widely used liquidity protocol is Uniswap. It's an open-source protocol that allows anyone to create and trade on their own custom markets using smart contracts.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt;Uniswap uses liquidity pools to provide the necessary liquidity for trading. A liquidity pool is a smart contract that holds a balance of a certain asset and ETH. Anyone can add assets to the pool, which in turn increases the liquidity of the pool. In return for providing liquidity, the liquidity providers earn a small percentage of the trading fees from trades that occur within the pool.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt;Market simulators are tools that can be used to test trading strategies and simulate the performance of different markets. They can be useful for traders, liquidity providers, and anyone who wants to understand how a market might behave under different conditions.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>330</y>
-      <width>681</width>
-      <height>31</height>
+      <y>350</y>
+      <width>801</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 18pt &quot;Ravie&quot;;
 color: rgb(255, 255, 255);
+border-color: rgb(0, 0, 0);
 background-color: rgb(192, 225, 255);</string>
     </property>
     <property name="text">
@@ -89,10 +101,10 @@ background-color: rgb(192, 225, 255);</string>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>830</x>
       <y>10</y>
-      <width>221</width>
-      <height>31</height>
+      <width>291</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -107,10 +119,10 @@ background-color: rgb(192, 225, 255);</string>
    <widget class="QTextBrowser" name="textBrowser_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>370</y>
-      <width>911</width>
-      <height>251</height>
+      <x>30</x>
+      <y>410</y>
+      <width>1091</width>
+      <height>431</height>
      </rect>
     </property>
     <property name="html">
@@ -125,10 +137,10 @@ hr { height: 1px; border-width: 0; }
    <widget class="QTextBrowser" name="textBrowser_3">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>50</y>
-      <width>221</width>
-      <height>311</height>
+      <x>830</x>
+      <y>70</y>
+      <width>291</width>
+      <height>291</height>
      </rect>
     </property>
     <property name="html">
@@ -143,6 +155,41 @@ hr { height: 1px; border-width: 0; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+   <widget class="QTextBrowser" name="textBrowser_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1141</width>
+      <height>851</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 0, 255);</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser_5">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>70</y>
+      <width>781</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 700 9pt &quot;Rockwell&quot;;</string>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Rockwell'; font-size:9pt; font-weight:700; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:18pt;&quot;&gt;What is a Liquidity Protocol?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <zorder>textBrowser_4</zorder>
    <zorder>textBrowser_2</zorder>
    <zorder>pushButton</zorder>
    <zorder>label</zorder>
@@ -150,13 +197,14 @@ hr { height: 1px; border-width: 0; }
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
    <zorder>textBrowser_3</zorder>
+   <zorder>textBrowser_5</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>925</width>
+     <width>1157</width>
      <height>17</height>
     </rect>
    </property>
