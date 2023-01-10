@@ -1,5 +1,7 @@
 # CSE201-project
 
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/LP_logo.png?raw=true)
+
 C++ project on building a liquidity protocol and a market simulator to test the different automated market makers in different scenarios.
 The goal is to build an environment where we can test the already existing algorithms and implement our own AMM algorithm.
 
