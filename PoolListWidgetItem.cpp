@@ -225,3 +225,5 @@ void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
         ui->widgetGraph->setFixedHeight(250);
     }
 }
+
+
