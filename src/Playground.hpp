@@ -4,6 +4,8 @@
 #include "Utilities/Utilities.hpp"
 #include "Protocols/Protocols.hpp"
 
+using namespace Utilities;
+
 class Playground {
 public:
     std::pair<Token *, bool> GetToken(const std::string &name, double real_value = 0);
@@ -21,6 +23,7 @@ public:
     double SimulateSwap(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) const;
     double ExecuteSwap(Account *trader, PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) const;
 
+    std::unordered_set<PoolInterface *> GetPools(PROTOCOL protocol) const;
     double SimulateProvision(PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities) const;
     double ExecuteProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities) const;
     double ExecuteInitialProvision(Account *provider, PROTOCOL protocol, const std::unordered_map<Token *, double> &provided_quantities, double pool_fee);

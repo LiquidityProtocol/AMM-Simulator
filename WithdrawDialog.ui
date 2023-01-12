@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WithdrawDialog</class>
+ <widget class="QDialog" name="WithdrawDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>362</width>
+    <height>359</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_Protocol">
+     <item>
+      <widget class="QLabel" name="label_protocol">
+       <property name="text">
+        <string>Protocol</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_protocol"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_pool">
+     <item>
+      <widget class="QLabel" name="label_pool">
+       <property name="text">
+        <string>Pool</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_pool"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTableWidget" name="tableWidget_pool">
+     <column>
+      <property name="text">
+       <string>Token</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Quantity</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Withdrawal</string>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lineEdit_withdraw">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>% to withdraw</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_withdraw">
+     <property name="text">
+      <string>Withdraw</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

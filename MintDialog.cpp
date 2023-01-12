@@ -2,6 +2,7 @@
 #include "ui_MintDialog.h"
 #include "AccountListWidgetItem.h"
 #include "src/Playground.hpp"
+#include <QMessageBox>
 
 MintDialog::MintDialog(QWidget *parent, Playground *playground) :
     QDialog(parent),
@@ -23,5 +24,9 @@ MintDialog::~MintDialog()
 
 void MintDialog::on_pushButton_clicked()
 {
-    emit MintRequest(playground_->GetToken(ui->comboBox->currentText().toStdString()).first, ui->lineEdit->text().toDouble());
+    if (!ValidNumber(ui->lineEdit->text().toStdString())) {
+        QMessageBox::about(this, "Mint failed", "Please provide a valid number of tokens!");
+    } else {
+        emit MintRequest(playground_->GetToken(ui->comboBox->currentText().toStdString()).first, ui->lineEdit->text().toDouble());
+    }
 }

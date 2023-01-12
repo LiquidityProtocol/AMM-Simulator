@@ -81,10 +81,15 @@ void TradeDialog::on_input_quantity_lineEdit_textChanged(const QString &input_qu
 
 void TradeDialog::on_pushButton_clicked()
 {
-    if (selection_.Valid()) {
-        emit TradeRequest(selection_.pool_, selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
+    if (!ValidNumber(ui->input_quantity_lineEdit->text().toStdString())) {
+        QMessageBox::about(this, "Trade failed", "Please provide a valid input quantity!");
     } else {
-        QMessageBox::about(this, "Invalid trade request", "Please enter all required informations!");
+        if (selection_.Valid()) {
+            emit TradeRequest(selection_.pool_, selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
+        }
+        else {
+            QMessageBox::about(this, "Trade failed", "Please enter all required informations!");
+        }
     }
 }
 

@@ -16,14 +16,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void VerifyUpdatePoolDisplayRequest(PoolInterface *pool);
+
 private slots:
-
     void on_create_toekn_pushButton_clicked();
-
     void on_create_account_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     Playground *playground_;
 };
+
 #endif // MAINWINDOW_H

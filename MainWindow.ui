@@ -87,19 +87,19 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_pool">
       <property name="leftMargin">
        <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_pool">
         <property name="text">
          <string>Pool Information</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidget_3"/>
+       <widget class="QListWidget" name="listWidget_pool"/>
       </item>
      </layout>
     </item>
@@ -112,7 +112,7 @@
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

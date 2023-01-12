@@ -20,6 +20,10 @@ std::string Operation::account_name() const {
     return account_name_;
 }
 
+PoolInterface *Operation::pool() const {
+    return pool_;
+}
+
 std::unordered_map<Token *, double> Operation::input() const {
     return input_;
 }
