@@ -57,7 +57,7 @@ vector<double> Divergence_loss_UNISWAP_visualisation() {
     }
     return total_divergence_loss;
 }
-    return 0;
+
 
 
 //The function calculates the divergence loss using the Kullback-Leibler divergence
