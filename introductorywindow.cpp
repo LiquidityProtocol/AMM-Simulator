@@ -19,5 +19,6 @@ void IntroductoryWindow::on_pushButton_clicked()
     mainwindow = new MainWindow(this);
     //mainwindow -> setModal(true);
     mainwindow -> show();
+    delete ui;
 }
 
