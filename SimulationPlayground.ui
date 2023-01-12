@@ -34,6 +34,9 @@
      <widget class="QListWidget" name="listWidget"/>
     </item>
     <item>
+     <widget class="QListWidget" name="listWidget2"/>
+    </item>
+    <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
        <string>Run Epoch</string>
