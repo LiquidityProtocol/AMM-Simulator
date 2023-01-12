@@ -81,6 +81,7 @@ public:
     std::unordered_map<Token *, double> output() const;
 
     double GetSpotPrice(Token *a, Token *b) const;
+    double GetQuanitty(Token *a) const;
 
     friend std::ostream & operator<<(std::ostream &os, const Operation &op);
 
@@ -88,6 +89,7 @@ private:
     std::string operation_type_;
     std::string account_name_;
     PoolInterface *pool_;
+    std::unordered_map<Token *, double> quantities_;
     std::unordered_map<Token *, double> input_;
     std::unordered_map<Token *, double> output_;
 

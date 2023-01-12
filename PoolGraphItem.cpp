@@ -24,8 +24,6 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     pool_(pool)
 {
     ui->setupUi(this);
-    epochs = QVector<double>(0);
-    inventory_quantities = std::unordered_map<Token*, QVector<double> >();
     token_to_graph = std::unordered_map< Token*, QCPGraph* > ();
     for (auto token: pool_->tokens()){
         token_to_graph[token] = ui->widget->addGraph();
@@ -47,24 +45,31 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
-void PoolGraphItem::UpdateContent() {
-    epochs.push_back(epochs.size());
-    for(auto [token, quantity]: pool_->quantities()){
-        inventory_quantities[token].push_back(quantity);
-    }
-    for (Token *a : pool_->tokens())
-    for (Token *b : pool_->tokens())
-        spotPrices[a][b].append(log(pool_->GetSpotPrice(a, b)));
-}
-
 void PoolGraphItem::UpdateGraph() {
-    UpdateContent();
+    // clear the data of previous graph
+    for (auto token1 : pool_->tokens())
+    for (auto token2 : pool_->tokens()) if (token1->name() != token2->name()) {
+        pToken_to_graph[token1][token2]->data()->clear();
+        pToken_to_graph[token1][token2]->removeFromLegend();
+    }
+    for (auto token : pool_->tokens()) {
+        token_to_graph[token]->data()->clear();
+        token_to_graph[token]->removeFromLegend();
+    }
+
+    // plot the data from the ledger
+    std::vector<Operation *> poolLedger = pool_->ledger();
+    QVector<double> epochs;
+
+    for (size_t i = 0 ; i < poolLedger.size() ; ++i)
+        epochs.append(i);
+
     if (plotting_inventory) {
-        for (auto token1 : pool_->tokens())
-        for (auto token2 : pool_->tokens()) if (token1->name() != token2->name()) {
-            pToken_to_graph[token1][token2]->data()->clear();
-            pToken_to_graph[token1][token2]->removeFromLegend();
-        }
+        std::unordered_map<Token*, QVector<double> > inventory_quantities;
+
+        for (auto ops : poolLedger)
+        for (auto token : pool_->tokens())
+            inventory_quantities[token].append(ops->GetQuanitty(token));
 
         for (auto token : pool_->tokens()) {
             token_to_graph[token]->setData(epochs, inventory_quantities[token]);
@@ -72,17 +77,12 @@ void PoolGraphItem::UpdateGraph() {
             token_to_graph[token]->rescaleAxes(true);
         }
     } else {
-        for (auto token : pool_->tokens()) {
-            token_to_graph[token]->data()->clear();
-            token_to_graph[token]->removeFromLegend();
-        }
-        for (auto token1 : pool_->tokens())
-        for (auto token2 : pool_->tokens()) if (token1->name() != token2->name()) {
-            pToken_to_graph[token1][token2]->data()->clear();
-            pToken_to_graph[token1][token2]->removeFromLegend();
-        }
+        QVector<double> spotPriceHistory;
 
-        pToken_to_graph[plottedToken1][plottedToken2]->setData(epochs, spotPrices[plottedToken1][plottedToken2]);
+        for (auto ops : poolLedger)
+            spotPriceHistory.append(ops->GetSpotPrice(plottedToken1, plottedToken2));
+
+        pToken_to_graph[plottedToken1][plottedToken2]->setData(epochs, spotPriceHistory);
         pToken_to_graph[plottedToken1][plottedToken2]->addToLegend();
         pToken_to_graph[plottedToken1][plottedToken2]->rescaleAxes(true);
     }

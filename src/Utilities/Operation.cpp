@@ -12,6 +12,8 @@ Operation::Operation(
   , input_(input)
   , output_(output) {
 
+    quantities_ = pool->quantities();
+
     for (Token *a : pool->tokens())
     for (Token *b : pool->tokens())
         spotPriceMatrix[a][b] = pool->GetSpotPrice(a, b);
@@ -39,6 +41,10 @@ std::unordered_map<Token *, double> Operation::output() const {
 
 double Operation::GetSpotPrice(Token *a, Token *b) const {
     return (spotPriceMatrix.find(a)->second).find(b)->second;
+}
+
+double Operation::GetQuanitty(Token *a) const {
+    return quantities_.find(a)->second;
 }
 
 
