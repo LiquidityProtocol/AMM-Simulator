@@ -125,6 +125,18 @@ double arb_simulation(double market_exchange_rate, double quantity1, double quan
 
     return quantity1 - new_quantity_1;
 }
+double arb_simulation_balancer(double quantity1, double quantity2, double weight_1, double weight_2, double spot_pricechange){
+    /* This function tells us how much of the token should be traded for a perfect arbritage oppurtunity (Balancer Pool)
+     * @return: the value to be traded
+     */
+
+    double init_spot_price=(quantity1*weight_2)/(quantity2*weight_1);
+    double powr=weight_2/(weight_1+weight_2);
+    double should_trade=quantity2*(pow((spot_pricechange/init_spot_price),powr)-1);
+
+
+    return should_trade;
+}
 
 double provision_type(){
     /* This function just tells us whether we should provide or withdraw
@@ -382,6 +394,7 @@ void SimulationTwo(){
             }
 
             //Implement perfect arbritage function
+
 
 
         }
