@@ -29,7 +29,7 @@ private slots:
     void on_comboBox_secondToken_currentIndexChanged(int index);
 
 private:
-    void Invariant_Curve(PROTOCOL curr_protocol, double input_token_quantity, double last_input_token_quantity, double output_token_quantity, double last_output_token_quantity);
+    void Invariant_Curve(Token* input_token, Token* output_token, PROTOCOL curr_protocol, double input_token_quantity, double last_input_token_quantity, double output_token_quantity, double last_output_token_quantity);
     Ui::PoolListWidgetItem *ui;
     PoolInterface *pool_;
     std::unordered_map<Token *, double> last_quantities_, curr_quantities_;

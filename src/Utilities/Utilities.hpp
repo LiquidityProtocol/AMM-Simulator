@@ -148,8 +148,10 @@ public:
 
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
     double GetSpotPrice(Token *input_token, Token *output_token) const;
+    double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
 
     std::vector<Operation *> ledger() const;
+
 
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
@@ -171,7 +173,6 @@ private:
     Token *pool_token_;
     std::vector<Operation *> ledger_;
 
-    double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
     Operation * Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);
 
     double SimulateProvision(std::unordered_map<Token *, double> input_quantities) const;
