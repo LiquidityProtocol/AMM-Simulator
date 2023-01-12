@@ -10,7 +10,12 @@ Operation::Operation(
   , account_name_(account_name)
   , pool_(pool)
   , input_(input)
-  , output_(output) {}
+  , output_(output) {
+
+    for (Token *a : pool->tokens())
+    for (Token *b : pool->tokens())
+        spotPriceMatrix[a][b] = pool->GetSpotPrice(a, b);
+}
 
 std::string Operation::operation_type() const {
     return operation_type_;
@@ -31,6 +36,11 @@ std::unordered_map<Token *, double> Operation::input() const {
 std::unordered_map<Token *, double> Operation::output() const {
     return output_;
 }
+
+double Operation::GetSpotPrice(Token *a, Token *b) const {
+    return (spotPriceMatrix.find(a)->second).find(b)->second;
+}
+
 
 std::ostream & operator<<(std::ostream &os, const Operation &op) {
     /*

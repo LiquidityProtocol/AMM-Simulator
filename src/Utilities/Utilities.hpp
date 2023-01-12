@@ -80,6 +80,8 @@ public:
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 
+    double GetSpotPrice(Token *a, Token *b) const;
+
     friend std::ostream & operator<<(std::ostream &os, const Operation &op);
 
 private:
@@ -88,6 +90,8 @@ private:
     PoolInterface *pool_;
     std::unordered_map<Token *, double> input_;
     std::unordered_map<Token *, double> output_;
+
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMatrix;
 };
 
 class Account {
