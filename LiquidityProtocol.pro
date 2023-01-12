@@ -30,7 +30,7 @@ SOURCES += \
  \#    src/Utilities/UniswapV2PoolSimulation.cpp
     src/Utilities/cdf_uniform_distrib.cpp \
     src/Utilities/mean_list.cpp \
-    src/Utilities/normal_distribution_generator.cpp
+    src/Utilities/normal_distribution_generator.cpp \
 
 HEADERS += \
     MainWindow.h \
