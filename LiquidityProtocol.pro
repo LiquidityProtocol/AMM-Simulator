@@ -23,7 +23,6 @@ SOURCES += \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
     WithdrawDialog.cpp \
-    accountgraphitem.cpp \
     main.cpp \
     MainWindow.cpp \
     qcustomplot.cpp \
@@ -53,7 +52,6 @@ HEADERS += \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
-    accountgraphitem.h \
     qcustomplot.h \
     WithdrawDialog.h \
     src/Utilities/Utilities.hpp \
@@ -82,8 +80,7 @@ FORMS += \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
     WalletListWidgetItem.ui \
-    WithdrawDialog.ui \
-    accountgraphitem.ui
+    WithdrawDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
