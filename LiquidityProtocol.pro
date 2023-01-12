@@ -17,6 +17,7 @@ SOURCES += \
     Withdraw.cpp \
     main.cpp \
     MainWindow.cpp \
+    src/PlaygroundSimulation.cpp \
     src/Utilities/Account.cpp \
     src/Utilities/Operation.cpp \
     src/Utilities/PoolInterface.cpp \

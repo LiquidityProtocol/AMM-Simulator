@@ -58,6 +58,16 @@ private:
 
         return r2 - r2 * std::pow(r1 / (r1 + input_quantity), w1 / w2);
     }
+
+    double ComputeInputRequirement(Token *input_token, Token *output_token, double output_quantity) const {
+            double r1 = GetQuantity(input_token);
+            double r2 = GetQuantity(output_token);
+
+            double w1 = GetWeight(input_token);
+            double w2 = GetWeight(output_token);
+
+            return r1/ std::pow( (r2 - output_quantity) / r2, w2 / w1) - r1;
+        }
 };
 
 #endif // BALANCER_POOL_HPP

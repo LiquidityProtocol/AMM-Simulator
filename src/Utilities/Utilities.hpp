@@ -145,6 +145,7 @@ protected:
     virtual double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const = 0;
     virtual double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const;
     virtual double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const;
+    virtual double ComputeInputRequirement(Token *input_token, Token *output_token, double output_quantity) const = 0;
 
 private:
     TokensContainer tokens_container_;
@@ -155,6 +156,8 @@ private:
 
     double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
     Operation * Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);
+
+    double SimulateTradeDemand(Token *input_token, Token *output_token, double output_quantity) const;
 
     double SimulateProvision(std::unordered_map<Token *, double> input_quantities) const;
     Operation * Provide(Account *provider, std::unordered_map<Token *, double> input_quantities);

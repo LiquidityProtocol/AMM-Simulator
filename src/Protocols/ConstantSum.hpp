@@ -55,6 +55,10 @@ private:
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
         return 0;
     }
+
+    double ComputeInputRequirement(Token *input_token, Token *output_token, double output_quantity) const {
+           return ComputeSpotExchangeRate(input_token,output_token) * output_quantity;
+       }
 };
 
 #endif // CONSTANT_SUM_HPP

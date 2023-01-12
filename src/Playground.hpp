@@ -30,10 +30,25 @@ public:
     std::unordered_map<Token *, double> SimulateWithdrawal(Token *token, double surrendered_quantity) const;
     std::unordered_map<Token *, double> ExecuteWithdrawal(Account *provider, Token *token, double surrendered_quantity);
 
+    void Simulate(PROTOCOL protocol, PoolInterface *pool, double market_price);
+    void ProvisionSimulation(PoolInterface *pool, Token *firstToken, Token *secondToken);
+    void TradeSimulation(PoolInterface *pool, Token *firstToken, Token *secondToken);
+    void ArbSimulation(PoolInterface *pool, Token *firstToken, Token *secondToken);
+
+    double LastActionsAverage(std::string action);
+    double provision_type();
+
+    void SupplyPool(double provision_value,Token *firstToken, Token *secondToken, PoolInterface *pool, Account *provider );
+
+    double ArbAmount(PoolInterface *pool, Token *firstToken, Token *secondToken);
+
 private:
     std::unordered_map<std::string, Token *> existing_tokens_;
     std::unordered_map<std::string, Account *> existing_accounts_;
     std::unordered_map<PROTOCOL, std::unordered_map<TokensContainer, PoolInterface *>> existing_pools_;
+    std::vector<std::pair<std::string, double>>  state_evolution;
+    double market_price;
+
 };
 
 #endif // PLAYGROUND_HPP

@@ -29,6 +29,10 @@ private:
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
         return input_quantity / GetQuantity(input_token);
     }
+
+    double ComputeInputRequirement(Token *input_token, Token *output_token, double output_quantity) const {
+            return ( GetQuantity(output_token) * GetQuantity(input_token) ) / ( GetQuantity(output_token) - output_quantity ) - GetQuantity(input_token);
+        }
 };
 
 #endif //UNISWAP_V2_POOL_HPP
