@@ -33,7 +33,6 @@ public slots:
     void VerifyProvideRequest3(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities, double pool_fee, const std::unordered_map<Token *, double> &weights);
     void VerifyExistingProvideRequest(PROTOCOL protocol, const std::unordered_map<Token *, double> &quantities);
 
-
 private slots:
     void on_mint_pushButton_clicked();
     void on_trade_pushButton_clicked();
