@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Playground</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>
@@ -24,6 +27,15 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLineEdit" name="lineEdit">
+          <property name="font">
+           <font>
+            <family>Rockwell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255)</string>
+          </property>
           <property name="placeholderText">
            <string>Enter account name here</string>
           </property>
@@ -31,6 +43,19 @@
         </item>
         <item>
          <widget class="QPushButton" name="create_account_pushButton">
+          <property name="font">
+           <font>
+            <family>Rockwell</family>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255) ; background-color: rgba(1, 25, 147, 240)</string>
+          </property>
           <property name="text">
            <string>Create A New Account</string>
           </property>
@@ -40,6 +65,9 @@
       </item>
       <item>
        <widget class="QListWidget" name="listWidget">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -53,6 +81,17 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLineEdit" name="lineEdit_2">
+          <property name="font">
+           <font>
+            <family>Rockwell</family>
+           </font>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255)</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -63,6 +102,14 @@
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_3">
+          <property name="font">
+           <font>
+            <family>Rockwell</family>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255)</string>
+          </property>
           <property name="placeholderText">
            <string>Enter token price here</string>
           </property>
@@ -70,6 +117,15 @@
         </item>
         <item>
          <widget class="QPushButton" name="create_toekn_pushButton">
+          <property name="font">
+           <font>
+            <family>Rockwell</family>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255) ; background-color: rgba(1, 25, 147, 240)</string>
+          </property>
           <property name="text">
            <string>Create A New Token</string>
           </property>
@@ -93,13 +149,25 @@
       </property>
       <item>
        <widget class="QLabel" name="label_pool">
+        <property name="font">
+         <font>
+          <family>Rockwell</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">text-align: center; </string>
+        </property>
         <property name="text">
          <string>Pool Information</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidget_pool"/>
+       <widget class="QListWidget" name="listWidget_pool">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -112,7 +180,7 @@
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
