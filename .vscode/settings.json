@@ -1,6 +1,8 @@
 {
     "files.associations": {
-        "cassert": "cpp"
+        "cassert": "cpp",
+        "iostream": "cpp"
     },
-    "C_Cpp.intelliSenseEngineFallback": "enabled"
+    "C_Cpp.intelliSenseEngineFallback": "enabled",
+    "C_Cpp.errorSquiggles": "disabled"
 }

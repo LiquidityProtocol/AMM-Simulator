@@ -2,8 +2,14 @@
 
 #include <iostream>
 #include "Utilities/DivergenceLossNoFees.hpp"
+#include <random>
+using namespace std;
 
 int main() {
-    Divergence_loss_sim_no_fee(1);
+    vector<double> p;
+    p = Divergence_loss_UNISWAP_visualisation();
+    for (int i = 0; i < 7; ++i) {
+        cout << p[i] << " ";
+    }
     return 0;
 }
