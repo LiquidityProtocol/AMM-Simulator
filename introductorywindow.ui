@@ -27,7 +27,7 @@
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(192, 225, 255);</string>
+     <string notr="true">background-color: rgb(254, 219, 251);</string>
     </property>
     <property name="text">
      <string>Go to Playground</string>
@@ -50,6 +50,9 @@ color: rgb(255, 255, 255);
     </property>
     <property name="text">
      <string>Liquidity Protocol Playground </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textBrowser">
@@ -94,6 +97,9 @@ background-color: rgb(254, 219, 251);
     <property name="text">
      <string>Getting Started</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
@@ -112,6 +118,9 @@ background-color: rgb(254, 219, 251);
     </property>
     <property name="text">
      <string>Collaboration</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textBrowser_2">
