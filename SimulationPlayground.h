@@ -16,7 +16,6 @@ class SimulationPlayground : public QDialog
 public:
     explicit SimulationPlayground(QWidget *parent = nullptr);
     ~SimulationPlayground();
-    void UpdateGraph(PoolInterface *pool);
 
 private slots:
     void on_pushButton_clicked();
