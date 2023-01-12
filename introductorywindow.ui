@@ -17,9 +17,9 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>1120</x>
+      <x>1100</x>
       <y>640</y>
-      <width>121</width>
+      <width>141</width>
       <height>31</height>
      </rect>
     </property>
@@ -36,16 +36,16 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>1041</width>
+      <x>20</x>
+      <y>20</y>
+      <width>1061</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 18pt &quot;Ravie&quot;;
 background-color: rgb(254, 219, 251);
-color: rgb(255, 255, 255);
+color: rgb(0,0,0);
 </string>
     </property>
     <property name="text">
@@ -58,9 +58,9 @@ color: rgb(255, 255, 255);
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>90</y>
-      <width>1041</width>
+      <width>1061</width>
       <height>231</height>
      </rect>
     </property>
@@ -81,16 +81,15 @@ hr { height: 1px; border-width: 0; }
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>330</y>
-      <width>1041</width>
+      <x>20</x>
+      <y>340</y>
+      <width>1061</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 18pt &quot;Ravie&quot;;
-color: rgb(255, 255, 255);
-border-color: rgb(0, 0, 0);
+color: rgb(0, 0, 0);
 background-color: rgb(254, 219, 251);
 </string>
     </property>
@@ -104,15 +103,15 @@ background-color: rgb(254, 219, 251);
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>1060</x>
-      <y>10</y>
-      <width>181</width>
+      <x>1100</x>
+      <y>20</y>
+      <width>141</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 15pt &quot;Ravie&quot;;
-color: rgb(255, 255, 255);
+     <string notr="true">font: 18pt &quot;Ravie&quot;;
+color: rgb(0,0,0);
 background-color: rgb(254, 219, 251);
 </string>
     </property>
@@ -126,10 +125,10 @@ background-color: rgb(254, 219, 251);
    <widget class="QTextBrowser" name="textBrowser_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>380</y>
-      <width>1231</width>
-      <height>261</height>
+      <width>1061</width>
+      <height>291</height>
      </rect>
     </property>
     <property name="html">
@@ -152,10 +151,10 @@ hr { height: 1px; border-width: 0; }
    <widget class="QTextBrowser" name="textBrowser_3">
     <property name="geometry">
      <rect>
-      <x>1060</x>
+      <x>1100</x>
       <y>60</y>
-      <width>181</width>
-      <height>311</height>
+      <width>141</width>
+      <height>551</height>
      </rect>
     </property>
     <property name="html">
@@ -164,28 +163,29 @@ hr { height: 1px; border-width: 0; }
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:12pt; font-weight:700;&quot;&gt;Economics&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Shubh&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Gabriele&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Kaoutar&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Mia&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:12pt; font-weight:700;&quot;&gt;Protocol&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Amine&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Julien&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Duc&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:12pt; font-weight:700;&quot;&gt;Frontend&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Jasmine&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Victoire&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Martina&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:12pt; font-weight:700;&quot;&gt;Playground&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Minh&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;The&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Levente&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Adithya&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Fryderyk&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Tu&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Alessandro&lt;/span&gt; &lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI'; font-size:12pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Matheo&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#ffffff;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#ffffff;&quot;&gt;.&lt;/span&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:14pt; font-weight:700;&quot;&gt;Economics&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Shubh&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Gabriele&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Kaoutar&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Mia&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:14pt; font-weight:700;&quot;&gt;Protocol&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Amine&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Julien&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Duc&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:14pt; font-weight:700;&quot;&gt;Frontend&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Jasmine&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Victoire&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Martina&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif'; font-size:14pt; font-weight:700;&quot;&gt;Playground&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Minh&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;The&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Levente&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Adithya&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Fryderyk&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Tu&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Alessandro&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Rockwell','serif';&quot;&gt;Matheo&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textBrowser_4">
@@ -194,7 +194,7 @@ hr { height: 1px; border-width: 0; }
       <x>-10</x>
       <y>0</y>
       <width>1281</width>
-      <height>701</height>
+      <height>711</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -204,9 +204,9 @@ hr { height: 1px; border-width: 0; }
    <widget class="QTextBrowser" name="textBrowser_5">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>60</y>
-      <width>1041</width>
+      <width>1061</width>
       <height>31</height>
      </rect>
     </property>
@@ -222,32 +222,6 @@ hr { height: 1px; border-width: 0; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:18pt;&quot;&gt;What is a Liquidity Protocol?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QScrollBar" name="verticalScrollBar">
-    <property name="geometry">
-     <rect>
-      <x>1250</x>
-      <y>10</y>
-      <width>16</width>
-      <height>671</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QScrollBar" name="horizontalScrollBar">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>680</y>
-      <width>1241</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
    <zorder>textBrowser_4</zorder>
    <zorder>textBrowser_2</zorder>
    <zorder>pushButton</zorder>
@@ -257,8 +231,6 @@ hr { height: 1px; border-width: 0; }
    <zorder>label_4</zorder>
    <zorder>textBrowser_3</zorder>
    <zorder>textBrowser_5</zorder>
-   <zorder>verticalScrollBar</zorder>
-   <zorder>horizontalScrollBar</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
