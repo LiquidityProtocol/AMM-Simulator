@@ -34,7 +34,7 @@ private:
     Token *plottedToken1 = nullptr;
     Token *plottedToken2 = nullptr;
 
-    bool plotting_inventory = false;
+    bool plotting_inventory = true;
 };
 
 #endif // POOLGRAPHITEM_H

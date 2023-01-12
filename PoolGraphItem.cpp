@@ -61,7 +61,7 @@ void PoolGraphItem::UpdateGraph() {
     UpdateContent();
     if (plotting_inventory) {
         for (auto token1 : pool_->tokens())
-        for (auto token2 : pool_->tokens()) {
+        for (auto token2 : pool_->tokens()) if (token1->name() != token2->name()) {
             pToken_to_graph[token1][token2]->data()->clear();
             pToken_to_graph[token1][token2]->removeFromLegend();
         }
