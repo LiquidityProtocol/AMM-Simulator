@@ -53,17 +53,6 @@ PoolInterface * Playground::GetPool(PROTOCOL protocol, const std::unordered_set<
     return existing_pools_.find(protocol)->second.find(TokensContainer(tokens))->second;
 }
 
-std::unordered_set<PoolInterface *> Playground::GetPoolsbyProtocol(PROTOCOL protocol) const {
-    if (!existing_pools_.count(protocol)) {
-        return {};
-    }
-    std::unordered_set<PoolInterface *> pools;
-    for (const auto &[tokens_container, pool] : existing_pools_.find(protocol)->second) {
-        pools.emplace(pool);
-    }
-    return pools;
-}
-
 std::unordered_set<PoolInterface *> Playground::GetPools(PROTOCOL protocol, Token *input_token, Token *output_token) const {
     if (!existing_pools_.count(protocol)) {
         return {};
@@ -85,7 +74,7 @@ double Playground::ExecuteSwap(Account *trader, PoolInterface *pool, Token *inpu
     return trader->Trade(pool, input_token, output_token, input_quantity);
 }
 
-std::unordered_set<PoolInterface *> Playground::GetPools(PROTOCOL protocol) {
+std::unordered_set<PoolInterface *> Playground::GetPools(PROTOCOL protocol) const {
     if (!existing_pools_.count(protocol)) {
         return {};
     }

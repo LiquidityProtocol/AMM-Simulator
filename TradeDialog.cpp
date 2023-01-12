@@ -81,31 +81,16 @@ void TradeDialog::on_input_quantity_lineEdit_textChanged(const QString &input_qu
 
 void TradeDialog::on_pushButton_clicked()
 {
-   QString userinput = ui->input_quantity_lineEdit->text();
-   int flag = 0;
-   int error = 0;
-   QList<QChar> digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-   for (int i = 0; i < userinput.size(); i++) {
-      if (userinput[i] == '.') {
-          flag += 1;
-      }
-      else if ( (std::find(digits.begin(), digits.end(), userinput[i]) != digits.end()) != true ) {
-          error += 1;
-      }
-   }
-
-   if (flag > 1 || error != 0) {
-       /*QMessageBox::about(this, "Minting failed", "Invalid input!");*/
-       QMessageBox::about(this, "Minting token failed", "Please mint a number of tokens!");
-   }
-   else {
-       if (selection_.Valid()) {
-           emit TradeRequest(selection_.pool_, selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
-       }
-       else {
-            QMessageBox::about(this, "Invalid trade request", "Please enter all required informations!");
+    if (!ValidNumber(ui->input_quantity_lineEdit->text().toStdString())) {
+        QMessageBox::about(this, "Trade failed", "Please provide a valid input quantity!");
+    } else {
+        if (selection_.Valid()) {
+            emit TradeRequest(selection_.pool_, selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
         }
-   }
+        else {
+            QMessageBox::about(this, "Trade failed", "Please enter all required informations!");
+        }
+    }
 }
 
 void TradeDialog::UpdateSelection()

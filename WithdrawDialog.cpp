@@ -28,8 +28,6 @@ WithdrawDialog::WithdrawDialog(QWidget *parent, Playground *playground, Account 
     ui->lineEdit_withdraw->setHidden(true);
 
     ui->pushButton_withdraw->setDisabled(true);
-
-
 }
 
 WithdrawDialog::~WithdrawDialog()
@@ -74,52 +72,45 @@ void WithdrawDialog::on_comboBox_pool_activated(int index)
         }
         ui->tableWidget_pool->setHidden(false);
 
+        ui->lineEdit_withdraw->clear();
         ui->lineEdit_withdraw->setHidden(false);
 
         ui->pushButton_withdraw->setDisabled(false);
     }
 }
 
-void WithdrawDialog::on_lineEdit_withdraw_textChanged(const QString &withdraw_provision_text)
+void WithdrawDialog::on_lineEdit_withdraw_textChanged(const QString &text)
 {
     PoolInterface *curr_pool = qvariant_cast<PoolInterface *>(ui->comboBox_pool->currentData());
 
-    double withdraw_percentage = ui->lineEdit_withdraw->text().toDouble();
+    double withdrawal_percentage = ui->lineEdit_withdraw->text().toDouble();
 
-    if (withdraw_percentage>0 && withdraw_percentage<=100) {
+    if (withdrawal_percentage > 0 && withdrawal_percentage <= 100) {
         Token *pool_token = curr_pool->pool_token();
-        double withdrawal_quantity = account_->GetQuantity(pool_token)*withdraw_percentage/100;
+        double withdrawal_quantity = account_->GetQuantity(pool_token) * withdrawal_percentage / 100;
         std::unordered_map<Token *, double> quantities = playground_->SimulateWithdrawal(pool_token, withdrawal_quantity);
 
-        int row = 0;
-        for (auto [token, quant] : quantities) {
-            ui->tableWidget_pool->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(quant))));
-            row++;
+        for (int row = 0; row < ui->tableWidget_pool->rowCount(); ++row) {
+            Token *token = playground_->GetToken(ui->tableWidget_pool->item(row, 0)->text().toStdString()).first;
+            double token_withdrawal = quantities[token];
+            ui->tableWidget_pool->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(std::to_string(token_withdrawal))));
         }
-        }
-    else {
+    } else if (withdrawal_percentage == 0) {
         for (int row = 0; row < ui->tableWidget_pool->rowCount(); ++row) {
             ui->tableWidget_pool->setItem(row, 2, new QTableWidgetItem("0"));
         }
+    } else {
+        QMessageBox::about(this, "Invalid withdrawal", "Please enter a valid percentage!");
     }
 }
 
 void WithdrawDialog::on_pushButton_withdraw_clicked()
 {
-    if (ui->comboBox_pool->currentIndex() == -1) {
-        QMessageBox::about(this, "Withdraw failed", "Please choose pool!");
-        return;
-    }
-
     PoolInterface *curr_pool = qvariant_cast<PoolInterface *>(ui->comboBox_pool->currentData());
-
-    double withdraw_percentage = ui->lineEdit_withdraw->text().toDouble();
     Token *pool_token = curr_pool->pool_token();
-    double withdrawal_quantity = account_->GetQuantity(pool_token)*withdraw_percentage/100;
+
+    double withdrawal_percentage = ui->lineEdit_withdraw->text().toDouble();
+    double withdrawal_quantity = account_->GetQuantity(pool_token)*withdrawal_percentage/100;
 
     emit WithdrawRequest(pool_token, withdrawal_quantity);
 }
-
-
-
-

@@ -20,7 +20,7 @@ std::string Operation::account_name() const {
     return account_name_;
 }
 
-PoolInterface* Operation::pool() const {
+PoolInterface *Operation::pool() const {
     return pool_;
 }
 
