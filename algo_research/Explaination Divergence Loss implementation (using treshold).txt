@@ -1,0 +1,22 @@
+Explaining my implementation of Divergence loss using decay factor:
+
+The decay factor represents the rate at which the divergence loss increases as the absolute difference between the current value and the reference value increases.
+For example, if the decay factor is 0.1 and the absolute difference between the current value and the reference value is 2.0, the divergence loss will be 0.2. If 
+the absolute difference is 3.0, the divergence loss will be 0.3. In general, the divergence loss will be equal to the decay factor multiplied by the absolute difference 
+between the current value and the reference value.The purpose of the decay factor is to incentivize liquidity providers to keep their value close to the reference value. If 
+the decay factor is high, the divergence loss will increase rapidly as the absolute difference between the current value and the reference value increases, which should 
+encourage liquidity providers to adjust their value so that it stays close to the reference value. On the other hand, if the decay factor is low, the divergence loss will 
+increase more slowly as the absolute difference increases, which may result in liquidity providers being less motivated to keep their value close to the reference value.
+In the context of this implementation, the threshold represents the minimum absolute difference between the current value and the reference value required for the divergence 
+loss to be non-zero. If the absolute difference is less than the threshold, the divergence loss is 0. Otherwise, the divergence loss is the decay factor multiplied by the
+difference between the absolute difference and the threshold.
+The threshold is defined as a private member variable of the DivergenceLoss class and is initialized in the constructor. It is passed as an argument to the constructor
+and stored in the threshold_ member variable.
+For example, if the threshold is 1.0 and the absolute difference between the current value and the reference value is 0.5, the divergence loss will be 0.0 because the absolute
+difference is less than the threshold. If the absolute difference is 1.5, the divergence loss will be 0.1 * (1.5 - 1.0) = 0.1. In general, the divergence loss will be equal to the
+decay factor multiplied by the difference between the absolute difference and the threshold if the absolute difference is greater than or equal to the threshold.
+The purpose of the threshold is to allow some flexibility in the value of the current value relative to the reference value, while still incentivizing liquidity providers
+to keep their value close to the reference value. If the threshold is set too low, liquidity providers may be too heavily incentivized to keep their value close to the
+reference value, which could result in reduced liquidity. On the other hand, if the threshold is set too high, liquidity providers may not be motivated enough to keep their
+value close to the reference value, which could also result in reduced liquidity.
+

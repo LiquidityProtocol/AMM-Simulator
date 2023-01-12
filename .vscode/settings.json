@@ -5,4 +5,7 @@
     },
     "C_Cpp.intelliSenseEngineFallback": "enabled",
     "C_Cpp.errorSquiggles": "disabled"
+     
+        "unordered_map": "cpp"
+    }
 }
