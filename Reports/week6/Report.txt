@@ -1,1 +1,3 @@
-
+Amine Roudani
+- Developed test file with various tests for UniswapV3
+- Developed a chart to represent divergent loss with respect to time.
