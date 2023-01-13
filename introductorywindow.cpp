@@ -18,7 +18,6 @@ void IntroductoryWindow::on_pushButton_clicked()
 {
     this->close();
     mainwindow = new MainWindow(this);
-    //mainwindow -> setModal(true);
     mainwindow -> show();
 
 }
