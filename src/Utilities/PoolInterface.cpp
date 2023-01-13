@@ -26,8 +26,9 @@ PoolInterface::PoolInterface(std::unordered_set<Token *> tokens, double pool_fee
     quantities_[pool_token_ = new Token(this)] = 0;
 }
 PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, double pool_fee)
-    : pool_fee_(pool_fee)
-    , tokens_container_(TokensContainer(GetKeys<Token *, double>(quantities))) {
+    : tokens_container_(TokensContainer(GetKeys<Token *, double>(quantities))),
+      pool_fee_(pool_fee)
+{
     for (auto [token, quantity] : quantities)
         if (quantity <= 0)
             throw std::invalid_argument("invalid initialization");
