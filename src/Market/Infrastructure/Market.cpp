@@ -1,6 +1,7 @@
 #include "Market.hpp"
 #include <random>
 #include <fstream>
+#include <iostream>
 #include <iomanip>
 #include <cassert>
 
@@ -17,14 +18,19 @@ Market::Market() {
     MarketIndex = ++MarketCount;
     epoch = 0;
     A = new CommunityActor(MarketIndex);
-
+}
+Market::~Market() {
+    delete A;
+    for (auto pool : pools_)    delete pool;
+    for (auto token : tokens_)  delete token;
+    
+    pools_.clear();
+    tokens_.clear();
+}
+void Market::loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL protocol) {
     // create some initial tokens of the market
-    addToken("USDT", 1);
-    addToken("USDC", 1);
-    addToken("DAI", 1);
-    addToken("ETH", 122);
-    addToken("UNI", 5.19);
-    addToken("MKR", 54.2);
+    for (auto [tokenName, price] : price_tags)
+        addToken(tokenName, price);
 
     for (auto token1 : tokens_)
     for (auto token2 : tokens_) {
@@ -38,23 +44,28 @@ Market::Market() {
                 quantities[token1] = 9e7 / token1->real_value();
                 quantities[token2] = 1e8 / token2->real_value(); // each token has equal volumeUSD inside the pool
             }
-            PoolInterface *pool = new UniswapV2Pool(quantities, 0.01);
+            PoolInterface *pool = nullptr;
+
+            if (protocol == PROTOCOL::UNISWAP_V2) {
+                pool = new UniswapV2Pool(quantities, 0.01);
+            } else if (protocol == PROTOCOL::UNISWAP_V3) {
+                pool = new UniswapV3Pool(quantities, 0.01, 10);
+            } else {
+                throw std::invalid_argument("currently not supporting this protocol");
+            }
 
             addPool(pool);
-            A->refill(pool->pool_token(), 1);
+            A->refill(pool->pool_token(), pool->GetQuantity(pool->pool_token()));
         } else {
             break; // market doesn't contain pools with duplicate pairs
         }
     }
-    assert(pools_.size() == tokens_.size() * (tokens_.size() - 1) / 2);
+    assert(pools_.size() == tokens_.size() * (tokens_.size() - 1) / 2 && "Combi");
 }
-Market::~Market() {
-    delete A;
-    for (auto pool : pools_)    delete pool;
-    for (auto token : tokens_)  delete token;
-    
-    pools_.clear();
-    tokens_.clear();
+
+void Market::loadInitialScenario(const std::unordered_set<PoolInterface *> pools) {
+    for (auto pool : pools)
+        addPool(pool);
 }
 
 void Market::addToken(const std::string &name, double price) {
@@ -65,11 +76,11 @@ void Market::addToken(Token *token) {
 }
 void Market::addPool(PoolInterface *pool) {
     pools_.emplace(pool);
-    for (auto token : pool->tokens())
-        addToken(token);
+//    for (auto token : pool->tokens())
+//        addToken(token);
 }
 
-Token* Market::getToken(std::string name){
+Token* Market::getToken(std::string name) const {
     for (auto token: tokens_){
         if (token->name() == name){
             return token;

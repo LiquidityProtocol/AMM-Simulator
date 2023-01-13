@@ -11,6 +11,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
+    market_->loadInitialScenario({{"ETH", 1012}, {"DAI", 10}, {"BTC", 5}}, PROTOCOL::UNISWAP_V2);
     for (auto pool: market_->GetMarketPools()){
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
         ui->listWidget->addItem(item);
@@ -19,7 +20,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
         ui->listWidget->setItemWidget(item, pool_graph);
     }
 
-    test_token = market_->getToken("UNI");
+    test_token = market_->getToken("DAI");
 //    token_to_graph[test_token] = ui->widget_pool_inventory->addGraph();
 
 }
