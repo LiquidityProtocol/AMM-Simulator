@@ -1,2 +1,3 @@
 Adithya Ravichandran
-
+- Added slippage display
+- Working on slides for final presentation
