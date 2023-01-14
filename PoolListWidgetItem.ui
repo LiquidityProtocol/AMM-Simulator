@@ -125,7 +125,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_slippage"/>
+        <widget class="QLineEdit" name="lineEdit_slippage">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
