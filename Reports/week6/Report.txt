@@ -5,3 +5,7 @@ Amine Roudani
 Adithya Ravichandran
 - Alongside Ludanyi Levente, completed the tokengraph code to graph curve for every protocol
 - Refactored introductory window
+
+Mathéo Le Masson
+- Find bug : program crashes when user tries to withdraw while being unable to
+- Started with Tu to create a graph showing the evolution of the wallet of each account (new GetMarketsbyAccounts function and Create new class AccountGraphItem)
