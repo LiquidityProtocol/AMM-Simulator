@@ -70,6 +70,68 @@
     </layout>
    </item>
    <item>
+    <layout class="QVBoxLayout" name="verticalLayout_slippage">
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_slippage_title">
+       <property name="text">
+        <string>Slippage Metrics from Latest Trade:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tableWidget_slippage">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>90</height>
+        </size>
+       </property>
+       <row>
+        <property name="text">
+         <string>Input token</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Output token</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>Trade</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_slippage">
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_slippage">
+         <property name="text">
+          <string>Slippage (%):</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_slippage"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_spotPrice">
      <property name="topMargin">
       <number>0</number>

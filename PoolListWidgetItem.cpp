@@ -15,6 +15,27 @@ PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool, con
     ui->lineEdit_protocol->setText(QString::fromStdString(PROTOCOL_NAME.at(GetPoolType(pool_))));
     ui->lineEdit_poolFee->setText(QString::fromStdString(std::to_string(pool_->pool_fee()*100)));
 
+    if (pool->ledger().back()->operation_type() == "TRADE") {
+        Token* input_token = pool->ledger().back()->input().begin()->first;
+        Token* output_token = pool->ledger().back()->output().begin()->first;
+        double input_token_quantity = pool->ledger().back()->input().begin()->second;
+        double output_token_quantity = pool->ledger().back()->output().begin()->second;
+
+        ui->tableWidget_slippage->setVerticalHeaderItem(0, new QTableWidgetItem(QString::fromStdString("Input Token: " + input_token->name())));
+        ui->tableWidget_slippage->setVerticalHeaderItem(1, new QTableWidgetItem(QString::fromStdString("Output Token: " + output_token->name())));
+
+        ui->tableWidget_slippage->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(input_token_quantity))));
+        ui->tableWidget_slippage->setItem(1, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(output_token_quantity))));
+
+        ui->lineEdit_slippage->setText(QString::fromStdString(std::to_string(pool->GetSlippage(input_token, output_token, input_token_quantity)*100)));
+    }
+    else {
+        ui->label_slippage->setHidden(true);
+        ui->lineEdit_slippage->setHidden(true);
+        ui->label_slippage_title->setHidden(true);
+        ui->tableWidget_slippage->setHidden(true);
+    }
+
     for (auto token : pool_->tokens()) {
         ui->comboBox_spotPrice->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
     }
