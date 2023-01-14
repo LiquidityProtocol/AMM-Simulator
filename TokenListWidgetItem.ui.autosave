@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>231</width>
-    <height>86</height>
+    <width>250</width>
+    <height>127</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,9 @@ border-color: rgb(255, 255, 255);</string>
         <bool>true</bool>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser"/>
      </item>
     </layout>
    </item>
