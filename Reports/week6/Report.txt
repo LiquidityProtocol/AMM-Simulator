@@ -4,4 +4,4 @@ Amine Roudani
 
 Adithya Ravichandran
 - Alongside Ludanyi Levente, completed the tokengraph code to graph curve for every protocol
-- Refactored introductory window to be dynamic
+- Refactored introductory window
