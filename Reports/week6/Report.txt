@@ -28,6 +28,9 @@ Minh Pham:
 - Create inventory graph display
 - Fix simulation class on Simulation-utils
 
+The Nguyen:
+- Fix and refactor back-end and Playground
+- Review, fix, and validate pull requests
 
 Jasmine Samson:
 - Worked on the design of the introductory window to make it more coherent with the rest of the project 
