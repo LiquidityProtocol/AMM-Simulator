@@ -2,9 +2,10 @@
 #include "ui_PoolListWidgetItem.h"
 #include "src/Protocols/Protocols.hpp"
 
-PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool, const std::unordered_map<Token *, double> &input_quantities, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spot_prices) :
+PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, Playground *playground, PoolInterface *pool, const std::unordered_map<Token *, double> &input_quantities, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spot_prices) :
     QWidget(parent),
     ui(new Ui::PoolListWidgetItem),
+    playground_(playground),
     pool_(pool),
     last_quantities_(input_quantities),
     last_spot_prices_(input_spot_prices)
@@ -164,12 +165,12 @@ void PoolListWidgetItem::Invariant_Curve(Token *input_token, Token *output_token
                 curve_x[i] = input_token_quantity + swap_size;
                 curve_x_last[i] = last_input_token_quantity + swap_size;
                 if (swap_size < 0){
-                    curve_y[i] = output_token_quantity + (pool_->SimulateSwap(input_token, output_token, -swap_size));
-                    curve_y_last[i] = last_output_token_quantity + (pool_->SimulateSwap(input_token, output_token, -swap_size));
+                    curve_y[i] = output_token_quantity + playground_->SimulateSwap(pool_, input_token, output_token, -swap_size);
+                    curve_y_last[i] = last_output_token_quantity + playground_->SimulateSwap(pool_, input_token, output_token, -swap_size);
                 }
                 else{
-                    curve_y[i] = output_token_quantity - pool_->SimulateSwap(input_token, output_token, swap_size);
-                    curve_y_last[i] = last_output_token_quantity - pool_->SimulateSwap(input_token, output_token, swap_size);
+                    curve_y[i] = output_token_quantity - playground_->SimulateSwap(pool_, input_token, output_token, swap_size);
+                    curve_y_last[i] = last_output_token_quantity - playground_->SimulateSwap(pool_, input_token, output_token, swap_size);
                 }
             }
         }
