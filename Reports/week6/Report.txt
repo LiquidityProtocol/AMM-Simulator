@@ -21,4 +21,14 @@ Mia Chambat
 Shubh Lashkery
 - I further refined the simulation as a model that incorporates Black Swan events
 - It also is backward looking, and derives expectations from the past
-- I added a simulation function to the Playground calss so it can be easily implemented in the Front-end
+- I added a simulation function to the Playground class so it can be easily implemented in the Front-end
+
+Kaoutar Fahraoui
+- This week I implemented a perfect arbitrager function for the balancer pool. 
+- Now, I am focusing on plotting the graphs of all the variables obtained in the First Simulation. 
+- I am trying to figure out how to install Qcharts.
+
+Gabriele Biroli
+- This week I almost finished coding the arbitrager function for the ConstantSum simulation.
+- I had some difficulty finding the equations for it, but once it was figured out I could quickly code most of the function. 
+- I will now join kaoutar in plotting the graphs demonstrating the evolution of the system.
