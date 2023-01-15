@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     Token::GetToken("Token4").first->set_real_value(40);
 
 
-    UniswapV2Pool::existing_pools()
+    UniswapV2Pool::existing_pools();
 
 
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget_3);

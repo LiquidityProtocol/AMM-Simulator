@@ -1,6 +1,5 @@
 #include "ProvideDialog.h"
 #include "ui_ProvideDialog.h"
-#include "AccountListWidgetItem.h"
 
 std::vector<std::string> protocols{ "Balancer", "ConstantSum", "UniswapV2", "UniswapV3" };
 
