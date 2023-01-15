@@ -1,0 +1,4 @@
+#ifndef STRAT_LINEAR_REGRESSION
+#define STRAT_LINEAR_REGRESSION
+
+#endif
