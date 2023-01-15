@@ -82,6 +82,7 @@ private:
     }
 
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+        UNUSED(output_token);
         double r1 = GetQuantity(input_token);
         double C1 = GetWeight(input_token);
 
