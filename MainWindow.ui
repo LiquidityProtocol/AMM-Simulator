@@ -71,7 +71,8 @@ border-color: rgb(255, 255, 255);</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color: rgb(36, 18, 255);
+background-color: ;</string>
         </property>
        </widget>
       </item>
@@ -185,7 +186,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, st
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>17</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
