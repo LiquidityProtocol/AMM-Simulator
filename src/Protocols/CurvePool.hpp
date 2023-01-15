@@ -56,7 +56,7 @@ private:
         double normalizeCoeff = 0;
 
         for (auto [token, quantity] : quantities) {
-            normalizeCoeff += quantity / 10;
+            normalizeCoeff += quantity / 100;
         }
         double S = 0;
         double P = 1;
@@ -79,7 +79,7 @@ private:
         double r2 = GetQuantity(output_token);
 
         double P = Product();
-        double C = ComputeInvariant({});
+        double C = ComputeInvariant(quantities());
 
         int n = quantities().size();
 
