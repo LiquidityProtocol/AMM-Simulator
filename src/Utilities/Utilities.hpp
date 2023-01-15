@@ -136,7 +136,7 @@ public:
     friend class Playground;
     friend class CommunityActor;
     friend class Market;
-    friend class Event;
+    friend class Signal;
 
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;

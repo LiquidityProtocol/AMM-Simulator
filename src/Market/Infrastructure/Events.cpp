@@ -1,6 +1,6 @@
 #include "Events.hpp"
 
-Event::Event(PoolInterface *pool) {
+Signal::Signal(PoolInterface *pool) {
     pool_ = pool;
 
     std::unordered_set<Token *> tokens = pool->tokens();
@@ -21,7 +21,7 @@ Event::Event(PoolInterface *pool) {
     }
 }
 
-Event::Event(PoolInterface *pool, Token *input_token, Token *output_token) {
+Signal::Signal(PoolInterface *pool, Token *input_token, Token *output_token) {
     if (pool->GetSpotPrice(input_token, output_token) > output_token->real_value() / input_token->real_value()) {
         throw std::invalid_argument("Creating ineffective signal");
     } else {
@@ -31,38 +31,38 @@ Event::Event(PoolInterface *pool, Token *input_token, Token *output_token) {
     }
 }
 
-Event *Event::next() const {
+Signal *Signal::next() const {
     return next_;
 }
-PoolInterface *Event::pool() const {
+PoolInterface *Signal::pool() const {
     return pool_;
 }
 
-Token *Event::input_token() const {
+Token *Signal::input_token() const {
     return input_token_;
 }
-Token *Event::output_token() const {
+Token *Signal::output_token() const {
     return output_token_;
 }
 
-double Event::simulate(double input_cash) const {
+double Signal::simulate(double input_cash) const {
     double input_quantity = input_cash / input_token_->real_value();
     double output_quantity = pool_->SimulateSwap(input_token_, output_token_, input_quantity);
 
     return output_quantity * output_token_->real_value() - input_cash;
 }
 
-void Event::setNext(Event *e) {
+void Signal::setNext(Signal *e) {
     next_ = e;
 }
 
 TradeRoute::TradeRoute() = default;
-TradeRoute::TradeRoute(Event *head, Event *tail) {
+TradeRoute::TradeRoute(Signal *head, Signal *tail) {
     if (head == nullptr) throw std::invalid_argument("Invalid input event");
     if (tail == nullptr) throw std::invalid_argument("Invalid output event");
 
     bool check = false;
-    Event *node = head;
+    Signal *node = head;
 
     for(len = 1 ; len <= 10 ; ++len) {
         if (node == tail) {
@@ -83,7 +83,7 @@ TradeRoute::TradeRoute(Event *head, Event *tail) {
 
 TradeRoute::~TradeRoute() {
     while (head_) {
-        Event *node = head_;
+        Signal *node = head_;
         head_ = node->next();
 
         delete node;
@@ -94,29 +94,29 @@ size_t TradeRoute::size() const {
     return len;
 }
 
-Event *TradeRoute::head() const {
+Signal *TradeRoute::head() const {
     return head_;
 }
-Event *TradeRoute::tail() const {
+Signal *TradeRoute::tail() const {
     return tail_;
 }
 
 double TradeRoute::simulate(double input_cash) const {
     double cashToForward = input_cash;
 
-    for (Event *node = head_ ; node ; node = node->next()) {
+    for (Signal *node = head_ ; node ; node = node->next()) {
         double profit = node->simulate(cashToForward);
         cashToForward += profit;
     }
     return cashToForward - input_cash;
 }
 
-Event *TradeRoute::tryAddEvent(PoolInterface *pool, Token *input_token, Token *output_token) {
-    Event *e;
+Signal *TradeRoute::tryAddSignal(PoolInterface *pool, Token *input_token, Token *output_token) {
+    Signal *e;
     if (input_token) {
-        e = new Event(pool, input_token, output_token);
+        e = new Signal(pool, input_token, output_token);
     } else {
-        e = new Event(pool);
+        e = new Signal(pool);
     }
     if (head_ && e->input_token() != tail_->output_token()) {
         throw std::invalid_argument("Pair does not match the trade route");
@@ -124,8 +124,8 @@ Event *TradeRoute::tryAddEvent(PoolInterface *pool, Token *input_token, Token *o
     return e;
 }
 
-void TradeRoute::addEvent(PoolInterface *pool, Token *input_token, Token *output_token) {
-    Event *e = tryAddEvent(pool, input_token, output_token);
+void TradeRoute::addSignal(PoolInterface *pool, Token *input_token, Token *output_token) {
+    Signal *e = tryAddSignal(pool, input_token, output_token);
     len++;
 
     if (head_) {
