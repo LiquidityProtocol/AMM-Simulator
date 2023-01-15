@@ -27,3 +27,14 @@ Minh Pham:
 - Create the automatic market simulation playground
 - Create inventory graph display
 - Fix simulation class on Simulation-utils
+
+
+Jasmine Samson:
+- Worked on the design of the introductory window to make it more coherent with the rest of the project 
+- Created a second tab to the introductory window (with Guidelines and a Disclaimer) 
+- I tried to implement a frame containing a picture to appear on the window but I still need to find a way to make it work for the members of the group when running the project
+
+
+Victoire Fabien:
+This week I focused on the introductory window. I worked on the “Introductory Window” Branch (now “Introductory Window 2”).
+I focused mainly on the layout of the elements of the window by rearranging them to make it more aesthetically pleasing. I made some modification in text alignment. I fixed the “Go to playground” button.
