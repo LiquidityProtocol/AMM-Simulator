@@ -38,3 +38,8 @@ Jasmine Samson:
 Victoire Fabien:
 This week I focused on the introductory window. I worked on the “Introductory Window” Branch (now “Introductory Window 2”).
 I focused mainly on the layout of the elements of the window by rearranging them to make it more aesthetically pleasing. I made some modification in text alignment. I fixed the “Go to playground” button.
+
+
+Martina Paez Berru:
+This week was the most work done, I editted the introductory branch and changed the main window's bachground colors, buttons, changed bored colors. 
+I wrote the texts for the introductory window that describes the liquidity protocol and is a guide to the user. 
