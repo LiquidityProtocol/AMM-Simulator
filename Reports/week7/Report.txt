@@ -1,3 +1,8 @@
 Adithya Ravichandran
 - Added slippage display
 - Working on slides for final presentation
+
+Minh Pham:
+- Create the automatic market simulation playground
+- Create inventory graph display
+- Fix simulation class on Simulation-utils
