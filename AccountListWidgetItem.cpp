@@ -75,3 +75,58 @@ void AccountListWidgetItem::UpdateWalletItem(Token* token){
         ui->listWidget->setItemWidget(item, wallet_item);
     }
 }
+
+
+AccountListWidgetItem::Graph(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::AccountListWidgetItem) {
+    ui->setupUi(this);
+
+    QChart *chart = new QChart();
+    chart->legend()->hide();
+    chart->setTitle("Chart for x*y=k");
+    chart->createDefaultAxes();
+    chart->setTitleFont(QFont("", 18));
+    chart->setTitleBrush(QBrush(QColorConstants::Svg::orange));
+
+    QValueAxis *axisX = new QValueAxis;
+    chart->addAxis(axisX, Qt::AlignBottom);
+    axisX->setTitleText("Token A");
+
+    QSplineSeries *series = new QSplineSeries();
+    double k=1000;
+    for (int i=1;i<100;i++) {
+        double j=i/1;
+        series->append(j,k/j);
+    }
+    chart->addSeries(series);
+    QPen pen(QRgb(0xfdb157));
+    pen.setWidth(5);
+    series->setPen(pen);
+    series->attachAxis(axisX);
+
+    QValueAxis *axisY = new QValueAxis;
+    chart->addAxis(axisY, Qt::AlignLeft);
+    axisY->setTitleText("Token B");
+    series->attachAxis(axisY);
+
+    QLineSeries *series2 = new QLineSeries();
+    for (int i=1;i<100;i++) {
+        double j=i/1;
+        if (j== 12) {
+            series2->append(i,l/i);
+        }
+    }
+    series2->setPointsVisible(true);
+    series2->setPointLabelsFormat("@xPoint A and @yPoint B");
+    series2->setPointLabelsVisible(true);
+    chart->addSeries(series2);
+    series2->setPen(pen);
+    series2->attachAxis(axisX);
+    series2->attachAxis(axisY);
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setParent(ui->horizontalFrame);
+
+}

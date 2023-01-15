@@ -5,6 +5,7 @@
 #include "src/Utilities/Utilities.hpp"
 #include "MintDialog.h"
 #include "ProvideDialog.h"
+#include <QtCharts/QChart>
 
 namespace Ui {
 class AccountListWidgetItem;
@@ -19,6 +20,7 @@ public:
     ~AccountListWidgetItem();
     void CreateNewWalletItem(Token* token);
     void UpdateWalletItem(Token* token);
+    void Graph(QWidget* parent);
 
 public slots:
     void VerifyData(Token *token, double quantity);
