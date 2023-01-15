@@ -18,6 +18,7 @@ public:
 
 public slots:
     void VerifyUpdatePoolDisplayRequest(PoolInterface *pool);
+    void VerifyUpdatePoolDisplayRequest2(PoolInterface *pool, double slippage);
 
 private slots:
     void on_create_toekn_pushButton_clicked();

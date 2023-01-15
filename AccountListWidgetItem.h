@@ -41,6 +41,7 @@ private slots:
 
 signals:
     void UpdatePoolDisplayRequest(PoolInterface *pool);
+    void UpdatePoolDisplayRequest2(PoolInterface *pool, double curr_slippage);
 
 private:
     Ui::AccountListWidgetItem *ui;

@@ -23,6 +23,7 @@ public:
     int get_comboBox_secondToken_index() const;
     void set_comboBox_spotPrice_index(int index);
     void set_comboBox_secondToken_index(int index);
+    void set_slippage(double slippage);
 
 private slots:
     void on_comboBox_spotPrice_currentIndexChanged(int index);
@@ -34,6 +35,7 @@ private:
     PoolInterface *pool_;
     std::unordered_map<Token *, double> last_quantities_, curr_quantities_;
     std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spot_prices_, curr_spot_prices_;
+    double curr_slippage;
 };
 
 #endif // POOLLISTWIDGETITEM_H

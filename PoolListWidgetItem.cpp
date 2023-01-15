@@ -26,8 +26,6 @@ PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool, con
 
         ui->tableWidget_slippage->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(input_token_quantity))));
         ui->tableWidget_slippage->setItem(1, 0, new QTableWidgetItem(QString::fromStdString(std::to_string(output_token_quantity))));
-
-        ui->lineEdit_slippage->setText(QString::fromStdString(std::to_string(pool->GetSlippage(input_token, output_token, input_token_quantity)*100)));
     }
     else {
         ui->label_slippage->setHidden(true);
@@ -82,6 +80,11 @@ void PoolListWidgetItem::set_comboBox_spotPrice_index(int index) {
 
 void PoolListWidgetItem::set_comboBox_secondToken_index(int index){
     ui->comboBox_secondToken->setCurrentIndex(index);
+}
+
+void PoolListWidgetItem::set_slippage(double slippage) {
+    curr_slippage = slippage;
+    ui->lineEdit_slippage->setText(QString::fromStdString(std::to_string(curr_slippage*100)));
 }
 
 void PoolListWidgetItem::on_comboBox_spotPrice_currentIndexChanged(int index)
