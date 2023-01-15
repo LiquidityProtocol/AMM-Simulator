@@ -13,3 +13,12 @@ Mathéo Le Masson
 Duc Nguyen
 - Developing different strategies of Arbitrager
 - Adding view method of the market in time steps
+
+Mia Chambat
+-This week I joined the Front End team to help them work on the dynamic styling of the introductory and main windows.
+ I’ve become comfortable and familiar with style sheets/forms on c++, and am going to continue working on the visual appearance of our project next week as well.
+
+Shubh Lashkery
+- I further refined the simulation as a model that incorporates Black Swan events
+- It also is backward looking, and derives expectations from the past
+- I added a simulation function to the Playground calss so it can be easily implemented in the Front-end
