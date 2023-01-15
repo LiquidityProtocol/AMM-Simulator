@@ -1,3 +1,8 @@
+Levente Ludanyi
+- Generalised the graph widget for the Playground with Adithya
+- Started merging the whole project
+- Started creating the final presentation
+
 Amine Roudani
 - Developed test file with various tests for UniswapV3
 - Developed a chart to represent divergent loss with respect to time.
