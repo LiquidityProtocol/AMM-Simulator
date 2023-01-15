@@ -50,3 +50,13 @@ This week I have furthered my knowledge related to divergence loss.
 Then I have implemented different methods other than the absolute value divergence.
 The strategy relies on mathematical formulas that measure divergences between
 distributions
+
+Kaoutar Fahraoui:
+This week I implemented a perfect arbitrager function for the balancer pool.
+Now, I am focusing on plotting the graphs of all the variables obtained in the First Simulation. 
+I am trying to figure out how to install Qcharts.
+
+Gabriele Biroli:
+This week I almost finished coding the arbitrager function for the ConstantSum simulation.
+I had some difficulty finding the equations for it, but once it was figured out I could quickly code most of the function. 
+I will now join kaoutar in plotting the graphs demonstrating the evolution of the system.
