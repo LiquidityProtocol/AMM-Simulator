@@ -1,0 +1,4 @@
+This week I have furthered my knowledge related to divergence loss.
+Then I have implemented different methods other than the absolute value divergence.
+The strategy relies on mathematical formulas that measure divergences between
+distributions
