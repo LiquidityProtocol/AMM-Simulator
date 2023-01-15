@@ -136,6 +136,7 @@ public:
     friend class Playground;
     friend class CommunityActor;
     friend class Market;
+    friend class Event;
 
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;
@@ -151,6 +152,7 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
     double GetSpotPrice(Token *input_token, Token *output_token) const;
 
+    std::vector<Operation *> GetLatestOps(int n) const;
     std::vector<Operation *> ledger() const;
 
 protected:

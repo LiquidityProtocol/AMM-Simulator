@@ -272,6 +272,14 @@ double PoolInterface::GetSpotPrice(Token *input_token, Token *output_token) cons
     }
 }
 
+std::vector<Operation *> PoolInterface::GetLatestOps(int n) const {
+    if ((int)ledger_.size() <= n) {
+        return ledger_;
+    } else {
+        return std::vector<Operation *>(ledger_.end() - n, ledger_.end());
+    }
+}
+
 std::vector<Operation *> PoolInterface::ledger() const {
     /*
      * This method returns the ledger of the pool.
