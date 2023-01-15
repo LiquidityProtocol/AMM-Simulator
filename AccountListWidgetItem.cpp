@@ -96,6 +96,7 @@ void AccountListWidgetItem::VerifyWithdrawRequest(Token *input_token, double sur
         QMessageBox::about(withdraw_dialog, "Withdraw failed", e.what());
     }
 }
+
 void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provision)
 {
     provide_dialog->accept();
@@ -165,4 +166,3 @@ void AccountListWidgetItem::on_provide_pushButton_clicked()
     provide_dialog = new ProvideDialog(this);
     provide_dialog->exec();
 }
-

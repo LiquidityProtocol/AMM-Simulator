@@ -26,23 +26,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_create_toekn_pushButton_clicked()
 {
-   QString userinput = ui->lineEdit_3->text();
-   int flag = 0;
-   int error = 0;   QList<QChar> digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-   for (int i = 0; i < userinput.size(); i++) {
-      if (userinput[i] == '.') {
-          flag += 1;
-      }
-      else if ( (std::find(digits.begin(), digits.end(), userinput[i]) != digits.end()) != true ) {
-          error += 1;
-      }
-   }
-
-   if (flag > 1 || error != 0) {
-       QMessageBox::about(this, "Adding token failed", "Please put a number as the price of the token!");
-       ui->lineEdit_3->clear();
-   }
-   else {
+    if (!ValidNumber(ui->lineEdit_3->text().toStdString())) {
+        QMessageBox::about(this, "Adding token failed", "Please put a number as the price of the token!");
+        return;
+    }
     std::string token_name = ui->lineEdit_2->text().toStdString();
     double token_price = ui->lineEdit_3->text().toDouble();
     ui->lineEdit_2->clear();
@@ -57,9 +44,7 @@ void MainWindow::on_create_toekn_pushButton_clicked()
         item->setSizeHint(token_item->sizeHint());
         ui->listWidget_2->setItemWidget(item, token_item);
     }
-  }
 }
-
 
 void MainWindow::on_create_account_pushButton_clicked()
 {
@@ -83,19 +68,23 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
         QWidget *item_widget = ui->listWidget_pool->itemWidget(item);
         PoolListWidgetItem *old_pool_item = qobject_cast<PoolListWidgetItem *>(item_widget);
         if (old_pool_item->pool() == pool) {
-            int input_token_idx = old_pool_item->get_comboBox_spotPrice_index();
-            int second_token_idx = old_pool_item->get_comboBox_secondToken_index();
-            PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool, old_pool_item->curr_quantities(), old_pool_item->curr_spot_prices());
-            pool_item->set_comboBox_spotPrice_index(input_token_idx);
-            pool_item->set_comboBox_secondToken_index(second_token_idx);
-            item->setSizeHint(pool_item->sizeHint());
-            ui->listWidget_pool->setItemWidget(item, pool_item);
+            if (!playground_->Existing(GetPoolType(pool), pool->tokens())) {
+                ui->listWidget_pool->takeItem(i);
+            } else {
+                int input_token_idx = old_pool_item->get_comboBox_spotPrice_index();
+                int second_token_idx = old_pool_item->get_comboBox_secondToken_index();
+                PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, playground_, pool, old_pool_item->curr_quantities(), old_pool_item->curr_spot_prices());
+                pool_item->set_comboBox_spotPrice_index(input_token_idx);
+                pool_item->set_comboBox_secondToken_index(second_token_idx);
+                item->setSizeHint(pool_item->sizeHint());
+                ui->listWidget_pool->setItemWidget(item, pool_item);
+            }
             return;
         }
     }
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget_pool);
     ui->listWidget_pool->addItem(item);
-    PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, pool);
+    PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, playground_, pool);
     item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }

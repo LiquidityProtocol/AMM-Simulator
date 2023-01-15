@@ -2,7 +2,6 @@
 #define CURVE_POOL_HPP
 
 #include "../Utilities/Utilities.hpp"
-#include <cmath>
 
 double solve(int n, double a, double b); // solve equation x^n + ax + b = 0
 
@@ -53,28 +52,26 @@ private:
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         // the params of this function is not related
         // I only take into account the invariant of the pool
-        static double constant_ = 0;
+        double constant_ = 0;
+        double normalizeCoeff = 0;
 
-        if (quantities == this->quantities()) {
-            if (constant_) {
-                return constant_ * GetQuantity(pool_token());
-            } else {
-                const double scale = 10000;
-                double S = 0;
-                double P = 1;
-
-                int n = quantities.size();
-                
-                for (auto [token, quantity] : quantities) {
-                    S += quantity / scale;
-                    P *= quantity / scale;
-                }
-                // A * (S / C - 1) = (C / n) ** n / P - 1
-                return constant_ = solve(n + 1, std::pow(n, n) * P * (leverage_ - 1), -std::pow(n, n) * P * leverage_ * S) * scale;
-            }
-        } else {
-            throw std::invalid_argument("Not passing snapshot of this pool");
+        for (auto [token, quantity] : quantities) {
+            normalizeCoeff += quantity / 100;
         }
+        double S = 0;
+        double P = 1;
+
+        int n = quantities.size();
+
+        for (auto [token, quantity] : quantities) {
+            S += quantity / normalizeCoeff;
+            P *= quantity / normalizeCoeff;
+        }
+        // A * (S / C - 1) = (C / n) ** n / P - 1
+        constant_ = solve(n + 1, std::pow(n, n) * P * (leverage_ - 1), -std::pow(n, n) * P * leverage_ * S);
+        constant_ *= normalizeCoeff;
+
+        return constant_;
     }
     
     double ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
@@ -82,7 +79,7 @@ private:
         double r2 = GetQuantity(output_token);
 
         double P = Product();
-        double C = ComputeInvariant({});
+        double C = ComputeInvariant(quantities());
 
         int n = quantities().size();
 

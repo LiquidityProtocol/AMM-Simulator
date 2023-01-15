@@ -1,4 +1,5 @@
 #include "CurvePool.hpp"
+#include <cmath>
 
 double solve(int n, double a, double b) { // solve equation x^n + ax + b = 0
     if (abs(a) < 1e-6) return std::pow(-b, 1.0 / n);

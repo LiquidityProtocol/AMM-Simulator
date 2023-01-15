@@ -14,6 +14,10 @@
 template<typename T1, typename T2>
 std::unordered_set<T1> GetKeys(const std::unordered_map<T1, T2> &mp);
 
+namespace Utilities {
+bool ValidNumber(std::string text);
+}
+
 class PoolInterface;
 
 class Token {
@@ -76,7 +80,7 @@ public:
 
     std::string operation_type() const;
     std::string account_name() const;
-    PoolInterface* pool() const;
+    PoolInterface *pool() const;
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 

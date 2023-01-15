@@ -8,8 +8,6 @@ namespace Ui {
 class WithdrawDialog;
 }
 
-
-
 class WithdrawDialog : public QDialog
 {
     Q_OBJECT
@@ -24,7 +22,7 @@ signals:
 private slots:
     void on_comboBox_protocol_activated(int index);
     void on_comboBox_pool_activated(int index);
-    void on_lineEdit_withdraw_textChanged(const QString &withdraw_provision_text);
+    void on_lineEdit_withdraw_textChanged(const QString &text);
     void on_pushButton_withdraw_clicked();
 
 private:

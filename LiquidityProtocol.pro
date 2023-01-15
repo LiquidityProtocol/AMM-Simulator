@@ -37,7 +37,8 @@ SOURCES += \
     src/Protocols/Protocols.cpp \
     src/Playground.cpp \
     src/Market/Infrastructure/Market.cpp \
-    src/Market/Infrastructure/CommunityActor.cpp
+    src/Market/Infrastructure/CommunityActor.cpp \
+    src/Utilities/Utilities.cpp
 
 HEADERS += \
     AccountListWidgetItem.h \

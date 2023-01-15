@@ -6,7 +6,7 @@ std::unordered_set<T1> GetKeys(const std::unordered_map<T1, T2> &mp) {
 
     for (auto [key, val] : mp)
         keys.emplace(key);
-    
+
     return keys;
 }
 
