@@ -11,6 +11,8 @@
 #include <utility>
 #include <QVariant>
 
+#define UNUSED(x) (void)(x)
+
 template<typename T1, typename T2>
 std::unordered_set<T1> GetKeys(const std::unordered_map<T1, T2> &mp);
 

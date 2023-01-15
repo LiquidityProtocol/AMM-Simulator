@@ -9,7 +9,16 @@ public:
     friend class Market;
 
 private:
-    using PoolInterface::PoolInterface;
+    UniswapV2Pool(std::unordered_set<Token *> tokens, double pool_fee) : PoolInterface(tokens, pool_fee) {
+        if (tokens.size() > 2) {
+            throw std::invalid_argument("Uniswap V2 only supports for 2 tokens!");
+        }
+    }
+    UniswapV2Pool(std::unordered_map<Token *, double> quantities, double pool_fee) : PoolInterface(quantities, pool_fee) {
+        if (quantities.size() > 2) {
+            throw std::invalid_argument("Uniswap V2 only supports for 2 tokens!");
+        }
+    }
 
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {
         double ans = 1;
@@ -28,6 +37,7 @@ private:
     }
 
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+        UNUSED(output_token);
         return input_quantity / GetQuantity(input_token);
     }
 };

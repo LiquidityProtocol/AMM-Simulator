@@ -69,6 +69,9 @@ private:
     }
 
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+        UNUSED(input_token);
+        UNUSED(input_quantity);
+        UNUSED(output_token);
         return 0;
     }
 };
