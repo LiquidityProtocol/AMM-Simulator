@@ -36,6 +36,7 @@ private slots:
     void on_input_token_comboBox_currentTextChanged(const QString &input_token_name);
     void on_output_token_comboBox_currentTextChanged(const QString &output_token_name);
     void on_protocol_comboBox_currentIndexChanged(int index);
+    void on_protocol_comboBox_activated(int index);
     void on_pool_comboBox_currentIndexChanged(int index);
     void on_input_quantity_lineEdit_textChanged(const QString &input_quantity_string);
     void on_pushButton_clicked();
