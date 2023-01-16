@@ -1,0 +1,84 @@
+Levente Ludanyi:
+
+- Continued implementation of Provide Dialog along with Adithya Ravichandran.
+- Focused on the ProvideDialog to visualise newly created pools and interact with existing ones.
+
+
+Adithya Ravichandran:
+
+- Continued implementation of Provide Dialog along with Levente Ludanyi.
+- Finished MetricsTable class to visualise metrics about each and every pool.
+
+Fryderyk Sitnik:
+- I finished the implementation of a divergence loss estimator for any wanted pool.
+- I started building a trading simulator that simulates a market outcome according to a wanted probability distribution
+
+Matheo Le Masson:
+
+- This week I coded an error message informing the user that he has entered an invalid input (a word/letter and not a number) for the price of the token, the amount of token to provide, and the amount to mint to an account.
+- We switched from qml to qwidget so I had to familiarize myself with this new language to code the message and understand new interface
+
+
+Amine Roudani:
+
+- Worked further on the implementation of Curve using whitepapers. This involved analyzing and understanding the math behind it, as well as developing the various functions in the class. Also worked on developing tests for curve and V3. 
+
+
+Minh Pham:
+
+- Create the trade UI (still wait for the backend update to choose protocol.
+- Research about the market simulator of Hash.ai for the next stage of development.
+
+
+Duc Nguyen:
+- Help the team member debug the implementation of UniSwapV3 and Balancer
+- Assign the implementation of Curve protocol
+
+
+Julien Girod:
+- This week I started implementing Curve Protol using the whitepapers.
+- Implementing this protocol will require more functions than other because
+ of some extented features.
+
+
+Victoire FABIEN:
+
+- This week, we started to have a clearer idea of the front end initial result (initial interface). 
+- I implemented an additional window to display the graphs, which is accessible through a push button on the main window. 
+- I added a graph on the window to get an idea of the final product.  The graph is an example of a constant product with a point labelled.
+- It will then be modified and adapted to the data we get from the functions coded.
+- During week 5, we should have a working version of the project and I will thus work on perfecting the front end, 
+by working on the graphs representing the different protocols and customizing the interface created.
+
+
+MARTINA PAEZ BERRU:
+
+- This week there was an error with the duplication of the branches and comitting, but I will work on imporving the layout and obtaining the images of the already existing coins. 
+- I will continue adding more details to the layout and commenting on the code to explain the functions.
+
+The Nguyen:
+
+- Implement playground back-end for allowing user to choose protocol.
+
+Jasmine Samson:
+
+- This week I had a better idea of how to organise our work. I learned how to use push buttons to display graphs and already used it to show one of the pie charts I implemented on week2.
+- I will either be using the widgets I previously implemented such as line charts , pie charts ,.. or push buttons and use the slots to create new windows in order to show the graphs I have obtained so far.
+- Next week, I will make sure to organise and dispose our widgets on the user interface and make sure that we have a working version of the project.
+
+Kaoutar Fahraoui:
+
+- This week I continued my code of the test for constantsum. Not yet finalised.
+
+Mia Chambat:
+
+- This week I worked on fully finalizing the first simulation of the Uniswap V2 Pool test (in the Simulations branch). 
+- In addition, I started working on graphing the results of my test. 
+- These graphs will be used in our final presentation to show the edge cases of our three protocols: Uniswap V2 Pool, Constant Sum and the Balancer Test.
+
+Shubh Lashkery: 
+
+- I mapped out a way to implement the simulator - witha focus on the trader function
+- I implemented a method to calculate the required input for a give output
+- I added some depth to the simulator and made sure it consistently ran with the make file.
+

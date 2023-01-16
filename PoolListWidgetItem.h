@@ -2,8 +2,7 @@
 #define POOLLISTWIDGETITEM_H
 
 #include <QWidget>
-#include "src/Protocols/Protocols.hpp"
-#include "src/Utilities/Utilities.hpp"
+#include "src/Playground.hpp"
 
 namespace Ui {
 class PoolListWidgetItem;
@@ -14,7 +13,7 @@ class PoolListWidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit PoolListWidgetItem(QWidget *parent = nullptr, PoolInterface *pool = nullptr, const std::unordered_map<Token *, double> &input_quantities = {}, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spot_prices = {});
+    explicit PoolListWidgetItem(QWidget *parent = nullptr, Playground *playground = nullptr,  PoolInterface *pool = nullptr, const std::unordered_map<Token *, double> &input_quantities = {}, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spot_prices = {});
     ~PoolListWidgetItem();
     PoolInterface *pool() const;
     std::unordered_map<Token *, double> curr_quantities() const;
@@ -29,11 +28,13 @@ private slots:
     void on_comboBox_secondToken_currentIndexChanged(int index);
 
 private:
-    void Invariant_Curve(PROTOCOL curr_protocol, double input_token_quantity, double last_input_token_quantity, double output_token_quantity, double last_output_token_quantity);
     Ui::PoolListWidgetItem *ui;
+    Playground *playground_;
     PoolInterface *pool_;
     std::unordered_map<Token *, double> last_quantities_, curr_quantities_;
     std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spot_prices_, curr_spot_prices_;
+
+    void Invariant_Curve(Token *input_token, Token *output_token, PROTOCOL curr_protocol, double input_token_quantity, double last_input_token_quantity, double output_token_quantity, double last_output_token_quantity);
 };
 
 #endif // POOLLISTWIDGETITEM_H

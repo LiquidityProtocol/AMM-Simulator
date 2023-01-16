@@ -1,0 +1,86 @@
+Levente Ludanyi:
+- Due to medical treatment I was absent from this week
+- Implemented the the dynamic graph in the liquidity protocol interface along with Adithya Ravichandran
+- Had multiple meetings with the leaders of the subteams to give them tasks and to converge to our final product
+- Assigned tasks and managed all teams
+
+Adithya Ravichandran:
+- Finished implementing provide functionality along with The Nguyen
+- Fixed implementation of withdraw functionality
+- Create PoolListWidgetItem, a class to display all metrics about a pool, and connected it to the trade, provide and withdraw functionalities
+- Chose graphing framework to work with PoolListWidgetItem and wrote template for FrontEnd team to work with
+- Implemented graphing with Levente Ludanyi
+
+Shubh: 
+- Finished Implementation and Commenting of Simple Stochastic Simulator
+- Created a perfect Arbitrage function
+- Planned out ways to extend simulator through rolling averages and more random movement
+- Delegated tasks to team member and explained ideas.
+
+Mia Chambat: 
+
+This week I worked on implementing two helper functions for the second full simulation of the 
+liquidity pool. The first one returns the mean of the last ten values of a list and the second 
+one, given a mean, variance and sample size, samples a normal distribution.
+
+Minh Pham:
+- Testing the playground, the market simulation on (simulation-utils branch) and update the code to work with new Playground class. 
+- Implement the simulation playground with timestep for pre-programmed scenario (in test version, will keep developing in the following weeks).  
+
+The Nguyen:
+- Implement and refactor Trade, Provision, and PoolItem for displaying pools informations in the Playground.
+- Fix bugs in back-end and front-end of the Playground.
+
+Alessandro:
+During the course of this week, I have continued my efforts on designing and implementing the visual interface for the liquidity protocol simulator. My primary focus has been on embedding the graphs of the tokens within the widgets of the interface, utilizing both the Qt Charts and Qt Widgets modules. I will continue to work on this task in the coming days, with the aim of completing the visual interface.
+
+Matheo LM:
+- New class Withdraw : for the user to withdraw (take back) what he has put previously in pools. When the user provides he creates a pool or adds to one, and then he gets a token representing the percentage of the pool he owns. When withdrawing, the user sends back this pool token in exchange for what he owns in the pool, which is what he has provided plus possible pool fees collected from others’ transactions.
+- Create the button itself with ui (Dialog window) : display on the dialog window what output would the user get by withdrawing
+- New function in playground to get all pools following a certain protocol
+- New function in Operations so that we can access the pool in which the operation was done
+- Debugging with Tu
+
+Tu Nguyen:
+- Working on the Withdraw class with Matheo
+- We work on ourselves at home and debug together in class to create the button for user to withdraw pool token
+- Researching further on the convergence of pool in market simulator with Duc Nguyen to find the best coefficient for the trading formular.
+
+Amine:
+- Finalized my math research document which I had been working on for the past weeks.
+- Worked on creating metric to evaluate the divergence loss of the protocol, which should be implemented in the arbitrager class
+
+rtina Paez Berru 
+This week I started working on the introductory window that explains our project, the liquidity protocol and the market simulator. It has a button that 
+switches to the main window. I want to make it pretty by adding images/emoticons and having some dynamic styling. 
+
+Jasmine Samson: 
+- Used stylesheets to design the QMessageBoxes used in Pool-Info-List-Item (background color, font) 
+- Used the built-in buttons of the class MessageBox to resolve the problem with the use of buttons which are not already implemented in the QMessageBox class (we initially were designing our own message box on a .ui window but this resulted in an incoherent design of message boxes) 
+- Kept up-to-date with the new implementations in the Pool-Info-List-Item branch
+
+
+Victoire Fabien: 
+- This week I worked with Jasmine. We started by working on the appearance of the graphs, we researched the different ways to personnalise them. 
+We also worked on the windows opened when some buttons are pressed to make the whole project more coherent. We implemented the same style for all message boxes. 
+- We used the built in button of the class MessageBox in order to achieve that. We also used stylesheet to improve the design of the project. 
+Amongst our modifications, we have changed the color some message boxes to make them stand out.
+- We also looked over the code for the pool info list item branch which had been modified, to be up to date with recent changes.
+
+Julien:
+
+- researched about how divergence loss could be implemented in different ways
+- implemented a version of using treshold in divergencelossnofees
+- wrote an explaination of the above implementation and its idea
+
+Gabriele Biroli
+-This week, I finally submitted my balancerpool protocol tester to git.
+ Furthermore, I now started working with kaoutar on coding two perfect arbitrager
+ function for the ConstantSum and the BalancerPool simulation. Once this is finished,
+ we will then start working on a tester for these functions.
+
+Kaoutar Fahraoui 
+- I worked on implementing one helper function for the simulation of the 
+liquidity pool. It takes as inputs the mean, variance and the sample size 
+and samples a uniform distribution. I am currently working on implementing
+ with Gabriele the two other perfect arbitrage for the simulation (ConstantSum and BalancerPool).

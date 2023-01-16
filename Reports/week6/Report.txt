@@ -1,0 +1,70 @@
+Levente Ludanyi
+- Generalised the graph widget for the Playground with Adithya
+- Started merging the whole project
+- Started creating the final presentation
+
+Amine Roudani
+- Developed test file with various tests for UniswapV3
+- Developed a chart to represent divergent loss with respect to time.
+
+Adithya Ravichandran
+- Alongside Ludanyi Levente, completed the tokengraph code to graph curve for every protocol
+- Refactored introductory window
+
+Mathéo Le Masson
+- Find bug : program crashes when user tries to withdraw while being unable to
+- Started with Tu to create a graph showing the evolution of the wallet of each account (new GetMarketsbyAccounts function and Create new class AccountGraphItem)
+
+Duc Nguyen
+- Developing different strategies of Arbitrager
+- Adding view method of the market in time steps
+
+Mia Chambat
+-This week I joined the Front End team to help them work on the dynamic styling of the introductory and main windows.
+ I’ve become comfortable and familiar with style sheets/forms on c++, and am going to continue working on the visual appearance of our project next week as well.
+
+Shubh Lashkery
+- I further refined the simulation as a model that incorporates Black Swan events
+- It also is backward looking, and derives expectations from the past
+- I added a simulation function to the Playground calss so it can be easily implemented in the Front-end
+
+Minh Pham:
+- Create the automatic market simulation playground
+- Create inventory graph display
+- Fix simulation class on Simulation-utils
+
+The Nguyen:
+- Fix and refactor back-end and Playground
+- Review, fix, and validate pull requests
+
+Jasmine Samson:
+- Worked on the design of the introductory window to make it more coherent with the rest of the project 
+- Created a second tab to the introductory window (with Guidelines and a Disclaimer) 
+- I tried to implement a frame containing a picture to appear on the window but I still need to find a way to make it work for the members of the group when running the project
+
+
+Victoire Fabien:
+This week I focused on the introductory window. I worked on the “Introductory Window” Branch (now “Introductory Window 2”).
+I focused mainly on the layout of the elements of the window by rearranging them to make it more aesthetically pleasing. I made some modification in text alignment. I fixed the “Go to playground” button.
+
+
+Martina Paez Berru:
+This week was the most work done, I editted the introductory branch and changed the main window's bachground colors, buttons, changed bored colors. 
+I wrote the texts for the introductory window that describes the liquidity protocol and is a guide to the user. 
+
+Julien:
+
+This week I have furthered my knowledge related to divergence loss.
+Then I have implemented different methods other than the absolute value divergence.
+The strategy relies on mathematical formulas that measure divergences between
+distributions
+
+Kaoutar Fahraoui:
+This week I implemented a perfect arbitrager function for the balancer pool.
+Now, I am focusing on plotting the graphs of all the variables obtained in the First Simulation. 
+I am trying to figure out how to install Qcharts.
+
+Gabriele Biroli:
+This week I almost finished coding the arbitrager function for the ConstantSum simulation.
+I had some difficulty finding the equations for it, but once it was figured out I could quickly code most of the function. 
+I will now join kaoutar in plotting the graphs demonstrating the evolution of the system.

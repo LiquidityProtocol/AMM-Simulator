@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
 
@@ -11,6 +11,16 @@ QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AccountListWidgetItem.cpp \
+    ExistingPoolProvisionDialog.cpp \
+    MintDialog.cpp \
+    NewPoolProvisionDialog.cpp \
+    PoolListWidgetItem.cpp \
+    ProvideDialog.cpp \
+    TokenListWidgetItem.cpp \
+    TradeDialog.cpp \
+    WalletListWidgetItem.cpp \
+    WithdrawDialog.cpp \
     main.cpp \
     MainWindow.cpp \
     src/Utilities/Account.cpp\
@@ -19,7 +29,7 @@ SOURCES += \
     src/Utilities/Operation.cpp\
     src/Utilities/PoolInterface.cpp\
     src/Utilities/Token.cpp \
-    src/Utilities/Unif_Distrib_random.cpp
+    src/Utilities/Unif_Distrib_random.cpp \
     #src/Testing/AccountTest.cpp\
     #src/Testing/TokenTest.cpp\
     #src/Testing/BalancerPoolTest.cpp\
@@ -27,12 +37,25 @@ SOURCES += \
     #src/Testing/OperationTest.cpp\
     #src/Testing/PoolInterfaceTest.cpp\
 #    src/Testing/UniswapV2PoolTest.cpp\
- \#    src/Utilities/UniswapV2PoolSimulation.cpp
+ #    src/Utilities/UniswapV2PoolSimulation.cpp
     src/Utilities/cdf_uniform_distrib.cpp \
     src/Utilities/mean_list.cpp \
     src/Utilities/normal_distribution_generator.cpp \
+    qcustomplot.cpp \
+    src/Protocols/CurvePool.cpp \
+    src/Protocols/Protocols.cpp \
+    src/Utilities/Account.cpp \
+    src/Utilities/Operation.cpp \
+    src/Utilities/PoolInterface.cpp \
+    src/Utilities/Token.cpp \
+    src/Utilities/TokensContainer.cpp \
+    src/Playground.cpp \
+    src/Utilities/Utilities.cpp
+
 
 HEADERS += \
+    AccountListWidgetItem.h \
+    ExistingPoolProvisionDialog.h \
     MainWindow.h \
     src/Utilities/FirstSimulation.hpp \
 #    src/Utilities/UniswapV2PoolSimulation.hpp \
@@ -45,10 +68,37 @@ HEADERS += \
     src/Protocols/UniswapV2Pool.hpp\
     src/Utilities/cdf_uniform_distrib.h \
     src/Utilities/mean_list.h \
-    src/Utilities/normal_distribution_generator.h
+    src/Utilities/normal_distribution_generator.h \
+    MintDialog.h \
+    NewPoolProvisionDialog.h \
+    PoolListWidgetItem.h \
+    ProvideDialog.h \
+    TokenListWidgetItem.h \
+    TradeDialog.h \
+    WalletListWidgetItem.h \
+    qcustomplot.h \
+    WithdrawDialog.h \
+    src/Utilities/Utilities.hpp \
+    src/Protocols/BalancerPool.hpp \
+    src/Protocols/ConstantSum.hpp \
+    src/Protocols/CurvePool.hpp \
+    src/Protocols/Protocols.hpp \
+    src/Protocols/UniswapV2Pool.hpp \
+    src/Protocols/UniswapV3Pool.hpp \
+    src/Playground.hpp
 
 FORMS += \
-    MainWindow.ui
+    AccountListWidgetItem.ui \
+    ExistingPoolProvisionDialog.ui \
+    MainWindow.ui \
+    MintDialog.ui \
+    NewPoolProvisionDialog.ui \
+    PoolListWidgetItem.ui \
+    ProvideDialog.ui \
+    TokenListWidgetItem.ui \
+    TradeDialog.ui \
+    WalletListWidgetItem.ui \
+    WithdrawDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
