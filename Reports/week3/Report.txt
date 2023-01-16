@@ -110,3 +110,14 @@ Amine Roudani
 Finished the implementation of UniswapV3. Fixed some problems with the computations.
 Researched and started implementing the Curve protocol. 
 
+Julien Girod
+This week I researched new protocols and did a report on Bancor's protocol. In 
+ particular its advantages, like the benefit of using the native 
+ token in the protocol or single sided staking and Impermanent loss Insurance.
+ I also started to see how uniswap v3 can be implemented
+ I also started to see how uniswap v3 can be implemented
+
+ This week I understood uniswapv3, implemented it.
+ Amine and I worked on improving it since it didn't perform well.
+ Then we started understanding more about Curve Protocl 
+ in order to implement it next week.

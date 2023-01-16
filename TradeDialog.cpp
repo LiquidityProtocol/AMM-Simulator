@@ -14,7 +14,9 @@ TradeDialog::TradeDialog(QWidget *parent, Playground *playground, Account *accou
     ui->setupUi(this);
     connect(this, &TradeDialog::TradeRequest, qobject_cast<AccountListWidgetItem*>(parent), &AccountListWidgetItem::VerifyTradeRequest);
     for (const auto &[token, quantity] : account_->wallet()) {
-        ui->input_token_comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
+        if (!token->pool()) {
+            ui->input_token_comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
+        }
     }
     for (const auto &[protocol, protocol_name] : PROTOCOL_NAME) {
         ui->protocol_comboBox->addItem(QString::fromStdString(protocol_name), protocol);
@@ -31,7 +33,7 @@ void TradeDialog::on_input_token_comboBox_currentTextChanged(const QString &inpu
 {
     ui->output_token_comboBox->clear();
     for (auto token : playground_->existing_tokens()) {
-        if (token->name() != input_token_name.toStdString()){
+        if (token->name() != input_token_name.toStdString()) {
             ui->output_token_comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
         }
     }
@@ -45,16 +47,27 @@ void TradeDialog::on_output_token_comboBox_currentTextChanged(const QString &out
     UpdateSelection();
 }
 
-
 void TradeDialog::on_protocol_comboBox_currentIndexChanged(int index)
 {
     if (index == -1) {
         ui->pool_comboBox->clear();
         ui->input_quantity_lineEdit->clear();
-    } else {
+    }
+    UpdateSelection();
+    UpdateOutputQuantity();
+}
+
+void TradeDialog::on_protocol_comboBox_activated(int index)
+{
+    if (index != -1) {
         ui->pool_comboBox->clear();
         PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->protocol_comboBox->currentData());
         std::unordered_set<PoolInterface *> pools = playground_->GetPools(protocol, selection_.input_token_, selection_.output_token_);
+        if (pools.empty()) {
+            QMessageBox::about(this, "Invalid choice", "There is no " + ui->protocol_comboBox->currentText() + " pool supporting trade between the 2 chosen tokens!");
+            ui->protocol_comboBox->setCurrentIndex(-1);
+            return;
+        }
         for (auto pool : pools) {
             QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
             ui->pool_comboBox->addItem(pool_name, QVariant::fromValue(pool));
@@ -64,20 +77,17 @@ void TradeDialog::on_protocol_comboBox_currentIndexChanged(int index)
     UpdateOutputQuantity();
 }
 
-
 void TradeDialog::on_pool_comboBox_currentIndexChanged(int index)
 {
     UpdateSelection();
     UpdateOutputQuantity();
 }
 
-
 void TradeDialog::on_input_quantity_lineEdit_textChanged(const QString &input_quantity_string)
 {
     UpdateSelection();
     UpdateOutputQuantity();
 }
-
 
 void TradeDialog::on_pushButton_clicked()
 {

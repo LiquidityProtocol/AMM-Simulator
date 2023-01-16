@@ -2,9 +2,10 @@
 #include "ui_PoolListWidgetItem.h"
 #include "src/Protocols/Protocols.hpp"
 
-PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, PoolInterface *pool, const std::unordered_map<Token *, double> &input_quantities, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spot_prices) :
+PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, Playground *playground, PoolInterface *pool, const std::unordered_map<Token *, double> &input_quantities, const std::unordered_map<Token *, std::unordered_map<Token *, double>> &input_spot_prices) :
     QWidget(parent),
     ui(new Ui::PoolListWidgetItem),
+    playground_(playground),
     pool_(pool),
     last_quantities_(input_quantities),
     last_spot_prices_(input_spot_prices)
@@ -148,7 +149,8 @@ void PoolListWidgetItem::on_comboBox_spotPrice_currentIndexChanged(int index)
     }
 }
 
-void PoolListWidgetItem::Invariant_Curve(PROTOCOL curr_protocol, double input_token_quantity, double last_input_token_quantity, double output_token_quantity, double last_output_token_quantity) {
+
+void PoolListWidgetItem::Invariant_Curve(Token *input_token, Token *output_token, PROTOCOL curr_protocol, double input_token_quantity, double last_input_token_quantity, double output_token_quantity, double last_output_token_quantity) {
     QVector<double> curve_x(101), curve_y(101);
     QVector<double> curve_x_last(101), curve_y_last(101);
     if (curr_protocol == PROTOCOL::UNISWAP_V2) {
@@ -175,6 +177,40 @@ void PoolListWidgetItem::Invariant_Curve(PROTOCOL curr_protocol, double input_to
             ui->widgetGraph->legend->removeItem(0);
         }
     }
+    else {
+        for(int i = 0; i<101;i++) {
+
+            double swap_size = 2*i*input_token_quantity/100 - 0.99*input_token_quantity;
+            if (swap_size==0) {
+                continue;
+            }
+            else {
+                curve_x[i] = input_token_quantity + swap_size;
+                curve_x_last[i] = last_input_token_quantity + swap_size;
+                if (swap_size < 0){
+                    curve_y[i] = output_token_quantity + playground_->SimulateSwap(pool_, input_token, output_token, -swap_size);
+                    curve_y_last[i] = last_output_token_quantity + playground_->SimulateSwap(pool_, input_token, output_token, -swap_size);
+                }
+                else{
+                    curve_y[i] = output_token_quantity - playground_->SimulateSwap(pool_, input_token, output_token, swap_size);
+                    curve_y_last[i] = last_output_token_quantity - playground_->SimulateSwap(pool_, input_token, output_token, swap_size);
+                }
+            }
+        }
+        // Graph current invariant curve
+        ui->widgetGraph->addGraph();
+        ui->widgetGraph->graph(0)->setLineStyle(QCPGraph::lsLine);
+        ui->widgetGraph->graph(0)->setData(curve_x, curve_y);
+        ui->widgetGraph->legend->removeItem(0);
+
+        // Graph last invariant curve
+        ui->widgetGraph->addGraph();
+        ui->widgetGraph->graph(1)->setLineStyle(QCPGraph::lsLine);
+        ui->widgetGraph->graph(1)->setData(curve_x_last, curve_y_last);
+        ui->widgetGraph->legend->removeItem(0);
+
+
+    }
 }
 
 void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
@@ -187,6 +223,9 @@ void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
         PROTOCOL curr_protocol = GetPoolType(pool_);
 
         QVector<double> input_quants(2), output_quants(2);
+
+
+
 
         input_quants[0] = input_token_quantity;
         output_quants[0] = output_token_quantity;
@@ -206,7 +245,7 @@ void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
                 output_quants[1] = ui->tableWidget_poolInformation->item(i,2)->text().toDouble();
             }
         }
-        Invariant_Curve(curr_protocol, input_quants[0], input_quants[1], output_quants[0], output_quants[1]);
+        Invariant_Curve(input_token, output_token, curr_protocol, input_quants[0], input_quants[1], output_quants[0], output_quants[1]);
 
         QCPGraph* curr_Point = new QCPGraph(ui->widgetGraph->xAxis, ui->widgetGraph->yAxis);
         curr_Point->setAdaptiveSampling(false);

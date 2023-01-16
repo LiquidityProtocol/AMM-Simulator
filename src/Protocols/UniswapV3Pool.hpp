@@ -18,6 +18,9 @@ private:
         double pool_fee, 
         double slippage_controller
     ) : PoolInterface(tokens, pool_fee) {
+        if (tokens.size() > 2) {
+            throw std::invalid_argument("Uniswap V3 only supports for 2 tokens!");
+        }
         if (slippage_controller <= 1) {
             throw std::invalid_argument("invalid slippage controller");
         } else {
@@ -29,6 +32,9 @@ private:
         double pool_fee, 
         double slippage_controller
     ) : PoolInterface(quantities, pool_fee) {
+        if (quantities.size() > 2) {
+            throw std::invalid_argument("Uniswap V3 only supports for 2 tokens!");
+        }
         if (slippage_controller <= 1) {
             throw std::invalid_argument("invalid slippage controller");
         } else {
@@ -76,6 +82,7 @@ private:
     }
 
     double ComputeSlippage(Token *input_token, Token *output_token, double input_quantity) const {
+        UNUSED(output_token);
         double r1 = GetQuantity(input_token);
         double C1 = GetWeight(input_token);
 
