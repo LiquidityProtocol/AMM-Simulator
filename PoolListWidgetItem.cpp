@@ -83,8 +83,7 @@ void PoolListWidgetItem::set_comboBox_secondToken_index(int index){
 }
 
 void PoolListWidgetItem::set_slippage(double slippage) {
-    curr_slippage = slippage;
-    ui->lineEdit_slippage->setText(QString::fromStdString(std::to_string(curr_slippage*100)));
+    ui->lineEdit_slippage->setText(QString::fromStdString(std::to_string(slippage*100)));
 }
 
 void PoolListWidgetItem::on_comboBox_spotPrice_currentIndexChanged(int index)

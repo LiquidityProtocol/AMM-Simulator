@@ -121,6 +121,7 @@ void TradeDialog::UpdateOutputQuantity()
 
     } else {
         ui->output_quantity_lineEdit->clear();
+        ui->lineEdit_slippage->clear();
     }
 }
 

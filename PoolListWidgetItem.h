@@ -35,7 +35,6 @@ private:
     PoolInterface *pool_;
     std::unordered_map<Token *, double> last_quantities_, curr_quantities_;
     std::unordered_map<Token *, std::unordered_map<Token *, double>> last_spot_prices_, curr_spot_prices_;
-    double curr_slippage;
 };
 
 #endif // POOLLISTWIDGETITEM_H

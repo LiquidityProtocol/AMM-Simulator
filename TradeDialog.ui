@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>313</width>
-    <height>278</height>
+    <height>296</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -115,6 +115,9 @@
       <widget class="QLineEdit" name="lineEdit_slippage">
        <property name="enabled">
         <bool>false</bool>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

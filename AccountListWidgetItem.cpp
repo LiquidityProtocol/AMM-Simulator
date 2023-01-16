@@ -13,7 +13,6 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
 {
     ui->setupUi(this);
     connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest);
-    connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest2, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest2);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
     ui->lineEdit_2->setText(QString::number(account_->total_value()));
 }
@@ -80,7 +79,7 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
-        emit UpdatePoolDisplayRequest2(pool, curr_slippage);
+        emit UpdatePoolDisplayRequest(pool, curr_slippage);
         trade_dialog->accept();
     } catch (std::exception &e) {
         QMessageBox::about(trade_dialog, "Trade failed", e.what());
