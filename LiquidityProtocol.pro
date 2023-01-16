@@ -12,7 +12,6 @@ SOURCES += \
     AccountListWidgetItem.cpp \
     ChangeModeDialog.cpp \
     ExistingPoolProvisionDialog.cpp \
-    MarketInfo.cpp \
     MintDialog.cpp \
     NewPoolProvisionDialog.cpp \
     PoolGraphItem.cpp \
@@ -45,7 +44,6 @@ HEADERS += \
     ChangeModeDialog.h \
     ExistingPoolProvisionDialog.h \
     MainWindow.h \
-    MarketInfo.h \
     MintDialog.h \
     NewPoolProvisionDialog.h \
     PoolGraphItem.h \
@@ -78,7 +76,6 @@ FORMS += \
     ChangeModeDialog.ui \
     ExistingPoolProvisionDialog.ui \
     MainWindow.ui \
-    MarketInfo.ui \
     MintDialog.ui \
     NewPoolProvisionDialog.ui \
     PoolGraphItem.ui \
