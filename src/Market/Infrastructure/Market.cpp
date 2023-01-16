@@ -29,7 +29,7 @@ Market::~Market() {
 }
 void Market::loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL protocol) {
     // create some initial tokens of the market
-    for (auto [tokenName, price] : price_tags)
+    for (auto &[tokenName, price] : price_tags)
         addToken(tokenName, price);
 
     for (auto token1 : tokens_)
@@ -62,7 +62,6 @@ void Market::loadInitialScenario(const std::unordered_map<std::string, double> &
     }
     assert(pools_.size() == tokens_.size() * (tokens_.size() - 1) / 2 && "Combi");
 }
-
 void Market::loadInitialScenario(const std::unordered_set<PoolInterface *> pools) {
     for (auto pool : pools)
         addPool(pool);
@@ -76,8 +75,8 @@ void Market::addToken(Token *token) {
 }
 void Market::addPool(PoolInterface *pool) {
     pools_.emplace(pool);
-//    for (auto token : pool->tokens())
-//        addToken(token);
+    for (auto token : pool->tokens())
+        addToken(token);
 }
 
 Token* Market::getToken(std::string name) const {

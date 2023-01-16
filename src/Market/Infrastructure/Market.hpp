@@ -14,7 +14,7 @@ public:
     void addToken(Token *token);
     void addPool(PoolInterface *pool);
 
-    virtual void runEpoch();
+    void runEpoch();
 
     std::unordered_set<Token *> GetMarketTokens() const;
     std::unordered_set<PoolInterface *> GetMarketPools() const;
