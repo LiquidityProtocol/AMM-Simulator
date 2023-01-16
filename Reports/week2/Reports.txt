@@ -89,3 +89,16 @@ Tu Nguyen
 
 Alessandro:
 Further familiarized with the base classes and the tests for different classes.
+
+Julien Girod
+
+This week I deepened my research on the associated costs of the protocol. 
+ Which led to better study the implicit cost of a protocol in terms of slippage 
+ and divergence loss. Then I proceeded to better understand how is slippage control in 
+ Uniswap v3 an improvement of uniswap v2's slippage formula.
+
+
+ This week I researched new protocols and did a report on Bancor's protocol. In 
+ particular its advantages, like the benefit of using the native 
+ token in the protocol or single sided staking and Impermanent loss Insurance.
+ I also started to see how uniswap v3 can be implemented
