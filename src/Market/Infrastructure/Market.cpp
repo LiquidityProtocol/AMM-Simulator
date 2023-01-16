@@ -144,9 +144,6 @@ std::unordered_set<Token *> Market::GetMarketTokens() const {
 std::unordered_set<PoolInterface *> Market::GetMarketPools() const {
     return pools_;
 }
-std::unordered_set<Account *> Market::GetMarketAccounts() const {
-    return accounts_;
-}
 
 // int main() {
 //     Market MySimulation;
