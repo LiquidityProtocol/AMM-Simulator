@@ -42,8 +42,10 @@ void WithdrawDialog::on_comboBox_protocol_activated(int index)
         ui->comboBox_pool->clear();
         std::unordered_set<PoolInterface *> pools = playground_->GetPools(protocol);
         for (auto pool : pools) {
-            QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
-            ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
+            if(account_->GetQuantity(pool->pool_token())){
+                QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
+                ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
+            }
         }
         ui->comboBox_pool->setCurrentIndex(-1);
         ui->label_pool->setHidden(false);

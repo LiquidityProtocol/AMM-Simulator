@@ -28,6 +28,10 @@ void MainWindow::on_create_toekn_pushButton_clicked()
         return;
     }
     std::string token_name = ui->lineEdit_2->text().toStdString();
+    if(token_name == ""){
+        QMessageBox::about(this, "Add token failed", "Enter token's name to create token!");
+        return;
+    }
     double token_price = ui->lineEdit_3->text().toDouble();
     ui->lineEdit_2->clear();
     ui->lineEdit_3->clear();
@@ -46,6 +50,10 @@ void MainWindow::on_create_toekn_pushButton_clicked()
 void MainWindow::on_create_account_pushButton_clicked()
 {
     std::string account_name = ui->lineEdit->text().toStdString();
+    if(account_name == ""){
+        QMessageBox::about(this, "Add account failed", "Enter account name to create account!");
+        return;
+    }
     ui->lineEdit->clear();
     Account *account; bool is_new; std::tie(account, is_new) = playground_->GetAccount(account_name);
     if (!is_new) {
