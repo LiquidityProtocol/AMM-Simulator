@@ -4,8 +4,8 @@
 #include "../Infrastructure/Market.hpp"
 #include "../Infrastructure/Events.hpp"
 
-TradeRoute *ApplyHashAI(Market *market) {
+namespace HashAI {
 
-}
+};
 
 #endif

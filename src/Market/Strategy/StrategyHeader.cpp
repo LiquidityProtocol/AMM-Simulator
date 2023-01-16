@@ -1,4 +1,9 @@
 #include "StrategyHeader.hpp"
+#include "Strat_HashAI.hpp"
+#include "Strat_LinearRegression.hpp"
+#include "Strat_MovingAverage.hpp"
+
+#include <cassert>
 
 void Arbitrager::sell(Token *token, double quantity) {
     if (GetQuantity(token) < quantity) {
@@ -16,16 +21,36 @@ void Arbitrager::buy(Token *token, double quantity) {
     }
 }
 
-double Arbitrager::ExecuteSignal(Event *event, double input_quantity) {
-    return Trade(event->pool(), event->input_token(), event->output_token(), input_quantity);
+double Arbitrager::ExecuteSignal(Signal *s, double input_quantity) {
+    Token *input_token = s->input_token();
+    Token *output_token = s->output_token();
+
+    if (GetQuantity(input_token) < input_quantity) {
+        buy(input_token, input_quantity - GetQuantity(input_token));
+    }
+
+    return Trade(s->pool(), input_token, output_token, input_quantity);
 }
 double Arbitrager::ExecuteTradeRoute(TradeRoute *route, double input_quantity) {
-    for (Event *node = route->head() ; node ; node = node->next())
+    for (Signal *node = route->head() ; node ; node = node->next())
         input_quantity = ExecuteSignal(node, input_quantity);
 
     return input_quantity;
 }
 
-void Arbitrager::ExecuteStrategy() {
+void Arbitrager::ApplyStrategy(STRATEGY strat, Market *market) {
+    std::vector<Signal> vec;
 
+    if (strat == STRATEGY::SIMPLE_MOVING_AVERAGE) {
+        MovingAverage::calculateSignal(vec, market, false);
+    } else if (strat == STRATEGY::EXP_MOVING_AVERAGE) {
+        MovingAverage::calculateSignal(vec, market, true);
+    } else if (strat == STRATEGY::LINEAR_REGRESSION) {
+        LinearRegression::calculateSignal(vec, market);
+    } else if (strat == STRATEGY::HASH_AI) {
+    } else {
+        assert(strat == STRATEGY::NAIVE_GREEDY);
+
+
+    }
 }
