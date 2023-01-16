@@ -16,10 +16,15 @@ class SimulationPlayground : public QDialog
 public:
     explicit SimulationPlayground(QWidget *parent = nullptr);
     ~SimulationPlayground();
-    void UpdateGraph(PoolInterface *pool);
 
 private slots:
     void on_pushButton_clicked();
+
+    void on_pool_comboBox_currentIndexChanged(int index);
+
+    void on_pushButton_customEpoch_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::SimulationPlayground *ui;

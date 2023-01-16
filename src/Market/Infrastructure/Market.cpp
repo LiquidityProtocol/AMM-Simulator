@@ -32,6 +32,12 @@ void Market::loadInitialScenario(const std::unordered_map<std::string, double> &
     for (auto &[tokenName, price] : price_tags)
         addToken(tokenName, price);
 
+    // create some initial accounts of the market
+    Account *account1 = new Account("Alice");
+    addAccount(account1);
+    Account *account2 = new Account("Bob");
+    addAccount(account2);
+
     for (auto token1 : tokens_)
     for (auto token2 : tokens_) {
         if (token1->name() != token2->name()) {
@@ -72,6 +78,9 @@ void Market::addToken(const std::string &name, double price) {
 }
 void Market::addToken(Token *token) {
     tokens_.emplace(token);
+}
+void Market::addAccount(Account *account) {
+    accounts_.emplace(account);
 }
 void Market::addPool(PoolInterface *pool) {
     pools_.emplace(pool);
@@ -134,6 +143,9 @@ std::unordered_set<Token *> Market::GetMarketTokens() const {
 }
 std::unordered_set<PoolInterface *> Market::GetMarketPools() const {
     return pools_;
+}
+std::unordered_set<Account *> Market::GetMarketAccounts() const {
+    return accounts_;
 }
 
 // int main() {

@@ -13,6 +13,7 @@ public:
     void addToken(const std::string &name, double price);
     void addToken(Token *token);
     void addPool(PoolInterface *pool);
+    void addAccount(Account *account);
 
     void runEpoch();
 
@@ -28,6 +29,7 @@ private:
 
     std::unordered_set<Token *> tokens_;
     std::unordered_set<PoolInterface *> pools_;
+    std::unordered_set<Account *> accounts_;
 
     CommunityActor *A;
 };
