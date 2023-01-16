@@ -24,6 +24,14 @@
      </property>
      <item>
       <widget class="QLabel" name="label_protocol">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(1, 25, 147); </string>
+       </property>
        <property name="text">
         <string>Protocol</string>
        </property>
@@ -38,6 +46,14 @@
     <layout class="QHBoxLayout" name="horizontalLayout_pool">
      <item>
       <widget class="QLabel" name="label_pool">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(1, 25, 147); </string>
+       </property>
        <property name="text">
         <string>Pool</string>
        </property>

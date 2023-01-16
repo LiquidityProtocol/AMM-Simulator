@@ -21,4 +21,3 @@ void IntroductoryWindow::on_pushButton_clicked()
     mainwindow -> show();
 
 }
-

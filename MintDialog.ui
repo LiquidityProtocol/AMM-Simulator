@@ -38,9 +38,14 @@ color: rgb(255, 0, 0);</string>
    </item>
    <item>
     <widget class="QPushButton" name="pushButton">
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(255, 8, 0);</string>
+color: rgb(1, 25, 147); </string>
      </property>
      <property name="text">
       <string>Mint</string>

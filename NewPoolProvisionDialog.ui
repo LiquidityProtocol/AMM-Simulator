@@ -27,6 +27,14 @@
     <layout class="QHBoxLayout" name="horizontalLayout_protocol">
      <item>
       <widget class="QLabel" name="label_protocol">
+       <property name="font">
+        <font>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>Protocol</string>
        </property>
