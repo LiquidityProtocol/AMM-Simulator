@@ -40,7 +40,7 @@ private slots:
     void on_provide_pushButton_clicked();
 
 signals:
-    void UpdatePoolDisplayRequest(PoolInterface *pool);
+    void UpdatePoolDisplayRequest(PoolInterface *pool, double curr_slippage = -1);
 
 private:
     Ui::AccountListWidgetItem *ui;

@@ -59,7 +59,7 @@ void MainWindow::on_create_account_pushButton_clicked()
     }
 }
 
-void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
+void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool, double slippage) {
     for (int i = 0; i < ui->listWidget_pool->count(); ++i) {
         QListWidgetItem *item = ui->listWidget_pool->item(i);
         QWidget *item_widget = ui->listWidget_pool->itemWidget(item);
@@ -73,6 +73,7 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
                 PoolListWidgetItem *pool_item = new PoolListWidgetItem(this, playground_, pool, old_pool_item->curr_quantities(), old_pool_item->curr_spot_prices());
                 pool_item->set_comboBox_spotPrice_index(input_token_idx);
                 pool_item->set_comboBox_secondToken_index(second_token_idx);
+                pool_item->set_slippage(slippage);
                 item->setSizeHint(pool_item->sizeHint());
                 ui->listWidget_pool->setItemWidget(item, pool_item);
             }

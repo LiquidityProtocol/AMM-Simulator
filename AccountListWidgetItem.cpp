@@ -75,10 +75,11 @@ void AccountListWidgetItem::UpdateWallet()
 
 void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     try {
+        double curr_slippage = pool->GetSlippage(input_token, output_token, input_quantity);
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
         ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
-        emit UpdatePoolDisplayRequest(pool);
+        emit UpdatePoolDisplayRequest(pool, curr_slippage);
         trade_dialog->accept();
     } catch (std::exception &e) {
         QMessageBox::about(trade_dialog, "Trade failed", e.what());
