@@ -138,8 +138,8 @@ void Market::runEpoch() {
             // token1 is being over estimated
             assert(volume1 < volume2 + 1e-4);
 
-            double tradedVolumeWithNoise = sqrt(volume1 * volume2) + 1e6;
-            double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.5, rvNorm(1, 1));
+            double tradedVolumeWithNoise = sqrt(volume1 * volume2) * 1.05;
+            double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.1, rvNorm(1, 1));
 
             A->Trade(pool, token1, token2, tradedQuantityWithNoise);
         }   // done Traders' behavior

@@ -65,14 +65,14 @@ void PoolGraphItem::UpdateGraph() {
         epochs.append(i);
 
     if (plotting_inventory) {
-        std::unordered_map<Token*, QVector<double> > inventory_quantities;
+        std::unordered_map<Token*, QVector<double> > volume;
 
         for (auto ops : poolLedger)
         for (auto token : pool_->tokens())
-            inventory_quantities[token].append(ops->GetQuanitty(token));
+            volume[token].append(ops->GetQuanitty(token) * token->real_value());
 
         for (auto token : pool_->tokens()) {
-            token_to_graph[token]->setData(epochs, inventory_quantities[token]);
+            token_to_graph[token]->setData(epochs, volume[token]);
             token_to_graph[token]->addToLegend();
             token_to_graph[token]->rescaleAxes(true);
         }

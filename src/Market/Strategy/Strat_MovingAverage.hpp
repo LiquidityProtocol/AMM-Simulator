@@ -1,8 +1,7 @@
 #ifndef STRAT_MOVING_AVERAGE
 #define STRAT_MOVING_AVERAGE
 
-#include "../Infrastructure/Market.hpp"
-#include "../Infrastructure/Events.hpp"
+#include "../Infrastructure/Signals.hpp"
 
 namespace MovingAverage {
     typedef std::unordered_map<Token *, std::unordered_map<Token *, double> > SpotPriceMat;
@@ -56,25 +55,23 @@ namespace MovingAverage {
         return temp;
     }
 
-    void calculateSignal(std::vector<Signal> &signal, Market *market, bool EMA) {
-        for (PoolInterface *pool : market->GetMarketPools()) {
-            std::vector<Operation *> bars_06 = pool->GetLatestOps(6);
-            std::vector<Operation *> bars_11 = pool->GetLatestOps(11);
+    void calculateSignal(std::vector<Signal> &signal, PoolInterface *pool, bool EMA) {
+        std::vector<Operation *> bars_06 = pool->GetLatestOps(6);
+        std::vector<Operation *> bars_11 = pool->GetLatestOps(11);
 
-            if (bars_11.empty())
-                continue;
+        if (bars_11.empty())
+            return;
 
-            SpotPriceMat MA_06 = EMA ? calculateEMA(bars_06) : calculateSMA(bars_06);
-            SpotPriceMat MA_11 = EMA ? calculateEMA(bars_11) : calculateSMA(bars_11);
+        SpotPriceMat MA_06 = EMA ? calculateEMA(bars_06) : calculateSMA(bars_06);
+        SpotPriceMat MA_11 = EMA ? calculateEMA(bars_11) : calculateSMA(bars_11);
 
-            double mark_up = 0.05;
+        double mark_up = 0.05;
 
-            for (Token *a : pool->tokens())
-            for (Token *b : pool->tokens())
-                if (b->name() != a->name() && MA_06[b][a] > (1 - mark_up) * MA_11[b][a]) {
-                    signal.push_back(Signal(pool, b, a));
-                }
-        }
+        for (Token *a : pool->tokens())
+        for (Token *b : pool->tokens())
+            if (b->name() != a->name() && MA_06[b][a] > (1 - mark_up) * MA_11[b][a]) {
+                signal.push_back(Signal(pool, b, a));
+            }
     }
 }
 
