@@ -22,8 +22,18 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
         QString pool_name = QString::fromStdString(std::string(name.begin(), name.end() - 3));
         ui->pool_comboBox->addItem(pool_name, QVariant::fromValue(pool));
     }
+    for (auto account: market_->GetMarketAccounts()){
+        QString account_name = QString::fromStdString(account->name());
+        ui->comboBox->addItem(account_name);
+        ui->comboBox_2->addItem(account_name);
+    }
     test_token = market_->getToken("UNI");
+    QListWidgetItem *arbitrager = new QListWidgetItem(ui->listWidget2);
+    ui->listWidget->addItem(arbitrager);
+    QListWidgetItem *provider = new QListWidgetItem(ui->listWidget3);
+    ui->listWidget->addItem(provider);
 }
+
 
 SimulationPlayground::~SimulationPlayground()
 {
@@ -40,10 +50,14 @@ void SimulationPlayground::on_pushButton_clicked()
         PoolGraphItem *pool_graph = qobject_cast<PoolGraphItem *>(item_widget);
         pool_graph->UpdateGraph();
     }
-    QListWidgetItem *item = ui->listWidget2->item(0);
-    QWidget *item_widget = ui->listWidget2->itemWidget(item);
-    AccountGraphItem *account_graph = qobject_cast<AccountGraphItem *>(item_widget);
-    account_graph->UpdateGraph();
+    QListWidgetItem *arbitrager = ui->listWidget2->item(0);
+    QWidget *arbitrager_widget = ui->listWidget2->itemWidget(arbitrager);
+    AccountGraphItem *arbitrager_graph = qobject_cast<AccountGraphItem *>(arbitrager_widget);
+    arbitrager_graph->UpdateGraph();
+    QListWidgetItem *provider = ui->listWidget3->item(0);
+    QWidget *provider_widget = ui->listWidget3->itemWidget(provider);
+    AccountGraphItem *provider_graph = qobject_cast<AccountGraphItem *>(provider_widget);
+    provider_graph->UpdateGraph();
 }
 
 
