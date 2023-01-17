@@ -12,8 +12,14 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
+
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
+    QListWidgetItem *arbitrager = new QListWidgetItem(ui->listWidget2);
+    ui->listWidget2->addItem(arbitrager);
+    QListWidgetItem *provider = new QListWidgetItem(ui->listWidget3);
+    ui->listWidget3->addItem(provider);
+
     for (auto pool: market_->GetMarketPools()){
         std::string name;
         for (auto token: pool->tokens()){
@@ -24,14 +30,11 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     }
     for (auto account: market_->GetMarketAccounts()){
         QString account_name = QString::fromStdString(account->name());
-        ui->comboBox->addItem(account_name);
-        ui->comboBox_2->addItem(account_name);
+        ui->comboBox->addItem(account_name, QVariant::fromValue(account));
+        ui->comboBox_2->addItem(account_name, QVariant::fromValue(account));
     }
+
     test_token = market_->getToken("UNI");
-    QListWidgetItem *arbitrager = new QListWidgetItem(ui->listWidget2);
-    ui->listWidget2->addItem(arbitrager);
-    QListWidgetItem *provider = new QListWidgetItem(ui->listWidget3);
-    ui->listWidget3->addItem(provider);
 }
 
 
@@ -133,10 +136,9 @@ void SimulationPlayground::on_pushButton_2_clicked()
     ui->pool_comboBox->setCurrentIndex(0);
     for (auto account: market_->GetMarketAccounts()){
         QString account_name = QString::fromStdString(account->name());
-        ui->comboBox->addItem(account_name);
-        ui->comboBox_2->addItem(account_name);
+        ui->comboBox->addItem(account_name, QVariant::fromValue(account));
+        ui->comboBox_2->addItem(account_name, QVariant::fromValue(account));
     }
     ui->comboBox->setCurrentIndex(0);
     ui->comboBox_2->setCurrentIndex(0);
 }
-

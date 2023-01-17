@@ -33,7 +33,7 @@ void AccountGraphItem::UpdateGraph()
     account_to_graph[account_]->data()->clear();
     account_to_graph[account_]->removeFromLegend();
 
-    // plot the data from the ledger
+    // plot the data
     QVector<double> new_epochs;
 
     for (unsigned int i = 0 ; i < (*epochs).size() + 1 ; ++i)

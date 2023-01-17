@@ -21,7 +21,6 @@ public:
 
 private:
     Ui::AccountGraphItem *ui;
-    std::unordered_map<Account*, std::unordered_map<Account*, QCPGraph*> > pAccount_to_graph;
     std::unordered_map<Account*, QCPGraph*> account_to_graph;
 
     Account *account_;
