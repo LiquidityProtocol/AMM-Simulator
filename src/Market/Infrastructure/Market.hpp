@@ -2,7 +2,7 @@
 #define Market_hpp
 
 #include "CommunityActor.hpp"
-#include "Events.hpp"
+#include "Signals.hpp"
 
 class Market {
 public:

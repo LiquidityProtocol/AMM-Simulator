@@ -1,4 +1,4 @@
-#include "Events.hpp"
+#include "Signals.hpp"
 
 Signal::Signal(PoolInterface *pool) {
     pool_ = pool;

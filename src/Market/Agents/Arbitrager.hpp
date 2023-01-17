@@ -1,7 +1,7 @@
 #ifndef ARBITRAGER_HPP
 #define ARBITRAGER_HPP
 
-#include "../Infrastructure/Events.hpp"
+#include "../Infrastructure/Signals.hpp"
 
 enum STRATEGY {
     NAIVE_GREEDY,
@@ -14,6 +14,8 @@ enum STRATEGY {
 
 class Arbitrager : public Account {
 public:
+    Arbitrager(const std::string name, double budget);
+
     void sell(Token *token, double quantity);
     void buy(Token *token, double quantity);
 
@@ -21,6 +23,11 @@ public:
     double ExecuteTradeRoute(TradeRoute *route, double input_quantity);
 
     void ApplyStrategy(STRATEGY strat, PoolInterface *pool);
+
+    double budget() const;
+    double value() const;
+private:
+    double budget_;
 };
 
 #endif
