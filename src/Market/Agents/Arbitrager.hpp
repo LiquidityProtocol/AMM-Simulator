@@ -2,7 +2,6 @@
 #define ARBITRAGER_HPP
 
 #include "../Infrastructure/Events.hpp"
-#include "../Infrastructure/Market.hpp"
 
 enum STRATEGY {
     NAIVE_GREEDY,
@@ -21,7 +20,7 @@ public:
     double ExecuteSignal(Signal *s, double input_quantity);
     double ExecuteTradeRoute(TradeRoute *route, double input_quantity);
 
-    void ApplyStrategy(STRATEGY strat, Market *market);
+    void ApplyStrategy(STRATEGY strat, PoolInterface *pool);
 };
 
 #endif

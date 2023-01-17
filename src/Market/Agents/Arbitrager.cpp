@@ -1,7 +1,7 @@
 #include "Arbitrager.hpp"
-#include "Strat_HashAI.hpp"
-#include "Strat_LinearRegression.hpp"
-#include "Strat_MovingAverage.hpp"
+#include "../Strategy/Strat_HashAI.hpp"
+#include "../Strategy/Strat_MovingAverage.hpp"
+#include "../Strategy/Strat_LinearRegression.hpp"
 
 #include <cassert>
 
@@ -38,15 +38,15 @@ double Arbitrager::ExecuteTradeRoute(TradeRoute *route, double input_quantity) {
     return input_quantity;
 }
 
-void Arbitrager::ApplyStrategy(STRATEGY strat, Market *market) {
+void Arbitrager::ApplyStrategy(STRATEGY strat, PoolInterface *pool) {
     std::vector<Signal> vec;
 
     if (strat == STRATEGY::SIMPLE_MOVING_AVERAGE) {
-        MovingAverage::calculateSignal(vec, market, false);
+        MovingAverage::calculateSignal(vec, pool, false);
     } else if (strat == STRATEGY::EXP_MOVING_AVERAGE) {
-        MovingAverage::calculateSignal(vec, market, true);
+        MovingAverage::calculateSignal(vec, pool, true);
     } else if (strat == STRATEGY::LINEAR_REGRESSION) {
-        LinearRegression::calculateSignal(vec, market);
+        LinearRegression::calculateSignal(vec, pool);
     } else if (strat == STRATEGY::HASH_AI) {
     } else {
         assert(strat == STRATEGY::NAIVE_GREEDY);
