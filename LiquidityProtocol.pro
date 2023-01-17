@@ -27,7 +27,8 @@ SOURCES += \
     qcustomplot.cpp \
     src/Market/Agents/Arbitrager.cpp \
     src/Market/Agents/Provider.cpp \
-    src/Market/Infrastructure/Events.cpp \
+    src/Market/Infrastructure/Signals.cpp \
+    src/Market/Infrastructure/SignalsHandler.cpp \
     src/Market/Simulation.cpp \
     src/Utilities/Account.cpp \
     src/Utilities/Operation.cpp \
@@ -59,7 +60,8 @@ HEADERS += \
     WithdrawDialog.h \
     src/Market/Agents/Arbitrager.hpp \
     src/Market/Agents/Provider.hpp \
-    src/Market/Infrastructure/Events.hpp \
+    src/Market/Infrastructure/Signals.hpp \
+    src/Market/Infrastructure/SignalsHandler.hpp \
     src/Market/Simulation.hpp \
     src/Market/Strategy/Strat_HashAI.hpp \
     src/Market/Strategy/Strat_LinearRegression.hpp \
