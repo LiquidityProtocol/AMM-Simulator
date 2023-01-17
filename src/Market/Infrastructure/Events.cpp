@@ -45,6 +45,14 @@ Token *Signal::output_token() const {
     return output_token_;
 }
 
+double Signal::quantity() const {
+    return recommend_quantity_;
+}
+
+void Signal::setQuantity(double q) {
+    recommend_quantity_ = q;
+}
+
 double Signal::simulate(double input_cash) const {
     double input_quantity = input_cash / input_token_->real_value();
     double output_quantity = pool_->SimulateSwap(input_token_, output_token_, input_quantity);

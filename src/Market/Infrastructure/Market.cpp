@@ -82,6 +82,15 @@ void Market::addToken(Token *token) {
 void Market::addAccount(Account *account) {
     accounts_.emplace(account);
 }
+
+bool Market::havePool(PoolInterface *pool) const {
+    return pools_.count(pool);
+}
+
+bool Market::haveToken(Token *token) const {
+    return tokens_.count(token);
+}
+
 void Market::addPool(PoolInterface *pool) {
     pools_.emplace(pool);
     for (auto token : pool->tokens())
@@ -138,49 +147,23 @@ void Market::runEpoch() {
     }
 }
 
+void Market::executeSignal(Account *sender, Signal *signal) {
+    PoolInterface *pool = signal->pool();
+
+    if (!havePool(pool)) {
+        throw std::invalid_argument("Pool doesn't exist in this market");
+    }
+
+    Token *input_token = signal->input_token();
+    Token *output_token = signal->output_token();
+    double input_quantity = signal->quantity();
+
+    sender->Trade(pool, input_token, output_token, input_quantity);
+}
+
 std::unordered_set<Token *> Market::GetMarketTokens() const {
     return tokens_;
 }
 std::unordered_set<PoolInterface *> Market::GetMarketPools() const {
     return pools_;
 }
-
-// int main() {
-//     Market MySimulation;
-
-//     std::unordered_map<PoolInterface *, std::vector<double>> poolVal;
-//     std::unordered_map<PoolInterface *, std::vector<double>> liquidity;
-
-//     for (auto pool : MySimulation.GetMarketPools()) {
-//         Token *token1 = *(pool->tokens()).begin();
-//         Token *token2 = *(++(pool->tokens()).begin());
-
-//         poolVal[pool] = {2e8};
-//         liquidity[pool] = {pool->GetSpotPrice(token1, token2)};
-//     }
-
-//     for (int _ = 0 ; _ < 1000 ; ++_) {
-//         MySimulation.runEpoch();
-
-//         for (auto pool : MySimulation.GetMarketPools()) {
-//             Token *token1 = *(pool->tokens()).begin();
-//             Token *token2 = *(++(pool->tokens()).begin());
-            
-//             poolVal[pool].push_back(token1->real_value() * pool->GetQuantity(token1) + token2->real_value() * pool->GetQuantity(token2));
-//             liquidity[pool].push_back(pool->GetSpotPrice(token1, token2));
-//         }
-//     }
-//     for (auto pool : MySimulation.GetMarketPools()) {
-//         Token *token1 = *(pool->tokens()).begin();
-//         Token *token2 = *(++(pool->tokens()).begin());
-//         std::ofstream file((token1->name() + " and " + token2->name() + ".txt").c_str());
-
-//         file << std::fixed << std::setprecision(5);
-
-//         for (size_t i = 0 ; i < poolVal[pool].size() ; ++i) {
-//             file << poolVal[pool][i] << " ";
-//             file << liquidity[pool][i] << "\n";
-//         }
-//         file.close();
-//     }
-// }

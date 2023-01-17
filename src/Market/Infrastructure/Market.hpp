@@ -2,6 +2,7 @@
 #define Market_hpp
 
 #include "CommunityActor.hpp"
+#include "Events.hpp"
 
 class Market {
 public:
@@ -15,7 +16,11 @@ public:
     void addPool(PoolInterface *pool);
     void addAccount(Account *account);
 
+    bool havePool(PoolInterface *pool) const;
+    bool haveToken(Token *token) const;
+
     void runEpoch();
+    void executeSignal(Account *sender, Signal *signal);
 
     std::unordered_set<Token *> GetMarketTokens() const;
     std::unordered_set<PoolInterface *> GetMarketPools() const;
