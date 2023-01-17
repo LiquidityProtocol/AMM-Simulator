@@ -1,4 +1,4 @@
-#include "StrategyHeader.hpp"
+#include "Arbitrager.hpp"
 #include "Strat_HashAI.hpp"
 #include "Strat_LinearRegression.hpp"
 #include "Strat_MovingAverage.hpp"

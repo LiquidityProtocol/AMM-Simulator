@@ -1,5 +1,5 @@
-#ifndef STRATEGY_HEADER_HPP
-#define STRATEGY_HEADER_HPP
+#ifndef ARBITRAGER_HPP
+#define ARBITRAGER_HPP
 
 #include "../Infrastructure/Events.hpp"
 #include "../Infrastructure/Market.hpp"
