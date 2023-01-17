@@ -9,7 +9,8 @@ enum STRATEGY {
     HASH_AI,
     SIMPLE_MOVING_AVERAGE,
     EXP_MOVING_AVERAGE,
-    LINEAR_REGRESSION
+    LINEAR_REGRESSION,
+    MEAN_REVERSION
 };
 
 class Arbitrager : public Account {
