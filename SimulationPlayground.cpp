@@ -1,6 +1,7 @@
 #include "SimulationPlayground.h"
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
+#include "AccountGraphItem.h"
 #include <QVector>
 #include <random>
 #include<unistd.h>               // for linux
@@ -39,6 +40,10 @@ void SimulationPlayground::on_pushButton_clicked()
         PoolGraphItem *pool_graph = qobject_cast<PoolGraphItem *>(item_widget);
         pool_graph->UpdateGraph();
     }
+    QListWidgetItem *item = ui->listWidget2->item(0);
+    QWidget *item_widget = ui->listWidget2->itemWidget(item);
+    AccountGraphItem *account_graph = qobject_cast<AccountGraphItem *>(item_widget);
+    account_graph->UpdateGraph();
 }
 
 

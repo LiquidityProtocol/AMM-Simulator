@@ -17,7 +17,7 @@ public:
     explicit AccountGraphItem(QWidget *parent = nullptr, Account *account=nullptr);
     ~AccountGraphItem();
 
-    void UpdateGraph(QVector<double> *epochs, QVector<double> *wallet_values);
+    void UpdateGraph();
 
 private:
     Ui::AccountGraphItem *ui;

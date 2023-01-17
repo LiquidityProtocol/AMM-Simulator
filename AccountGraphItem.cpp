@@ -27,7 +27,7 @@ AccountGraphItem::AccountGraphItem(QWidget *parent, Account *account) :
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
-void AccountGraphItem::UpdateGraph(QVector<double> *epochs, QVector<double> *wallet_values)
+void AccountGraphItem::UpdateGraph()
 {
     // clear the data of previous graph
     account_to_graph[account_]->data()->clear();
