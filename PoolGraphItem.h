@@ -14,10 +14,12 @@ class PoolGraphItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit PoolGraphItem(QWidget *parent = nullptr, PoolInterface *pool=nullptr);
+    explicit PoolGraphItem(QWidget *parent = nullptr, PoolInterface *pool = nullptr);
+
     ~PoolGraphItem();
 
     void UpdateGraph();
+    void setViewMethod(bool plotting_inventory);
 
 private:
     Ui::PoolGraphItem *ui;

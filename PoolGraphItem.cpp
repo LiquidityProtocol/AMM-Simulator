@@ -91,6 +91,10 @@ void PoolGraphItem::UpdateGraph() {
     ui->widget->legend->setVisible(true);
     ui->widget->replot();
 }
+
+void PoolGraphItem::setViewMethod(bool plotting_inventory) {
+    this->plotting_inventory = plotting_inventory;
+}
 PoolGraphItem::~PoolGraphItem()
 {
     delete ui;
