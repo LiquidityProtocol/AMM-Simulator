@@ -1,9 +1,11 @@
 #include "Market.hpp"
 #include <random>
+#include <iostream>
 
 std::default_random_engine generator;
 std::normal_distribution<double> rnorm(0.0, 1.0);
 std::uniform_real_distribution<double> runi(0.0, 1.0);
+
 
 double rvNorm(double m, double var) {
     return rnorm(generator) * sqrt(var) + m;
@@ -114,20 +116,33 @@ void Market::runEpoch() {
         double PoolRatio = pool->GetSpotPrice(token1, token2);
         double MarketRatio = token2->real_value() / token1->real_value();
 
-        {    // LPs' Behavior: Provision does not frequently happen
+        double sample = rvUni(0,1);
+        double provision_prob = 0.01;
+        double arb_prob = abs(log(PoolRatio) - log(MarketRatio))/5;
+        double trade_prob = 1 - provision_prob - arb_prob;
+
+        std::cerr << arb_prob << std::endl;
+
+        double bs_sample = rvUni(0,1);
+        double bs_state = 0.005;
+
+        if (sample < provision_prob){
             double LP_discourage = abs(log(PoolRatio) - log(MarketRatio));
-            double LP_volume = (rvNorm(0.5, 1) - LP_discourage) * 1e6;
+            double LP_volume;
+            if (bs_sample < bs_state){
+            LP_volume = rvNorm(0, 1) * 1e6;
+            }
+            else {
+            LP_volume = (rvNorm(0.5, 1) - LP_discourage) * 1e6;
+            }
             double LP_amount = LP_volume / pool->pool_token_value();
-
-            // each pool token worth 1e8 USD so we use constant 0.01 so that the volume of one provision is approximately 1M USD
-
             if (LP_amount < 0) {
                 A->Withdraw(pool, -LP_amount);
             } else {
                 A->Provide(pool, LP_amount);
             }
-        }   // done LPs' behavior
-        {   // Traders' behavior
+        }
+        else if (sample < provision_prob + arb_prob){
             double volume1 = token1->real_value() * pool->GetQuantity(token1);
             double volume2 = token2->real_value() * pool->GetQuantity(token2);
 
@@ -141,8 +156,98 @@ void Market::runEpoch() {
             double tradedVolumeWithNoise = sqrt(volume1 * volume2) * 1.05;
             double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.1, rvNorm(1, 1));
 
-            A->Trade(pool, token1, token2, tradedQuantityWithNoise);
-        }   // done Traders' behavior
+            try{
+                A->Trade(pool, token1, token2, tradedQuantityWithNoise);
+            } catch(...) {}
+        }
+        else if (sample < provision_prob + arb_prob + trade_prob ){
+            double TradeVolume = 0;
+            if (bs_sample < bs_state){
+                TradeVolume = rvNorm(0, 1) * 1e7;
+            } else {
+                std::vector<Operation*> opsList = pool->GetLatestOps(50);
+
+                double frequency = 0;
+
+                for (auto op : opsList) {
+                    if (op->operation_type() != "TRADE")
+                        continue;
+
+                    for (auto [token, quantity] : op->input()) {
+                        TradeVolume += token->real_value() * quantity;
+                    }
+                    frequency += 1;
+                }
+                if (frequency == 0) {
+                    TradeVolume = rvNorm(1e4, 1e4);
+                } else {
+                    TradeVolume /= frequency;
+                    TradeVolume = rvNorm(TradeVolume, 1e3);
+                }
+            }
+            Token *input_token = nullptr;
+            Token *output_token = nullptr;
+
+            {
+                auto tokens = pool->tokens();
+
+                while (true) {
+                    int random_index = rvUni(0, tokens.size());
+                    auto it = tokens.begin();
+                    std::advance(it, random_index);
+                    auto token = *it;
+
+                    if (input_token == nullptr) {
+                        input_token = token;
+                        continue;
+                    }
+                    if (output_token == nullptr) {
+                        if (token == input_token) {
+                            continue;
+                        } else {
+                            output_token = token;
+                            break;
+                        }
+                    }
+                }
+            }
+            try {
+                A->Trade(pool, input_token, output_token, TradeVolume / input_token->real_value());
+            } catch (...) {
+            }
+
+        }
+
+
+//        {    // LPs' Behavior: Provision does not frequently happen
+//            double LP_discourage = abs(log(PoolRatio) - log(MarketRatio));
+//            double LP_volume = (rvNorm(0.5, 1) - LP_discourage) * 1e6;
+//            double LP_amount = LP_volume / pool->pool_token_value();
+
+//            // each pool token worth 1e8 USD so we use constant 0.01 so that the volume of one provision is approximately 1M USD
+
+//            if (LP_amount < 0) {
+//                A->Withdraw(pool, -LP_amount);
+//            } else {
+//                A->Provide(pool, LP_amount);
+//            }
+//        }   // done LPs' behavior
+//        {   // Traders' behavior
+//            double volume1 = token1->real_value() * pool->GetQuantity(token1);
+//            double volume2 = token2->real_value() * pool->GetQuantity(token2);
+
+//            if (PoolRatio >= MarketRatio) {
+//                std::swap(token1, token2);
+//                std::swap(volume1, volume2);
+//            }
+//            // token1 is being over estimated
+//            assert(volume1 < volume2 + 1e-4);
+
+//            double tradedVolumeWithNoise = sqrt(volume1 * volume2) * 1.05;
+//            double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.1, rvNorm(1, 1));
+
+//            A->Trade(pool, token1, token2, tradedQuantityWithNoise);
+//        }   // done Traders' behavior
     }
 }
 
