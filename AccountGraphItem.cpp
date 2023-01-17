@@ -1,14 +1,14 @@
 #include "AccountGraphItem.h"
 #include "ui_AccountGraphItem.h"
 
-std::random_device rd;
-std::mt19937 gen(rd());
-std::uniform_int_distribution<> distrib(0, 255);
+std::random_device rd2;
+std::mt19937 gen2(rd2());
+std::uniform_int_distribution<> distrib2(0, 255);
 
-QColor random_color() {
-    int R = distrib(gen);
-    int G = distrib(gen);
-    int B = distrib(gen);
+QColor random_color2() {
+    int R = distrib2(gen2);
+    int G = distrib2(gen2);
+    int B = distrib2(gen2);
 
     QColor color(R, G, B);
 
@@ -23,7 +23,7 @@ AccountGraphItem::AccountGraphItem(QWidget *parent, Account *account) :
     ui->setupUi(this);
     account_to_graph[account_] = ui->widget->addGraph();
     account_to_graph[account_]->setName(QString::fromStdString(account->name()));
-    account_to_graph[account_]->setPen(QPen(QBrush(QColor(random_color())), 2));
+    account_to_graph[account_]->setPen(QPen(QBrush(QColor(random_color2())), 2));
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
