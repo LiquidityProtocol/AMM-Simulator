@@ -3,21 +3,29 @@
 #include "../Strategy/Strat_MovingAverage.hpp"
 #include "../Strategy/Strat_LinearRegression.hpp"
 
+#include "../../Protocols/Protocols.hpp"
+
 #include <cassert>
+
+Arbitrager::Arbitrager(const std::string name, double budget) : Account(name) {
+    budget_ = budget;
+}
 
 void Arbitrager::sell(Token *token, double quantity) {
     if (GetQuantity(token) < quantity) {
         throw std::invalid_argument("Not enough token to sell");
     } else {
         Deposit(token, -quantity);
+        budget_ += quantity * token->real_value();
     }
 }
 
 void Arbitrager::buy(Token *token, double quantity) {
-    if (total_value() < token->real_value() * quantity) {
+    if (budget() < token->real_value() * quantity) {
         throw std::invalid_argument("Not enough cash to buy token");
     } else {
         Deposit(token, quantity);
+        budget_ -= quantity * token->real_value();
     }
 }
 
@@ -50,7 +58,16 @@ void Arbitrager::ApplyStrategy(STRATEGY strat, PoolInterface *pool) {
     } else if (strat == STRATEGY::HASH_AI) {
     } else {
         assert(strat == STRATEGY::NAIVE_GREEDY);
+        assert(GetPoolType(pool) == PROTOCOL::UNISWAP_V2);
 
 
     }
+}
+
+double Arbitrager::budget() const {
+    return budget_;
+}
+
+double Arbitrager::value() const {
+    return total_value_ + budget_;
 }

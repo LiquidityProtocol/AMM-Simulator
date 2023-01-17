@@ -1,11 +1,13 @@
 #ifndef PROVIDER_HPP
 #define PROVIDER_HPP
 
+#include "../../Utilities/Utilities.hpp"
 
-class Provider
-{
+class Provider : public Account {
 public:
-    Provider();
+    Provider(const std::string name, double budget);
+private:
+    double budget_;
 };
 
 #endif // PROVIDER_HPP
