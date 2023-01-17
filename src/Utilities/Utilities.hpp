@@ -148,6 +148,8 @@ public:
     double GetQuantity(Token *token) const;
 
     double pool_fee() const;
+    double pool_value() const;
+    double pool_token_value() const;
 
     Token * pool_token() const;
     double total_pool_token_quantity() const;

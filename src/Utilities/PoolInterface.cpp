@@ -77,6 +77,19 @@ double PoolInterface::pool_fee() const {
     return pool_fee_;
 }
 
+double PoolInterface::pool_value() const {
+    double Value = 0;
+
+    for (auto [token, quantity] : quantities())
+        Value += token->real_value() * quantity;
+
+    return Value;
+}
+
+double PoolInterface::pool_token_value() const {
+    return pool_value() / total_pool_token_quantity();
+}
+
 Token * PoolInterface::pool_token() const {
     /*
      * This method returns the pool token.
