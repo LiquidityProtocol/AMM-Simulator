@@ -29,9 +29,9 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     }
     test_token = market_->getToken("UNI");
     QListWidgetItem *arbitrager = new QListWidgetItem(ui->listWidget2);
-    ui->listWidget->addItem(arbitrager);
+    ui->listWidget2->addItem(arbitrager);
     QListWidgetItem *provider = new QListWidgetItem(ui->listWidget3);
-    ui->listWidget->addItem(provider);
+    ui->listWidget3->addItem(provider);
 }
 
 
@@ -50,14 +50,18 @@ void SimulationPlayground::on_pushButton_clicked()
         PoolGraphItem *pool_graph = qobject_cast<PoolGraphItem *>(item_widget);
         pool_graph->UpdateGraph();
     }
-    QListWidgetItem *arbitrager = ui->listWidget2->item(0);
-    QWidget *arbitrager_widget = ui->listWidget2->itemWidget(arbitrager);
-    AccountGraphItem *arbitrager_graph = qobject_cast<AccountGraphItem *>(arbitrager_widget);
-    arbitrager_graph->UpdateGraph();
-    QListWidgetItem *provider = ui->listWidget3->item(0);
-    QWidget *provider_widget = ui->listWidget3->itemWidget(provider);
-    AccountGraphItem *provider_graph = qobject_cast<AccountGraphItem *>(provider_widget);
-    provider_graph->UpdateGraph();
+    if(ui->comboBox->currentIndex() != -1){
+        QListWidgetItem *arbitrager = ui->listWidget2->item(0);
+        QWidget *arbitrager_widget = ui->listWidget2->itemWidget(arbitrager);
+        AccountGraphItem *arbitrager_graph = qobject_cast<AccountGraphItem *>(arbitrager_widget);
+        arbitrager_graph->UpdateGraph();
+    }
+    if(ui->comboBox_2->currentIndex() != -1){
+        QListWidgetItem *provider = ui->listWidget3->item(0);
+        QWidget *provider_widget = ui->listWidget3->itemWidget(provider);
+        AccountGraphItem *provider_graph = qobject_cast<AccountGraphItem *>(provider_widget);
+        provider_graph->UpdateGraph();
+    }
 }
 
 
@@ -72,6 +76,32 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index)
     QListWidgetItem *item = ui->listWidget->item(0);
     item->setSizeHint(pool_graph->sizeHint());
     ui->listWidget->setItemWidget(item, pool_graph);
+}
+
+void SimulationPlayground::on_comboBox_currentIndexChanged(int index2)
+{
+    if(index2 == -1){
+        return;
+    }
+    Account *arbitrager = qvariant_cast<Account *>(ui->comboBox->itemData(index2));
+    AccountGraphItem *arbitrager_graph = new AccountGraphItem(this, arbitrager);
+    arbitrager_graph->UpdateGraph();
+    QListWidgetItem *item2 = ui->listWidget2->item(0);
+    item2->setSizeHint(arbitrager_graph->sizeHint());
+    ui->listWidget2->setItemWidget(item2, arbitrager_graph);
+}
+
+void SimulationPlayground::on_comboBox_2_currentIndexChanged(int index3)
+{
+    if(index3 == -1){
+        return;
+    }
+    Account *provider = qvariant_cast<Account *>(ui->comboBox_2->itemData(index3));
+    AccountGraphItem *provider_graph = new AccountGraphItem(this, provider);
+    provider_graph->UpdateGraph();
+    QListWidgetItem *item3 = ui->listWidget3->item(0);
+    item3->setSizeHint(provider_graph->sizeHint());
+    ui->listWidget3->setItemWidget(item3, provider_graph);
 }
 
 
@@ -101,5 +131,12 @@ void SimulationPlayground::on_pushButton_2_clicked()
         ui->pool_comboBox->addItem(pool_name, QVariant::fromValue(pool));
     }
     ui->pool_comboBox->setCurrentIndex(0);
+    for (auto account: market_->GetMarketAccounts()){
+        QString account_name = QString::fromStdString(account->name());
+        ui->comboBox->addItem(account_name);
+        ui->comboBox_2->addItem(account_name);
+    }
+    ui->comboBox->setCurrentIndex(0);
+    ui->comboBox_2->setCurrentIndex(0);
 }
 
