@@ -17,7 +17,9 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: 
+   <string notr="true">background-color: rgba(169, 169, 169, 229);
+
+font: 13pt &quot;Calibri&quot;;
 
 </string>
   </property>
@@ -40,6 +42,7 @@
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Main</string>
+        <string>Liquidity Protocol</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
@@ -59,6 +62,7 @@ border-image: url(:/images/LP_logo.png);</string>
          </widget>
         </item>
         <item>
+        <item row="1" column="1">
          <widget class="QPushButton" name="pushButton">
           <property name="maximumSize">
            <size>
@@ -73,9 +77,10 @@ border-image: url(:/images/LP_logo.png);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="Tab2">
        <attribute name="title">
         <string>Guidelines</string>
+        <string>Information</string>
        </attribute>
        <widget class="QTextBrowser" name="textBrowser">
         <property name="geometry">
@@ -167,6 +172,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#212121;&quot;&gt;The results shown are based on simulated or hypothetical performance results. Hypothetical results have certain inherent limitations. Unlike the results shown in an actual performance record, these results do not represent actual trading. No representation is being made that any account will or is likely to achieve profits or losses similar to those being shown. Past performance, whether actual or indicated by historical tests of strategies, is no guarantee of future performance or success. There is a possibility that you may sustain a loss equal to or greater than your entire investment regardless of which asset class you trade. &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#212121;&quot;&gt;You agree and understand that: (a) all trades you submit through the Interface are considered unsolicited, which means that they are solely initiated by you; (b) you have not received any investment advice from us in connection with any trades, including those you place via our Auto Routing API; and (c) we do not conduct a suitability review of any trades you submit. &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#212121;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; color:#000000;&quot;&gt;⚠ &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; font-style:italic; text-decoration: underline; color:#531b93;&quot;&gt;Disclaimer&lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; color:#531b93;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; color:#000000;&quot;&gt;⚠&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;The results shown are based on simulated or hypothetical performance results. Hypothetical results have certain inherent limitations. Unlike the results shown in an actual performance record, these results do not represent actual trading. No representation is being made that any account will or is likely to achieve profits or losses similar to those being shown. Past performance, whether actual or indicated by historical tests of strategies, is no guarantee of future performance or success. There is a possibility that you may sustain a loss equal to or greater than your entire investment regardless of which asset class you trade. &lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;You agree and understand that: (a) all trades you submit through the Interface are considered unsolicited, which means that they are solely initiated by you; (b) you have not received any investment advice from us in connection with any trades, including those you place via our Auto Routing API; and (c) we do not conduct a suitability review of any trades you submit. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
        <widget class="QTextBrowser" name="textBrowser_4">
@@ -202,6 +213,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#212121;&quot;&gt;Liquidity Protocol Team: Minh, The and Fryderyk&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#212121;&quot;&gt;Economics Research Team: Mia, Shubh, Gabriele and Kaoutar&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#212121;&quot;&gt;Mathematics Research Team: Amine, Julien and Duc &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; font-style:italic; text-decoration: underline; color:#531b93;&quot;&gt;Contributions&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;-&amp;gt; Market Simulation Team: Tu, Alessandro, Adrien, Matheo, Adithya and Levente&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;-&amp;gt; Frontend Team: Jasmine, Victoire and Martina&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;-&amp;gt; Liquidity Protocol Team: Minh, The and Fryderyk&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;-&amp;gt; Economics Team: Mia, Shubh, Gabriele and Kaoutar&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#011993;&quot;&gt;-&amp;gt; Mathematics Team: Amine, Julien and Duc &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </widget>
@@ -216,6 +234,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <y>0</y>
      <width>1457</width>
      <height>24</height>
+     <width>1317</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

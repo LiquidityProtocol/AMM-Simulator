@@ -17,7 +17,11 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, stop:0 rgba(43, 43, 43, 255), stop:1 rgba(255, 255, 255, 255));</string>
+   <string notr="true">background-color: rgba(169, 169, 169, 229);
+
+font: 13pt &quot;Calibri&quot;;
+
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -29,8 +33,10 @@
          <widget class="QLineEdit" name="lineEdit">
           <property name="font">
            <font>
-            <family>Rockwell</family>
-            <pointsize>11</pointsize>
+            <family>Calibri</family>
+            <pointsize>13</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
@@ -45,18 +51,19 @@
          <widget class="QPushButton" name="create_account_pushButton">
           <property name="font">
            <font>
-            <family>Rockwell</family>
-            <pointsize>12</pointsize>
-            <bold>true</bold>
+            <family>Calibri</family>
+            <pointsize>13</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="autoFillBackground">
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255) ; 
+           <string notr="true">color: rgb(145, 145, 145);
 background-color: rgb(0, 0, 0);
-border-color: rgb(255, 255, 255);</string>
+</string>
           </property>
           <property name="text">
            <string>Create A New Account</string>
@@ -65,8 +72,14 @@ border-color: rgb(255, 255, 255);</string>
         </item>
        </layout>
       </item>
-      <item>
+      <item alignment="Qt::AlignLeft">
        <widget class="QListWidget" name="listWidget">
+        <property name="minimumSize">
+         <size>
+          <width>442</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
@@ -86,7 +99,10 @@ background-color: ;</string>
          <widget class="QLineEdit" name="lineEdit_2">
           <property name="font">
            <font>
-            <family>Rockwell</family>
+            <family>Calibri</family>
+            <pointsize>13</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="autoFillBackground">
@@ -107,7 +123,10 @@ background-color: ;</string>
          <widget class="QLineEdit" name="lineEdit_3">
           <property name="font">
            <font>
-            <family>Rockwell</family>
+            <family>Calibri</family>
+            <pointsize>13</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
@@ -122,12 +141,14 @@ background-color: ;</string>
          <widget class="QPushButton" name="create_toekn_pushButton">
           <property name="font">
            <font>
-            <family>Rockwell</family>
-            <bold>true</bold>
+            <family>Calibri</family>
+            <pointsize>13</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255) ; 
+           <string notr="true">color: rgb(145, 145, 145);
 background-color: rgb(0, 0, 0);
 border-color: rgb(255, 255, 255);</string>
           </property>
@@ -156,15 +177,19 @@ border-color: rgb(255, 255, 255);</string>
        <widget class="QLabel" name="label_pool">
         <property name="font">
          <font>
-          <family>Rockwell</family>
+          <family>Calibri</family>
+          <pointsize>13</pointsize>
+          <italic>false</italic>
+          <bold>false</bold>
          </font>
         </property>
         <property name="styleSheet">
          <string notr="true">text-align: center; 
+color: rgb(145, 145, 145);
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, stop:0 rgba(225, 225, 225, 255), stop:1 rgba(255, 255, 255, 255));</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -172,6 +197,13 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, st
        <widget class="QListWidget" name="listWidget_pool">
         <property name="styleSheet">
          <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Back to the introductory window</string>
         </property>
        </widget>
       </item>
