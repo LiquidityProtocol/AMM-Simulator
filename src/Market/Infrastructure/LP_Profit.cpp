@@ -6,31 +6,6 @@
 //std::normal_distribution<double> rnorm(0.0, 1.0);
 //std::uniform_real_distribution<double> runi(0.0, 1.0);
 
-std::vector<double> Market::Retrieve_provided(PoolInterface* pool, Token *firstToken, Token *secondToken) {
-//    Token *token1 = *(pool->tokens()).begin();
-//    Token *token2 = *(++(pool->tokens()).begin());
-//    std::vector<double> pool_value;
-//    for (auto op : pool->ledger()) {
-//        if  (op->operation_type() == "PROVIDE") {
-//            std::unordered_map<Token *, double> input_quantity = op->input();
-//            double market_price = op -> GetMarketPrice(firstToken, secondToken);
-//            double spot_price = op -> GetSpotPrice(firstToken, secondToken);
-
-//            double pool_value_i = 0;
-
-//            for (Token *token : pool->tokens()) {
-//                pool_value_i += op->GetQuanitty(token) * token->real_value();
-//            }
-//            pool_value.push_back(pool_value_i);
-
-//            double token1_provided = input_quantity[token1];
-//            double token2_provided = input_quantity[token2];
-
-//            std::vector<double> tokens_provided{token1_provided, token2_provided, market_price, spot_price};
-//            return tokens_provided;
-//        }
-//    }
-}
 
 double Market::ProfitLP(PoolInterface *pool) {
     // Provision data part
@@ -64,7 +39,7 @@ double Market::ProfitLP(PoolInterface *pool) {
     std::cerr << relative_profit << std::endl;
 
     return relative_profit;
-
+}
 
 //    // Here we determine the initial amount of tokens provided
 //    std::vector<double> token_amounts = Retrieve_provided(pool);
@@ -97,7 +72,7 @@ double Market::ProfitLP(PoolInterface *pool) {
 //    double divergence_loss = (2 * sqrt(price_ratio) / (1 + price_ratio)) - 1;
 
 //    return divergence_loss;
-}
+
 
 
     /*

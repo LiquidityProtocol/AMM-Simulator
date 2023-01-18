@@ -29,6 +29,11 @@ Market::~Market() {
     pools_.clear();
     tokens_.clear();
 }
+
+QVector<double> Market::GetLPProfits() {
+    return LP_Profits;
+}
+
 void Market::loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL protocol) {
     // create some initial tokens of the market
     for (auto &[tokenName, price] : price_tags)
@@ -216,10 +221,10 @@ void Market::runEpoch() {
             } catch (...) {}
         }
     }
-    for (auto pool : GetMarketPools())
+    for (auto pool : GetMarketPools()) {
         pool->endEpoch();
-
-    ProfitLP(*GetMarketPools().begin());
+    }
+    LP_Profits.append(ProfitLP(*GetMarketPools().begin()));
 }
 
 void Market::executeSignal(Account *sender, Signal *signal) {

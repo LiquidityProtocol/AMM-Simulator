@@ -12,6 +12,7 @@ SOURCES += \
     AccountListWidgetItem.cpp \
     ChangeModeDialog.cpp \
     ExistingPoolProvisionDialog.cpp \
+    LPGraphItem.cpp \
     MintDialog.cpp \
     NewPoolProvisionDialog.cpp \
     PoolGraphItem.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     AccountListWidgetItem.h \
     ChangeModeDialog.h \
     ExistingPoolProvisionDialog.h \
+    LPGraphItem.h \
     MainWindow.h \
     MintDialog.h \
     NewPoolProvisionDialog.h \
@@ -82,6 +84,7 @@ FORMS += \
     AccountListWidgetItem.ui \
     ChangeModeDialog.ui \
     ExistingPoolProvisionDialog.ui \
+    LPGraphItem.ui \
     MainWindow.ui \
     MintDialog.ui \
     NewPoolProvisionDialog.ui \

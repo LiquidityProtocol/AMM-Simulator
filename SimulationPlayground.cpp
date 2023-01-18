@@ -1,6 +1,7 @@
 #include "SimulationPlayground.h"
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
+#include "LPGraphItem.h"
 #include <QVector>
 #include <random>
 
@@ -28,7 +29,10 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     market_ = new Market;
     market_->loadInitialScenario({{"ETH", 1012}, {"DAI", 10}, {"BTC", 5}}, PROTOCOL::UNISWAP_V2);
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
+    QListWidgetItem *LPitem = new QListWidgetItem(ui->listWidget);
+
     ui->listWidget->addItem(item);
+    ui->listWidget->addItem(LPitem);
 
     for (PoolInterface *pool : market_->GetMarketPools()) {
         ui->pool_comboBox->addItem(QString::fromStdString(getPoolName(pool)),
@@ -39,6 +43,12 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     ui->View_Options->setCurrentIndex(0);
 
     test_token = market_->getToken("DAI");
+
+    LPGraphItem *pool_graphLP = new LPGraphItem(this, pool);
+
+    QListWidgetItem *itemLP = ui->listWidget->item(1);
+    itemLP->setSizeHint(pool_graphLP->sizeHint());
+    ui->listWidget->setItemWidget(itemLP, pool_graphLP);
 }
 
 SimulationPlayground::~SimulationPlayground() {
@@ -57,6 +67,15 @@ void SimulationPlayground::on_runButton_clicked() {
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
         pool_graph->UpdateGraph();
     }
+    QVector<double> LP_Profits = market_->GetLPProfits();
+
+    QListWidgetItem *itemLP = ui->listWidget->item(1);
+    QWidget *item_widgetLP = ui->listWidget->itemWidget(itemLP);
+
+    LPGraphItem *pool_graphLP = qobject_cast<LPGraphItem *>(item_widgetLP);
+    pool_graphLP->set_LP_Profits(LP_Profits);
+    pool_graphLP->UpdateGraph();
+
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
@@ -65,9 +84,6 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
 
     PoolInterface *pool = qvariant_cast<PoolInterface *>(ui->pool_comboBox->itemData(index));
     PoolGraphItem *pool_graph = new PoolGraphItem(this, pool);
-
-    pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
-    pool_graph->UpdateGraph();
 
     QListWidgetItem *item = ui->listWidget->item(0);
     item->setSizeHint(pool_graph->sizeHint());
@@ -89,6 +105,7 @@ void SimulationPlayground::on_pushButton_2_clicked() {
     market_ = new Market();
     market_->loadInitialScenario({{"ETH", 1012}, {"DAI", 10}, {"BTC", 5}}, PROTOCOL::UNISWAP_V2);
 
+    LP_Profits.clear();
     ui->pool_comboBox->clear();
 
     for (PoolInterface *pool : market_->GetMarketPools()) {

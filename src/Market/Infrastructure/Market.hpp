@@ -26,12 +26,14 @@ public:
     std::unordered_set<Token *> GetMarketTokens() const;
     std::unordered_set<PoolInterface *> GetMarketPools() const;
     Token* getToken(std::string name) const;
+    QVector<double> GetLPProfits();
 
     void loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL pool_type);
     void loadInitialScenario(const std::unordered_set<PoolInterface *> pools);
 
     double ProfitLP(PoolInterface *pool);
 private:
+    QVector<double> LP_Profits;
     static int MarketCount;
     int MarketIndex;
     int epoch;
