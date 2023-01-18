@@ -18,7 +18,7 @@ public:
     ~SimulationPlayground();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_runButton_clicked();
 
     void on_pool_comboBox_currentIndexChanged(int index);
 

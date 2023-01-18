@@ -43,7 +43,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="runButton">
         <property name="text">
          <string>Run Epoch</string>
         </property>

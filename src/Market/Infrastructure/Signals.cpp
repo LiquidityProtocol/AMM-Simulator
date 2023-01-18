@@ -46,11 +46,11 @@ Token *Signal::output_token() const {
 }
 
 double Signal::quantity() const {
-    return recommend_quantity_;
+    return quantity_;
 }
 
 void Signal::setQuantity(double q) {
-    recommend_quantity_ = q;
+    quantity_ = q;
 }
 
 double Signal::simulate(double input_cash) const {

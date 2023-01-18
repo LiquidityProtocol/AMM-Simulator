@@ -26,7 +26,7 @@ private:
     Token *input_token_;
     Token *output_token_;
 
-    double recommend_quantity_;
+    double quantity_;
 };
 
 class TradeRoute {

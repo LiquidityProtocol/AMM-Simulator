@@ -45,10 +45,8 @@ SimulationPlayground::~SimulationPlayground() {
     delete ui;
 }
 
-void SimulationPlayground::on_pushButton_clicked() {
+void SimulationPlayground::on_runButton_clicked() {
     market_->runEpoch();
-
-    assert(ui->View_Options->currentIndex() != -1);
 
     if (ui->pool_comboBox->currentIndex() != -1) {
         QListWidgetItem *item = ui->listWidget->item(0);
@@ -81,7 +79,7 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
     }
     for(int i = 0; i < ui->lineEdit->text().toInt(); i++){
-        on_pushButton_clicked();
+        on_runButton_clicked();
     }
 }
 
@@ -115,4 +113,5 @@ void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
     item->setSizeHint(pool_graph->sizeHint());
     ui->listWidget->setItemWidget(item, pool_graph);
 }
+
 
