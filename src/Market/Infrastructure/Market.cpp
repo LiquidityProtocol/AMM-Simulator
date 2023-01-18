@@ -138,6 +138,9 @@ std::unordered_set<PoolInterface *> Market::GetMarketPools() const {
 std::unordered_set<Account *> Market::GetMarketAccounts() const {
     return accounts_;
 }
+CommunityActor* Market::GetMarketCommunityActor() const {
+    return A;
+}
 
 // int main() {
 //     Market MySimulation;

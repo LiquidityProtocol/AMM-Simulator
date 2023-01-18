@@ -20,6 +20,7 @@ public:
     std::unordered_set<Token *> GetMarketTokens() const;
     std::unordered_set<PoolInterface *> GetMarketPools() const;
     std::unordered_set<Account *> GetMarketAccounts() const;
+    CommunityActor* GetMarketCommunityActor() const;
     Token* getToken(std::string name);
 private:
     static int MarketCount;
@@ -30,7 +31,7 @@ private:
     std::unordered_set<PoolInterface *> pools_;
     std::unordered_set<Account *> accounts_;
 
-    CommunityActor *A;
+    CommunityActor* A;
 };
 
 #endif

@@ -21,11 +21,11 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pool_comboBox_currentIndexChanged(int index);
-
+/*
     void on_comboBox_currentIndexChanged(int index2);
 
     void on_comboBox_2_currentIndexChanged(int index3);
-
+*/
     void on_pushButton_customEpoch_clicked();
 
     void on_pushButton_2_clicked();
@@ -37,6 +37,8 @@ private:
     std::unordered_map<Token*, QVector<double> > inventory_quantities;
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
     Token* test_token;
+    CommunityActor *arbitrager;
+    CommunityActor *provider;
 };
 
 #endif // SIMULATIONPLAYGROUND_H
