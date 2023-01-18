@@ -68,9 +68,13 @@ FORMS += \
     TradeDialog.ui \
     WalletListWidgetItem.ui \
     WithdrawDialog.ui \
-    introductorywindow.ui
+    introductorywindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    LOGO.qrc \
+    Logo_background.qrc

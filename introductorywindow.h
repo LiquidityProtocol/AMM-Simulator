@@ -23,4 +23,5 @@ private:
     MainWindow* mainwindow;
 };
 
+
 #endif // INTRODUCTORYWINDOW_H
