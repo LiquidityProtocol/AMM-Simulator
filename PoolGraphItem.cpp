@@ -17,7 +17,6 @@ QColor random_color() {
     return color;
 }
 
-
 PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     QWidget(parent),
     ui(new Ui::PoolGraphItem),
@@ -30,44 +29,45 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
         token_to_graph[token]->setName(QString::fromStdString(token->name()));
         token_to_graph[token]->setPen(QPen(QBrush(QColor(random_color())), 2));
 
-        for (auto token2 : pool_->tokens()) if (token->name() != token2->name()) {
-            std::string NAME = token->name() + "/" + token2->name();
-
-            pToken_to_graph[token][token2] = ui->widget->addGraph();
-            pToken_to_graph[token][token2]->setName(QString::fromStdString(NAME));
-            pToken_to_graph[token][token2]->setPen(QPen(QBrush(QColor(random_color())), 2));
-        }
         plottedToken1 = (plottedToken1 == nullptr ? token : plottedToken1);
         plottedToken2 = token;
     }
+    initLineChart();
+    initCandleStick();
+
     assert(plottedToken1);
     assert(plottedToken2);
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void PoolGraphItem::UpdateGraph() {
-    // clear the data of previous graph
-    for (auto token1 : pool_->tokens())
-    for (auto token2 : pool_->tokens()) if (token1->name() != token2->name()) {
-        pToken_to_graph[token1][token2]->data()->clear();
-        pToken_to_graph[token1][token2]->removeFromLegend();
-    }
-    for (auto token : pool_->tokens()) {
-        token_to_graph[token]->data()->clear();
-        token_to_graph[token]->removeFromLegend();
-    }
+    clearData();
 
-    // plot the data from the ledger
-    std::vector<Operation *> poolLedger = pool_->ledger();
+    std::vector<Operation *> opsList;
     QVector<double> epochs;
+    int nEpochs = 0;
+    int nOps = 0;
 
-    for (size_t i = 0 ; i < poolLedger.size() ; ++i)
+    while (true) {
+        auto ops = pool_->kthLastOps(nOps);
+        if (ops == nullptr) break;
+        if (ops->endEpoch()) {
+            epochs.append(epochs.size());
+            if (epochs.size() > plotted_Epochs)
+                break;
+        }
+        opsList.push_back(ops);
+        nOps++;
+    }
+    reverse(opsList.begin(), opsList.end());
+
+    for (int i = 0 ; i < nEpochs ; ++i)
         epochs.append(i);
 
-    if (plotting_inventory) {
+    if (plotting_volume) {
         std::unordered_map<Token*, QVector<double> > volume;
 
-        for (auto ops : poolLedger)
+        for (auto ops : opsList) if (ops->endEpoch())
         for (auto token : pool_->tokens())
             volume[token].append(ops->GetQuanitty(token) * token->real_value());
 
@@ -77,25 +77,77 @@ void PoolGraphItem::UpdateGraph() {
             token_to_graph[token]->rescaleAxes(true);
         }
     } else {
-        QVector<double> spotPriceHistory;
+        QVector<double> open, high, low, close;
 
-        for (auto ops : poolLedger)
-            spotPriceHistory.append(ops->GetSpotPrice(plottedToken1, plottedToken2));
+        for (int i = 0 ; i < nOps ; ++i) {
+            Operation *ops = opsList[i];
+            double price = ops->GetSpotPrice(plottedToken1, plottedToken2);
 
-        pToken_to_graph[plottedToken1][plottedToken2]->setData(epochs, spotPriceHistory);
-        pToken_to_graph[plottedToken1][plottedToken2]->addToLegend();
-        pToken_to_graph[plottedToken1][plottedToken2]->rescaleAxes(true);
+            if (i == 0 || (ops->endEpoch() && i != nOps - 1)) {
+                open.append(price);
+                high.append(price);
+                low.append(price);
+            }
+            if (i == nOps - 1 || (ops->endEpoch() && i != 0)) {
+                close.append(price);
+            }
+            high.back() = std::max(high.back(), price);
+            low.back() = std::min(low.back(), price);
+        }
+        epochs.resize(open.size());
+
+        double ymin = *std::min_element(low.begin(), low.end());
+        double ymax = *std::max_element(high.begin(), high.end());
+        double yrange = ymax - ymin;
+
+        lineChart->setData(epochs, close);
+        candleStick->setData(epochs, open, high, low, close);
+
+        ui->widget->yAxis->setRange(std::max(0.0, ymin - yrange * 0.1), ymax + yrange * 0.1);
     }
     ui->widget->xAxis->setLabel("Epochs");
-    ui->widget->yAxis->setLabel(plotting_inventory ? "Quantity" : "Spot Price");
+    ui->widget->yAxis->setLabel(plotting_volume ? "Volume" : "Price");
     ui->widget->legend->setVisible(true);
     ui->widget->replot();
 }
 
-void PoolGraphItem::setViewMethod(bool plotting_inventory) {
-    this->plotting_inventory = plotting_inventory;
+void PoolGraphItem::clearData() {
+    for (auto token : pool_->tokens()) {
+        token_to_graph[token]->data()->clear();
+        token_to_graph[token]->removeFromLegend();
+    }
+    lineChart->data()->clear();
+    lineChart->removeFromLegend();
+
+    candleStick->data()->clear();
+    candleStick->removeFromLegend();
 }
-PoolGraphItem::~PoolGraphItem()
-{
+
+void PoolGraphItem::initLineChart() {
+    lineChart = new QCPGraph(ui->widget->xAxis, ui->widget->yAxis);
+    //  lineChart->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle,
+    //                             QPen(Qt::black, 1.5), QBrush(Qt::white), 3));
+    lineChart->setLineStyle(QCPGraph::lsLine);
+    lineChart->setPen(QPen(QColor(120, 120, 120), 3));
+    lineChart->keyAxis()->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    lineChart->valueAxis()->setUpperEnding(QCPLineEnding::esSpikeArrow);
+
+    QBrush shadowBrush(QColor(0, 0, 0), Qt::Dense7Pattern);
+    lineChart->setBrush(shadowBrush);
+    lineChart->setName("Line chart");
+}
+
+void PoolGraphItem::initCandleStick() {
+    candleStick = new QCPFinancial(ui->widget->xAxis,
+                                   ui->widget->yAxis);
+    candleStick->setChartStyle(QCPFinancial::csCandlestick);
+    candleStick->setTwoColored(true);
+    candleStick->setName("Candlestick");
+}
+
+void PoolGraphItem::setViewMethod(bool plotting_volume) {
+    this->plotting_volume = plotting_volume;
+}
+PoolGraphItem::~PoolGraphItem() {
     delete ui;
 }
