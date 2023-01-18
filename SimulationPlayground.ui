@@ -78,13 +78,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>70</y>
-     <width>161</width>
-     <height>161</height>
+     <y>10</y>
+     <width>221</width>
+     <height>115</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -113,6 +113,35 @@
      <widget class="QComboBox" name="comboBox_2">
       <property name="placeholderText">
        <string>Select Behavior</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>140</y>
+     <width>258</width>
+     <height>218</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Initial scenario</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="textEdit_initial_scenario"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_load_scenario">
+      <property name="text">
+       <string>Load</string>
       </property>
      </widget>
     </item>

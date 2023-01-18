@@ -75,14 +75,21 @@ void SimulationPlayground::on_pushButton_2_clicked()
     delete market_;
     market_ = new Market();
     ui->pool_comboBox->clear();
-    for (auto pool: market_->GetMarketPools()){
-        std::string name;
-        for (auto token: pool->tokens()){
-            name += token->name() + " & ";
-        }
-        QString pool_name = QString::fromStdString(std::string(name.begin(), name.end() - 3));
-        ui->pool_comboBox->addItem(pool_name, QVariant::fromValue(pool));
+    ui->listWidget->clear();
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
+    ui->listWidget->addItem(item);
+}
+
+
+void SimulationPlayground::on_pushButton_load_scenario_clicked()
+{
+    QString scenario_string = ui->textEdit_initial_scenario->toPlainText();
+    QByteArray byte_arr = scenario_string.toUtf8();
+    QJsonDocument doc = QJsonDocument::fromJson(byte_arr);
+    QJsonObject obj = doc.object();
+    QStringList tokens = obj["price_tag"].toObject().keys();
+    for(auto token: tokens){
+        double price = obj["price_tag"][token].toDouble();
     }
-    ui->pool_comboBox->setCurrentIndex(0);
 }
 

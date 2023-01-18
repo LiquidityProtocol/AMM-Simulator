@@ -26,6 +26,8 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_load_scenario_clicked();
+
 private:
     Ui::SimulationPlayground *ui;
     Market* market_;
