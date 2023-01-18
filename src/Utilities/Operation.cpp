@@ -5,14 +5,19 @@ Operation::Operation(
     const std::string &account_name,
     PoolInterface *pool,
     const std::unordered_map<Token *, double> &input,
-    const std::unordered_map<Token *, double> &output
-) : operation_type_(operation_type)
+    const std::unordered_map<Token *, double> &output,
+    bool endEpoch
+) : endEpoch_(endEpoch)
+  , operation_type_(operation_type)
   , account_name_(account_name)
   , pool_(pool)
   , input_(input)
   , output_(output) {
 
     quantities_ = pool->quantities();
+
+    for (Token *a : pool->tokens())
+        market_price_[a] = a->real_value();
 
     for (Token *a : pool->tokens())
     for (Token *b : pool->tokens())
@@ -39,12 +44,20 @@ std::unordered_map<Token *, double> Operation::output() const {
     return output_;
 }
 
+double Operation::GetMarketPrice(Token *a, Token *b) const {
+    return (market_price_.find(b)->second) / (market_price_.find(a)->second);
+}
+
 double Operation::GetSpotPrice(Token *a, Token *b) const {
     return (spotPriceMatrix.find(a)->second).find(b)->second;
 }
 
 double Operation::GetQuanitty(Token *a) const {
     return quantities_.find(a)->second;
+}
+
+bool Operation::endEpoch() const {
+    return endEpoch_;
 }
 
 

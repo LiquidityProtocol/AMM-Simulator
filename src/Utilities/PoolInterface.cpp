@@ -302,6 +302,18 @@ std::vector<Operation *> PoolInterface::ledger() const {
     return ledger_;
 }
 
+Operation *PoolInterface::kthLastOps(int k) const {
+    if ((int)ledger_.size() <= k) {
+        return nullptr;
+    } else {
+        return ledger_[ledger_.size() - 1 - k];
+    }
+}
+
+void PoolInterface::endEpoch() {
+    ledger_.back()->endEpoch_ = true;
+}
+
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
     /*
      * This method computes the spot exchange rate of a swap.

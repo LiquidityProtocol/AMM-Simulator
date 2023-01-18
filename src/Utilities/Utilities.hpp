@@ -77,7 +77,8 @@ public:
         const std::string &account_name,
         PoolInterface *pool,
         const std::unordered_map<Token *, double> &input,
-        const std::unordered_map<Token *, double> &output
+        const std::unordered_map<Token *, double> &output,
+        bool endEpoch = false
     );
 
     std::string operation_type() const;
@@ -86,18 +87,23 @@ public:
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 
+    double GetMarketPrice(Token *a, Token *b) const;
     double GetSpotPrice(Token *a, Token *b) const;
     double GetQuanitty(Token *a) const;
+    bool endEpoch() const;
 
     friend std::ostream & operator<<(std::ostream &os, const Operation &op);
+    friend class PoolInterface;
 
 private:
+    bool endEpoch_;
     std::string operation_type_;
     std::string account_name_;
     PoolInterface *pool_;
     std::unordered_map<Token *, double> quantities_;
     std::unordered_map<Token *, double> input_;
     std::unordered_map<Token *, double> output_;
+    std::unordered_map<Token *, double> market_price_;
 
     std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMatrix;
 };
@@ -163,6 +169,9 @@ public:
     std::vector<Operation *> GetLatestOps(int n) const;
     std::vector<Operation *> ledger() const;
 
+    Operation *kthLastOps(int k) const;
+
+    void endEpoch();
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 
