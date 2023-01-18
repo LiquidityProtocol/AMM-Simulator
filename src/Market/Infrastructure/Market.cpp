@@ -111,6 +111,9 @@ Token* Market::getToken(std::string name) const {
 void Market::runEpoch() {
     epoch++;
 
+    for (auto token : GetMarketTokens())
+        token->real_value_ *= exp(rvNorm(0, 0.01));
+
     for (int _ = 0 ; _ < 10 ; ++_)
     for (auto pool : GetMarketPools()) {
         Token *token1 = *(pool->tokens()).begin();
@@ -215,6 +218,8 @@ void Market::runEpoch() {
     }
     for (auto pool : GetMarketPools())
         pool->endEpoch();
+
+    ProfitLP(*GetMarketPools().begin());
 }
 
 void Market::executeSignal(Account *sender, Signal *signal) {

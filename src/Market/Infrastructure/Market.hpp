@@ -29,6 +29,8 @@ public:
 
     void loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL pool_type);
     void loadInitialScenario(const std::unordered_set<PoolInterface *> pools);
+
+    double ProfitLP(PoolInterface *pool);
 private:
     static int MarketCount;
     int MarketIndex;
