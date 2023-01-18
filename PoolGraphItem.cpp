@@ -17,7 +17,6 @@ QColor random_color() {
     return color;
 }
 
-
 PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     QWidget(parent),
     ui(new Ui::PoolGraphItem),
@@ -30,68 +29,116 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
         token_to_graph[token]->setName(QString::fromStdString(token->name()));
         token_to_graph[token]->setPen(QPen(QBrush(QColor(random_color())), 2));
 
-        for (auto token2 : pool_->tokens()) if (token->name() != token2->name()) {
-            std::string NAME = token->name() + "/" + token2->name();
-
-            pToken_to_graph[token][token2] = ui->widget->addGraph();
-            pToken_to_graph[token][token2]->setName(QString::fromStdString(NAME));
-            pToken_to_graph[token][token2]->setPen(QPen(QBrush(QColor(random_color())), 2));
-        }
         plottedToken1 = (plottedToken1 == nullptr ? token : plottedToken1);
         plottedToken2 = token;
     }
+    initLineChart();
+    initCandleStick();
+
     assert(plottedToken1);
     assert(plottedToken2);
-    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+//    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void PoolGraphItem::UpdateGraph() {
-    // clear the data of previous graph
-    for (auto token1 : pool_->tokens())
-    for (auto token2 : pool_->tokens()) if (token1->name() != token2->name()) {
-        pToken_to_graph[token1][token2]->data()->clear();
-        pToken_to_graph[token1][token2]->removeFromLegend();
-    }
-    for (auto token : pool_->tokens()) {
-        token_to_graph[token]->data()->clear();
-        token_to_graph[token]->removeFromLegend();
-    }
+    clearData();
 
-    // plot the data from the ledger
-    std::vector<Operation *> poolLedger = pool_->ledger();
+    std::vector<Operation *> opsList = pool_->GetLatestEpochs(plotted_Epochs);
     QVector<double> epochs;
 
-    for (size_t i = 0 ; i < poolLedger.size() ; ++i)
-        epochs.append(i);
+    if (opsList.empty())
+        return;
 
-    if (plotting_inventory) {
-        std::unordered_map<Token*, QVector<double> > inventory_quantities;
+    for (auto ops : opsList) {
+        assert(ops->endEpoch());
+        epochs.append(ops->epochIndex());
+    }
 
-        for (auto ops : poolLedger)
+    double xmin = epochs[0], xmax = epochs.back();
+    double ymin = 1e18, ymax = -1;
+
+    if (plotting_volume) {
+        std::unordered_map<Token*, QVector<double> > volume;
+
+        for (auto ops : opsList) if (ops->endEpoch())
         for (auto token : pool_->tokens())
-            inventory_quantities[token].append(ops->GetQuanitty(token));
+            volume[token].append(ops->GetQuanitty(token) * token->real_value());
 
         for (auto token : pool_->tokens()) {
-            token_to_graph[token]->setData(epochs, inventory_quantities[token]);
+            ymin = std::min(ymin, *std::min_element(volume[token].begin(), volume[token].end()));
+            ymax = std::max(ymax, *std::max_element(volume[token].begin(), volume[token].end()));
+
+            token_to_graph[token]->setData(epochs, volume[token]);
             token_to_graph[token]->addToLegend();
             token_to_graph[token]->rescaleAxes(true);
         }
     } else {
-        QVector<double> spotPriceHistory;
+        QVector<double> open, high, low, close;
 
-        for (auto ops : poolLedger)
-            spotPriceHistory.append(ops->GetSpotPrice(plottedToken1, plottedToken2));
+        for (auto ops : opsList) {
+            open.append(ops->GetOpenPrice(plottedToken1, plottedToken2));
+            high.append(ops->GetHighPrice(plottedToken1, plottedToken2));
+            low.append(ops->GetLowPrice(plottedToken1, plottedToken2));
+            close.append(ops->GetClosePrice(plottedToken1, plottedToken2));
+        }
+        epochs.resize(open.size());
 
-        pToken_to_graph[plottedToken1][plottedToken2]->setData(epochs, spotPriceHistory);
-        pToken_to_graph[plottedToken1][plottedToken2]->addToLegend();
-        pToken_to_graph[plottedToken1][plottedToken2]->rescaleAxes(true);
+        ymin = *std::min_element(low.begin(), low.end());
+        ymax = *std::max_element(high.begin(), high.end());
+
+        lineChart->setData(epochs, close);
+        lineChart->setName(QString::fromStdString(plottedToken1->name() + "/" + plottedToken2->name()));
+        candleStick->setData(epochs, open, high, low, close);
     }
+    double xrange = xmax - xmin;
+    double yrange = ymax - ymin;
+
+    ui->widget->xAxis->setRange(std::max(0.0, xmin - xrange * 0.1), xmax + xrange * 0.1);
+    ui->widget->yAxis->setRange(std::max(0.0, ymin - yrange * 0.1), ymax + yrange * 0.1);
+
     ui->widget->xAxis->setLabel("Epochs");
-    ui->widget->yAxis->setLabel(plotting_inventory ? "Quantity" : "Spot Price");
+    ui->widget->yAxis->setLabel(plotting_volume ? "Volume" : "Price");
     ui->widget->legend->setVisible(true);
     ui->widget->replot();
 }
-PoolGraphItem::~PoolGraphItem()
-{
+
+void PoolGraphItem::clearData() {
+    for (auto token : pool_->tokens()) {
+        token_to_graph[token]->data()->clear();
+        token_to_graph[token]->removeFromLegend();
+    }
+    lineChart->data()->clear();
+    lineChart->removeFromLegend();
+
+    candleStick->data()->clear();
+    candleStick->removeFromLegend();
+}
+
+void PoolGraphItem::initLineChart() {
+    lineChart = new QCPGraph(ui->widget->xAxis, ui->widget->yAxis);
+    //  lineChart->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle,
+    //                             QPen(Qt::black, 1.5), QBrush(Qt::white), 3));
+    lineChart->setLineStyle(QCPGraph::lsLine);
+    lineChart->setPen(QPen(QColor(120, 120, 120), 3));
+    lineChart->keyAxis()->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    lineChart->valueAxis()->setUpperEnding(QCPLineEnding::esSpikeArrow);
+
+    QBrush shadowBrush(QColor(0, 0, 0), Qt::Dense7Pattern);
+    lineChart->setBrush(shadowBrush);
+    lineChart->setName("Line chart");
+}
+
+void PoolGraphItem::initCandleStick() {
+    candleStick = new QCPFinancial(ui->widget->xAxis,
+                                   ui->widget->yAxis);
+    candleStick->setChartStyle(QCPFinancial::csCandlestick);
+    candleStick->setTwoColored(true);
+    candleStick->setName("Candlestick");
+}
+
+void PoolGraphItem::setViewMethod(bool plotting_volume) {
+    this->plotting_volume = plotting_volume;
+}
+PoolGraphItem::~PoolGraphItem() {
     delete ui;
 }

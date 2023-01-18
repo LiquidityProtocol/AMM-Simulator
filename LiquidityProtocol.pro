@@ -25,8 +25,12 @@ SOURCES += \
     main.cpp \
     MainWindow.cpp \
     qcustomplot.cpp \
-    src/Market/Infrastructure/Events.cpp \
-    src/Market/Strategy/StrategyHeader.cpp \
+    src/Market/Agents/Arbitrager.cpp \
+    src/Market/Agents/Provider.cpp \
+    src/Market/Infrastructure/LP_Profit.cpp \
+    src/Market/Infrastructure/Signals.cpp \
+    src/Market/Infrastructure/SignalsHandler.cpp \
+    src/Market/Simulation.cpp \
     src/Utilities/Account.cpp \
     src/Utilities/Operation.cpp \
     src/Utilities/PoolInterface.cpp \
@@ -55,11 +59,14 @@ HEADERS += \
     WalletListWidgetItem.h \
     qcustomplot.h \
     WithdrawDialog.h \
-    src/Market/Infrastructure/Events.hpp \
+    src/Market/Agents/Arbitrager.hpp \
+    src/Market/Agents/Provider.hpp \
+    src/Market/Infrastructure/Signals.hpp \
+    src/Market/Infrastructure/SignalsHandler.hpp \
+    src/Market/Simulation.hpp \
     src/Market/Strategy/Strat_HashAI.hpp \
     src/Market/Strategy/Strat_LinearRegression.hpp \
     src/Market/Strategy/Strat_MovingAverage.hpp \
-    src/Market/Strategy/StrategyHeader.hpp \
     src/Utilities/Utilities.hpp \
     src/Protocols/BalancerPool.hpp \
     src/Protocols/ConstantSum.hpp \

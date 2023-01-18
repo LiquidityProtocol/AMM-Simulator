@@ -86,20 +86,36 @@ public:
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 
+    double GetOpenPrice(Token *a, Token *b) const;
+    double GetHighPrice(Token *a, Token *b) const;
+    double GetLowPrice(Token *a, Token *b) const;
+    double GetClosePrice(Token *a, Token *b) const;
+
+    double GetMarketPrice(Token *a) const;
     double GetSpotPrice(Token *a, Token *b) const;
     double GetQuanitty(Token *a) const;
+    bool endEpoch() const;
+    int epochIndex() const;
 
     friend std::ostream & operator<<(std::ostream &os, const Operation &op);
+    friend class PoolInterface;
 
 private:
+    bool endEpoch_ = false;
+    int nEpochs = 1;
+
+    Operation *prvEpochOps = nullptr;
+
     std::string operation_type_;
     std::string account_name_;
     PoolInterface *pool_;
     std::unordered_map<Token *, double> quantities_;
     std::unordered_map<Token *, double> input_;
     std::unordered_map<Token *, double> output_;
+    std::unordered_map<Token *, double> market_price_;
 
     std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMatrix;
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > open, high, low, close;
 };
 
 class Account {
@@ -148,6 +164,8 @@ public:
     double GetQuantity(Token *token) const;
 
     double pool_fee() const;
+    double pool_value() const;
+    double pool_token_value() const;
 
     Token * pool_token() const;
     double total_pool_token_quantity() const;
@@ -158,9 +176,13 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
     double GetSpotPrice(Token *input_token, Token *output_token) const;
 
+    std::vector<Operation *> GetLatestEpochs(int n) const;
     std::vector<Operation *> GetLatestOps(int n) const;
     std::vector<Operation *> ledger() const;
 
+    Operation *kthLastOps(int k) const;
+
+    void endEpoch();
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 

@@ -77,6 +77,19 @@ double PoolInterface::pool_fee() const {
     return pool_fee_;
 }
 
+double PoolInterface::pool_value() const {
+    double Value = 0;
+
+    for (auto [token, quantity] : quantities())
+        Value += token->real_value() * quantity;
+
+    return Value;
+}
+
+double PoolInterface::pool_token_value() const {
+    return pool_value() / total_pool_token_quantity();
+}
+
 Token * PoolInterface::pool_token() const {
     /*
      * This method returns the pool token.
@@ -272,6 +285,19 @@ double PoolInterface::GetSpotPrice(Token *input_token, Token *output_token) cons
     }
 }
 
+std::vector<Operation *> PoolInterface::GetLatestEpochs(int n) const {
+    std::vector<Operation *> opsList;
+
+    for (auto ops = kthLastOps(0) ; ops ; ops = ops->prvEpochOps) {
+        opsList.push_back(ops);
+        if ((int)opsList.size() >= n)
+            break;
+    }
+    reverse(opsList.begin(), opsList.end());
+
+    return opsList;
+}
+
 std::vector<Operation *> PoolInterface::GetLatestOps(int n) const {
     if ((int)ledger_.size() <= n) {
         return ledger_;
@@ -287,6 +313,18 @@ std::vector<Operation *> PoolInterface::ledger() const {
      * @return: the ledger of the pool
      */
     return ledger_;
+}
+
+Operation *PoolInterface::kthLastOps(int k) const {
+    if ((int)ledger_.size() <= k) {
+        return nullptr;
+    } else {
+        return ledger_[ledger_.size() - 1 - k];
+    }
+}
+
+void PoolInterface::endEpoch() {
+    ledger_.back()->endEpoch_ = true;
 }
 
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {

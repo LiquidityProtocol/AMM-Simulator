@@ -1,4 +1,4 @@
-#include "Events.hpp"
+#include "Signals.hpp"
 
 Signal::Signal(PoolInterface *pool) {
     pool_ = pool;
@@ -43,6 +43,14 @@ Token *Signal::input_token() const {
 }
 Token *Signal::output_token() const {
     return output_token_;
+}
+
+double Signal::quantity() const {
+    return quantity_;
+}
+
+void Signal::setQuantity(double q) {
+    quantity_ = q;
 }
 
 double Signal::simulate(double input_cash) const {

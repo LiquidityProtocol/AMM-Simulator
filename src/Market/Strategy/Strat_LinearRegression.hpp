@@ -1,8 +1,7 @@
 #ifndef STRAT_LINEAR_REGRESSION
 #define STRAT_LINEAR_REGRESSION
 
-#include "../Infrastructure/Market.hpp"
-#include "../Infrastructure/Events.hpp"
+#include "../Infrastructure/Signals.hpp"
 #include <cmath>
 
 namespace LinearRegression {
@@ -50,31 +49,29 @@ namespace LinearRegression {
         return LRchannel(slope, intercept, sqrt(variance_Y));
     }
 
-    void calculateSignal(std::vector<Signal> &signal, Market *market) {
-        for (PoolInterface *pool : market->GetMarketPools()) {
-            std::vector<Operation *> opsList = pool->GetLatestOps(50);
+    void calculateSignal(std::vector<Signal> &signal, PoolInterface *pool) {
+        std::vector<Operation *> opsList = pool->GetLatestOps(50);
 
-            if (opsList.empty())
+        if (opsList.empty())
+            return;
+
+        for (Token *a : pool->tokens())
+        for (Token *b : pool->tokens()) {
+            if (a->name() == b->name())
                 continue;
 
-            for (Token *a : pool->tokens())
-            for (Token *b : pool->tokens()) {
-                if (a->name() == b->name())
-                    continue;
+            std::vector<double> bars;
 
-                std::vector<double> bars;
+            for (auto ops : opsList)
+                bars.push_back(ops->GetSpotPrice(a, b));
 
-                for (auto ops : opsList)
-                    bars.push_back(ops->GetSpotPrice(a, b));
+            LRchannel fitChannel = calculateLR(bars);
 
-                LRchannel fitChannel = calculateLR(bars);
+            double fit = fitChannel.fit(bars.size());
+            double dev = fitChannel.deviation();
 
-                double fit = fitChannel.fit(bars.size());
-                double dev = fitChannel.deviation();
-
-                if (bars.back() < fit && (fit - bars.back()) / dev > 0.5)
-                    signal.push_back(Signal(pool, a, b));
-            }
+            if (bars.back() < fit && (fit - bars.back()) / dev > 0.5)
+                signal.push_back(Signal(pool, a, b));
         }
     }
 }

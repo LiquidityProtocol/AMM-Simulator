@@ -1,15 +1,17 @@
 #include "Market.hpp"
 #include <random>
-#include <fstream>
 #include <iostream>
-#include <iomanip>
-#include <cassert>
 
 std::default_random_engine generator;
-std::normal_distribution<double> distribution(0.0, 1.0);
+std::normal_distribution<double> rnorm(0.0, 1.0);
+std::uniform_real_distribution<double> runi(0.0, 1.0);
 
-double RV(double m, double var) {
-    return distribution(generator) * var + m;
+
+double rvNorm(double m, double var) {
+    return rnorm(generator) * sqrt(var) + m;
+}
+double rvUni(double l, double r) {
+    return runi(generator) * (r - l) + l;
 }
 
 int Market::MarketCount = 0;
@@ -43,11 +45,11 @@ void Market::loadInitialScenario(const std::unordered_map<std::string, double> &
         if (token1->name() != token2->name()) {
             std::unordered_map<Token *, double> quantities;
 
-            if (RV(0, 1) < 0) { // the direction of unbalance is decided randomly
+            if (rvNorm(0, 1) < 0) { // the direction of unbalance is decided randomly
                 quantities[token1] = 1e8 / token1->real_value();
-                quantities[token2] = 9e7 / token2->real_value();
+                quantities[token2] = 5e7 / token2->real_value();
             } else {
-                quantities[token1] = 9e7 / token1->real_value();
+                quantities[token1] = 5e7 / token1->real_value();
                 quantities[token2] = 1e8 / token2->real_value(); // each token has equal volumeUSD inside the pool
             }
             PoolInterface *pool = nullptr;
@@ -82,6 +84,15 @@ void Market::addToken(Token *token) {
 void Market::addAccount(Account *account) {
     accounts_.emplace(account);
 }
+
+bool Market::havePool(PoolInterface *pool) const {
+    return pools_.count(pool);
+}
+
+bool Market::haveToken(Token *token) const {
+    return tokens_.count(token);
+}
+
 void Market::addPool(PoolInterface *pool) {
     pools_.emplace(pool);
     for (auto token : pool->tokens())
@@ -98,6 +109,12 @@ Token* Market::getToken(std::string name) const {
 }
 
 void Market::runEpoch() {
+    epoch++;
+
+    for (auto token : GetMarketTokens())
+        token->real_value_ *= exp(rvNorm(0, 0.01));
+
+    for (int _ = 0 ; _ < 10 ; ++_)
     for (auto pool : GetMarketPools()) {
         Token *token1 = *(pool->tokens()).begin();
         Token *token2 = *(++(pool->tokens()).begin());
@@ -105,19 +122,31 @@ void Market::runEpoch() {
         double PoolRatio = pool->GetSpotPrice(token1, token2);
         double MarketRatio = token2->real_value() / token1->real_value();
 
-        {   // LPs' Behavior:
-            double LP_incentive = abs(log(PoolRatio) - log(MarketRatio));
-            double LP_amount = RV(1, 1) - LP_incentive;
+        double sample = rvUni(0,1);
 
-            // each pool token worth 1e8 USD so we use constant 0.01 so that the volume of one provision is approximately 1M USD
+        const double PROVIDE_PROB = 0.01;
+        const double ARB_PROB = abs(log(PoolRatio) - log(MarketRatio)) * 0.2;
+        const double TRADE_PROB = 1 - PROVIDE_PROB - ARB_PROB;
 
-            if (LP_amount < 0) {
-                A->Withdraw(pool, -0.01 * LP_amount);
+        // black swan probability
+        double bs_sample = rvUni(0,1);
+        double bs_state = 0.005;
+
+        if (sample < PROVIDE_PROB) {
+            double LP_discourage = abs(log(PoolRatio) - log(MarketRatio));
+            double LP_volume;
+            if (bs_sample < bs_state){
+                LP_volume = rvNorm(0, 1) * 1e6;
             } else {
-                A->Provide(pool, 0.01 * LP_amount);
+                LP_volume = (rvNorm(0.5, 1) - LP_discourage) * 1e6;
             }
-        }   // done LPs' behavior
-        {   // Traders' behavior
+            double LP_amount = LP_volume / pool->pool_token_value();
+            if (LP_amount < 0) {
+                A->Withdraw(pool, -LP_amount);
+            } else {
+                A->Provide(pool, LP_amount);
+            }
+        } else if (sample < PROVIDE_PROB + ARB_PROB) {
             double volume1 = token1->real_value() * pool->GetQuantity(token1);
             double volume2 = token2->real_value() * pool->GetQuantity(token2);
 
@@ -128,14 +157,83 @@ void Market::runEpoch() {
             // token1 is being over estimated
             assert(volume1 < volume2 + 1e-4);
 
-            double volumeBalance = sqrt(volume1 * volume2);
-            double optimalQuantity = (volumeBalance - volume1) / token1->real_value();
+            double tradedVolumeWithNoise = sqrt(volume1 * volume2) * 1.05;
+            double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.1, rvNorm(1, 1));
 
-            try {
-                A->Trade(pool, token1, token2, optimalQuantity * std::max(0.001, RV(1, 2)));
+            try{
+                A->Trade(pool, token1, token2, tradedQuantityWithNoise);
             } catch(...) {}
-        }   // done Traders' behavior
+        } else {
+            assert(sample < PROVIDE_PROB + ARB_PROB + TRADE_PROB);
+
+            double TradeVolume = 0;
+            if (bs_sample < bs_state){
+                TradeVolume = std::max(0.1, rvNorm(0, 1)) * 1e7;
+            } else {
+                std::vector<Operation*> opsList = pool->GetLatestOps(50);
+
+                double frequency = 0;
+
+                for (auto op : opsList) {
+                    if (op->operation_type() != "TRADE")
+                        continue;
+
+                    for (auto [token, quantity] : op->input()) {
+                        TradeVolume += token->real_value() * quantity;
+                    }
+                    frequency += 1;
+                }
+                if (frequency == 0) {
+                    TradeVolume = rvNorm(1e4, 1e4);
+                } else {
+                    TradeVolume /= frequency;
+                    TradeVolume = rvNorm(TradeVolume, 1e3);
+                }
+            }
+            Token *input_token = nullptr;
+            Token *output_token = nullptr;
+
+            {
+                auto tokens = pool->tokens();
+
+                while (true) {
+                    int random_index = rvUni(0, tokens.size());
+                    auto it = tokens.begin();
+                    std::advance(it, random_index);
+                    auto token = *it;
+
+                    if (input_token == nullptr) {
+                        input_token = token;
+                        continue;
+                    } else if (output_token == nullptr && token != input_token) {
+                        output_token = token;
+                        break;
+                    }
+                }
+            }
+            try {
+                A->Trade(pool, input_token, output_token, TradeVolume / input_token->real_value());
+            } catch (...) {}
+        }
     }
+    for (auto pool : GetMarketPools())
+        pool->endEpoch();
+
+    ProfitLP(*GetMarketPools().begin());
+}
+
+void Market::executeSignal(Account *sender, Signal *signal) {
+    PoolInterface *pool = signal->pool();
+
+    if (!havePool(pool)) {
+        throw std::invalid_argument("Pool doesn't exist in this market");
+    }
+
+    Token *input_token = signal->input_token();
+    Token *output_token = signal->output_token();
+    double input_quantity = signal->quantity();
+
+    sender->Trade(pool, input_token, output_token, input_quantity);
 }
 
 std::unordered_set<Token *> Market::GetMarketTokens() const {
@@ -144,43 +242,3 @@ std::unordered_set<Token *> Market::GetMarketTokens() const {
 std::unordered_set<PoolInterface *> Market::GetMarketPools() const {
     return pools_;
 }
-
-// int main() {
-//     Market MySimulation;
-
-//     std::unordered_map<PoolInterface *, std::vector<double>> poolVal;
-//     std::unordered_map<PoolInterface *, std::vector<double>> liquidity;
-
-//     for (auto pool : MySimulation.GetMarketPools()) {
-//         Token *token1 = *(pool->tokens()).begin();
-//         Token *token2 = *(++(pool->tokens()).begin());
-
-//         poolVal[pool] = {2e8};
-//         liquidity[pool] = {pool->GetSpotPrice(token1, token2)};
-//     }
-
-//     for (int _ = 0 ; _ < 1000 ; ++_) {
-//         MySimulation.runEpoch();
-
-//         for (auto pool : MySimulation.GetMarketPools()) {
-//             Token *token1 = *(pool->tokens()).begin();
-//             Token *token2 = *(++(pool->tokens()).begin());
-            
-//             poolVal[pool].push_back(token1->real_value() * pool->GetQuantity(token1) + token2->real_value() * pool->GetQuantity(token2));
-//             liquidity[pool].push_back(pool->GetSpotPrice(token1, token2));
-//         }
-//     }
-//     for (auto pool : MySimulation.GetMarketPools()) {
-//         Token *token1 = *(pool->tokens()).begin();
-//         Token *token2 = *(++(pool->tokens()).begin());
-//         std::ofstream file((token1->name() + " and " + token2->name() + ".txt").c_str());
-
-//         file << std::fixed << std::setprecision(5);
-
-//         for (size_t i = 0 ; i < poolVal[pool].size() ; ++i) {
-//             file << poolVal[pool][i] << " ";
-//             file << liquidity[pool][i] << "\n";
-//         }
-//         file.close();
-//     }
-// }

@@ -1,11 +1,14 @@
 #ifndef STRAT_HASH_AI
 #define STRAT_HASH_AI
 
-#include "../Infrastructure/Market.hpp"
-#include "../Infrastructure/Events.hpp"
+#include "../Infrastructure/Signals.hpp"
+#include "../../Utilities/Utilities.hpp"
+#include "../../Protocols/Protocols.hpp"
 
 namespace HashAI {
-
+    TradeRoute *findArbs(std::unordered_set<PoolInterface *> pools);
+    void loadPools() {
+    }
 };
 
 #endif

@@ -18,7 +18,7 @@ public:
     ~SimulationPlayground();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_runButton_clicked();
 
     void on_pool_comboBox_currentIndexChanged(int index);
 
@@ -27,6 +27,7 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_pushButton_load_scenario_clicked();
+    void on_View_Options_currentIndexChanged(int index);
 
 private:
     Ui::SimulationPlayground *ui;

@@ -43,7 +43,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="runButton">
         <property name="text">
          <string>Run Epoch</string>
         </property>
@@ -85,6 +85,9 @@
      <y>10</y>
      <width>221</width>
      <height>115</height>
+     <y>70</y>
+     <width>161</width>
+     <height>211</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -96,7 +99,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="Arbs_Options">
       <property name="placeholderText">
        <string>Select Behavior</string>
       </property>
@@ -110,11 +113,21 @@
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="comboBox_2">
+     <widget class="QComboBox" name="LP_Options">
       <property name="placeholderText">
        <string>Select Behavior</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>View Method</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="View_Options"/>
     </item>
    </layout>
   </widget>

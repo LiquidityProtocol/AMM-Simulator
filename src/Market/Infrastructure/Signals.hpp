@@ -1,5 +1,5 @@
-#ifndef EVENTS_H
-#define EVENTS_H
+#ifndef SIGNALS_H
+#define SIGNALS_H
 
 #include "../../Utilities/Utilities.hpp"
 #include "../../Protocols/Protocols.hpp"
@@ -14,6 +14,9 @@ public:
     Token *input_token() const;
     Token *output_token() const;
 
+    double quantity() const;
+    void setQuantity(double q);
+
     double simulate(double input_cash) const;
     void setNext(Signal *e);
 private:
@@ -22,6 +25,8 @@ private:
     PoolInterface *pool_;
     Token *input_token_;
     Token *output_token_;
+
+    double quantity_;
 };
 
 class TradeRoute {
@@ -44,4 +49,4 @@ private:
     size_t len = 0;
 };
 
-#endif // EVENTS_H
+#endif // SIGNALS_H
