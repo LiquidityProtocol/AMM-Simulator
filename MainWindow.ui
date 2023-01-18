@@ -17,9 +17,10 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgba(169, 169, 169, 229);
+   <string notr="true">background-color: rgb(28, 18, 62);
 
 font: 13pt &quot;Calibri&quot;;
+color: rgb(169, 169, 169)
 
 </string>
   </property>
@@ -218,7 +219,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, st
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
