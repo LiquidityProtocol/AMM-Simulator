@@ -27,6 +27,7 @@ SOURCES += \
     qcustomplot.cpp \
     src/Market/Agents/Arbitrager.cpp \
     src/Market/Agents/Provider.cpp \
+    src/Market/Infrastructure/LP_Profit.cpp \
     src/Market/Infrastructure/Signals.cpp \
     src/Market/Infrastructure/SignalsHandler.cpp \
     src/Market/Simulation.cpp \

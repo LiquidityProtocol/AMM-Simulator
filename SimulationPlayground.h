@@ -16,6 +16,7 @@ class SimulationPlayground : public QDialog
 public:
     explicit SimulationPlayground(QWidget *parent = nullptr);
     ~SimulationPlayground();
+    std::unordered_map<std::string, double> verify_scenario(QString);
 
 private slots:
     void on_runButton_clicked();
@@ -24,9 +25,12 @@ private slots:
 
     void on_pushButton_customEpoch_clicked();
 
-    void on_pushButton_2_clicked();
-
+    void on_pushButton_load_scenario_clicked();
     void on_View_Options_currentIndexChanged(int index);
+    void update_pool_comboBox();
+
+    void on_pushButton_reset_market_clicked();
+
 
 private:
     Ui::SimulationPlayground *ui;
