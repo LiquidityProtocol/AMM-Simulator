@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "introductorywindow.h"
 #include "ui_MainWindow.h"
 #include "src/Utilities/Utilities.hpp"
 #include "AccountListWidgetItem.h"
@@ -7,6 +8,7 @@
 #include <QMessageBox>
 #include <tuple>
 #include "src/Playground.hpp"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -85,3 +87,17 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
     item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }
+
+
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    IntroductoryWindow *introductorywindow;
+    introductorywindow = new IntroductoryWindow();
+    // replace introductorywindow = new IntroductoryWindow();
+    // by introductorywindow = new IntroductoryWindow(this);
+    // to get the same stylesheet
+    introductorywindow->show();
+}
+
