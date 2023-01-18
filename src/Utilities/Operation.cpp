@@ -32,11 +32,16 @@ Operation::Operation(
     for (Token *b : pool->tokens()) {
         open[a][b] = high[a][b] = low[a][b] = close[a][b] = spotPriceMatrix[a][b] = pool->GetSpotPrice(a, b);
 
-        if (prvOps && !prvOps->endEpoch()) {
-            high[a][b] = std::max(high[a][b], prvOps->high[a][b]);
-            low[a][b] = std::min(low[a][b], prvOps->low[a][b]);
-
-            close[a][b] = prvOps->close[a][b];
+        if (prvOps) {
+            if (prvOps->endEpoch()) {
+                open[a][b] = prvOps->GetSpotPrice(a, b);
+                high[a][b] = std::max(high[a][b], open[a][b]);
+                low[a][b] = std::min(low[a][b], open[a][b]);
+            } else {
+                open[a][b] = prvOps->open[a][b];
+                high[a][b] = std::max(high[a][b], prvOps->high[a][b]);
+                low[a][b] = std::min(low[a][b], prvOps->low[a][b]);
+            }
         }
     }
 }
