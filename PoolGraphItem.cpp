@@ -37,32 +37,25 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
 
     assert(plottedToken1);
     assert(plottedToken2);
-    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+//    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void PoolGraphItem::UpdateGraph() {
     clearData();
 
-    std::vector<Operation *> opsList;
+    std::vector<Operation *> opsList = pool_->GetLatestEpochs(plotted_Epochs);
     QVector<double> epochs;
-    int nEpochs = 0;
-    int nOps = 0;
 
-    while (true) {
-        auto ops = pool_->kthLastOps(nOps);
-        if (ops == nullptr) break;
-        if (ops->endEpoch()) {
-            epochs.append(epochs.size());
-            if (epochs.size() > plotted_Epochs)
-                break;
-        }
-        opsList.push_back(ops);
-        nOps++;
+    if (opsList.empty())
+        return;
+
+    for (auto ops : opsList) {
+        assert(ops->endEpoch());
+        epochs.append(ops->epochIndex());
     }
-    reverse(opsList.begin(), opsList.end());
 
-    for (int i = 0 ; i < nEpochs ; ++i)
-        epochs.append(i);
+    double xmin = epochs[0], xmax = epochs.back();
+    double ymin = 1e18, ymax = -1;
 
     if (plotting_volume) {
         std::unordered_map<Token*, QVector<double> > volume;
@@ -72,6 +65,9 @@ void PoolGraphItem::UpdateGraph() {
             volume[token].append(ops->GetQuanitty(token) * token->real_value());
 
         for (auto token : pool_->tokens()) {
+            ymin = std::min(ymin, *std::min_element(volume[token].begin(), volume[token].end()));
+            ymax = std::max(ymax, *std::max_element(volume[token].begin(), volume[token].end()));
+
             token_to_graph[token]->setData(epochs, volume[token]);
             token_to_graph[token]->addToLegend();
             token_to_graph[token]->rescaleAxes(true);
@@ -79,32 +75,27 @@ void PoolGraphItem::UpdateGraph() {
     } else {
         QVector<double> open, high, low, close;
 
-        for (int i = 0 ; i < nOps ; ++i) {
-            Operation *ops = opsList[i];
-            double price = ops->GetSpotPrice(plottedToken1, plottedToken2);
-
-            if (i == 0 || (ops->endEpoch() && i != nOps - 1)) {
-                open.append(price);
-                high.append(price);
-                low.append(price);
-            }
-            if (i == nOps - 1 || (ops->endEpoch() && i != 0)) {
-                close.append(price);
-            }
-            high.back() = std::max(high.back(), price);
-            low.back() = std::min(low.back(), price);
+        for (auto ops : opsList) {
+            open.append(ops->GetOpenPrice(plottedToken1, plottedToken2));
+            high.append(ops->GetHighPrice(plottedToken1, plottedToken2));
+            low.append(ops->GetLowPrice(plottedToken1, plottedToken2));
+            close.append(ops->GetClosePrice(plottedToken1, plottedToken2));
         }
         epochs.resize(open.size());
 
-        double ymin = *std::min_element(low.begin(), low.end());
-        double ymax = *std::max_element(high.begin(), high.end());
-        double yrange = ymax - ymin;
+        ymin = *std::min_element(low.begin(), low.end());
+        ymax = *std::max_element(high.begin(), high.end());
 
         lineChart->setData(epochs, close);
+        lineChart->setName(QString::fromStdString(plottedToken1->name() + "/" + plottedToken2->name()));
         candleStick->setData(epochs, open, high, low, close);
-
-        ui->widget->yAxis->setRange(std::max(0.0, ymin - yrange * 0.1), ymax + yrange * 0.1);
     }
+    double xrange = xmax - xmin;
+    double yrange = ymax - ymin;
+
+    ui->widget->xAxis->setRange(std::max(0.0, xmin - xrange * 0.1), xmax + xrange * 0.1);
+    ui->widget->yAxis->setRange(std::max(0.0, ymin - yrange * 0.1), ymax + yrange * 0.1);
+
     ui->widget->xAxis->setLabel("Epochs");
     ui->widget->yAxis->setLabel(plotting_volume ? "Volume" : "Price");
     ui->widget->legend->setVisible(true);
