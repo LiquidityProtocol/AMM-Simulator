@@ -19,7 +19,6 @@ int Market::MarketCount = 0;
 
 Market::Market() {
     MarketIndex = ++MarketCount;
-    epoch = 0;
     A = new CommunityActor(MarketIndex);
 }
 Market::~Market() {
@@ -110,8 +109,6 @@ Token* Market::getToken(std::string name) const {
 }
 
 void Market::runEpoch() {
-    epoch++;
-
     for (auto token : GetMarketTokens())
         token->real_value_ *= exp(rvNorm(0, 0.01));
 
@@ -138,8 +135,6 @@ void Market::runEpoch() {
     }
     for (auto pool : GetMarketPools())
         pool->endEpoch();
-
-    ProfitLP(*GetMarketPools().begin());
 }
 
 void Market::executeSignal(Account *sender, Signal *signal) {

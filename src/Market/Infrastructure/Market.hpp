@@ -34,7 +34,6 @@ public:
 private:
     static int MarketCount;
     int MarketIndex;
-    int epoch;
 
     std::unordered_set<Token *> tokens_;
     std::unordered_set<PoolInterface *> pools_;
