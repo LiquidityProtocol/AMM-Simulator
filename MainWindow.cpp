@@ -94,10 +94,7 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
 void MainWindow::on_pushButton_clicked()
 {
     IntroductoryWindow *introductorywindow;
-    introductorywindow = new IntroductoryWindow();
-    // replace introductorywindow = new IntroductoryWindow();
-    // by introductorywindow = new IntroductoryWindow(this);
-    // to get the same stylesheet
+    introductorywindow = new IntroductoryWindow(this);
     introductorywindow->show();
 }
 
