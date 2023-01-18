@@ -91,8 +91,8 @@ double Operation::GetClosePrice(Token *a, Token *b) const {
     return (close.find(a)->second).find(b)->second;
 }
 
-double Operation::GetMarketPrice(Token *a, Token *b) const {
-    return (market_price_.find(b)->second) / (market_price_.find(a)->second);
+double Operation::GetMarketPrice(Token *a) const {
+    return (market_price_.find(a)->second);
 }
 
 double Operation::GetSpotPrice(Token *a, Token *b) const {
