@@ -26,19 +26,14 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
-    market_->loadInitialScenario({{"ETH", 1012}, {"DAI", 10}, {"BTC", 5}}, PROTOCOL::UNISWAP_V2);
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
-
-    for (PoolInterface *pool : market_->GetMarketPools()) {
-        ui->pool_comboBox->addItem(QString::fromStdString(getPoolName(pool)),
-                                   QVariant::fromValue(pool));
-    }
+    update_pool_comboBox();
     ui->View_Options->addItem("View Quantity", QVariant::fromValue(VIEW_METHOD::VIEW_QUANTITY));
     ui->View_Options->addItem("View Spot Price", QVariant::fromValue(VIEW_METHOD::VIEW_PRICE));
     ui->View_Options->setCurrentIndex(0);
-
-    test_token = market_->getToken("DAI");
+    QString default_scenario = "{ \"price_tags\": { \"ETH\": 1012, \"DAI\": 10, \"BTC\": 5 }}";
+    ui->textEdit_initial_scenario->setText(default_scenario);
 }
 
 SimulationPlayground::~SimulationPlayground() {
@@ -84,20 +79,6 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
 }
 
 
-void SimulationPlayground::on_pushButton_2_clicked() {
-    delete market_;
-    market_ = new Market();
-    market_->loadInitialScenario({{"ETH", 1012}, {"DAI", 10}, {"BTC", 5}}, PROTOCOL::UNISWAP_V2);
-
-    ui->pool_comboBox->clear();
-
-    for (PoolInterface *pool : market_->GetMarketPools()) {
-        ui->pool_comboBox->addItem(QString::fromStdString(getPoolName(pool)),
-                                   QVariant::fromValue(pool));
-    }
-    ui->pool_comboBox->setCurrentIndex(0);
-}
-
 
 void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
     if (ui->pool_comboBox->currentIndex() == -1)
@@ -114,17 +95,52 @@ void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
     ui->listWidget->setItemWidget(item, pool_graph);
 }
 
-
+void SimulationPlayground::update_pool_comboBox(){
+    for (PoolInterface *pool : market_->GetMarketPools()) {
+        ui->pool_comboBox->addItem(QString::fromStdString(getPoolName(pool)),
+                                   QVariant::fromValue(pool));
+    }
+}
 
 void SimulationPlayground::on_pushButton_load_scenario_clicked()
 {
     QString scenario_string = ui->textEdit_initial_scenario->toPlainText();
-    QByteArray byte_arr = scenario_string.toUtf8();
-    QJsonDocument doc = QJsonDocument::fromJson(byte_arr);
-    QJsonObject obj = doc.object();
-    QStringList tokens = obj["price_tag"].toObject().keys();
-    for(auto token: tokens){
-        double price = obj["price_tag"][token].toDouble();
+    std::unordered_map<std::string, double> price_tags_ = verify_scenario(scenario_string);
+    if(price_tags_.empty()){
+        return;
     }
+    on_pushButton_reset_market_clicked();
+    market_->loadInitialScenario(price_tags_, PROTOCOL::UNISWAP_V2);
+    update_pool_comboBox();
+    ui->pool_comboBox->setCurrentIndex(0);
+}
+
+std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QString scenario){
+    QByteArray byte_arr = scenario.toUtf8();
+    QJsonDocument doc = QJsonDocument::fromJson(byte_arr);
+    QJsonObject object = doc.object();
+    QJsonObject price_tags_object = object["price_tags"].toObject();
+    QStringList tokens = price_tags_object.keys();
+    if (object["price_tags"].toObject().isEmpty()){
+        QMessageBox::about(this, "Set scenario failed", "Invalid JSON file");
+        return {};
+    }
+    std::unordered_map<std::string, double> price_tags_;
+    for(auto token: tokens){
+        double price = price_tags_object[token].toDouble();
+        price_tags_[token.toStdString()] = price;
+    }
+    return price_tags_;
+
+}
+
+void SimulationPlayground::on_pushButton_reset_market_clicked()
+{
+    delete market_;
+    market_ = new Market();
+    ui->pool_comboBox->clear();
+    ui->listWidget->clear();
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
+    ui->listWidget->addItem(item);
 }
 

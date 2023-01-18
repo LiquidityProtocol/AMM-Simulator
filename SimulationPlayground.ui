@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>754</width>
-    <height>541</height>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>329</x>
      <y>9</y>
-     <width>401</width>
-     <height>521</height>
+     <width>411</width>
+     <height>591</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -50,7 +50,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="pushButton_reset_market">
         <property name="text">
          <string>Reset Market</string>
         </property>
@@ -78,85 +78,78 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>10</y>
-     <width>221</width>
-     <height>115</height>
-     <y>70</y>
-     <width>161</width>
-     <height>211</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Arbitrageur</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="Arbs_Options">
-      <property name="placeholderText">
-       <string>Select Behavior</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Liquidity Provider</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="LP_Options">
-      <property name="placeholderText">
-       <string>Select Behavior</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>View Method</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="View_Options"/>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>140</y>
-     <width>258</width>
-     <height>218</height>
+     <y>70</y>
+     <width>260</width>
+     <height>446</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Initial scenario</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Arbitrageur</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="Arbs_Options">
+        <property name="placeholderText">
+         <string>Select Behavior</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Liquidity Provider</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="LP_Options">
+        <property name="placeholderText">
+         <string>Select Behavior</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>View Method</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="View_Options"/>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QTextEdit" name="textEdit_initial_scenario"/>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton_load_scenario">
-      <property name="text">
-       <string>Load</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Initial scenario</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_initial_scenario"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_load_scenario">
+        <property name="text">
+         <string>Load</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

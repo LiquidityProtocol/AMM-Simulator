@@ -6,7 +6,7 @@
 //std::normal_distribution<double> rnorm(0.0, 1.0);
 //std::uniform_real_distribution<double> runi(0.0, 1.0);
 
-std::vector<double> Market::Retrieve_provided(PoolInterface* pool, Token *firstToken, Token *secondToken) {
+//std::vector<double> Market::Retrieve_provided(PoolInterface* pool, Token *firstToken, Token *secondToken) {
 //    Token *token1 = *(pool->tokens()).begin();
 //    Token *token2 = *(++(pool->tokens()).begin());
 //    std::vector<double> pool_value;
@@ -30,7 +30,7 @@ std::vector<double> Market::Retrieve_provided(PoolInterface* pool, Token *firstT
 //            return tokens_provided;
 //        }
 //    }
-}
+//}
 
 double Market::ProfitLP(PoolInterface *pool) {
     // Provision data part
