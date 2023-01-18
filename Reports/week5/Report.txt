@@ -17,6 +17,10 @@ Shubh:
 - Planned out ways to extend simulator through rolling averages and more random movement
 - Delegated tasks to team member and explained ideas.
 
+Fryderyk Sitnik:
+- I started working on how to account for fees and how they impact the profits of liquidity providers
+- I worked on integrating the divergence loss function with the market simulator that is being built.
+
 Mia Chambat: 
 
 This week I worked on implementing two helper functions for the second full simulation of the 
