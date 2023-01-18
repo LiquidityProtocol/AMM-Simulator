@@ -3,7 +3,6 @@
 
 #include "CommunityActor.hpp"
 #include "Signals.hpp"
-#include "EpochData.hpp"
 //#include "SignalsHandler.hpp"
 
 class Market {
@@ -30,8 +29,6 @@ public:
 
     void loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL pool_type);
     void loadInitialScenario(const std::unordered_set<PoolInterface *> pools);
-
-    EpochData *kthLastEpoch(PoolInterface *pool, int k) const;
 private:
     static int MarketCount;
     int MarketIndex;
@@ -40,8 +37,6 @@ private:
     std::unordered_set<Token *> tokens_;
     std::unordered_set<PoolInterface *> pools_;
     std::unordered_set<Account *> accounts_;
-
-    std::unordered_map<PoolInterface *, std::vector<EpochData *> > epochsData;
 
     CommunityActor *A;
 };

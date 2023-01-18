@@ -27,7 +27,6 @@ SOURCES += \
     qcustomplot.cpp \
     src/Market/Agents/Arbitrager.cpp \
     src/Market/Agents/Provider.cpp \
-    src/Market/Infrastructure/EpochData.cpp \
     src/Market/Infrastructure/Signals.cpp \
     src/Market/Infrastructure/SignalsHandler.cpp \
     src/Market/Simulation.cpp \
@@ -61,7 +60,6 @@ HEADERS += \
     WithdrawDialog.h \
     src/Market/Agents/Arbitrager.hpp \
     src/Market/Agents/Provider.hpp \
-    src/Market/Infrastructure/EpochData.hpp \
     src/Market/Infrastructure/Signals.hpp \
     src/Market/Infrastructure/SignalsHandler.hpp \
     src/Market/Simulation.hpp \

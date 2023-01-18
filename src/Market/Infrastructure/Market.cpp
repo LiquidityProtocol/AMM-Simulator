@@ -75,10 +75,6 @@ void Market::loadInitialScenario(const std::unordered_set<PoolInterface *> pools
         addPool(pool);
 }
 
-EpochData *Market::kthLastEpoch(PoolInterface *pool, int k) const {
-    return (epochsData.find(pool)->second)[epoch - k - 1];
-}
-
 void Market::addToken(const std::string &name, double price) {
     tokens_.emplace(new Token(name, price));
 }

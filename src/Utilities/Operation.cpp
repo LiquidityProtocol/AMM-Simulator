@@ -5,23 +5,40 @@ Operation::Operation(
     const std::string &account_name,
     PoolInterface *pool,
     const std::unordered_map<Token *, double> &input,
-    const std::unordered_map<Token *, double> &output,
-    bool endEpoch
-) : endEpoch_(endEpoch)
-  , operation_type_(operation_type)
+    const std::unordered_map<Token *, double> &output
+) : operation_type_(operation_type)
   , account_name_(account_name)
   , pool_(pool)
   , input_(input)
   , output_(output) {
 
+    Operation *prvOps = pool->kthLastOps(0);
+
+    if (prvOps) {
+        if (prvOps->endEpoch()) {
+            prvEpochOps = prvOps;
+            nEpochs = prvOps->nEpochs + 1;
+        } else {
+            prvEpochOps = prvOps->prvEpochOps;
+            nEpochs = prvOps->nEpochs;
+        }
+    }
     quantities_ = pool->quantities();
 
     for (Token *a : pool->tokens())
         market_price_[a] = a->real_value();
 
     for (Token *a : pool->tokens())
-    for (Token *b : pool->tokens())
-        spotPriceMatrix[a][b] = pool->GetSpotPrice(a, b);
+    for (Token *b : pool->tokens()) {
+        open[a][b] = high[a][b] = low[a][b] = close[a][b] = spotPriceMatrix[a][b] = pool->GetSpotPrice(a, b);
+
+        if (prvOps && !prvOps->endEpoch()) {
+            high[a][b] = std::max(high[a][b], prvOps->high[a][b]);
+            low[a][b] = std::min(low[a][b], prvOps->low[a][b]);
+
+            close[a][b] = prvOps->close[a][b];
+        }
+    }
 }
 
 std::string Operation::operation_type() const {
@@ -44,6 +61,31 @@ std::unordered_map<Token *, double> Operation::output() const {
     return output_;
 }
 
+double Operation::GetOpenPrice(Token *a, Token *b) const {
+    if (!pool_->InPool(a) || !pool_->InPool(b))
+        throw std::invalid_argument("Pool doesn't support this pair");
+
+    return (open.find(a)->second).find(b)->second;
+}
+double Operation::GetHighPrice(Token *a, Token *b) const {
+    if (!pool_->InPool(a) || !pool_->InPool(b))
+        throw std::invalid_argument("Pool doesn't support this pair");
+
+    return (high.find(a)->second).find(b)->second;
+}
+double Operation::GetLowPrice(Token *a, Token *b) const {
+    if (!pool_->InPool(a) || !pool_->InPool(b))
+        throw std::invalid_argument("Pool doesn't support this pair");
+
+    return (low.find(a)->second).find(b)->second;
+}
+double Operation::GetClosePrice(Token *a, Token *b) const {
+    if (!pool_->InPool(a) || !pool_->InPool(b))
+        throw std::invalid_argument("Pool doesn't support this pair");
+
+    return (close.find(a)->second).find(b)->second;
+}
+
 double Operation::GetMarketPrice(Token *a, Token *b) const {
     return (market_price_.find(b)->second) / (market_price_.find(a)->second);
 }
@@ -58,6 +100,10 @@ double Operation::GetQuanitty(Token *a) const {
 
 bool Operation::endEpoch() const {
     return endEpoch_;
+}
+
+int Operation::epochIndex() const {
+    return nEpochs;
 }
 
 

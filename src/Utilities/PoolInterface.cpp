@@ -285,6 +285,19 @@ double PoolInterface::GetSpotPrice(Token *input_token, Token *output_token) cons
     }
 }
 
+std::vector<Operation *> PoolInterface::GetLatestEpochs(int n) const {
+    std::vector<Operation *> opsList;
+
+    for (auto ops = kthLastOps(0) ; ops ; ops = ops->prvEpochOps) {
+        opsList.push_back(ops);
+        if ((int)opsList.size() >= n)
+            break;
+    }
+    reverse(opsList.begin(), opsList.end());
+
+    return opsList;
+}
+
 std::vector<Operation *> PoolInterface::GetLatestOps(int n) const {
     if ((int)ledger_.size() <= n) {
         return ledger_;
