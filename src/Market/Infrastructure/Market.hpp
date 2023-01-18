@@ -39,6 +39,10 @@ private:
     std::unordered_set<Account *> accounts_;
 
     CommunityActor *A;
+
+    void simulateTrade(PoolInterface *pool);
+    void simulateArbitrage(PoolInterface *pool);
+    void simulateProvide(PoolInterface *pool);
 };
 
 #endif

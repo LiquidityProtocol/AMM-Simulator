@@ -6,6 +6,7 @@ std::default_random_engine generator;
 std::normal_distribution<double> rnorm(0.0, 1.0);
 std::uniform_real_distribution<double> runi(0.0, 1.0);
 
+const double BLACK_SWAN = 0.005;
 
 double rvNorm(double m, double var) {
     return rnorm(generator) * sqrt(var) + m;
@@ -123,94 +124,13 @@ void Market::runEpoch() {
 
         const double PROVIDE_PROB = 0.01;
         const double ARB_PROB = abs(log(PoolRatio) - log(MarketRatio)) * 0.2;
-        const double TRADE_PROB = 1 - PROVIDE_PROB - ARB_PROB;
-
-        // black swan probability
-        double bs_sample = rvUni(0,1);
-        double bs_state = 0.005;
 
         if (sample < PROVIDE_PROB) {
-            double LP_discourage = abs(log(PoolRatio) - log(MarketRatio));
-            double LP_volume;
-            if (bs_sample < bs_state){
-                LP_volume = rvNorm(0, 1) * 1e6;
-            } else {
-                LP_volume = (rvNorm(0.5, 1) - LP_discourage) * 1e6;
-            }
-            double LP_amount = LP_volume / pool->pool_token_value();
-            if (LP_amount < 0) {
-                A->Withdraw(pool, -LP_amount);
-            } else {
-                A->Provide(pool, LP_amount);
-            }
+            simulateProvide(pool);
         } else if (sample < PROVIDE_PROB + ARB_PROB) {
-            double volume1 = token1->real_value() * pool->GetQuantity(token1);
-            double volume2 = token2->real_value() * pool->GetQuantity(token2);
-
-            if (PoolRatio >= MarketRatio) {
-                std::swap(token1, token2);
-                std::swap(volume1, volume2);
-            }
-            // token1 is being over estimated
-            assert(volume1 < volume2 + 1e-4);
-
-            double tradedVolumeWithNoise = sqrt(volume1 * volume2) * 1.05;
-            double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.1, rvNorm(1, 1));
-
-            try{
-                A->Trade(pool, token1, token2, tradedQuantityWithNoise);
-            } catch(...) {}
+            simulateArbitrage(pool);
         } else {
-            assert(sample < PROVIDE_PROB + ARB_PROB + TRADE_PROB);
-
-            double TradeVolume = 0;
-            if (bs_sample < bs_state){
-                TradeVolume = std::max(0.1, rvNorm(0, 1)) * 1e7;
-            } else {
-                std::vector<Operation*> opsList = pool->GetLatestOps(50);
-
-                double frequency = 0;
-
-                for (auto op : opsList) {
-                    if (op->operation_type() != "TRADE")
-                        continue;
-
-                    for (auto [token, quantity] : op->input()) {
-                        TradeVolume += token->real_value() * quantity;
-                    }
-                    frequency += 1;
-                }
-                if (frequency == 0) {
-                    TradeVolume = rvNorm(1e4, 1e4);
-                } else {
-                    TradeVolume /= frequency;
-                    TradeVolume = rvNorm(TradeVolume, 1e3);
-                }
-            }
-            Token *input_token = nullptr;
-            Token *output_token = nullptr;
-
-            {
-                auto tokens = pool->tokens();
-
-                while (true) {
-                    int random_index = rvUni(0, tokens.size());
-                    auto it = tokens.begin();
-                    std::advance(it, random_index);
-                    auto token = *it;
-
-                    if (input_token == nullptr) {
-                        input_token = token;
-                        continue;
-                    } else if (output_token == nullptr && token != input_token) {
-                        output_token = token;
-                        break;
-                    }
-                }
-            }
-            try {
-                A->Trade(pool, input_token, output_token, TradeVolume / input_token->real_value());
-            } catch (...) {}
+            simulateTrade(pool);
         }
     }
     for (auto pool : GetMarketPools())
@@ -236,4 +156,101 @@ std::unordered_set<Token *> Market::GetMarketTokens() const {
 }
 std::unordered_set<PoolInterface *> Market::GetMarketPools() const {
     return pools_;
+}
+
+void Market::simulateTrade(PoolInterface *pool) {
+    Token *input_token = nullptr;
+    Token *output_token = nullptr;
+    {   // randomly choose pair of tokens to trade
+        auto tokens = pool->tokens();
+
+        while (true) {
+            int random_index = rvUni(0, tokens.size());
+            auto it = tokens.begin();
+            std::advance(it, random_index);
+            auto token = *it;
+
+            if (input_token == nullptr) {
+                input_token = token;
+                continue;
+            } else if (output_token == nullptr && token != input_token) {
+                output_token = token;
+                break;
+            }
+        }
+    }
+    double TradeVolume = 0;
+    double bs_sample = rvUni(0, 1);
+
+    if (bs_sample < BLACK_SWAN) {
+        TradeVolume = std::max(0.1, rvNorm(0, 1)) * 1e7;
+    } else {
+        double frequency = 0;
+
+        for (auto op : pool->GetLatestOps(50))
+            if (op->operation_type() == "TRADE") {
+                for (auto [token, quantity] : op->input()) {
+                    TradeVolume += token->real_value() * quantity;
+                    frequency++;
+                }
+            }
+
+        if (frequency == 0) {
+            TradeVolume = rvNorm(1e6, 1e3);
+        } else {
+            TradeVolume /= frequency;
+            TradeVolume = rvNorm(std::min(TradeVolume, 1e6), 1e3);
+        }
+    }
+
+    double TradeQuantity = TradeVolume / input_token->real_value();
+    if (TradeQuantity > 0)
+        A->Trade(pool, input_token, output_token, TradeQuantity);
+}
+void Market::simulateArbitrage(PoolInterface *pool) {
+    Token *token1 = *(pool->tokens()).begin();
+    Token *token2 = *(++(pool->tokens()).begin());
+
+    double PoolRatio = pool->GetSpotPrice(token1, token2);
+    double MarketRatio = token2->real_value() / token1->real_value();
+
+    double volume1 = token1->real_value() * pool->GetQuantity(token1);
+    double volume2 = token2->real_value() * pool->GetQuantity(token2);
+
+    if (PoolRatio >= MarketRatio) {
+        std::swap(token1, token2);
+        std::swap(volume1, volume2);
+    }
+    // token1 is being over estimated
+    assert(volume1 < volume2 + 1e-4);
+
+    double tradedVolumeWithNoise = sqrt(volume1 * volume2) * 1.01;
+    double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.1, rvNorm(1, 1));
+
+    if (tradedQuantityWithNoise > 0)
+        A->Trade(pool, token1, token2, tradedQuantityWithNoise);
+}
+void Market::simulateProvide(PoolInterface *pool) {
+    Token *token1 = *(pool->tokens()).begin();
+    Token *token2 = *(++(pool->tokens()).begin());
+
+    double bs_sample = rvUni(0, 1);
+
+    double PoolRatio = pool->GetSpotPrice(token1, token2);
+    double MarketRatio = token2->real_value() / token1->real_value();
+
+    double LP_discourage = abs(log(PoolRatio) - log(MarketRatio));
+    double LP_volume;
+
+    if (bs_sample < BLACK_SWAN){
+        LP_volume = rvNorm(0, 1) * 1e6;
+    } else {
+        LP_volume = (rvNorm(0.5, 1) - LP_discourage) * 1e6;
+    }
+    double LP_amount = LP_volume / pool->pool_token_value();
+    if (LP_amount < 0) {
+        A->Withdraw(pool, -LP_amount);
+    } else {
+        A->Provide(pool, LP_amount);
+    }
 }
