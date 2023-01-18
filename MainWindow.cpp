@@ -93,6 +93,7 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
 
 void MainWindow::on_pushButton_clicked()
 {
+    this->close();
     IntroductoryWindow *introductorywindow;
     introductorywindow = new IntroductoryWindow(this);
     introductorywindow->show();
