@@ -91,7 +91,7 @@ public:
     double GetLowPrice(Token *a, Token *b) const;
     double GetClosePrice(Token *a, Token *b) const;
 
-    double GetMarketPrice(Token *a, Token *b) const;
+    double GetMarketPrice(Token *a) const;
     double GetSpotPrice(Token *a, Token *b) const;
     double GetQuanitty(Token *a) const;
     bool endEpoch() const;
