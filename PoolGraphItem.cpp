@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "PoolGraphItem.h"
 #include "ui_PoolGraphItem.h"
@@ -37,7 +38,7 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
 
     assert(plottedToken1);
     assert(plottedToken2);
-//    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void PoolGraphItem::UpdateGraph() {
@@ -60,9 +61,9 @@ void PoolGraphItem::UpdateGraph() {
     if (plotting_volume) {
         std::unordered_map<Token*, QVector<double> > volume;
 
-        for (auto ops : opsList) if (ops->endEpoch())
+        for (auto ops : opsList)
         for (auto token : pool_->tokens())
-            volume[token].append(ops->GetQuanitty(token) * token->real_value());
+            volume[token].append(ops->GetVolume(token));
 
         for (auto token : pool_->tokens()) {
             ymin = std::min(ymin, *std::min_element(volume[token].begin(), volume[token].end()));

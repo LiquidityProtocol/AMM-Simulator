@@ -94,12 +94,13 @@ public:
     double GetMarketPrice(Token *a) const;
     double GetSpotPrice(Token *a, Token *b) const;
     double GetQuanitty(Token *a) const;
+    double GetVolume(Token *a) const;
+
     bool endEpoch() const;
     int epochIndex() const;
 
     friend std::ostream & operator<<(std::ostream &os, const Operation &op);
     friend class PoolInterface;
-
 private:
     bool endEpoch_ = false;
     int nEpochs = 1;

@@ -103,6 +103,10 @@ double Operation::GetQuanitty(Token *a) const {
     return quantities_.find(a)->second;
 }
 
+double Operation::GetVolume(Token *a) const {
+    return GetMarketPrice(a) * GetQuanitty(a);
+}
+
 bool Operation::endEpoch() const {
     return endEpoch_;
 }
