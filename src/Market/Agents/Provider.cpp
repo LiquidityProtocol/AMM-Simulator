@@ -41,23 +41,24 @@ void Provider::StrategicProvide(PoolInterface *pool) {
             LP_amount /= neededBudget;
             LP_amount *= budget() * 0.9;
         }
+        if (LP_amount < 0.01)
+            return;
 
-        for (auto token : tokenSet) {
-            double neededQuantity = pool->GetQuantity(token) / pool->total_pool_token_quantity() * LP_amount;
+        for (auto [token, quantity] : pool->quantities()) {
+            double neededQuantity = quantity * LP_amount / pool->total_pool_token_quantity();
             double activeQuantity = GetQuantity(token);
 
             if (activeQuantity < neededQuantity) {
                 buy(token, neededQuantity - activeQuantity);
             }
+            assert(GetQuantity(token) >= neededQuantity - 1e-4);
             providingQuantities[token] = neededQuantity;
         }
         Provide(pool, providingQuantities);
     }
 }
 
-void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) const {
-    vals.clear();
-
+std::vector<double> Provider::calcHoldValue(PoolInterface *pool) const {
     double hold = 0;
     double share = 0;
 
@@ -65,7 +66,7 @@ void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) con
     for (auto [token, quantity] : provideHistory[i].find(pool)->second)
         hold += quantity * token->real_value();
 
-    vals.push_back(hold);
+    std::vector<double> vals = {hold};
 
     for (size_t i = 0 ; i < provideHistory.size() ; ++i) {
         for (auto [token, quantity] : provideHistory[i].find(pool)->second)
@@ -74,9 +75,10 @@ void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) con
         share += benefitHistory[i].find(pool)->second;
         vals.push_back(hold + share * pool->pool_token_value());
     }
+    return vals;
 }
-void Provider::calcShareValue(PoolInterface *pool, double &val) const {
-    val = pool->pool_token_value() * GetQuantity(pool->pool_token());
+double Provider::calcShareValue(PoolInterface *pool) const {
+    return pool->pool_token_value() * GetQuantity(pool->pool_token());
 }
 
 void Provider::endEpoch() {
