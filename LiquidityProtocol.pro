@@ -70,7 +70,6 @@ HEADERS += \
     src/Market/Infrastructure/SignalsHandler.hpp \
     src/Market/Simulation.hpp \
     src/Market/Strategy/Strat_Greedy.hpp \
-    src/Market/Strategy/Strat_HashAI.hpp \
     src/Market/Strategy/Strat_LinearRegression.hpp \
     src/Market/Strategy/Strat_MovingAverage.hpp \
     src/Utilities/Utilities.hpp \
