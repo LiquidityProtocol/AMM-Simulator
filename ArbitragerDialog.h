@@ -12,7 +12,7 @@ class ArbitragerDialog : public QWidget
     Q_OBJECT
 
 public:
-    explicit ArbitragerDialog(QWidget *parent = nullptr);
+    explicit ArbitragerDialog(QWidget *parent = nullptr, QVector<double> epochs = {}, QVector<double> wallet_values = {});
     ~ArbitragerDialog();
 
 private:

@@ -1,7 +1,7 @@
 #include "ArbitragerDialog.h"
 #include "ui_ArbitragerDialog.h"
 
-ArbitragerDialog::ArbitragerDialog(QWidget *parent) :
+ArbitragerDialog::ArbitragerDialog(QWidget *parent, QVector<double> epochs, QVector<double> wallet_values) :
     QWidget(parent),
     ui(new Ui::ArbitragerDialog)
 {

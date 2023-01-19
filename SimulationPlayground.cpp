@@ -125,7 +125,8 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
 
 void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
 {
-
+    arbitrager_dialog = new ArbitragerDialog(this, epochs, wallet_values);
+    arbitrager_dialog->exec();
 }
 
 std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QString scenario){

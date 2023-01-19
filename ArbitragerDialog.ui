@@ -1,21 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>ArbitragerDialog</class>
- <widget class="QWidget" name="ArbitragerDialog">
+ <widget class="QDialog" name="ArbitragerDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>754</width>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Analyze arbitrageur behavior</string>
   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QListWidget" name="listWidget"/>
+    </item>
+   </layout>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>
