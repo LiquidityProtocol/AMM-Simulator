@@ -31,8 +31,8 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 
     ui->tabWidget->clear();
     ui->tabWidget->addTab(new QWidget, "Pool Graph");
-    ui->tabWidget->addTab(new QWidget, "Provider Graph");
-    ui->tabWidget->addTab(new QWidget, "Arbitrageur Graph");
+    ui->tabWidget->addTab(new QWidget, "LP Graph");
+//    ui->tabWidget->addTab(new QWidget, "Arbitrageur Graph");
     update_pool_comboBox();
 
     for(auto &[strategy, strategy_name] : STRATEGY_NAME) {
