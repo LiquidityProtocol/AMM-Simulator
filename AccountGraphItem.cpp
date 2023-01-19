@@ -19,17 +19,17 @@ AccountGraphItem::AccountGraphItem(QWidget *parent, Arbitrager *arbitrager) :
     QWidget(parent),
     ui(new Ui::AccountGraphItem)
 {
-    *wallet_values = {arbitrager->total_value()};
+    /**wallet_values = {arbitrager->total_value()};
     ui->setupUi(this);
     arbitrager_to_graph = ui->widget->addGraph();
     arbitrager_to_graph->setName(QString::fromStdString(arbitrager->name()));
     arbitrager_to_graph->setPen(QPen(QBrush(QColor(random_color2())), 2));
-    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);*/
 }
 
 void AccountGraphItem::UpdateGraph()
 {
-    // clear the data of previous graph
+    /* // clear the data of previous graph
     arbitrager_to_graph->data()->clear();
     arbitrager_to_graph->removeFromLegend();
 
@@ -50,7 +50,7 @@ void AccountGraphItem::UpdateGraph()
     ui->widget->xAxis->setLabel("Epochs");
     ui->widget->yAxis->setLabel("Value of the wallet");
     ui->widget->legend->setVisible(true);
-    ui->widget->replot();
+    ui->widget->replot(); */
 }
 
 AccountGraphItem::~AccountGraphItem()
