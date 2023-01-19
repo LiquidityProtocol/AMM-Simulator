@@ -13,8 +13,9 @@ MintDialog::MintDialog(QWidget *parent, Playground *playground) :
     connect(this, &MintDialog::MintRequest, qobject_cast<AccountListWidgetItem *>(parent), &AccountListWidgetItem::VerifyMintRequest);
 
     for (auto token : playground_->existing_tokens()) {
-        ui->comboBox->addItem(QString::fromStdString(token->name()));
+        ui->comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
     }
+    ui->comboBox->setCurrentIndex(-1);
 }
 
 MintDialog::~MintDialog()
@@ -24,9 +25,11 @@ MintDialog::~MintDialog()
 
 void MintDialog::on_pushButton_clicked()
 {
-    if (!ValidNumber(ui->lineEdit->text().toStdString())) {
-        QMessageBox::about(this, "Mint failed", "Please provide a valid number of tokens!");
+    if (ui->comboBox->currentIndex() == -1) {
+        QMessageBox::about(this, "Mint failed", "Please choose a token!");
+    } else if (!ValidNumber(ui->lineEdit->text().toStdString())) {
+        QMessageBox::about(this, "Mint failed", "Please enter a valid number!");
     } else {
-        emit MintRequest(playground_->GetToken(ui->comboBox->currentText().toStdString()).first, ui->lineEdit->text().toDouble());
+        emit MintRequest(qvariant_cast<Token *>(ui->comboBox->currentData()), ui->lineEdit->text().toDouble());
     }
 }
