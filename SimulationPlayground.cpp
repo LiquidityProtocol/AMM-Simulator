@@ -4,6 +4,7 @@
 #include "./src/Market/Agents/Arbitrager.hpp"
 #include <QVector>
 #include <random>
+#include "ProviderSimulationGraphItem.h"
 
 enum VIEW_METHOD {
     VIEW_VOLUME,
@@ -57,11 +58,14 @@ void SimulationPlayground::on_runButton_clicked() {
 
     if (ui->pool_comboBox->currentIndex() != -1) {
         QWidget *item_widget = ui->tabWidget->widget(0);
+        QWidget *lp_widget = ui->tabWidget->widget(1);
 
         PoolGraphItem *pool_graph = qobject_cast<PoolGraphItem *>(item_widget);
+        ProviderSimulationGraphItem *lp_graph = qobject_cast<ProviderSimulationGraphItem *>(lp_widget);
 
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_VOLUME);
         pool_graph->UpdateGraph();
+        lp_graph->UpdateGraph();
     }
 }
 
@@ -71,12 +75,14 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
 
     PoolInterface *pool = qvariant_cast<PoolInterface *>(ui->pool_comboBox->itemData(index));
     PoolGraphItem *pool_graph = new PoolGraphItem(this, pool);
+    ProviderSimulationGraphItem *lp_graph = new ProviderSimulationGraphItem(this, pool, Sim->GetLP());
 
     pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_VOLUME);
     pool_graph->UpdateGraph();
 
-    ui->tabWidget->removeTab(0);
+    ui->tabWidget->clear();
     ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
+    ui->tabWidget->addTab(lp_graph, "LP Graph");
     ui->tabWidget->setCurrentIndex(0);
 }
 
@@ -154,8 +160,9 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     Sim = new Simulation();
 
     ui->pool_comboBox->clear();
-    ui->tabWidget->removeTab(0);
+    ui->tabWidget->clear();
     ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");
+    ui->tabWidget->addTab(new QWidget, "LP Graph");
     ui->tabWidget->setCurrentIndex(0);
 }
 

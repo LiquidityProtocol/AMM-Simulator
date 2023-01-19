@@ -9,8 +9,8 @@ public:
 
     void StrategicProvide(PoolInterface *pool);
 
-    void calcHoldValue(PoolInterface *pool, std::vector<double> &vals) const;
-    void calcShareValue(PoolInterface *pool, double &val) const;
+    QVector<double> calcHoldValue(PoolInterface *pool) const;
+    double calcShareValue(PoolInterface *pool) const;
 
     void endEpoch();
 private:

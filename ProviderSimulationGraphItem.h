@@ -2,6 +2,8 @@
 #define PROVIDERSIMULATIONGRAPHITEM_H
 
 #include <QWidget>
+#include "qcustomplot.h"
+#include "./src/Market/Agents/Provider.hpp"
 
 namespace Ui {
 class ProviderSimulationGraphItem;
@@ -12,7 +14,7 @@ class ProviderSimulationGraphItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit ProviderSimulationGraphItem(QWidget *parent = nullptr, PoolInterface *pool = nullptr);
+    explicit ProviderSimulationGraphItem(QWidget *parent = nullptr, PoolInterface *pool = nullptr, Provider *provider = nullptr);
     ~ProviderSimulationGraphItem();
 
     void clearData();
@@ -23,11 +25,7 @@ private:
     Ui::ProviderSimulationGraphItem *ui;
 
     PoolInterface *pool_;
-
-    QCPGraph *line1;
-    QCPGraph *line2;
-
-    Provider *provider = nullptr;
+    Provider *provider_;
 
     int plotted_Epochs = 20;
 };

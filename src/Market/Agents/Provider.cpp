@@ -1,4 +1,5 @@
 #include "Provider.hpp"
+#include <QVector>
 
 Provider::Provider(const std::string name, double budget) : Account(name, budget) {}
 
@@ -55,8 +56,8 @@ void Provider::StrategicProvide(PoolInterface *pool) {
     }
 }
 
-void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) const {
-    vals.clear();
+QVector<double> Provider::calcHoldValue(PoolInterface *pool) const {
+    QVector<double> vals;
 
     double hold = 0;
     double share = 0;
@@ -74,9 +75,11 @@ void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) con
         share += benefitHistory[i].find(pool)->second;
         vals.push_back(hold + share * pool->pool_token_value());
     }
+    return vals;
 }
-void Provider::calcShareValue(PoolInterface *pool, double &val) const {
-    val = pool->pool_token_value() * GetQuantity(pool->pool_token());
+double Provider::calcShareValue(PoolInterface *pool) const {
+    double val = pool->pool_token_value() * GetQuantity(pool->pool_token());
+    return val;
 }
 
 void Provider::endEpoch() {
