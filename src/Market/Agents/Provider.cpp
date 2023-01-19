@@ -15,7 +15,8 @@ void Provider::StrategicProvide(PoolInterface *pool) {
 
     if (LP_amount < 0) {
         LP_amount = std::min(-LP_amount, GetQuantity(pool->pool_token()));
-        Withdraw(pool, LP_amount);
+        if (LP_amount > 0)
+            Withdraw(pool, LP_amount);
     } else {
         std::unordered_map<Token *, double> providingQuantities;
         std::unordered_set<Token *> tokenSet = pool->tokens();
@@ -71,5 +72,10 @@ void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) con
             hold -= quantity * token->real_value();
 
         share += benefitHistory[i].find(pool)->second;
+        vals.push_back(hold + share * pool->pool_token_value());
     }
+}
+
+void Provider::calcShareValue(PoolInterface *pool, double &val) const {
+    val = pool->pool_token_value() * GetQuantity(pool->pool_token());
 }
