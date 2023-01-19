@@ -24,8 +24,7 @@ color: rgb(1, 25, 147);
      <item>
       <widget class="QLineEdit" name="lineEdit_token">
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147);
-</string>
+        <string notr="true">color: rgb(255, 0, 4);</string>
        </property>
        <property name="text">
         <string>Token</string>
@@ -38,8 +37,7 @@ color: rgb(1, 25, 147);
      <item>
       <widget class="QLineEdit" name="lineEdit_quantity">
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147);
-</string>
+        <string notr="true">color: rgb(255, 16, 0);</string>
        </property>
        <property name="text">
         <string>100000</string>
