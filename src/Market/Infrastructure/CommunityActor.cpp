@@ -1,5 +1,4 @@
 #include "CommunityActor.hpp"
-#include "../../Playground.hpp"
 #include <cassert>
 
 CommunityActor::CommunityActor(int MarketCount) : Account("CommunityActor" + std::to_string(MarketCount)) {}
@@ -38,22 +37,3 @@ void CommunityActor::Provide(PoolInterface *pool, double nPoolTokens) {
 void CommunityActor::Withdraw(PoolInterface *pool, double nPoolTokens) {
     pool->Withdraw(this, nPoolTokens);
 }
-
-// int main() {
-//     Playground playground;
-
-//     Token *token1 = playground.GetToken("token1", 10).first;
-//     Token *token2 = playground.GetToken("token2", 20).first;
-
-//     CommunityActor combi(1);
-
-//     combi.refill(token1);
-//     combi.refill(token2);
-
-//     playground.ExecuteInitialProvision(&combi, PROTOCOL::CONSTANT_SUM, {{token1, 50}, {token2, 50}}, 0, {{token1, 10}, {token2, 10}});
-//     PoolInterface *pool = playground.GetPool(PROTOCOL::CONSTANT_SUM, {token1, token2});
-
-//     std::cout << "Success!\n";
-
-//     return 0;
-// }
