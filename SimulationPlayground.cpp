@@ -29,6 +29,8 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     market_ = new Market;
     ui->tabWidget->clear();
     ui->tabWidget->addTab(new QWidget, "Pool Graph");
+    ui->tabWidget->addTab(new QWidget, "Provider Graph");
+    ui->tabWidget->addTab(new QWidget, "Arbitrageur Graph");
     update_pool_comboBox();
     for(auto [strategy, strategy_name]: STRATEGY_NAME){
         ui->Arbs_Options->addItem(strategy_name, QVariant::fromValue(strategy));
@@ -73,6 +75,7 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
 
     ui->tabWidget->removeTab(0);
     ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
+    ui->tabWidget->setCurrentIndex(0);
 }
 
 void SimulationPlayground::on_pushButton_customEpoch_clicked() {
@@ -98,6 +101,7 @@ void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
 
     ui->tabWidget->removeTab(0);
     ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
+    ui->tabWidget->setCurrentIndex(0);
 }
 
 void SimulationPlayground::update_pool_comboBox(){
@@ -146,5 +150,6 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     ui->pool_comboBox->clear();
     ui->tabWidget->removeTab(0);
     ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");
+    ui->tabWidget->setCurrentIndex(0);
 }
 
