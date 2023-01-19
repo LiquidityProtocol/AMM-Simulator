@@ -1,8 +1,7 @@
 #ifndef STRAT_MEAN_REVERSION
 #define STRAT_MEAN_REVERSION
 
-#include "../Infrastructure/Market.hpp"
-#include "../Infrastructure/Events.hpp"
+#include "../Infrastructure/Signals.hpp"
 
 namespace MeanReversion {
     typedef std::unordered_map<Token *, std::unordered_map<Token *, double> > SpotPriceMat;
