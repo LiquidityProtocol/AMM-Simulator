@@ -63,8 +63,8 @@ color: rgb(169, 169, 169)
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(0, 0, 0);
-border-color: rgb(255, 255, 255);
+background-color: rgb(1, 25, 147);
+
 </string>
           </property>
           <property name="text">
@@ -87,7 +87,7 @@ border-color: rgb(255, 255, 255);
         </property>
         <property name="styleSheet">
          <string notr="true">color: rgb(36, 18, 255);
-background-color: ;</string>
+border: 3px solid rgb(255, 255, 255);</string>
         </property>
        </widget>
       </item>
@@ -151,8 +151,8 @@ background-color: ;</string>
           </property>
           <property name="styleSheet">
            <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(0, 0, 0);
-border-color: rgb(255, 255, 255);</string>
+background-color: rgb(1, 25, 147);
+</string>
           </property>
           <property name="text">
            <string>Create A New Token</string>
@@ -164,7 +164,7 @@ border-color: rgb(255, 255, 255);</string>
       <item>
        <widget class="QListWidget" name="listWidget_2">
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">border: 3px solid rgb(255, 255, 255);</string>
         </property>
        </widget>
       </item>
@@ -188,22 +188,28 @@ border-color: rgb(255, 255, 255);</string>
         <property name="styleSheet">
          <string notr="true">text-align: center; 
 color: rgb(145, 145, 145);
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, stop:0 rgba(225, 225, 225, 255), stop:1 rgba(255, 255, 255, 255));</string>
+background-color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QListWidget" name="listWidget_pool">
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+</string>
+        </property>
         <property name="text">
          <string>Back to the introductory window</string>
         </property>
@@ -220,7 +226,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, st
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

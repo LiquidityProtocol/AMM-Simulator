@@ -14,7 +14,10 @@
    <string>Mint</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(1, 25, 147);
+border: 2px solid; 
+border-color: rgb(1, 25, 147);  </string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -24,7 +27,9 @@
     <widget class="QComboBox" name="comboBox">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(255, 0, 0);</string>
+color: rgb(1, 25, 147);
+border: 2px solid; 
+border-color: rgb(1, 25, 147);  </string>
      </property>
     </widget>
    </item>
@@ -32,7 +37,9 @@ color: rgb(255, 0, 0);</string>
     <widget class="QLineEdit" name="lineEdit">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(255, 0, 0);</string>
+color: rgb(1, 25, 147);
+border: 2px solid; 
+border-color: rgb(1, 25, 147);  </string>
      </property>
     </widget>
    </item>
@@ -45,7 +52,9 @@ color: rgb(255, 0, 0);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(1, 25, 147); </string>
+color: rgb(1, 25, 147); 
+border: 2px solid; 
+border-color: rgb(1, 25, 147);  </string>
      </property>
      <property name="text">
       <string>Mint</string>

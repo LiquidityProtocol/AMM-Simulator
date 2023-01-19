@@ -14,8 +14,10 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(226, 226, 226);
-border-color: rgb(255, 255, 255);</string>
+   <string notr="true">background-color: rgb(255, 255, 255);
+border: 2px solid; 
+border-color: rgb(1, 25, 147);  
+color: rgb(1, 25, 147);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -97,7 +99,8 @@ border-color: rgb(255, 255, 255);</string>
    <item>
     <widget class="QLineEdit" name="input_quantity_lineEdit">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(169, 169, 169);</string>
      </property>
      <property name="placeholderText">
       <string>Enter input quantity here</string>

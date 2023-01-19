@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
+color: rgb(1, 25, 147);</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
@@ -23,7 +23,8 @@ color: rgb(0, 0, 0);</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_token">
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 0, 4);</string>
+        <string notr="true">color: rgb(1, 25, 147);
+</string>
        </property>
        <property name="text">
         <string>Token</string>
@@ -35,8 +36,12 @@ color: rgb(0, 0, 0);</string>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_quantity">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 16, 0);</string>
+        <string notr="true">color: rgb(1, 25, 147);
+</string>
        </property>
        <property name="text">
         <string>100000</string>
