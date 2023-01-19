@@ -1,4 +1,5 @@
 #include "Utilities.hpp"
+#include "../Protocols/Protocols.hpp"
 
 template<typename T1, typename T2>
 std::unordered_set<T1> GetKeys(const std::unordered_map<T1, T2> &mp) {
@@ -41,6 +42,15 @@ PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, dou
 
     quantities_ = quantities;
     quantities_[pool_token_ = new Token(this)] = INITIAL_POOL_TOKEN_SUPPLY;
+}
+
+std::string PoolInterface::name() const {
+    std::string name = PROTOCOL_NAME.at(GetPoolType(this)) + " Pool ";
+    for (auto token : tokens_container_.tokens()) {
+        name += token->name() + "|";
+    }
+    name.pop_back();
+    return name;
 }
 
 bool PoolInterface::InPool(Token *token) const {

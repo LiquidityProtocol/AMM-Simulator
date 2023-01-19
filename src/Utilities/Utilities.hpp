@@ -137,6 +137,8 @@ public:
     friend class CommunityActor;
     friend class Market;
 
+    std::string name() const;
+
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;
 
