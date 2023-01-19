@@ -2,8 +2,9 @@
 #define SIMULATIONPLAYGROUND_H
 
 #include <QDialog>
-#include "src/Market/Infrastructure/Market.hpp"
 #include <qcustomplot.h>
+
+#include "src/Market/Simulation.hpp"
 
 namespace Ui {
 class SimulationPlayground;
@@ -33,8 +34,9 @@ private slots:
 
 
 private:
+    Simulation *Sim;
+
     Ui::SimulationPlayground *ui;
-    Market* market_;
     QVector<double> epochs;
     std::unordered_map<Token*, QVector<double> > inventory_quantities;
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
