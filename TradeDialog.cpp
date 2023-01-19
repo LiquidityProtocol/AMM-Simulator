@@ -18,10 +18,41 @@ TradeDialog::TradeDialog(QWidget *parent, Playground *playground, Account *accou
             ui->input_token_comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
         }
     }
+    ui->input_token_comboBox->setCurrentIndex(-1);
     for (const auto &[protocol, protocol_name] : PROTOCOL_NAME) {
         ui->protocol_comboBox->addItem(QString::fromStdString(protocol_name), protocol);
     }
     ui->protocol_comboBox->setCurrentIndex(-1);
+    QSizePolicy sp_retain = ui->label_outputToken->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->label_outputToken->setSizePolicy(sp_retain);
+    ui->label_outputToken->setHidden(true);
+    ui->output_token_comboBox->setHidden(true);
+    sp_retain = ui->label_protocol->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->label_protocol->setSizePolicy(sp_retain);
+    ui->label_protocol->setHidden(true);
+    ui->protocol_comboBox->setHidden(true);
+    sp_retain = ui->label_pool->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->label_pool->setSizePolicy(sp_retain);
+    ui->label_pool->setHidden(true);
+    ui->pool_comboBox->setHidden(true);
+    sp_retain = ui->input_quantity_lineEdit->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->input_quantity_lineEdit->setSizePolicy(sp_retain);
+    ui->input_quantity_lineEdit->setHidden(true);
+    sp_retain = ui->label_outputQuantity->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->label_outputQuantity->setSizePolicy(sp_retain);
+    ui->label_outputQuantity->setHidden(true);
+    ui->output_quantity_lineEdit->setHidden(true);
+    sp_retain = ui->label_slippage->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->label_slippage->setSizePolicy(sp_retain);
+    ui->label_slippage->setHidden(true);
+    ui->lineEdit_slippage->setHidden(true);
+    ui->pushButton->setDisabled(true);
 }
 
 TradeDialog::~TradeDialog()
@@ -29,23 +60,31 @@ TradeDialog::~TradeDialog()
     delete ui;
 }
 
-void TradeDialog::on_input_token_comboBox_currentTextChanged(const QString &input_token_name)
+void TradeDialog::on_input_token_comboBox_activated(int index)
 {
+    UNUSED(index);
     ui->output_token_comboBox->clear();
     for (auto token : playground_->existing_tokens()) {
-        if (token->name() != input_token_name.toStdString()) {
+        if (token->name() != ui->input_token_comboBox->currentText().toStdString()) {
             ui->output_token_comboBox->addItem(QString::fromStdString(token->name()), QVariant::fromValue(token));
         }
     }
+    ui->output_token_comboBox->setCurrentIndex(-1);
     ui->protocol_comboBox->setCurrentIndex(-1);
     UpdateSelection();
+    ui->label_outputToken->setHidden(false);
+    ui->output_token_comboBox->setHidden(false);
+    ui->label_protocol->setHidden(true);
+    ui->protocol_comboBox->setHidden(true);
 }
 
-void TradeDialog::on_output_token_comboBox_currentTextChanged(const QString &output_token_name)
+void TradeDialog::on_output_token_comboBox_activated(int index)
 {
-    UNUSED(output_token_name);
+    UNUSED(index);
     ui->protocol_comboBox->setCurrentIndex(-1);
     UpdateSelection();
+    ui->label_protocol->setHidden(false);
+    ui->protocol_comboBox->setHidden(false);
 }
 
 void TradeDialog::on_protocol_comboBox_currentIndexChanged(int index)
@@ -53,6 +92,14 @@ void TradeDialog::on_protocol_comboBox_currentIndexChanged(int index)
     if (index == -1) {
         ui->pool_comboBox->clear();
         ui->input_quantity_lineEdit->clear();
+        ui->label_pool->setHidden(true);
+        ui->pool_comboBox->setHidden(true);
+        ui->input_quantity_lineEdit->setHidden(true);
+        ui->label_outputQuantity->setHidden(true);
+        ui->output_quantity_lineEdit->setHidden(true);
+        ui->label_slippage->setHidden(true);
+        ui->lineEdit_slippage->setHidden(true);
+        ui->pushButton->setDisabled(true);
     }
     UpdateSelection();
     UpdateOutputQuantity();
@@ -65,14 +112,22 @@ void TradeDialog::on_protocol_comboBox_activated(int index)
         PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->protocol_comboBox->currentData());
         std::unordered_set<PoolInterface *> pools = playground_->GetPools(protocol, selection_.input_token_, selection_.output_token_);
         if (pools.empty()) {
-            QMessageBox::about(this, "Invalid choice", "There is no " + ui->protocol_comboBox->currentText() + " pool supporting trade between the 2 chosen tokens!");
+            QMessageBox::about(this, "Invalid choice", "There are no " + ui->protocol_comboBox->currentText() + " pools supporting trade between the two chosen tokens!");
             ui->protocol_comboBox->setCurrentIndex(-1);
             return;
         }
         for (auto pool : pools) {
-            QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
+            QString pool_name = QString::fromStdString(pool->name());
             ui->pool_comboBox->addItem(pool_name, QVariant::fromValue(pool));
         }
+        ui->label_pool->setHidden(false);
+        ui->pool_comboBox->setHidden(false);
+        ui->input_quantity_lineEdit->setHidden(false);
+        ui->label_outputQuantity->setHidden(false);
+        ui->output_quantity_lineEdit->setHidden(false);
+        ui->label_slippage->setHidden(false);
+        ui->lineEdit_slippage->setHidden(false);
+        ui->pushButton->setDisabled(false);
     }
     UpdateSelection();
     UpdateOutputQuantity();

@@ -53,7 +53,7 @@ void WithdrawDialog::on_comboBox_protocol_activated(int index)
             ui->comboBox_pool->setHidden(true);
         } else {
             for (auto pool : withdrawable_pools) {
-                QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
+                QString pool_name = QString::fromStdString(pool->name());
                 ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
             }
             ui->comboBox_pool->setCurrentIndex(-1);
