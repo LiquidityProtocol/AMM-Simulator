@@ -43,12 +43,6 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     ui->View_Options->setCurrentIndex(0);
 
     test_token = market_->getToken("DAI");
-
-    LPGraphItem *pool_graphLP = new LPGraphItem(this, pool);
-
-    QListWidgetItem *itemLP = ui->listWidget->item(1);
-    itemLP->setSizeHint(pool_graphLP->sizeHint());
-    ui->listWidget->setItemWidget(itemLP, pool_graphLP);
 }
 
 SimulationPlayground::~SimulationPlayground() {
@@ -66,15 +60,16 @@ void SimulationPlayground::on_runButton_clicked() {
 
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
         pool_graph->UpdateGraph();
+
+
+
+        QListWidgetItem *itemLP = ui->listWidget->item(1);
+        QWidget *item_widgetLP = ui->listWidget->itemWidget(itemLP);
+
+        LPGraphItem *pool_graphLP = qobject_cast<LPGraphItem *>(item_widgetLP);
+        pool_graphLP->set_LP_Profits(market_->GetLPProfits());
+        pool_graphLP->UpdateGraph();
     }
-    QVector<double> LP_Profits = market_->GetLPProfits();
-
-    QListWidgetItem *itemLP = ui->listWidget->item(1);
-    QWidget *item_widgetLP = ui->listWidget->itemWidget(itemLP);
-
-    LPGraphItem *pool_graphLP = qobject_cast<LPGraphItem *>(item_widgetLP);
-    pool_graphLP->set_LP_Profits(LP_Profits);
-    pool_graphLP->UpdateGraph();
 
 }
 
@@ -88,6 +83,11 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
     QListWidgetItem *item = ui->listWidget->item(0);
     item->setSizeHint(pool_graph->sizeHint());
     ui->listWidget->setItemWidget(item, pool_graph);
+
+    LPGraphItem *pool_graphLP = new LPGraphItem(this, pool);
+    QListWidgetItem *itemLP = ui->listWidget->item(1);
+    item->setSizeHint(pool_graphLP->sizeHint());
+    ui->listWidget->setItemWidget(itemLP, pool_graphLP);
 }
 
 void SimulationPlayground::on_pushButton_customEpoch_clicked() {
