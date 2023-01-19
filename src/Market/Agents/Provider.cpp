@@ -58,22 +58,28 @@ void Provider::StrategicProvide(PoolInterface *pool) {
 }
 
 QVector<double> Provider::calcHoldValue(PoolInterface *pool) const {
-    QVector<double> vals;
 
     double hold = 0;
     double share = 0;
 
-    for (size_t i = 0 ; i < provideHistory.size() ; ++i)
-    for (auto [token, quantity] : provideHistory[i].find(pool)->second)
-        hold += quantity * token->real_value();
+    for (size_t i = 0 ; i < provideHistory.size() ; ++i) {
+        auto tempProvide = provideHistory[i].find(pool);
+        if (tempProvide != provideHistory[i].end()) {
+            for (auto [token, quantity] : tempProvide->second)
+                hold += quantity * token->real_value();
+        }
+    }
 
-    std::vector<double> vals = {hold};
+    QVector<double> vals = {hold};
 
     for (size_t i = 0 ; i < provideHistory.size() ; ++i) {
-        for (auto [token, quantity] : provideHistory[i].find(pool)->second)
-            hold -= quantity * token->real_value();
+        auto tempProvide = provideHistory[i].find(pool);
+        if (tempProvide != provideHistory[i].end()) {
+            for (auto [token, quantity] : tempProvide->second)
+                hold -= quantity * token->real_value();
 
-        share += benefitHistory[i].find(pool)->second;
+            share += benefitHistory[i].find(pool)->second;
+        }
         vals.push_back(hold + share * pool->pool_token_value());
     }
     return vals;
