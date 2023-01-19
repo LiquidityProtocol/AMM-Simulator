@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include <iostream>
+#include "qcustomplot.h"
 using namespace std;
 #include "Utilities.hpp"
 #include "../Protocols/UniswapV2Pool.hpp"
@@ -271,6 +272,49 @@ void SimulationOne(){
     print(pool_quantity_1);
     print(pool_quantity_2);
     print(test);
+
+    QCustomPlot customPlot;
+        customPlot.setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+        customPlot.xAxis->setLabel("x-axis label");
+        customPlot.yAxis->setLabel("y-axis label");
+        customPlot.legend->setVisible(true);
+
+        // Add data to the chart
+        QCPGraph *slippagesGraph = customPlot.addGraph();
+        slippagesGraph->setData(slippages);
+        slippagesGraph->setPen(QPen(Qt::red));
+        slippagesGraph->setName("Slippages");
+
+        QCPGraph *spotExchangeRatesGraph = customPlot.addGraph();
+        spotExchangeRatesGraph->setData(spot_exchange_rates);
+        spotExchangeRatesGraph->setPen(QPen(Qt::blue));
+        spotExchangeRatesGraph->setName("Spot Exchange Rates");
+
+        QCPGraph *traderBalancesGraph1 = customPlot.addGraph();
+        traderBalancesGraph1->setData(trader_balances_1);
+        traderBalancesGraph1->setPen(QPen(Qt::green));
+        traderBalancesGraph1->setName("Trader Balance 1");
+
+        QCPGraph *traderBalancesGraph2 = customPlot.addGraph();
+        traderBalancesGraph2->setData(trader_balances_2);
+        traderBalancesGraph2->setPen(QPen(Qt::magenta));
+        traderBalancesGraph2->setName("Trader Balance 2");
+
+        QCPGraph *poolQuantityGraph1 = customPlot.addGraph();
+        poolQuantityGraph1->setData(pool_quantity_1);
+        poolQuantityGraph1->setPen(QPen(Qt::cyan));
+        poolQuantityGraph1->setName("Pool Quantity 1");
+
+        QCPGraph *poolQuantityGraph2 = customPlot.addGraph();
+        poolQuantityGraph2->setData(pool_quantity_2);
+        poolQuantityGraph2->setPen(QPen(Qt::yellow));
+        poolQuantityGraph2->setName("Pool Quantity 2");
+
+        // Set axis ranges and show the chart
+        customPlot.rescaleAxes();
+        customPlot.replot();
+        customPlot.show();
+
 }
 
 void SimulationTwo(){
