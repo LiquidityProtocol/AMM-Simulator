@@ -27,8 +27,8 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
-    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
-    ui->listWidget->addItem(item);
+    ui->tabWidget->clear();
+    ui->tabWidget->addTab(new QWidget, "Pool Graph");
     update_pool_comboBox();
     for(auto [strategy, strategy_name]: STRATEGY_NAME){
         ui->Arbs_Options->addItem(strategy_name, QVariant::fromValue(strategy));
@@ -52,8 +52,7 @@ void SimulationPlayground::on_runButton_clicked() {
     market_->runEpoch();
 
     if (ui->pool_comboBox->currentIndex() != -1) {
-        QListWidgetItem *item = ui->listWidget->item(0);
-        QWidget *item_widget = ui->listWidget->itemWidget(item);
+        QWidget *item_widget = ui->tabWidget->widget(0);
 
         PoolGraphItem *pool_graph = qobject_cast<PoolGraphItem *>(item_widget);
 
@@ -72,9 +71,8 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
     pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
     pool_graph->UpdateGraph();
 
-    QListWidgetItem *item = ui->listWidget->item(0);
-    item->setSizeHint(pool_graph->sizeHint());
-    ui->listWidget->setItemWidget(item, pool_graph);
+    ui->tabWidget->removeTab(0);
+    ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
 }
 
 void SimulationPlayground::on_pushButton_customEpoch_clicked() {
@@ -98,9 +96,8 @@ void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
     pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->itemData(index)) == VIEW_METHOD::VIEW_QUANTITY);
     pool_graph->UpdateGraph();
 
-    QListWidgetItem *item = ui->listWidget->item(0);
-    item->setSizeHint(pool_graph->sizeHint());
-    ui->listWidget->setItemWidget(item, pool_graph);
+    ui->tabWidget->removeTab(0);
+    ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
 }
 
 void SimulationPlayground::update_pool_comboBox(){
@@ -147,8 +144,7 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     delete market_;
     market_ = new Market();
     ui->pool_comboBox->clear();
-    ui->listWidget->clear();
-    QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
-    ui->listWidget->addItem(item);
+    ui->tabWidget->removeTab(0);
+    ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");
 }
 
