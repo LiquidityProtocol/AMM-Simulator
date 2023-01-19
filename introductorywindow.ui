@@ -16,10 +16,15 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(28, 18, 62);
 
 font: 13pt &quot;Calibri&quot;;
+
+border-color: rgb(255, 255, 255); 
 
 </string>
   </property>
@@ -90,21 +95,21 @@ border-image: url(:/images/LP_logo.png);</string>
         </property>
         <property name="font">
          <font>
-          <family>Rockwell</family>
+          <family>Calibri</family>
           <pointsize>13</pointsize>
           <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 13pt &quot;Rockwell&quot;;</string>
+         <string notr="true"/>
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Rockwell'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;What is a Liquidity protocol and a Market Simulator?&lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; font-style:italic; text-decoration: underline; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; color:#ffffff;&quot;&gt;  &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;A liquidity protocol is a set of rules and standards that are used to facilitate trading on decentralized exchanges (DEXs): the exchange of assets between buyers and sellers. The goal of a liquidity protocol is to ensure that there is always a buyer or seller available for a given asset, even if there is not a lot of demand for that asset at a particular moment in time. This helps to make markets more efficient and reduces the risk of price volatility. &lt;/span&gt;&lt;/p&gt;
@@ -122,14 +127,14 @@ hr { height: 1px; border-width: 0; }
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 13pt &quot;Rockwell&quot;;</string>
+         <string notr="true"/>
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Rockwell'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;Instructions&lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-weight:700; font-style:italic; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;1.    Create some tokens (e.g. &amp;quot;DAI&amp;quot;) &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;2.    Create Accounts (preferably more than 2) with different and non-empty names. &lt;/span&gt;&lt;/p&gt;
@@ -173,7 +178,7 @@ hr { height: 1px; border-width: 0; }
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">font: 13pt &quot;.AppleSystemUIFont&quot;;</string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -189,13 +194,13 @@ hr { height: 1px; border-width: 0; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;Contributions&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;-&amp;gt; Market Simulation Team: Tu, Alessandro, Adrien, Matheo, Adithya and Levente&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;-&amp;gt; Frontend Team: Jasmine, Victoire and Martina&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;-&amp;gt; Liquidity Protocol Team: Minh, The and Fryderyk&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;-&amp;gt; Economics Team: Mia, Shubh, Gabriele and Kaoutar&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;-&amp;gt; Mathematics Team: Amine, Julien and Duc &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;Contributions&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Market Simulation Team: Tu, Alessandro, Adrien, Matheo, Adithya and Levente&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Frontend Team: Jasmine, Victoire and Martina&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Liquidity Protocol Team: Minh, The and Fryderyk&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Economics Team: Mia, Shubh, Gabriele and Kaoutar&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Mathematics Team: Amine, Julien and Duc &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </widget>
@@ -209,7 +214,7 @@ hr { height: 1px; border-width: 0; }
      <x>0</x>
      <y>0</y>
      <width>1457</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
