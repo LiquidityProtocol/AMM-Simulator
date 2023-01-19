@@ -39,6 +39,7 @@ private:
     Ui::SimulationPlayground *ui;
     Market* market_;
     QVector<double> epochs;
+    double step;
     std::unordered_map<Token*, QVector<double> > inventory_quantities;
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
     Token* test_token;

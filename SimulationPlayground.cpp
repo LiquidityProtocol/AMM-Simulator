@@ -1,7 +1,6 @@
 #include "SimulationPlayground.h"
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
-#include "AccountGraphItem.h"
 #include "ArbitragerDialog.h"
 #include <QVector>
 #include <random>
@@ -29,6 +28,8 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     ui->setupUi(this);
     market_ = new Market;
     wallet_values = {(*arbitrager).total_value()};
+    step = 0;
+    epochs = {step};
 
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
@@ -59,6 +60,8 @@ void SimulationPlayground::on_runButton_clicked() {
         pool_graph->UpdateGraph();
     }
      wallet_values.append( (*arbitrager).total_value() );
+     step += 1;
+     epochs.append(step);
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
