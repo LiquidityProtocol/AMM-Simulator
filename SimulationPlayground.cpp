@@ -2,6 +2,7 @@
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
 #include "ArbitragerDialog.h"
+#include "./src/Market/Agents/Arbitrager.hpp"
 #include <QVector>
 #include <random>
 
@@ -35,6 +36,10 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     ui->listWidget->addItem(item);
 
     update_pool_comboBox();
+    /*for(auto [strategy, strategy_name]: STRATEGY_NAME){
+        ui->Arbs_Options->addItem(strategy_name, QVariant::fromValue(strategy));
+    }*/
+
     ui->View_Options->addItem("View Quantity", QVariant::fromValue(VIEW_METHOD::VIEW_QUANTITY));
     ui->View_Options->addItem("View Spot Price", QVariant::fromValue(VIEW_METHOD::VIEW_PRICE));
     ui->View_Options->setCurrentIndex(0);
@@ -48,6 +53,9 @@ SimulationPlayground::~SimulationPlayground() {
 }
 
 void SimulationPlayground::on_runButton_clicked() {
+    if(market_->GetMarketPools().empty()){
+        QMessageBox::about(this, "Run failed", "Market has no pool!");
+    }
     market_->runEpoch();
 
     if (ui->pool_comboBox->currentIndex() != -1) {
@@ -62,6 +70,7 @@ void SimulationPlayground::on_runButton_clicked() {
      wallet_values.append( (*arbitrager).total_value() );
      step += 1;
      epochs.append(step);
+     on_pushButton_analyze_arbitrager_clicked();
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
