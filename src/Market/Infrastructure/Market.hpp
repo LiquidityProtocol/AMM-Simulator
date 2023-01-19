@@ -1,9 +1,10 @@
 #ifndef Market_hpp
 #define Market_hpp
 
+#include "../../Protocols/Protocols.hpp"
+
 #include "CommunityActor.hpp"
-#include "Signals.hpp"
-//#include "SignalsHandler.hpp"
+#include "SignalsHandler.hpp"
 
 class Market {
 public:
@@ -27,7 +28,7 @@ public:
     std::unordered_set<PoolInterface *> GetMarketPools() const;
     Token* getToken(std::string name) const;
 
-    void loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL pool_type);
+    void loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL pool_type = PROTOCOL::UNISWAP_V2);
     void loadInitialScenario(const std::unordered_set<PoolInterface *> pools);
 
     double ProfitLP(PoolInterface *pool);

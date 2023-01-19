@@ -137,20 +137,6 @@ void Market::runEpoch() {
         pool->endEpoch();
 }
 
-void Market::executeSignal(Account *sender, Signal *signal) {
-    PoolInterface *pool = signal->pool();
-
-    if (!havePool(pool)) {
-        throw std::invalid_argument("Pool doesn't exist in this market");
-    }
-
-    Token *input_token = signal->input_token();
-    Token *output_token = signal->output_token();
-    double input_quantity = signal->quantity();
-
-    sender->Trade(pool, input_token, output_token, input_quantity);
-}
-
 std::unordered_set<Token *> Market::GetMarketTokens() const {
     return tokens_;
 }
