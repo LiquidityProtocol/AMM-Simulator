@@ -4,6 +4,7 @@
 #include "./src/Market/Agents/Arbitrager.hpp"
 #include <QVector>
 #include <random>
+#include "ProviderSimulationGraphItem.h"
 
 enum VIEW_METHOD {
     VIEW_QUANTITY,
@@ -92,12 +93,15 @@ void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
 
     PoolInterface *pool = qvariant_cast<PoolInterface *>(ui->pool_comboBox->currentData());
     PoolGraphItem *pool_graph = new PoolGraphItem(this, pool);
+    ProviderSimulationGraphItem *provider_graph = new ProviderGraphItem(this, pool);
 
     pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->itemData(index)) == VIEW_METHOD::VIEW_QUANTITY);
     pool_graph->UpdateGraph();
+    provider_graph->UpdateGraph();
 
     ui->tabWidget->removeTab(0);
     ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
+    ui->tabWidget->insertTab(1, pool_graph, "Provider Graph");
 }
 
 void SimulationPlayground::update_pool_comboBox(){
