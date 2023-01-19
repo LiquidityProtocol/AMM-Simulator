@@ -77,6 +77,20 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_analyze_arbitrager">
+         <property name="text">
+          <string>Analyze arbitrageur</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_analyze_provider">
+         <property name="text">
+          <string>Analyze provider</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -87,13 +101,6 @@
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Market Pools Information</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="pool_comboBox">
-       <property name="placeholderText">
-        <string>Select Pool</string>
        </property>
       </widget>
      </item>
@@ -109,6 +116,13 @@
          <string>Tab 2</string>
         </attribute>
        </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="pool_comboBox">
+       <property name="placeholderText">
+        <string>Select Pool</string>
+       </property>
       </widget>
      </item>
      <item>
