@@ -35,19 +35,19 @@ void Account::Deposit(Token *token, double quantity) {
 }
 
 void Account::buy(Token *token, double quantity) {
-    if (GetQuantity(token) < quantity) {
-        throw std::invalid_argument("Not enough token to sell");
-    } else {
-        Deposit(token, -quantity);
-        budget_ += quantity * token->real_value();
-    }
-}
-void Account::sell(Token *token, double quantity) {
     if (budget_ < token->real_value() * quantity) {
         throw std::invalid_argument("Not enough cash to buy token");
     } else {
         Deposit(token, quantity);
         budget_ -= quantity * token->real_value();
+    }
+}
+void Account::sell(Token *token, double quantity) {
+    if (GetQuantity(token) < quantity) {
+        throw std::invalid_argument("Not enough token to sell");
+    } else {
+        Deposit(token, -quantity);
+        budget_ += quantity * token->real_value();
     }
 }
 
