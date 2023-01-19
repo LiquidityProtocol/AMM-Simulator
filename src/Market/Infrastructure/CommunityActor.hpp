@@ -18,7 +18,6 @@ private:
     CommunityActor(int MarketCount);
 
     void refill(Token *token, double amount);
-    void Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
     void Provide(PoolInterface *pool, double nPoolTokens);
     void Withdraw(PoolInterface *pool, double nPoolTokens);
 };

@@ -19,18 +19,12 @@ template<typename T> T CommunityActor::GetQuantity() const {
 void CommunityActor::refill(Token *token, double amount = 1e9) {
     wallet_[token] = amount;
 }
-void CommunityActor::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
-    refill(input_token);
-    refill(output_token);
-
-    pool->Swap(this, input_token, output_token, input_quantity);
-}
 void CommunityActor::Provide(PoolInterface *pool, double nPoolTokens) {
     std::unordered_map<Token *, double> quantities;
 
     for (auto [token, quantity] : pool->quantities()) {
         refill(token);
-        quantities[token] = quantity / pool->GetQuantity(pool->pool_token()) * nPoolTokens;
+        quantities[token] = quantity / pool->total_pool_token_quantity() * nPoolTokens;
     }
     pool->Provide(this, quantities);
 }
