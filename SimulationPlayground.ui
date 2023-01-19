@@ -149,6 +149,20 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_analyze_arbitrager">
+        <property name="text">
+         <string>Analyze arbitrageur</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_analyze_provider">
+        <property name="text">
+         <string>Analyze provider</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>

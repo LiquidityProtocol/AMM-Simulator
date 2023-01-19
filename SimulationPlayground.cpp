@@ -1,6 +1,8 @@
 #include "SimulationPlayground.h"
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
+#include "AccountGraphItem.h"
+#include "ArbitragerDialog.h"
 #include "./src/Market/Agents/Arbitrager.hpp"
 #include <QVector>
 #include <random>
@@ -27,8 +29,11 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
+    wallet_values = {(*arbitrager).total_value()};
+
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
+
     update_pool_comboBox();
     for(auto [strategy, strategy_name]: STRATEGY_NAME){
         ui->Arbs_Options->addItem(strategy_name, QVariant::fromValue(strategy));
@@ -40,6 +45,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     QString default_scenario = "{ \"price_tags\": { \"ETH\": 1012, \"DAI\": 10, \"BTC\": 5 }}";
     ui->textEdit_initial_scenario->setText(default_scenario);
 }
+
 
 SimulationPlayground::~SimulationPlayground() {
     delete ui;
@@ -60,6 +66,7 @@ void SimulationPlayground::on_runButton_clicked() {
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
         pool_graph->UpdateGraph();
     }
+     wallet_values.append( (*arbitrager).total_value() );
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
@@ -77,7 +84,9 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
     ui->listWidget->setItemWidget(item, pool_graph);
 }
 
-void SimulationPlayground::on_pushButton_customEpoch_clicked() {
+
+void SimulationPlayground::on_pushButton_customEpoch_clicked()
+{
     if(ui->lineEdit->text() == ""){
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
     }
@@ -123,6 +132,12 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
     ui->pool_comboBox->setCurrentIndex(0);
 }
 
+void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
+{
+    ArbitragerDialog *arbitrager_dialog = new ArbitragerDialog(this, epochs, wallet_values);
+    arbitrager_dialog->exec();
+}
+
 std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QString scenario){
     QByteArray byte_arr = scenario.toUtf8();
     QJsonDocument doc = QJsonDocument::fromJson(byte_arr);
@@ -150,5 +165,5 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     ui->listWidget->clear();
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
+    wallet_values = {(*arbitrager).total_value()};
 }
-

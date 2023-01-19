@@ -9,7 +9,9 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AccountGraphItem.cpp \
     AccountListWidgetItem.cpp \
+    ArbitragerDialog.cpp \
     ChangeModeDialog.cpp \
     ExistingPoolProvisionDialog.cpp \
     MintDialog.cpp \
@@ -44,7 +46,9 @@ SOURCES += \
     src/Utilities/Utilities.cpp
 
 HEADERS += \
+    AccountGraphItem.h \
     AccountListWidgetItem.h \
+    ArbitragerDialog.h \
     ChangeModeDialog.h \
     ExistingPoolProvisionDialog.h \
     MainWindow.h \
@@ -79,7 +83,9 @@ HEADERS += \
     src/Market/Infrastructure/CommunityActor.hpp
 
 FORMS += \
+    AccountGraphItem.ui \
     AccountListWidgetItem.ui \
+    ArbitragerDialog.ui \
     ChangeModeDialog.ui \
     ExistingPoolProvisionDialog.ui \
     MainWindow.ui \
