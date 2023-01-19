@@ -71,7 +71,9 @@ border-image: url(:/images/LP_logo.png);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255)</string>
+           <string notr="true">color: rgb(255, 255, 255);
+border: 3px solid rgb(255, 255, 255);
+</string>
           </property>
           <property name="text">
            <string>Go to Playground</string>
@@ -102,7 +104,10 @@ border-image: url(:/images/LP_logo.png);</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+
+
+</string>
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -121,13 +126,14 @@ hr { height: 1px; border-width: 0; }
         <property name="geometry">
          <rect>
           <x>740</x>
-          <y>30</y>
+          <y>0</y>
           <width>661</width>
           <height>351</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+</string>
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -150,10 +156,15 @@ hr { height: 1px; border-width: 0; }
         <property name="geometry">
          <rect>
           <x>740</x>
-          <y>380</y>
+          <y>370</y>
           <width>661</width>
           <height>281</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+
+</string>
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -174,11 +185,12 @@ hr { height: 1px; border-width: 0; }
           <x>20</x>
           <y>440</y>
           <width>691</width>
-          <height>181</height>
+          <height>211</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
