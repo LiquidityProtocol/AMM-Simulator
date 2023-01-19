@@ -75,7 +75,30 @@ void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) con
         vals.push_back(hold + share * pool->pool_token_value());
     }
 }
-
 void Provider::calcShareValue(PoolInterface *pool, double &val) const {
     val = pool->pool_token_value() * GetQuantity(pool->pool_token());
 }
+
+void Provider::endEpoch() {
+    static size_t lastEpochIndex = 0;
+
+    provideHistory.push_back({});
+    benefitHistory.push_back({});
+
+    auto &provideEpochData = provideHistory.back();
+    auto &benefitEpochData = benefitHistory.back();
+
+    for (; lastEpochIndex < ledger_.size() ; ++lastEpochIndex) {
+        auto op = ledger_[lastEpochIndex];
+        auto pool = op->pool();
+
+        if (op->operation_type() == "PROVIDE") {
+            for (auto [token, quantity] : op->input())  provideEpochData[pool][token] += quantity;
+            for (auto [token, quantity] : op->output()) benefitEpochData[pool] += quantity;
+        } else {
+            for (auto [token, quantity] : op->output()) provideEpochData[pool][token] -= quantity;
+            for (auto [token, quantity] : op->input())  benefitEpochData[pool] -= quantity;
+        }
+    }
+}
+
