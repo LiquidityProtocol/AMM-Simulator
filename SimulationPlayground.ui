@@ -41,6 +41,12 @@
      <widget class="QListWidget" name="listWidget"/>
     </item>
     <item>
+      <widget class="QListWidget" name="listWidget2"/>
+    </item>
+    <item>
+      <widget class="QListWidget" name="listWidget3"/>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="runButton">

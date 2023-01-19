@@ -1,6 +1,7 @@
 #include "SimulationPlayground.h"
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
+#include "AccountGraphItem.h"
 #include <QVector>
 #include <random>
 
@@ -26,8 +27,10 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
+
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
+
     update_pool_comboBox();
     ui->View_Options->addItem("View Quantity", QVariant::fromValue(VIEW_METHOD::VIEW_QUANTITY));
     ui->View_Options->addItem("View Spot Price", QVariant::fromValue(VIEW_METHOD::VIEW_PRICE));
@@ -35,6 +38,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     QString default_scenario = "{ \"price_tags\": { \"ETH\": 1012, \"DAI\": 10, \"BTC\": 5 }}";
     ui->textEdit_initial_scenario->setText(default_scenario);
 }
+
 
 SimulationPlayground::~SimulationPlayground() {
     delete ui;
@@ -52,6 +56,30 @@ void SimulationPlayground::on_runButton_clicked() {
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
         pool_graph->UpdateGraph();
     }
+
+    QListWidgetItem *item2 = ui->listWidget2->item(0);
+    QWidget *item_widget_2 = ui->listWidget2->itemWidget(item2);
+    AccountGraphItem *arbitrager_graph = qobject_cast<AccountGraphItem *>(item_widget_2);
+    arbitrager_graph->UpdateGraph();
+
+    QListWidgetItem *item3 = ui->listWidget3->item(0);
+    QWidget *item_widget_3 = ui->listWidget3->itemWidget(item3);
+    AccountGraphItem *provider_graph = qobject_cast<AccountGraphItem *>(item_widget_3);
+    provider_graph->UpdateGraph();
+    /*
+    if(ui->comboBox->currentIndex() != -1){
+        QListWidgetItem *arbitrager = ui->listWidget2->item(0);
+        QWidget *arbitrager_widget = ui->listWidget2->itemWidget(arbitrager);
+        AccountGraphItem *arbitrager_graph = qobject_cast<AccountGraphItem *>(arbitrager_widget);
+        arbitrager_graph->UpdateGraph();
+    }
+    if(ui->comboBox_2->currentIndex() != -1){
+        QListWidgetItem *provider = ui->listWidget3->item(0);
+        QWidget *provider_widget = ui->listWidget3->itemWidget(provider);
+        AccountGraphItem *provider_graph = qobject_cast<AccountGraphItem *>(provider_widget);
+        provider_graph->UpdateGraph();
+    }
+    */
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
@@ -69,7 +97,9 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
     ui->listWidget->setItemWidget(item, pool_graph);
 }
 
-void SimulationPlayground::on_pushButton_customEpoch_clicked() {
+
+void SimulationPlayground::on_pushButton_customEpoch_clicked()
+{
     if(ui->lineEdit->text() == ""){
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
     }
@@ -143,4 +173,3 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
 }
-
