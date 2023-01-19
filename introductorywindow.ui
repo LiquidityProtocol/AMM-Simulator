@@ -39,7 +39,7 @@ border-color: rgb(255, 255, 255);
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -90,9 +90,9 @@ border: 3px solid rgb(255, 255, 255);
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>10</y>
+          <y>0</y>
           <width>691</width>
-          <height>411</height>
+          <height>421</height>
          </rect>
         </property>
         <property name="font">
@@ -126,9 +126,9 @@ hr { height: 1px; border-width: 0; }
         <property name="geometry">
          <rect>
           <x>740</x>
-          <y>10</y>
+          <y>0</y>
           <width>661</width>
-          <height>341</height>
+          <height>351</height>
          </rect>
         </property>
         <property name="styleSheet">

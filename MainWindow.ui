@@ -87,9 +87,7 @@ border-color: rgb(255, 255, 255);
         </property>
         <property name="styleSheet">
          <string notr="true">color: rgb(36, 18, 255);
-background-color: ;
-border: 2px solid rgb(255, 255, 255);
-</string>
+background-color: ;</string>
         </property>
        </widget>
       </item>
@@ -134,7 +132,7 @@ border: 2px solid rgb(255, 255, 255);
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255);</string>
+           <string notr="true">background-color: rgb(255, 255, 255)</string>
           </property>
           <property name="placeholderText">
            <string>Enter token price here</string>
@@ -166,8 +164,7 @@ border-color: rgb(255, 255, 255);</string>
       <item>
        <widget class="QListWidget" name="listWidget_2">
         <property name="styleSheet">
-         <string notr="true">border: 2px solid rgb(255, 255, 255);
-</string>
+         <string notr="true"/>
         </property>
        </widget>
       </item>
@@ -191,35 +188,22 @@ border-color: rgb(255, 255, 255);</string>
         <property name="styleSheet">
          <string notr="true">text-align: center; 
 color: rgb(145, 145, 145);
-background-color: rgb(255, 255, 255);
-line-height: 7; 
-</string>
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.0170455, y2:1, stop:0 rgba(225, 225, 225, 255), stop:1 rgba(255, 255, 255, 255));</string>
         </property>
         <property name="text">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:20px; margin-bottom:20px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QListWidget" name="listWidget_pool">
         <property name="styleSheet">
-         <string notr="true">border: 2px solid rgb(255, 255, 255);
-</string>
+         <string notr="true"/>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton">
-        <property name="styleSheet">
-         <string notr="true">border: 2px solid rgb(255, 255, 255);
-color: rgb(255, 255, 255);
-</string>
-        </property>
         <property name="text">
          <string>Back to the introductory window</string>
         </property>
@@ -236,11 +220,7 @@ color: rgb(255, 255, 255);
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-<<<<<<< Updated upstream
      <height>21</height>
-=======
-     <height>24</height>
->>>>>>> Stashed changes
     </rect>
    </property>
   </widget>
