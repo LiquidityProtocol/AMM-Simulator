@@ -40,14 +40,26 @@ void WithdrawDialog::on_comboBox_protocol_activated(int index)
     if (index != -1) {
         PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->comboBox_protocol->currentData());
         ui->comboBox_pool->clear();
-        std::unordered_set<PoolInterface *> pools = playground_->GetPools(protocol);
-        for (auto pool : pools) {
-            QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
-            ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
+        std::unordered_set<PoolInterface *> withdrawable_pools;
+        for (auto pool : playground_->GetPools(protocol)) {
+            if (account_->GetQuantity(pool->pool_token())) {
+                withdrawable_pools.emplace(pool);
+            }
         }
-        ui->comboBox_pool->setCurrentIndex(-1);
-        ui->label_pool->setHidden(false);
-        ui->comboBox_pool->setHidden(false);
+        if (withdrawable_pools.empty()) {
+            QMessageBox::about(this, "Invalid choice", "This account have no shares in current existing " + ui->comboBox_protocol->currentText() + " pools!");
+            ui->comboBox_protocol->setCurrentIndex(-1);
+            ui->label_pool->setHidden(true);
+            ui->comboBox_pool->setHidden(true);
+        } else {
+            for (auto pool : withdrawable_pools) {
+                QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
+                ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
+            }
+            ui->comboBox_pool->setCurrentIndex(-1);
+            ui->label_pool->setHidden(false);
+            ui->comboBox_pool->setHidden(false);
+        }
 
         ui->tableWidget_pool->setHidden(true);
 
