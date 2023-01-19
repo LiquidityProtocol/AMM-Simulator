@@ -41,12 +41,6 @@
      <widget class="QListWidget" name="listWidget"/>
     </item>
     <item>
-      <widget class="QListWidget" name="listWidget2"/>
-    </item>
-    <item>
-      <widget class="QListWidget" name="listWidget3"/>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="runButton">
@@ -152,6 +146,20 @@
        <widget class="QPushButton" name="pushButton_load_scenario">
         <property name="text">
          <string>Load</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_analyze_arbitrager">
+        <property name="text">
+         <string>Analyze arbitrager</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_analyze_provider">
+        <property name="text">
+         <string>Analyze provider</string>
         </property>
        </widget>
       </item>

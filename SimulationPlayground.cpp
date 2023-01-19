@@ -56,30 +56,6 @@ void SimulationPlayground::on_runButton_clicked() {
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
         pool_graph->UpdateGraph();
     }
-
-    QListWidgetItem *item2 = ui->listWidget2->item(0);
-    QWidget *item_widget_2 = ui->listWidget2->itemWidget(item2);
-    AccountGraphItem *arbitrager_graph = qobject_cast<AccountGraphItem *>(item_widget_2);
-    arbitrager_graph->UpdateGraph();
-
-    QListWidgetItem *item3 = ui->listWidget3->item(0);
-    QWidget *item_widget_3 = ui->listWidget3->itemWidget(item3);
-    AccountGraphItem *provider_graph = qobject_cast<AccountGraphItem *>(item_widget_3);
-    provider_graph->UpdateGraph();
-    /*
-    if(ui->comboBox->currentIndex() != -1){
-        QListWidgetItem *arbitrager = ui->listWidget2->item(0);
-        QWidget *arbitrager_widget = ui->listWidget2->itemWidget(arbitrager);
-        AccountGraphItem *arbitrager_graph = qobject_cast<AccountGraphItem *>(arbitrager_widget);
-        arbitrager_graph->UpdateGraph();
-    }
-    if(ui->comboBox_2->currentIndex() != -1){
-        QListWidgetItem *provider = ui->listWidget3->item(0);
-        QWidget *provider_widget = ui->listWidget3->itemWidget(provider);
-        AccountGraphItem *provider_graph = qobject_cast<AccountGraphItem *>(provider_widget);
-        provider_graph->UpdateGraph();
-    }
-    */
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
