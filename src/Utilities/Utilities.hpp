@@ -155,6 +155,8 @@ public:
 
     std::vector<Operation *> ledger() const;
 
+    double GetPoolValue() const;
+
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 
@@ -195,6 +197,8 @@ private:
     void ExecuteProvision(Account *provider, std::unordered_map<Token *, double> input_quantities, double generated_pool_token_quantity);
 
     void ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities);
+
+    void UpdatePoolTokenValue();
 };
 
 Q_DECLARE_METATYPE(PoolInterface *);
