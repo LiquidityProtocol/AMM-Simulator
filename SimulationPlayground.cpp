@@ -1,6 +1,7 @@
 #include "SimulationPlayground.h"
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
+#include "ArbitrageurSimulationGraphItem.h"
 #include "./src/Market/Agents/Arbitrager.hpp"
 #include <QVector>
 #include <random>
@@ -27,6 +28,9 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
+    step=0;
+    epochs = {step};
+    wallet_values = {arbitrager->total_value()};
     ui->tabWidget->clear();
     ui->tabWidget->addTab(new QWidget, "Pool Graph");
     update_pool_comboBox();
@@ -50,6 +54,9 @@ void SimulationPlayground::on_runButton_clicked() {
         QMessageBox::about(this, "Run failed", "Market has no pool!");
     }
     market_->runEpoch();
+    step = step + 1;
+    epochs.append(step);
+    wallet_values.append(arbitrager->total_value());
 
     if (ui->pool_comboBox->currentIndex() != -1) {
         QWidget *item_widget = ui->tabWidget->widget(0);
@@ -120,6 +127,12 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
     ui->pool_comboBox->setCurrentIndex(0);
 }
 
+void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
+{
+    ArbitrageurSimulationGraphItem *arbitrager_dialog = new ArbitrageurSimulationGraphItem(this, epochs, wallet_values);
+    arbitrager_dialog->exec();
+}
+
 std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QString scenario){
     QByteArray byte_arr = scenario.toUtf8();
     QJsonDocument doc = QJsonDocument::fromJson(byte_arr);
@@ -143,6 +156,9 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
 {
     delete market_;
     market_ = new Market();
+    step = {0};
+    epochs = {step};
+    wallet_values = {arbitrager->total_value()};
     ui->pool_comboBox->clear();
     ui->tabWidget->removeTab(0);
     ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");

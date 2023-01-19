@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "src/Market/Infrastructure/Market.hpp"
+#include "src/Market/Agents/Arbitrager.hpp"
 #include <qcustomplot.h>
 
 namespace Ui {
@@ -26,6 +27,7 @@ private slots:
     void on_pushButton_customEpoch_clicked();
 
     void on_pushButton_load_scenario_clicked();
+    void on_pushButton_analyze_arbitrager_clicked();
     void on_View_Options_currentIndexChanged(int index);
     void update_pool_comboBox();
 
@@ -35,10 +37,13 @@ private slots:
 private:
     Ui::SimulationPlayground *ui;
     Market* market_;
+    double step;
     QVector<double> epochs;
+    QVector<double> wallet_values;
     std::unordered_map<Token*, QVector<double> > inventory_quantities;
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
     Token* test_token;
+    Arbitrager* arbitrager;
 };
 
 #endif // SIMULATIONPLAYGROUND_H
