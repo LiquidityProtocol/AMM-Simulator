@@ -34,6 +34,10 @@ public:
 
 	std::string name() const;
 	double real_value() const;
+
+	void set_real_value(double real_value);
+
+    Token(const std::string &name) : name_(name), real_value_(0) {}
     PoolInterface * pool() const;
 
 private:
@@ -173,6 +177,7 @@ private:
     Token *pool_token_;
     std::vector<Operation *> ledger_;
 
+    double SimulateTradeDemand(Token *input_token, Token *output_token, double output_quantity) const;
     double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
     Operation * Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);
 
@@ -194,6 +199,7 @@ private:
 
     void ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities);
 };
+
 
 Q_DECLARE_METATYPE(PoolInterface *);
 Q_DECLARE_METATYPE(Token *);

@@ -1,0 +1,10 @@
+release/main.o
+release/MainWindow.o
+release/Account.o
+release/FirstSimulation.o
+release/Initializer.o
+release/Operation.o
+release/PoolInterface.o
+release/Token.o
+release/FirstSimulation.o
+release/moc_MainWindow.o
