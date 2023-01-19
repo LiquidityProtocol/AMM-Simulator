@@ -39,10 +39,12 @@ void Arbitrager::sendStrategicSignal(PoolInterface *pool) {
             try {
                 buy(input, quantity * 2 - GetQuantity(input));
             } catch (std::invalid_argument &e) {
-                for (auto [token, quantity] : wallet())
-                    if (token != input) {
-                        sell(token, 1.8 * quantity);
-                    }
+                for (auto [token, quantity] : wallet()) {
+                    if (token == input) continue;
+                    if (token -> pool()) continue;
+
+                    sell(token, quantity * 0.4);
+                }
                 quantity *= 0.95;
             }
         }
