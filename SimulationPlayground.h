@@ -33,6 +33,8 @@ private slots:
     void on_pushButton_reset_market_clicked();
 
 
+    void on_Arbs_Options_currentIndexChanged(int index);
+
 private:
     Simulation *Sim;
 

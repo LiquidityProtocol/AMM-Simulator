@@ -42,17 +42,18 @@ void Provider::StrategicProvide(PoolInterface *pool) {
             LP_amount /= neededBudget;
             LP_amount *= budget() * 0.9;
         }
+        if (LP_amount > 0.01) {
+            for (auto [token, quantity] : pool->quantities()) {
+                double neededQuantity = quantity * LP_amount / pool->total_pool_token_quantity();
+                double activeQuantity = GetQuantity(token);
 
-        for (auto token : tokenSet) {
-            double neededQuantity = pool->GetQuantity(token) / pool->total_pool_token_quantity() * LP_amount;
-            double activeQuantity = GetQuantity(token);
-
-            if (activeQuantity < neededQuantity) {
-                buy(token, neededQuantity - activeQuantity);
+                if (activeQuantity < neededQuantity) {
+                    buy(token, (neededQuantity - activeQuantity) * 1.01);
+                }
+                providingQuantities[token] = neededQuantity;
             }
-            providingQuantities[token] = neededQuantity;
+            Provide(pool, providingQuantities);
         }
-        Provide(pool, providingQuantities);
     }
 }
 
@@ -66,7 +67,7 @@ QVector<double> Provider::calcHoldValue(PoolInterface *pool) const {
     for (auto [token, quantity] : provideHistory[i].find(pool)->second)
         hold += quantity * token->real_value();
 
-    vals.push_back(hold);
+    std::vector<double> vals = {hold};
 
     for (size_t i = 0 ; i < provideHistory.size() ; ++i) {
         for (auto [token, quantity] : provideHistory[i].find(pool)->second)
@@ -78,8 +79,7 @@ QVector<double> Provider::calcHoldValue(PoolInterface *pool) const {
     return vals;
 }
 double Provider::calcShareValue(PoolInterface *pool) const {
-    double val = pool->pool_token_value() * GetQuantity(pool->pool_token());
-    return val;
+    return pool->pool_token_value() * GetQuantity(pool->pool_token());
 }
 
 void Provider::endEpoch() {
@@ -104,4 +104,3 @@ void Provider::endEpoch() {
         }
     }
 }
-

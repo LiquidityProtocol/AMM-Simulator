@@ -35,7 +35,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     ui->tabWidget->addTab(new QWidget, "Arbitrageur Graph");
     update_pool_comboBox();
 
-    for(auto [strategy, strategy_name]: STRATEGY_NAME){
+    for(auto &[strategy, strategy_name] : STRATEGY_NAME) {
         ui->Arbs_Options->addItem(strategy_name, QVariant::fromValue(strategy));
     }
 
@@ -164,5 +164,11 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");
     ui->tabWidget->addTab(new QWidget, "LP Graph");
     ui->tabWidget->setCurrentIndex(0);
+}
+
+
+void SimulationPlayground::on_Arbs_Options_currentIndexChanged(int index) {
+    auto arb = Sim->GetArb();
+    arb->setStrategy(qvariant_cast<STRATEGY>(ui->Arbs_Options->itemData(index)));
 }
 
