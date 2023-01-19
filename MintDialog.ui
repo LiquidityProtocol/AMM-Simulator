@@ -14,8 +14,7 @@
    <string>Mint</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(1, 25, 147); </string>
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <property name="modal">
    <bool>true</bool>
