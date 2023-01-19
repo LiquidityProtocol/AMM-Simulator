@@ -24,6 +24,8 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     pool_(pool)
 {
     ui->setupUi(this);
+    connect(ui->widget, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(showPointToolTip(QMouseEvent*)));
+
     token_to_graph = std::unordered_map< Token*, QCPGraph* > ();
     for (auto token: pool_->tokens()){
         token_to_graph[token] = ui->widget->addGraph();
@@ -39,6 +41,15 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     assert(plottedToken1);
     assert(plottedToken2);
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+}
+void PoolGraphItem::showPointToolTip(QMouseEvent *event){
+
+    int x = ui->widget->xAxis->pixelToCoord(event->pos().x());
+    int y = ui->widget->yAxis->pixelToCoord(event->pos().y());
+
+    setToolTip(QString("%1 , %2").arg(x).arg(y));
+    qDebug() << x << " " << y;
+
 }
 
 void PoolGraphItem::UpdateGraph() {

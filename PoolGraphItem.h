@@ -23,6 +23,9 @@ public:
     void initLineChart();
     void initCandleStick();
     void setViewMethod(bool plotting_volume);
+private slots:
+    void showPointToolTip(QMouseEvent *event);
+
 
 private:
     Ui::PoolGraphItem *ui;
