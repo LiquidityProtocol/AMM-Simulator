@@ -53,3 +53,23 @@ void Provider::StrategicProvide(PoolInterface *pool) {
         Provide(pool, providingQuantities);
     }
 }
+
+void Provider::calcHoldValue(PoolInterface *pool, std::vector<double> &vals) const {
+    vals.clear();
+
+    double hold = 0;
+    double share = 0;
+
+    for (size_t i = 0 ; i < provideHistory.size() ; ++i)
+    for (auto [token, quantity] : provideHistory[i].find(pool)->second)
+        hold += quantity * token->real_value();
+
+    vals.push_back(hold);
+
+    for (size_t i = 0 ; i < provideHistory.size() ; ++i) {
+        for (auto [token, quantity] : provideHistory[i].find(pool)->second)
+            hold -= quantity * token->real_value();
+
+        share += benefitHistory[i].find(pool)->second;
+    }
+}
