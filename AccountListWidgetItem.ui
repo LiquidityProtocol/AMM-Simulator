@@ -71,7 +71,7 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(1, 25, 147);</string>
        </property>
        <property name="text">
         <string>$</string>
