@@ -93,6 +93,7 @@ void WithdrawDialog::on_comboBox_pool_activated(int index)
 
 void WithdrawDialog::on_lineEdit_withdraw_textChanged(const QString &text)
 {
+    UNUSED(text);
     PoolInterface *curr_pool = qvariant_cast<PoolInterface *>(ui->comboBox_pool->currentData());
 
     double withdrawal_percentage = ui->lineEdit_withdraw->text().toDouble();

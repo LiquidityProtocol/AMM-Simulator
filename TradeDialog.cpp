@@ -43,6 +43,7 @@ void TradeDialog::on_input_token_comboBox_currentTextChanged(const QString &inpu
 
 void TradeDialog::on_output_token_comboBox_currentTextChanged(const QString &output_token_name)
 {
+    UNUSED(output_token_name);
     ui->protocol_comboBox->setCurrentIndex(-1);
     UpdateSelection();
 }
@@ -79,12 +80,14 @@ void TradeDialog::on_protocol_comboBox_activated(int index)
 
 void TradeDialog::on_pool_comboBox_currentIndexChanged(int index)
 {
+    UNUSED(index);
     UpdateSelection();
     UpdateOutputQuantity();
 }
 
 void TradeDialog::on_input_quantity_lineEdit_textChanged(const QString &input_quantity_string)
 {
+    UNUSED(input_quantity_string);
     UpdateSelection();
     UpdateOutputQuantity();
 }

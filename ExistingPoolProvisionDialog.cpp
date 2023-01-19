@@ -103,11 +103,13 @@ void ExistingPoolProvisionDialog::on_comboBox_pool_activated(int index)
 
 void ExistingPoolProvisionDialog::on_comboBox_input_token_activated(int index)
 {
+    UNUSED(index);
     UpdateProvision();
 }
 
 void ExistingPoolProvisionDialog::on_lineEdit_input_token_textChanged(const QString &input_token_provision_text)
 {
+    UNUSED(input_token_provision_text);
     UpdateProvision();
 }
 
