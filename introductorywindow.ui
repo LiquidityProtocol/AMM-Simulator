@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1445</width>
-    <height>824</height>
+    <width>1457</width>
+    <height>747</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@ border-color: rgb(255, 255, 255);
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -86,25 +86,31 @@ border: 3px solid rgb(255, 255, 255);
        <attribute name="title">
         <string>Information</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QTextBrowser" name="textBrowser">
-          <property name="font">
-           <font>
-            <family>Calibri</family>
-            <pointsize>13</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border: 3px solid rgb(255, 255, 255);
+       <widget class="QTextBrowser" name="textBrowser">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>0</y>
+          <width>691</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>13</pointsize>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
 
 
 </string>
-          </property>
-          <property name="html">
-           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
@@ -113,8 +119,29 @@ hr { height: 1px; border-width: 0; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;What is a Liquidity protocol and a Market Simulator?&lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; font-style:italic; text-decoration: underline; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; color:#ffffff;&quot;&gt;  &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;A liquidity protocol is a set of rules and standards that are used to facilitate trading on decentralized exchanges (DEXs): the exchange of assets between buyers and sellers. The goal of a liquidity protocol is to ensure that there is always a buyer or seller available for a given asset, even if there is not a lot of demand for that asset at a particular moment in time. This helps to make markets more efficient and reduces the risk of price volatility. &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;These protocols typically use a system of automated market makers (AMMs), which are algorithmically managed marketplaces that allow users to trade assets without the need for an order book or traditional market maker. The most well-known and widely used liquidity protocol is Uniswap. It's an open-source protocol that allows anyone to create and trade on their own custom markets using smart contracts. Uniswap uses liquidity pools to provide the necessary liquidity for trading. A liquidity pool is a smart contract that holds a balance of a certain asset and ETH. Anyone can add assets to the pool, which in turn increases the liquidity of the pool. In return for providing liquidity, the liquidity providers earn a small percentage of the trading fees from trades that occur within the pool. &lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;Market simulators are tools that can be used to test trading strategies and simulate the performance of different markets. They can be useful for traders, liquidity providers, and anyone who wants to understand how a market might behave under different conditions. &lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;Instructions&lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-weight:700; font-style:italic; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;Market simulators are tools that can be used to test trading strategies and simulate the performance of different markets. They can be useful for traders, liquidity providers, and anyone who wants to understand how a market might behave under different conditions. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser_2">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>0</y>
+          <width>661</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;Instructions&lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-weight:700; font-style:italic; color:#ffffff;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;1.    Create some tokens (e.g. &amp;quot;DAI&amp;quot;) &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;2.    Create Accounts (preferably more than 2) with different and non-empty names. &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;3.    Mint some of those tokens to an account. Choose the token and the quantity to add. &lt;/span&gt;&lt;/p&gt;
@@ -122,22 +149,72 @@ hr { height: 1px; border-width: 0; }
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;5.    After the first deposit, in the pool information column you will be presented with a table and a graph that displays both tokens. &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;6.    Choose another account and trade one token for another. A window will pop up and allow you to input the tokens you want to exchange, the protocol (e.g. “UNISWAP V.2”) &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;7.    Change the &amp;quot;real world&amp;quot; market price on tokens to simulate arbitrage opportunities &lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;8.    Withdraw a percentage your position to get back the value + a share of accrued pool fees. &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:14pt; color:#ffffff;&quot;&gt;8.    Withdraw a percentage your position to get back the value + a share of accrued pool fees. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser_3">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>370</y>
+          <width>661</width>
+          <height>281</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+
+</string>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; color:#ffffff;&quot;&gt;⚠ &lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;Disclaimer&lt;/span&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; color:#ffffff;&quot;&gt; ⚠&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;The results shown are based on simulated or hypothetical performance results. Hypothetical results have certain inherent limitations. Unlike the results shown in an actual performance record, these results do not represent actual trading. No representation is being made that any account will or is likely to achieve profits or losses similar to those being shown. Past performance, whether actual or indicated by historical tests of strategies, is no guarantee of future performance or success. There is a possibility that you may sustain a loss equal to or greater than your entire investment regardless of which asset class you trade. &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;You agree and understand that: (a) all trades you submit through the Interface are considered unsolicited, which means that they are solely initiated by you; (b) you have not received any investment advice from us in connection with any trades, including those you place via our Auto Routing API; and (c) we do not conduct a suitability review of any trades you submit. &lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser_4">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>440</y>
+          <width>691</width>
+          <height>211</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 3px solid rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="lineWidth">
+         <number>-1</number>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; font-size:18pt; font-weight:700; text-decoration: underline; color:#ffffff;&quot;&gt;Contributions&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Market Simulation Team: Tu, Alessandro, Adrien, Matheo, Adithya and Levente&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Frontend Team: Jasmine, Victoire and Martina&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Liquidity Protocol Team: Minh, The and Fryderyk&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Economics Team: Mia, Shubh, Gabriele and Kaoutar&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.AppleSystemUIFont'; color:#ffffff;&quot;&gt;-&amp;gt; Mathematics Team: Amine, Julien and Duc &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -148,7 +225,7 @@ hr { height: 1px; border-width: 0; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1445</width>
+     <width>1457</width>
      <height>21</height>
     </rect>
    </property>
@@ -157,6 +234,9 @@ hr { height: 1px; border-width: 0; }
  </widget>
  <tabstops>
   <tabstop>textBrowser</tabstop>
+  <tabstop>textBrowser_2</tabstop>
+  <tabstop>textBrowser_3</tabstop>
+  <tabstop>textBrowser_4</tabstop>
  </tabstops>
  <resources/>
  <connections/>
