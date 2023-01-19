@@ -1,1 +1,4 @@
-
+Amine Roudani
+- Researched in depth various trading strategies.
+- Implemented these strategies in cpp with comments explaining what's happening.
+- So far, I have implemented Mean Reversion, Fibonacci Retracement, and Breakout strategies.
