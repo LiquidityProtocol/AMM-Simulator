@@ -21,6 +21,7 @@ public:
     bool haveToken(Token *token) const;
 
     void runEpoch();
+    void setHandler(SignalsHandler *handler);
 
     std::unordered_set<Token *> GetMarketTokens() const;
     std::unordered_set<PoolInterface *> GetMarketPools() const;
@@ -28,8 +29,6 @@ public:
 
     void loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL pool_type = PROTOCOL::UNISWAP_V2);
     void loadInitialScenario(const std::unordered_set<PoolInterface *> pools);
-
-    double ProfitLP(PoolInterface *pool);
 private:
     static int MarketCount;
     int MarketIndex;
@@ -39,7 +38,7 @@ private:
     std::unordered_set<Account *> accounts_;
 
     CommunityActor *A;
-    SignalsHandler *handler;
+    SignalsHandler *handler = new SignalsHandler();
 
     void simulateTrade(PoolInterface *pool);
     void simulateArbitrage(PoolInterface *pool);

@@ -1,6 +1,9 @@
 #include "Market.hpp"
 #include <random>
 
+#include "../Agents/Arbitrager.hpp"
+#include "../Agents/Provider.hpp"
+
 std::default_random_engine generator;
 std::normal_distribution<double> rnorm(0.0, 1.0);
 std::uniform_real_distribution<double> runi(0.0, 1.0);
@@ -102,6 +105,22 @@ void Market::runEpoch() {
     for (auto token : GetMarketTokens())
         token->real_value_ *= exp(rvNorm(0, 0.01));
 
+    // test arbitrager and Provider
+    Arbitrager *arb = new Arbitrager("Poor Combi", 10000);
+    Provider *LP = new Provider("Rich Combi", 100000);
+
+    arb->setHandler(handler);
+
+    for (auto pool : GetMarketPools()) {
+        arb->sendStrategicSignal(pool);
+        LP->StrategicProvide(pool);
+    }
+    handler->respondSignals();
+
+    delete arb;
+    delete LP;
+    // done testing
+
     for (int _ = 0 ; _ < 10 ; ++_)
     for (auto pool : GetMarketPools()) {
         Token *token1 = *(pool->tokens()).begin();
@@ -125,6 +144,10 @@ void Market::runEpoch() {
     }
     for (auto pool : GetMarketPools())
         pool->endEpoch();
+}
+
+void Market::setHandler(SignalsHandler *handler) {
+    this->handler = handler;
 }
 
 std::unordered_set<Token *> Market::GetMarketTokens() const {
