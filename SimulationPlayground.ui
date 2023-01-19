@@ -152,7 +152,7 @@
       <item>
        <widget class="QPushButton" name="pushButton_analyze_arbitrager">
         <property name="text">
-         <string>Analyze arbitrager</string>
+         <string>Analyze arbitrageur</string>
         </property>
        </widget>
       </item>

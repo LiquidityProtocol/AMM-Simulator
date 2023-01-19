@@ -15,23 +15,23 @@ QColor random_color2() {
     return color;
 }
 
-AccountGraphItem::AccountGraphItem(QWidget *parent, Account *account) :
+AccountGraphItem::AccountGraphItem(QWidget *parent, Arbitrager *arbitrager) :
     QWidget(parent),
     ui(new Ui::AccountGraphItem)
 {
-    *wallet_values = {account->total_value()};
+    *wallet_values = {arbitrager->total_value()};
     ui->setupUi(this);
-    account_to_graph[account_] = ui->widget->addGraph();
-    account_to_graph[account_]->setName(QString::fromStdString(account->name()));
-    account_to_graph[account_]->setPen(QPen(QBrush(QColor(random_color2())), 2));
+    arbitrager_to_graph = ui->widget->addGraph();
+    arbitrager_to_graph->setName(QString::fromStdString(arbitrager->name()));
+    arbitrager_to_graph->setPen(QPen(QBrush(QColor(random_color2())), 2));
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void AccountGraphItem::UpdateGraph()
 {
     // clear the data of previous graph
-    account_to_graph[account_]->data()->clear();
-    account_to_graph[account_]->removeFromLegend();
+    arbitrager_to_graph->data()->clear();
+    arbitrager_to_graph->removeFromLegend();
 
     // plot the data
     QVector<double> new_epochs;
@@ -41,11 +41,11 @@ void AccountGraphItem::UpdateGraph()
 
     *epochs = new_epochs;
 
-    (*wallet_values).append(account_->total_value());
+    (*wallet_values).append((*arbitrager).total_value());
 
-    account_to_graph[account_]->setData(*epochs, *wallet_values);
-    account_to_graph[account_]->addToLegend();
-    account_to_graph[account_]->rescaleAxes(true);
+    arbitrager_to_graph->setData(*epochs, *wallet_values);
+    arbitrager_to_graph->addToLegend();
+    arbitrager_to_graph->rescaleAxes(true);
 
     ui->widget->xAxis->setLabel("Epochs");
     ui->widget->yAxis->setLabel("Value of the wallet");

@@ -3,6 +3,7 @@
 
 #include "qcustomplot.h"
 #include "src/Utilities/Utilities.hpp"
+#include "src/Market/Agents/Arbitrager.hpp"
 #include <QWidget>
 
 namespace Ui {
@@ -14,16 +15,16 @@ class AccountGraphItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit AccountGraphItem(QWidget *parent = nullptr, Account *account=nullptr);
+    explicit AccountGraphItem(QWidget *parent = nullptr, Arbitrager *arbitrager=nullptr);
     ~AccountGraphItem();
 
     void UpdateGraph();
 
 private:
     Ui::AccountGraphItem *ui;
-    std::unordered_map<Account*, QCPGraph*> account_to_graph;
+    QCPGraph* arbitrager_to_graph;
 
-    Account *account_;
+    Arbitrager *arbitrager;
     QVector<double> *epochs;
     QVector<double> *wallet_values;
 

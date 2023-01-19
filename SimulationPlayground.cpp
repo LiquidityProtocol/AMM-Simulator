@@ -27,6 +27,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
+    wallet_values = {(*arbitrager).total_value()};
 
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
@@ -56,6 +57,7 @@ void SimulationPlayground::on_runButton_clicked() {
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
         pool_graph->UpdateGraph();
     }
+     wallet_values.append( (*arbitrager).total_value() );
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
@@ -121,6 +123,11 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
     ui->pool_comboBox->setCurrentIndex(0);
 }
 
+void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
+{
+
+}
+
 std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QString scenario){
     QByteArray byte_arr = scenario.toUtf8();
     QJsonDocument doc = QJsonDocument::fromJson(byte_arr);
@@ -148,4 +155,5 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     ui->listWidget->clear();
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
+    wallet_values = {(*arbitrager).total_value()};
 }
