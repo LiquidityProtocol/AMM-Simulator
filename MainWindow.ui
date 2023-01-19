@@ -28,6 +28,9 @@ color: rgb(169, 169, 169);
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -78,7 +81,7 @@ background-color: rgb(214, 214, 214);
         </item>
        </layout>
       </item>
-      <item alignment="Qt::AlignLeft">
+      <item>
        <widget class="QListWidget" name="listWidget">
         <property name="minimumSize">
          <size>
