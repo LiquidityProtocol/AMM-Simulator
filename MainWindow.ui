@@ -191,7 +191,7 @@ color: rgb(145, 145, 145);
 background-color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -226,7 +226,7 @@ color: rgb(255, 255, 255);
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

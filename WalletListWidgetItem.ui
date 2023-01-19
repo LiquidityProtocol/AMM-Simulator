@@ -15,7 +15,9 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(1, 25, 147);</string>
+color: rgb(1, 25, 147);
+border-color: rgb(1, 25, 147);
+border: 1px solid; </string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
