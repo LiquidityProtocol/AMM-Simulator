@@ -76,5 +76,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    Background.qrc \
+    Images.qrc \
     LOGO.qrc \
-    Logo_background.qrc
+    Logo-with-background.qrc \
+    Logo_background.qrc \
+    New_background.qrc

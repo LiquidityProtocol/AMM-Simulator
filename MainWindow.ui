@@ -20,7 +20,10 @@
    <string notr="true">background-color: rgb(28, 18, 62);
 
 font: 13pt &quot;Calibri&quot;;
-color: rgb(169, 169, 169)
+color: rgb(169, 169, 169);
+
+
+
 
 </string>
   </property>
@@ -41,7 +44,8 @@ color: rgb(169, 169, 169)
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255)</string>
+           <string notr="true">color: rgb(0,0,0);
+background-color: rgb(214, 214, 214);</string>
           </property>
           <property name="placeholderText">
            <string>Enter account name here</string>
@@ -62,8 +66,8 @@ color: rgb(169, 169, 169)
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(1, 25, 147);
+           <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(214, 214, 214);
 
 </string>
           </property>
@@ -87,7 +91,11 @@ background-color: rgb(1, 25, 147);
         </property>
         <property name="styleSheet">
          <string notr="true">color: rgb(36, 18, 255);
-border: 3px solid rgb(255, 255, 255);</string>
+border: 3px solid rgb(214, 214, 214);
+
+
+
+</string>
         </property>
        </widget>
       </item>
@@ -111,7 +119,8 @@ border: 3px solid rgb(255, 255, 255);</string>
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255)</string>
+           <string notr="true">background-color: rgb(214, 214, 214);
+color : rgb(0, 0, 0)</string>
           </property>
           <property name="text">
            <string/>
@@ -132,7 +141,8 @@ border: 3px solid rgb(255, 255, 255);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 255, 255)</string>
+           <string notr="true">background-color: rgb(214, 214, 214);
+color : rgb(0, 0, 0)</string>
           </property>
           <property name="placeholderText">
            <string>Enter token price here</string>
@@ -150,8 +160,8 @@ border: 3px solid rgb(255, 255, 255);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(1, 25, 147);
+           <string notr="true">color: rgb(0,0,0);
+background-color: rgb(214, 214, 214)
 </string>
           </property>
           <property name="text">
@@ -164,7 +174,8 @@ background-color: rgb(1, 25, 147);
       <item>
        <widget class="QListWidget" name="listWidget_2">
         <property name="styleSheet">
-         <string notr="true">border: 3px solid rgb(255, 255, 255);</string>
+         <string notr="true">border: 3px solid rgb(214, 214, 214);
+</string>
         </property>
        </widget>
       </item>
@@ -187,8 +198,8 @@ background-color: rgb(1, 25, 147);
         </property>
         <property name="styleSheet">
          <string notr="true">text-align: center; 
-color: rgb(145, 145, 145);
-background-color: rgb(255, 255, 255);</string>
+color: rgb(0,0,0);
+background-color: rgb(214, 214, 214);</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#919191;&quot;&gt;Pool Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -198,7 +209,7 @@ background-color: rgb(255, 255, 255);</string>
       <item>
        <widget class="QListWidget" name="listWidget_pool">
         <property name="styleSheet">
-         <string notr="true">border: 3px solid rgb(255, 255, 255);
+         <string notr="true">border: 3px solid rgb(214, 214, 214);
 </string>
         </property>
        </widget>
@@ -206,8 +217,10 @@ background-color: rgb(255, 255, 255);</string>
       <item>
        <widget class="QPushButton" name="pushButton">
         <property name="styleSheet">
-         <string notr="true">border: 3px solid rgb(255, 255, 255);
-color: rgb(255, 255, 255);
+         <string notr="true">
+color: rgb(0, 0, 0);
+background-color: rgb(214, 214, 214);
+
 </string>
         </property>
         <property name="text">
@@ -226,7 +239,7 @@ color: rgb(255, 255, 255);
      <x>0</x>
      <y>0</y>
      <width>1377</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

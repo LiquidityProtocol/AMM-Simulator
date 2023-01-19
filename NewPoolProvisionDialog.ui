@@ -24,6 +24,7 @@
 color: rgb(1, 25, 147);
 border: 1px solid; 
 border-color: rgb(1, 25, 147);
+
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
