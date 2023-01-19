@@ -120,9 +120,11 @@ void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provisio
     provide_dialog->accept();
     if (initial_provision) {
         new_pool_provision_dialog = new NewPoolProvisionDialog(this, playground_);
+        new_pool_provision_dialog->setWindowTitle(QString::fromStdString("Provide from account " + account_->name()));
         new_pool_provision_dialog->exec();
     } else {
         existing_pool_provision_dialog = new ExistingPoolProvisionDialog(this, playground_);
+        existing_pool_provision_dialog->setWindowTitle(QString::fromStdString("Provide from account " + account_->name()));
         existing_pool_provision_dialog->exec();
     }
 }
