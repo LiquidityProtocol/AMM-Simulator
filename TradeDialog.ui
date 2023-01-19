@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>313</width>
-    <height>278</height>
+    <height>296</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,12 +86,36 @@
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Output quantity</string>
+        <string>Output quantity:</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="output_quantity_lineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_slippage">
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_slippage">
+       <property name="text">
+        <string>Slippage (%): </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_slippage">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>

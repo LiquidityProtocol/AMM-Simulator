@@ -125,8 +125,13 @@ void TradeDialog::UpdateOutputQuantity()
     if (selection_.Valid()) {
         double output_quantity = playground_->SimulateSwap(selection_.pool_, selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
         ui->output_quantity_lineEdit->setText(QString::number(output_quantity));
+
+        double slippage = selection_.pool_->GetSlippage(selection_.input_token_, selection_.output_token_, selection_.input_quantity_);
+        ui->lineEdit_slippage->setText(QString::number(slippage*100));
+
     } else {
         ui->output_quantity_lineEdit->clear();
+        ui->lineEdit_slippage->clear();
     }
 }
 
