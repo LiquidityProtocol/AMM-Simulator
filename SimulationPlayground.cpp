@@ -137,7 +137,7 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
 
 void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
 {
-    ArbitragerDialog *arbitrager_dialog = new ArbitragerDialog(this, epochs_list, epochs_list);
+    ArbitragerDialog *arbitrager_dialog = new ArbitragerDialog(this, epochs_list, epochs_list); //second one should be wallet_values
     arbitrager_dialog->exec();
 }
 
