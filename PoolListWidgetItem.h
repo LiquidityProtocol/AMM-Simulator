@@ -22,6 +22,7 @@ public:
     int get_comboBox_secondToken_index() const;
     void set_comboBox_spotPrice_index(int index);
     void set_comboBox_secondToken_index(int index);
+    void set_slippage(double slippage);
 
 private slots:
     void on_comboBox_spotPrice_currentIndexChanged(int index);

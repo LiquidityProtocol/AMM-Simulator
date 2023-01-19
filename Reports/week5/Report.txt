@@ -72,3 +72,15 @@ Julien:
 - researched about how divergence loss could be implemented in different ways
 - implemented a version of using treshold in divergencelossnofees
 - wrote an explaination of the above implementation and its idea
+
+Gabriele Biroli
+-This week, I finally submitted my balancerpool protocol tester to git.
+ Furthermore, I now started working with kaoutar on coding two perfect arbitrager
+ function for the ConstantSum and the BalancerPool simulation. Once this is finished,
+ we will then start working on a tester for these functions.
+
+Kaoutar Fahraoui 
+- I worked on implementing one helper function for the simulation of the 
+liquidity pool. It takes as inputs the mean, variance and the sample size 
+and samples a uniform distribution. I am currently working on implementing
+ with Gabriele the two other perfect arbitrage for the simulation (ConstantSum and BalancerPool).
