@@ -6,12 +6,12 @@ namespace Ui {
 class ArbitrageurSimulationGraphItem;
 }
 
-class ArbitrageurSimulationGraphItem : public QWidget
+class ArbitrageurSimulationGraphItem : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ArbitrageurSimulationGraphItem(QWidget *parent = nullptr, QVector<double> epochs={0}, QVector<double> wallet_values={0});
+    explicit ArbitrageurSimulationGraphItem(QWidget *parent = nullptr, QVector<double> epochs={}, QVector<double> wallet_values={});
     ~ArbitrageurSimulationGraphItem();
 
 private:
