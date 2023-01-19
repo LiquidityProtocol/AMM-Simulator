@@ -148,7 +148,7 @@ void Market::executeSignal(Account *sender, Signal *signal) {
     Token *output_token = signal->output_token();
     double input_quantity = signal->quantity();
 
-    sender->Trade(pool, input_token, output_token, input_quantity);
+//    sender->Trade(pool, input_token, output_token, input_quantity);
 }
 
 std::unordered_set<Token *> Market::GetMarketTokens() const {

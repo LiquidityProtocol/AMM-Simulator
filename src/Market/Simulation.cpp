@@ -26,17 +26,14 @@ Account *Simulation::GetLP() const {
     return LP_;
 }
 
-
-
-
 void Simulation::runEpoch() {
-    for (auto pool : GetPools()) {
-        arb_->StrategicTrade(pool);
-        LP_->StrategicProvide(pool);
-    }
-    market_->runEpoch();
-    handler->respondSignals();
+//    for (auto pool : GetPools()) {
+//        arb_->StrategicTrade(pool);
+//        LP_->StrategicProvide(pool);
+//    }
+//    market_->runEpoch();
+//    handler->respondSignals();
 
-    for (auto pool : GetPools())
-        pool->endEpoch();
+//    for (auto pool : GetPools())
+//        pool->endEpoch();
 }
