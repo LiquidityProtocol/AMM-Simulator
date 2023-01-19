@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     AccountListWidgetItem.cpp \
+    ArbitrageurSimulationGraphItem.cpp \
     ChangeModeDialog.cpp \
     ExistingPoolProvisionDialog.cpp \
     ManualPlayground.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     PoolGraphItem.cpp \
     PoolListWidgetItem.cpp \
     ProvideDialog.cpp \
+    ProviderSimulationGraphItem.cpp \
     SimulationPlayground.cpp \
     TokenListWidgetItem.cpp \
     TradeDialog.cpp \
@@ -45,6 +47,7 @@ SOURCES += \
 
 HEADERS += \
     AccountListWidgetItem.h \
+    ArbitrageurSimulationGraphItem.h \
     ChangeModeDialog.h \
     ExistingPoolProvisionDialog.h \
     ManualPlayground.h \
@@ -54,6 +57,7 @@ HEADERS += \
     PoolGraphItem.h \
     PoolListWidgetItem.h \
     ProvideDialog.h \
+    ProviderSimulationGraphItem.h \
     SimulationPlayground.h \
     TokenListWidgetItem.h \
     TradeDialog.h \
@@ -81,6 +85,7 @@ HEADERS += \
 
 FORMS += \
     AccountListWidgetItem.ui \
+    ArbitrageurSimulationGraphItem.ui \
     ChangeModeDialog.ui \
     ExistingPoolProvisionDialog.ui \
     ManualPlayground.ui \
@@ -90,6 +95,7 @@ FORMS += \
     PoolGraphItem.ui \
     PoolListWidgetItem.ui \
     ProvideDialog.ui \
+    ProviderSimulationGraphItem.ui \
     SimulationPlayground.ui \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
