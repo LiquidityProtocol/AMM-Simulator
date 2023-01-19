@@ -2,6 +2,7 @@
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
 #include "AccountGraphItem.h"
+#include "ArbitragerDialog.h"
 #include <QVector>
 #include <random>
 
@@ -125,7 +126,7 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
 
 void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
 {
-    arbitrager_dialog = new ArbitragerDialog(this, epochs, wallet_values);
+    ArbitragerDialog *arbitrager_dialog = new ArbitragerDialog(this, epochs, wallet_values);
     arbitrager_dialog->exec();
 }
 

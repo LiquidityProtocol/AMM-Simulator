@@ -1,13 +1,12 @@
 #ifndef ARBITRAGERDIALOG_H
 #define ARBITRAGERDIALOG_H
-
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
 class ArbitragerDialog;
 }
 
-class ArbitragerDialog : public QWidget
+class ArbitragerDialog : public QDialog
 {
     Q_OBJECT
 
