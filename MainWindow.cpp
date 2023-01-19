@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <tuple>
 #include "src/Playground.hpp"
+#include "ChangeModeDialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     playground_ = new Playground;
+    ChangeModeDialog* change = new ChangeModeDialog;
+    change->exec();
 }
 
 MainWindow::~MainWindow()

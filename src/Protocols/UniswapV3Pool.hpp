@@ -44,7 +44,7 @@ private:
     }
 
     double GetWeight(Token *token) const {
-        return GetQuantity(pool_token()) * weights_.find(token)->second;
+        return GetQuantity(pool_token()) / INITIAL_POOL_TOKEN_SUPPLY * weights_.find(token)->second;
     }
 
     double ComputeInvariant(const std::unordered_map<Token *, double> &quantities) const {

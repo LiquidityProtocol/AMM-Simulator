@@ -86,41 +86,71 @@ public:
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 
-    friend std::ostream & operator<<(std::ostream &os, const Operation &op);
+    double GetOpenPrice(Token *a, Token *b) const;
+    double GetHighPrice(Token *a, Token *b) const;
+    double GetLowPrice(Token *a, Token *b) const;
+    double GetClosePrice(Token *a, Token *b) const;
 
+    double GetMarketPrice(Token *a) const;
+    double GetSpotPrice(Token *a, Token *b) const;
+    double GetQuanitty(Token *a) const;
+    double GetVolume(Token *a) const;
+
+    bool endEpoch() const;
+    int epochIndex() const;
+
+    friend std::ostream & operator<<(std::ostream &os, const Operation &op);
+    friend class PoolInterface;
 private:
+    bool endEpoch_ = false;
+    int nEpochs = 1;
+
+    Operation *prvEpochOps = nullptr;
+
     std::string operation_type_;
     std::string account_name_;
     PoolInterface *pool_;
+    std::unordered_map<Token *, double> quantities_;
     std::unordered_map<Token *, double> input_;
     std::unordered_map<Token *, double> output_;
+    std::unordered_map<Token *, double> market_price_;
+
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMatrix;
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > open, high, low, close;
 };
 
 class Account {
 public:
+    Account(const std::string &name);
+    Account(const std::string &name, double budget);
+
     Account & operator=(const Account &) = delete;
 	Account(const Account &) = delete;
 
     friend class PoolInterface;
     friend class Playground;
-    friend class Market;
+    friend class SignalsHandler;
 
     std::string name() const;
     std::unordered_map<Token *, double> wallet() const;
+
     double total_value() const;
+    double budget() const;
+
     std::vector<Operation *> ledger() const;
 
     double GetQuantity(Token *token) const;
 
     void Deposit(Token *token, double quantity);
-    
+
+    void sell(Token *token, double quantity);
+    void buy(Token *token, double quantity);
 protected:
     std::string name_;
     std::unordered_map<Token *, double> wallet_;
     double total_value_;
+    double budget_;
     std::vector<Operation *> ledger_;
-
-    Account(const std::string &name);
 
     double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
     double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities);
@@ -136,11 +166,14 @@ public:
     friend class Playground;
     friend class CommunityActor;
     friend class Market;
+    friend class Signal;
 
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;
 
     double pool_fee() const;
+    double pool_value() const;
+    double pool_token_value() const;
 
     Token * pool_token() const;
     double total_pool_token_quantity() const;
@@ -151,8 +184,13 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
     double GetSpotPrice(Token *input_token, Token *output_token) const;
 
+    std::vector<Operation *> GetLatestEpochs(int n) const;
+    std::vector<Operation *> GetLatestOps(int n) const;
     std::vector<Operation *> ledger() const;
 
+    Operation *kthLastOps(int k) const;
+
+    void endEpoch();
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 
