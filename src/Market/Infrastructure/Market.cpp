@@ -1,9 +1,6 @@
 #include "Market.hpp"
 #include <random>
 
-#include "../Agents/Arbitrager.hpp"
-#include "../Agents/Provider.hpp"
-
 std::default_random_engine generator;
 std::normal_distribution<double> rnorm(0.0, 1.0);
 std::uniform_real_distribution<double> runi(0.0, 1.0);
@@ -27,10 +24,11 @@ Market::~Market() {
     delete A;
     for (auto pool : pools_)    delete pool;
     for (auto token : tokens_)  delete token;
-    
+
     pools_.clear();
     tokens_.clear();
 }
+
 void Market::loadInitialScenario(const std::unordered_map<std::string, double> &price_tags, PROTOCOL protocol) {
     // create some initial tokens of the market
     for (auto &[tokenName, price] : price_tags)
@@ -102,25 +100,10 @@ Token* Market::getToken(std::string name) const {
 }
 
 void Market::runEpoch() {
-    for (auto token : GetMarketTokens())
+    for (auto token : GetMarketTokens()) {
         token->real_value_ *= exp(rvNorm(0, 0.01));
-
-    // test arbitrager and Provider
-    Arbitrager *arb = new Arbitrager("Poor Combi", 10000);
-    Provider *LP = new Provider("Rich Combi", 100000);
-
-    arb->setHandler(handler);
-
-    for (auto pool : GetMarketPools()) {
-        arb->sendStrategicSignal(pool);
-        LP->StrategicProvide(pool);
+        A->refill(token, 1e9);
     }
-    handler->respondSignals();
-
-    delete arb;
-    delete LP;
-    // done testing
-
     for (int _ = 0 ; _ < 10 ; ++_)
     for (auto pool : GetMarketPools()) {
         Token *token1 = *(pool->tokens()).begin();
@@ -142,8 +125,6 @@ void Market::runEpoch() {
             simulateTrade(pool);
         }
     }
-    for (auto pool : GetMarketPools())
-        pool->endEpoch();
 }
 
 void Market::setHandler(SignalsHandler *handler) {
@@ -204,7 +185,7 @@ void Market::simulateTrade(PoolInterface *pool) {
 
     double TradeQuantity = TradeVolume / input_token->real_value();
     if (TradeQuantity > 0)
-        A->Trade(pool, input_token, output_token, TradeQuantity);
+        handler->requestSignal(A, Signal(pool, input_token, output_token, TradeQuantity));
 }
 void Market::simulateArbitrage(PoolInterface *pool) {
     Token *token1 = *(pool->tokens()).begin();
@@ -227,7 +208,7 @@ void Market::simulateArbitrage(PoolInterface *pool) {
     double tradedQuantityWithNoise = (tradedVolumeWithNoise - volume1) / token1->real_value() * std::max(0.1, rvNorm(1, 1));
 
     if (tradedQuantityWithNoise > 0)
-        A->Trade(pool, token1, token2, tradedQuantityWithNoise);
+        handler->requestSignal(A, Signal(pool, token1, token2, tradedQuantityWithNoise));
 }
 void Market::simulateProvide(PoolInterface *pool) {
     Token *token1 = *(pool->tokens()).begin();

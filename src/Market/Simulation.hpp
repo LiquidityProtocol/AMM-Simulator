@@ -7,10 +7,6 @@
 #include "Agents/Arbitrager.hpp"
 #include "Agents/Provider.hpp"
 
-//#include "Strategy/Strat_HashAI.hpp"
-//#include "Strategy/Strat_MovingAverage.hpp"
-//#include "Strategy/Strat_LinearRegression.hpp"
-
 class Simulation {
 public:
     Simulation();
@@ -19,8 +15,8 @@ public:
     std::unordered_set<Token *> GetTokens() const;
 
     Market *GetMarket() const;
-    Account *GetArb() const;
-    Account *GetLP() const;
+    Arbitrager *GetArb() const;
+    Provider *GetLP() const;
 
     void runEpoch();
 private:
