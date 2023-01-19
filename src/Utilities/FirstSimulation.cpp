@@ -126,6 +126,7 @@ double arb_simulation(double market_exchange_rate, double quantity1, double quan
 
     return quantity1 - new_quantity_1;
 }
+
 double arb_simulation_balancer(double quantity1, double quantity2, double weight_1, double weight_2, double spot_pricechange){
     /* This function tells us how much of the token should be traded for a perfect arbritage oppurtunity (Balancer Pool)
      * @return: the value to be traded
@@ -134,6 +135,23 @@ double arb_simulation_balancer(double quantity1, double quantity2, double weight
     double init_spot_price=(quantity1*weight_2)/(quantity2*weight_1);
     double powr=weight_2/(weight_1+weight_2);
     double should_trade=quantity2*(pow((spot_pricechange/init_spot_price),powr)-1);
+
+
+    return should_trade;
+}
+
+double arb_simulation_constantsum(double quantity1, double quantity2, double market_exchange_rate){
+    /* This function tells us how much of the token should be traded for a perfect arbritage oppurtunity (ConstantSum)
+     * @param: quantity1 : How much of token 1
+     * @param: quantity2 : How much of token 2
+     * @return: the value to be traded
+     */
+
+    
+    double total_liquidity = quantity1 + quantity2;
+    double tm = total_liquidity*market_exchange_rate;
+    double rhs = (tm)/(m+1);
+    double should_trade = quantity1 - rhs
 
 
     return should_trade;
