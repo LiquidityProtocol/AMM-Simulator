@@ -1,6 +1,8 @@
 #include "Market.hpp"
 #include <random>
-#include <iostream>
+
+#include "../Agents/Arbitrager.hpp"
+#include "../Agents/Provider.hpp"
 
 std::default_random_engine generator;
 std::normal_distribution<double> rnorm(0.0, 1.0);
@@ -33,12 +35,6 @@ void Market::loadInitialScenario(const std::unordered_map<std::string, double> &
     // create some initial tokens of the market
     for (auto &[tokenName, price] : price_tags)
         addToken(tokenName, price);
-
-    // create some initial accounts of the market
-    Account *account1 = new Account("Alice");
-    addAccount(account1);
-    Account *account2 = new Account("Bob");
-    addAccount(account2);
 
     for (auto token1 : tokens_)
     for (auto token2 : tokens_) {
@@ -81,9 +77,6 @@ void Market::addToken(const std::string &name, double price) {
 void Market::addToken(Token *token) {
     tokens_.emplace(token);
 }
-void Market::addAccount(Account *account) {
-    accounts_.emplace(account);
-}
 
 bool Market::havePool(PoolInterface *pool) const {
     return pools_.count(pool);
@@ -112,6 +105,22 @@ void Market::runEpoch() {
     for (auto token : GetMarketTokens())
         token->real_value_ *= exp(rvNorm(0, 0.01));
 
+    // test arbitrager and Provider
+    Arbitrager *arb = new Arbitrager("Poor Combi", 10000);
+    Provider *LP = new Provider("Rich Combi", 100000);
+
+    arb->setHandler(handler);
+
+    for (auto pool : GetMarketPools()) {
+        arb->sendStrategicSignal(pool);
+        LP->StrategicProvide(pool);
+    }
+    handler->respondSignals();
+
+    delete arb;
+    delete LP;
+    // done testing
+
     for (int _ = 0 ; _ < 10 ; ++_)
     for (auto pool : GetMarketPools()) {
         Token *token1 = *(pool->tokens()).begin();
@@ -137,18 +146,8 @@ void Market::runEpoch() {
         pool->endEpoch();
 }
 
-void Market::executeSignal(Account *sender, Signal *signal) {
-    PoolInterface *pool = signal->pool();
-
-    if (!havePool(pool)) {
-        throw std::invalid_argument("Pool doesn't exist in this market");
-    }
-
-    Token *input_token = signal->input_token();
-    Token *output_token = signal->output_token();
-    double input_quantity = signal->quantity();
-
-    sender->Trade(pool, input_token, output_token, input_quantity);
+void Market::setHandler(SignalsHandler *handler) {
+    this->handler = handler;
 }
 
 std::unordered_set<Token *> Market::GetMarketTokens() const {

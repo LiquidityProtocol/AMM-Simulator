@@ -4,8 +4,11 @@ std::string Account::name() const {
     return name_;
 }
 
+double Account::budget() const {
+    return budget_;
+}
 double Account::total_value() const {
-    return total_value_;
+    return total_value_ + budget_;
 }
 
 std::unordered_map<Token *, double> Account::wallet() const {
@@ -31,9 +34,31 @@ void Account::Deposit(Token *token, double quantity) {
     total_value_ += quantity * token->real_value();
 }
 
+void Account::buy(Token *token, double quantity) {
+    if (budget_ < token->real_value() * quantity) {
+        throw std::invalid_argument("Not enough cash to buy token");
+    } else {
+        Deposit(token, quantity);
+        budget_ -= quantity * token->real_value();
+    }
+}
+void Account::sell(Token *token, double quantity) {
+    if (GetQuantity(token) < quantity) {
+        throw std::invalid_argument("Not enough token to sell");
+    } else {
+        Deposit(token, -quantity);
+        budget_ += quantity * token->real_value();
+    }
+}
+
 Account::Account(const std::string &name)
     : name_(name)
     , total_value_(0) {}
+
+Account::Account(const std::string &name, double budget)
+    : name_(name)
+    , total_value_(0)
+    , budget_(budget) {}
 
 double Account::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     ledger_.emplace_back(pool->Swap(this, input_token, output_token, input_quantity));

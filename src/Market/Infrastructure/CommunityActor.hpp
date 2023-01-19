@@ -2,13 +2,13 @@
 #define CommunityActor_hpp
 
 #include "../../Utilities/Utilities.hpp"
-#include "../../Protocols/Protocols.hpp"
 
 // I dont override function of Account because no specific account can act as a Community Actor
 
 class CommunityActor : public Account {
 public:
     friend class Market;
+    friend class SignalsHandler;
     
     template<typename T> T wallet() const;
     template<typename T> T total_value() const;

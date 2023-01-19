@@ -2,12 +2,12 @@
 #define SIGNALS_H
 
 #include "../../Utilities/Utilities.hpp"
-#include "../../Protocols/Protocols.hpp"
 
 class Signal {
 public:
     Signal(PoolInterface* pool);
     Signal(PoolInterface* pool, Token *input_token, Token *output_token);
+    Signal(PoolInterface* pool, Token *input_token, Token *output_token, double quantity);
 
     Signal *next() const;
     PoolInterface *pool() const;
@@ -15,9 +15,8 @@ public:
     Token *output_token() const;
 
     double quantity() const;
-    void setQuantity(double q);
-
     double simulate(double input_cash) const;
+
     void setNext(Signal *e);
 private:
     Signal *next_ = nullptr;

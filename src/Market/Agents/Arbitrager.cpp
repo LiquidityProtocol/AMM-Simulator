@@ -1,73 +1,66 @@
 #include "Arbitrager.hpp"
-#include "../Strategy/Strat_HashAI.hpp"
+
 #include "../Strategy/Strat_MovingAverage.hpp"
 #include "../Strategy/Strat_LinearRegression.hpp"
+#include "../Strategy/Strat_Greedy.hpp"
 
 #include "../../Protocols/Protocols.hpp"
 
 #include <cassert>
 
-Arbitrager::Arbitrager(const std::string name, double budget) : Account(name) {
-    budget_ = budget;
-}
+Arbitrager::Arbitrager(const std::string &name, double budget) : Account(name, budget) {}
 
-void Arbitrager::sell(Token *token, double quantity) {
-    if (GetQuantity(token) < quantity) {
-        throw std::invalid_argument("Not enough token to sell");
-    } else {
-        Deposit(token, -quantity);
-        budget_ += quantity * token->real_value();
-    }
-}
-
-void Arbitrager::buy(Token *token, double quantity) {
-    if (budget() < token->real_value() * quantity) {
-        throw std::invalid_argument("Not enough cash to buy token");
-    } else {
-        Deposit(token, quantity);
-        budget_ -= quantity * token->real_value();
-    }
-}
-
-double Arbitrager::ExecuteSignal(Signal *s, double input_quantity) {
-    Token *input_token = s->input_token();
-    Token *output_token = s->output_token();
-
-    if (GetQuantity(input_token) < input_quantity) {
-        buy(input_token, input_quantity - GetQuantity(input_token));
-    }
-
-    return Trade(s->pool(), input_token, output_token, input_quantity);
-}
-double Arbitrager::ExecuteTradeRoute(TradeRoute *route, double input_quantity) {
-    for (Signal *node = route->head() ; node ; node = node->next())
-        input_quantity = ExecuteSignal(node, input_quantity);
-
-    return input_quantity;
-}
-
-void Arbitrager::ApplyStrategy(STRATEGY strat, PoolInterface *pool) {
-    std::vector<Signal> vec;
+void Arbitrager::sendStrategicSignal(PoolInterface *pool) {
+    std::vector<Signal> TradeSignals;
 
     if (strat == STRATEGY::SIMPLE_MOVING_AVERAGE) {
-        MovingAverage::calculateSignal(vec, pool, false);
+        MovingAverage::calculateSignal(TradeSignals, pool, false);
     } else if (strat == STRATEGY::EXP_MOVING_AVERAGE) {
-        MovingAverage::calculateSignal(vec, pool, true);
+        MovingAverage::calculateSignal(TradeSignals, pool, true);
     } else if (strat == STRATEGY::LINEAR_REGRESSION) {
-        LinearRegression::calculateSignal(vec, pool);
+        LinearRegression::calculateSignal(TradeSignals, pool);
     } else if (strat == STRATEGY::HASH_AI) {
     } else {
         assert(strat == STRATEGY::NAIVE_GREEDY);
         assert(GetPoolType(pool) == PROTOCOL::UNISWAP_V2);
 
+        Greedy::calculateSignal(TradeSignals, pool);
+    }
 
+    for (Signal s : TradeSignals) {
+        Token *input = s.input_token();
+        Token *output = s.output_token();
+        PoolInterface *pool = s.pool();
+
+        double volume = total_value() * 0.2;
+        double quantity = volume / input->real_value();
+
+        while (GetQuantity(input) < quantity * 1.8) {
+            try {
+                buy(input, quantity * 2 - GetQuantity(input));
+            } catch (std::invalid_argument &e) {
+                for (auto [token, quantity] : wallet()) {
+                    if (token == input) continue;
+                    if (token -> pool()) continue;
+
+                    sell(token, quantity * 0.4);
+                }
+                quantity *= 0.95;
+            }
+        }
+        handler->requestSignal(this, Signal(pool, input, output, quantity));
     }
 }
 
-double Arbitrager::budget() const {
-    return budget_;
+void Arbitrager::setStrategy(STRATEGY strat) {
+    this->strat = strat;
 }
 
-double Arbitrager::value() const {
-    return total_value_ + budget_;
+void Arbitrager::setHandler(SignalsHandler *handler) {
+    this->handler = handler;
+}
+
+void Arbitrager::endEpoch() {
+    StratHistory.push_back(strat);
+    ValueHistory.push_back(total_value());
 }

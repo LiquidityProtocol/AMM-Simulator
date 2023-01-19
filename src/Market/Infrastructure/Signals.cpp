@@ -1,4 +1,5 @@
 #include "Signals.hpp"
+#include "../../Protocols/Protocols.hpp"
 
 Signal::Signal(PoolInterface *pool) {
     pool_ = pool;
@@ -21,15 +22,16 @@ Signal::Signal(PoolInterface *pool) {
     }
 }
 
-Signal::Signal(PoolInterface *pool, Token *input_token, Token *output_token) {
-    if (pool->GetSpotPrice(input_token, output_token) > output_token->real_value() / input_token->real_value()) {
-        throw std::invalid_argument("Creating ineffective signal");
-    } else {
-        pool_ = pool;
-        input_token_ = input_token;
-        output_token_ = output_token;
-    }
-}
+Signal::Signal(PoolInterface *pool, Token *input_token, Token *output_token)
+    : pool_(pool)
+    , input_token_(input_token)
+    , output_token_(output_token) {}
+
+Signal::Signal(PoolInterface *pool, Token *input_token, Token *output_token, double quantity)
+    : pool_(pool)
+    , input_token_(input_token)
+    , output_token_(output_token)
+    , quantity_(quantity) {}
 
 Signal *Signal::next() const {
     return next_;
@@ -47,10 +49,6 @@ Token *Signal::output_token() const {
 
 double Signal::quantity() const {
     return quantity_;
-}
-
-void Signal::setQuantity(double q) {
-    quantity_ = q;
 }
 
 double Signal::simulate(double input_cash) const {
