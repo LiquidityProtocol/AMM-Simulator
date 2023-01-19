@@ -28,7 +28,9 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
-    wallet_values = {(*arbitrager).total_value()};
+    /*wallet_values = {(*arbitrager).total_value()};*/
+    step = 0;
+    epochs_list = {step};
 
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
@@ -65,7 +67,9 @@ void SimulationPlayground::on_runButton_clicked() {
         pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
         pool_graph->UpdateGraph();
     }
-     wallet_values.append( (*arbitrager).total_value() );
+     /*wallet_values.append( (*arbitrager).total_value() );*/
+     step = step + 1;
+     epochs_list.append(step);
 }
 
 void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
@@ -133,7 +137,7 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
 
 void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
 {
-    ArbitragerDialog *arbitrager_dialog = new ArbitragerDialog(this, epochs, wallet_values);
+    ArbitragerDialog *arbitrager_dialog = new ArbitragerDialog(this, epochs_list, epochs_list);
     arbitrager_dialog->exec();
 }
 
@@ -164,5 +168,7 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
     ui->listWidget->clear();
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(item);
-    wallet_values = {(*arbitrager).total_value()};
+    /*wallet_values = {(*arbitrager).total_value()};*/
+    step = 0;
+    epochs_list = {step};
 }

@@ -4,7 +4,6 @@
 #include <QDialog>
 #include "src/Market/Infrastructure/Market.hpp"
 #include "src/Market/Agents/Arbitrager.hpp"
-#include "AccountGraphItem.h"
 #include <qcustomplot.h>
 
 namespace Ui {
@@ -38,6 +37,8 @@ private slots:
 private:
     Ui::SimulationPlayground *ui;
     Market* market_;
+    double step;
+    QVector<double> epochs_list;
     QVector<double> epochs;
     std::unordered_map<Token*, QVector<double> > inventory_quantities;
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
