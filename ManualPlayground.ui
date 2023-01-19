@@ -65,7 +65,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="create_toekn_pushButton">
+        <widget class="QPushButton" name="create_token_pushButton">
          <property name="text">
           <string>Create A New Token</string>
          </property>

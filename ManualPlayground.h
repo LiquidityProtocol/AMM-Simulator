@@ -17,11 +17,11 @@ public:
     ~ManualPlayground();
 
 public slots:
-    void VerifyUpdatePoolDisplayRequest(PoolInterface *pool);
+    void VerifyUpdatePoolDisplayRequest(PoolInterface *pool, double slippage = -1);
 
 private slots:
-    void on_create_toekn_pushButton_clicked();
     void on_create_account_pushButton_clicked();
+    void on_create_token_pushButton_clicked();
 
 private:
     Ui::ManualPlayground *ui;

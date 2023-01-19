@@ -1,6 +1,5 @@
 #include "NewMainWindow.h"
 #include "ui_NewMainWindow.h"
-#include "MainWindow.h"
 #include "SimulationPlayground.h"
 #include "ManualPlayground.h"
 #include <format>
@@ -11,8 +10,8 @@ NewMainWindow::NewMainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tabWidget->clear();
-    ui->tabWidget->addTab(new ManualPlayground, "Manual Playground 1");
-    ui->tabWidget->addTab(new SimulationPlayground, "Simulation Playground 1");
+    ui->tabWidget->addTab(new ManualPlayground, "Manual Playground #1");
+    ui->tabWidget->addTab(new SimulationPlayground, "Simulation Playground #1");
 
 }
 

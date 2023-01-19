@@ -21,32 +21,6 @@ ManualPlayground::~ManualPlayground()
     delete ui;
 }
 
-void ManualPlayground::on_create_toekn_pushButton_clicked()
-{
-    if (!ValidNumber(ui->lineEdit_3->text().toStdString())) {
-        QMessageBox::about(this, "Add token failed", "Please put a number as the price of the token!");
-        return;
-    }
-    std::string token_name = ui->lineEdit_2->text().toStdString();
-    if (token_name == ""){
-        QMessageBox::about(this, "Add token failed", "Enter token name to create a new token!");
-        return;
-    }
-    double token_price = ui->lineEdit_3->text().toDouble();
-    ui->lineEdit_2->clear();
-    ui->lineEdit_3->clear();
-    Token *token; bool is_new; std::tie(token, is_new) = playground_->GetToken(token_name, token_price);
-    if (!is_new) {
-        QMessageBox::about(this, "Add token failed", "This name has been used by another token!");
-    } else {
-        QListWidgetItem *item = new QListWidgetItem(ui->listWidget_2);
-        ui->listWidget_2->addItem(item);
-        TokenListWidgetItem *token_item = new TokenListWidgetItem(this, token);
-        item->setSizeHint(token_item->sizeHint());
-        ui->listWidget_2->setItemWidget(item, token_item);
-    }
-}
-
 void ManualPlayground::on_create_account_pushButton_clicked()
 {
     std::string account_name = ui->lineEdit->text().toStdString();
@@ -67,7 +41,7 @@ void ManualPlayground::on_create_account_pushButton_clicked()
     }
 }
 
-void ManualPlayground::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
+void ManualPlayground::VerifyUpdatePoolDisplayRequest(PoolInterface *pool, double slippage) {
     for (int i = 0; i < ui->listWidget_pool->count(); ++i) {
         QListWidgetItem *item = ui->listWidget_pool->item(i);
         QWidget *item_widget = ui->listWidget_pool->itemWidget(item);
@@ -94,3 +68,30 @@ void ManualPlayground::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
     item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }
+
+void ManualPlayground::on_create_token_pushButton_clicked()
+{
+    if (!ValidNumber(ui->lineEdit_3->text().toStdString())) {
+        QMessageBox::about(this, "Add token failed", "Please put a number as the price of the token!");
+        return;
+    }
+    std::string token_name = ui->lineEdit_2->text().toStdString();
+    if (token_name == ""){
+        QMessageBox::about(this, "Add token failed", "Enter token name to create a new token!");
+        return;
+    }
+    double token_price = ui->lineEdit_3->text().toDouble();
+    ui->lineEdit_2->clear();
+    ui->lineEdit_3->clear();
+    Token *token; bool is_new; std::tie(token, is_new) = playground_->GetToken(token_name, token_price);
+    if (!is_new) {
+        QMessageBox::about(this, "Add token failed", "This name has been used by another token!");
+    } else {
+        QListWidgetItem *item = new QListWidgetItem(ui->listWidget_2);
+        ui->listWidget_2->addItem(item);
+        TokenListWidgetItem *token_item = new TokenListWidgetItem(this, token);
+        item->setSizeHint(token_item->sizeHint());
+        ui->listWidget_2->setItemWidget(item, token_item);
+    }
+}
+

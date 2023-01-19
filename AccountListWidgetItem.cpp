@@ -3,7 +3,7 @@
 #include "MintDialog.h"
 #include "WalletListWidgetItem.h"
 #include <QMessageBox>
-#include "MainWindow.h"
+#include "ManualPlayground.h"
 
 AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playground, Account *account) :
     QWidget(parent),
@@ -12,7 +12,7 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
     playground_(playground)
 {
     ui->setupUi(this);
-    connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest);
+    connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<ManualPlayground *>(parent), &ManualPlayground::VerifyUpdatePoolDisplayRequest);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
     ui->lineEdit_2->setText(QString::number(account_->total_value()));
 }
