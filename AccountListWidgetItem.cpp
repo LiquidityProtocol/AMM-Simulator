@@ -2,6 +2,7 @@
 #include "ui_AccountListWidgetItem.h"
 #include "MintDialog.h"
 #include "WalletListWidgetItem.h"
+#include "PoolTokenListWidgetItem.h"
 #include <QMessageBox>
 #include "MainWindow.h"
 
@@ -65,9 +66,15 @@ void AccountListWidgetItem::UpdateWallet()
     for (auto [token, quantity] : account_->wallet()) {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
         ui->listWidget->addItem(item);
-        WalletListWidgetItem *wallet_item = new WalletListWidgetItem(this, token, quantity);
-        item->setSizeHint(wallet_item->sizeHint());
-        ui->listWidget->setItemWidget(item, wallet_item);
+        if (token->pool()) {
+            PoolTokenListWidgetItem *pool_token_item = new PoolTokenListWidgetItem(this, token, quantity);
+            item->setSizeHint(pool_token_item->sizeHint());
+            ui->listWidget->setItemWidget(item, pool_token_item);
+        } else {
+            WalletListWidgetItem *wallet_item = new WalletListWidgetItem(this, token, quantity);
+            item->setSizeHint(wallet_item->sizeHint());
+            ui->listWidget->setItemWidget(item, wallet_item);
+        }
     }
 }
 
