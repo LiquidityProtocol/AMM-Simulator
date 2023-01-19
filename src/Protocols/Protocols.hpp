@@ -24,7 +24,7 @@ static const std::unordered_map<PROTOCOL, std::string> PROTOCOL_NAME({
         {PROTOCOL::CURVE, "CURVE"}
 });
 
-PROTOCOL GetPoolType(PoolInterface *pool);
+PROTOCOL GetPoolType(const PoolInterface *pool);
 
 Q_DECLARE_METATYPE(PROTOCOL);
 

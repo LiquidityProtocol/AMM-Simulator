@@ -1,4 +1,5 @@
 #include "Utilities.hpp"
+#include "../Protocols/Protocols.hpp"
 
 template<typename T1, typename T2>
 std::unordered_set<T1> GetKeys(const std::unordered_map<T1, T2> &mp) {
@@ -41,6 +42,15 @@ PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, dou
 
     quantities_ = quantities;
     quantities_[pool_token_ = new Token(this)] = INITIAL_POOL_TOKEN_SUPPLY;
+}
+
+std::string PoolInterface::name() const {
+    std::string name = PROTOCOL_NAME.at(GetPoolType(this)) + " Pool ";
+    for (auto token : tokens_container_.tokens()) {
+        name += token->name() + "|";
+    }
+    name.pop_back();
+    return name;
 }
 
 bool PoolInterface::InPool(Token *token) const {
@@ -281,6 +291,14 @@ std::vector<Operation *> PoolInterface::ledger() const {
     return ledger_;
 }
 
+double PoolInterface::GetPoolValue() const {
+    double total_value = 0;
+    for (auto token : tokens()) {
+        total_value += GetQuantity(token) * token->real_value();
+    }
+    return total_value;
+}
+
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
     /*
      * This method computes the spot exchange rate of a swap.
@@ -366,6 +384,7 @@ void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *outp
     UpdateWallet(trader, input_token, -input_quantity);
     quantities_[output_token] -= output_quantity;
     UpdateWallet(trader, output_token, output_quantity);
+    UpdatePoolTokenValue();
 }
 
 bool PoolInterface::ValidProvision(std::unordered_map<Token *, double> quantities) const {
@@ -410,6 +429,7 @@ void PoolInterface::ExecuteProvision(Account *provider, std::unordered_map<Token
     }
     quantities_[pool_token_] += generated_pool_token_quantity;
     UpdateWallet(provider, pool_token_, generated_pool_token_quantity);
+    UpdatePoolTokenValue();
 }
 
 void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities) {
@@ -430,4 +450,9 @@ void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool
     }
     quantities_[pool_token_] -= surrendered_pool_token_quantity;
     UpdateWallet(provider, pool_token_, -surrendered_pool_token_quantity);
+    UpdatePoolTokenValue();
+}
+
+void PoolInterface::UpdatePoolTokenValue() {
+    pool_token_->real_value_ = total_pool_token_quantity() ? GetPoolValue() / total_pool_token_quantity() : 0;
 }

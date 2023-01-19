@@ -31,7 +31,7 @@
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>Account Name</string>
+        <string>Account name</string>
        </property>
       </widget>
      </item>

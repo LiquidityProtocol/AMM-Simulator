@@ -46,13 +46,20 @@ void ExistingPoolProvisionDialog::on_comboBox_protocol_activated(int index)
         PROTOCOL protocol = qvariant_cast<PROTOCOL>(ui->comboBox_protocol->currentData());
         ui->comboBox_pool->clear();
         std::unordered_set<PoolInterface *> pools = playground_->GetPools(protocol);
-        for (auto pool : pools) {
-            QString pool_name = QString::fromStdString(std::to_string(reinterpret_cast<uint64_t>(pool)));
-            ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
+        if (pools.empty()) {
+            QMessageBox::about(this, "Invalid choice", "There are no existing " + ui->comboBox_protocol->currentText() + " pools!");
+            ui->comboBox_protocol->setCurrentIndex(-1);
+            ui->label_pool->setHidden(true);
+            ui->comboBox_pool->setHidden(true);
+        } else {
+            for (auto pool : pools) {
+                QString pool_name = QString::fromStdString(pool->name());
+                ui->comboBox_pool->addItem(pool_name, QVariant::fromValue(pool));
+            }
+            ui->comboBox_pool->setCurrentIndex(-1);
+            ui->label_pool->setHidden(false);
+            ui->comboBox_pool->setHidden(false);
         }
-        ui->comboBox_pool->setCurrentIndex(-1);
-        ui->label_pool->setHidden(false);
-        ui->comboBox_pool->setHidden(false);
 
         ui->tableWidget_pool->setHidden(true);
 
@@ -103,11 +110,13 @@ void ExistingPoolProvisionDialog::on_comboBox_pool_activated(int index)
 
 void ExistingPoolProvisionDialog::on_comboBox_input_token_activated(int index)
 {
+    UNUSED(index);
     UpdateProvision();
 }
 
 void ExistingPoolProvisionDialog::on_lineEdit_input_token_textChanged(const QString &input_token_provision_text)
 {
+    UNUSED(input_token_provision_text);
     UpdateProvision();
 }
 

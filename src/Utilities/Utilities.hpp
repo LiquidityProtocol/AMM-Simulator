@@ -137,6 +137,8 @@ public:
     friend class CommunityActor;
     friend class Market;
 
+    std::string name() const;
+
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;
 
@@ -152,6 +154,8 @@ public:
     double GetSpotPrice(Token *input_token, Token *output_token) const;
 
     std::vector<Operation *> ledger() const;
+
+    double GetPoolValue() const;
 
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
@@ -193,6 +197,8 @@ private:
     void ExecuteProvision(Account *provider, std::unordered_map<Token *, double> input_quantities, double generated_pool_token_quantity);
 
     void ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities);
+
+    void UpdatePoolTokenValue();
 };
 
 Q_DECLARE_METATYPE(PoolInterface *);

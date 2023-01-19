@@ -1,7 +1,7 @@
 #include "Utilities.hpp"
 
 std::string Token::name() const {
-    return name_;
+    return pool_ ? "Pool Token - " + pool_->name() : name_;
 }
 
 double Token::real_value() const {
