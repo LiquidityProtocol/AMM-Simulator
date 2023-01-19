@@ -24,12 +24,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_create_toekn_pushButton_clicked()
 {
     if (!ValidNumber(ui->lineEdit_3->text().toStdString())) {
-        QMessageBox::about(this, "Adding token failed", "Please put a number as the price of the token!");
+        QMessageBox::about(this, "Add token failed", "Please put a number as the price of the token!");
         return;
     }
     std::string token_name = ui->lineEdit_2->text().toStdString();
-    if(token_name == ""){
-        QMessageBox::about(this, "Add token failed", "Enter token's name to create token!");
+    if (token_name == ""){
+        QMessageBox::about(this, "Add token failed", "Enter token name to create a new token!");
         return;
     }
     double token_price = ui->lineEdit_3->text().toDouble();
@@ -37,7 +37,7 @@ void MainWindow::on_create_toekn_pushButton_clicked()
     ui->lineEdit_3->clear();
     Token *token; bool is_new; std::tie(token, is_new) = playground_->GetToken(token_name, token_price);
     if (!is_new) {
-        QMessageBox::about(this, "Adding token failed", "This name has been used by another token!");
+        QMessageBox::about(this, "Add token failed", "This name has been used by another token!");
     } else {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget_2);
         ui->listWidget_2->addItem(item);
@@ -50,14 +50,14 @@ void MainWindow::on_create_toekn_pushButton_clicked()
 void MainWindow::on_create_account_pushButton_clicked()
 {
     std::string account_name = ui->lineEdit->text().toStdString();
-    if(account_name == ""){
-        QMessageBox::about(this, "Add account failed", "Enter account name to create account!");
+    if (account_name == ""){
+        QMessageBox::about(this, "Add account failed", "Enter account name to create a new account!");
         return;
     }
     ui->lineEdit->clear();
     Account *account; bool is_new; std::tie(account, is_new) = playground_->GetAccount(account_name);
     if (!is_new) {
-        QMessageBox::about(this, "Adding account failed", "This name has been used by another account!");
+        QMessageBox::about(this, "Add account failed", "This name has been used by another account!");
     } else {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
         ui->listWidget->addItem(item);
