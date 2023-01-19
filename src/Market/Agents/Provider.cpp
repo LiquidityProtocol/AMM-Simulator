@@ -41,20 +41,18 @@ void Provider::StrategicProvide(PoolInterface *pool) {
             LP_amount /= neededBudget;
             LP_amount *= budget() * 0.9;
         }
-        if (LP_amount < 0.01)
-            return;
+        if (LP_amount > 0.01) {
+            for (auto [token, quantity] : pool->quantities()) {
+                double neededQuantity = quantity * LP_amount / pool->total_pool_token_quantity();
+                double activeQuantity = GetQuantity(token);
 
-        for (auto [token, quantity] : pool->quantities()) {
-            double neededQuantity = quantity * LP_amount / pool->total_pool_token_quantity();
-            double activeQuantity = GetQuantity(token);
-
-            if (activeQuantity < neededQuantity) {
-                buy(token, neededQuantity - activeQuantity);
+                if (activeQuantity < neededQuantity) {
+                    buy(token, (neededQuantity - activeQuantity) * 1.01);
+                }
+                providingQuantities[token] = neededQuantity;
             }
-            assert(GetQuantity(token) >= neededQuantity - 1e-4);
-            providingQuantities[token] = neededQuantity;
+            Provide(pool, providingQuantities);
         }
-        Provide(pool, providingQuantities);
     }
 }
 
