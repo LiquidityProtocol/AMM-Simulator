@@ -121,29 +121,36 @@ private:
 
 class Account {
 public:
+    Account(const std::string &name);
+    Account(const std::string &name, double budget);
+
     Account & operator=(const Account &) = delete;
 	Account(const Account &) = delete;
 
     friend class PoolInterface;
     friend class Playground;
-    friend class Market;
+    friend class SignalsHandler;
 
     std::string name() const;
     std::unordered_map<Token *, double> wallet() const;
+
     double total_value() const;
+    double budget() const;
+
     std::vector<Operation *> ledger() const;
 
     double GetQuantity(Token *token) const;
 
     void Deposit(Token *token, double quantity);
-    
+
+    void sell(Token *token, double quantity);
+    void buy(Token *token, double quantity);
 protected:
     std::string name_;
     std::unordered_map<Token *, double> wallet_;
     double total_value_;
+    double budget_;
     std::vector<Operation *> ledger_;
-
-    Account(const std::string &name);
 
     double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
     double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities);
