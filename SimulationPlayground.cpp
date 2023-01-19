@@ -1,7 +1,6 @@
 #include "SimulationPlayground.h"
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
-#include "AccountGraphItem.h"
 #include "ArbitragerDialog.h"
 #include "./src/Market/Agents/Arbitrager.hpp"
 #include <QVector>

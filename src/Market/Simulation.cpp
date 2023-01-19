@@ -18,5 +18,3 @@
 //Market *Simulation::GetMarket() const {
 //    return market_;
 //}
-
-}
