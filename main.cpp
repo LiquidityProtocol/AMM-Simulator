@@ -1,4 +1,3 @@
-#include "MainWindow.h"
 #include "NewMainWindow.h""
 
 #include <QApplication>
