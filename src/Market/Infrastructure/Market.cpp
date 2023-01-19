@@ -1,6 +1,5 @@
 #include "Market.hpp"
 #include <random>
-#include <iostream>
 
 std::default_random_engine generator;
 std::normal_distribution<double> rnorm(0.0, 1.0);
@@ -33,12 +32,6 @@ void Market::loadInitialScenario(const std::unordered_map<std::string, double> &
     // create some initial tokens of the market
     for (auto &[tokenName, price] : price_tags)
         addToken(tokenName, price);
-
-    // create some initial accounts of the market
-    Account *account1 = new Account("Alice");
-    addAccount(account1);
-    Account *account2 = new Account("Bob");
-    addAccount(account2);
 
     for (auto token1 : tokens_)
     for (auto token2 : tokens_) {
@@ -80,9 +73,6 @@ void Market::addToken(const std::string &name, double price) {
 }
 void Market::addToken(Token *token) {
     tokens_.emplace(token);
-}
-void Market::addAccount(Account *account) {
-    accounts_.emplace(account);
 }
 
 bool Market::havePool(PoolInterface *pool) const {
