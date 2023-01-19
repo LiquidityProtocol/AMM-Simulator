@@ -1,5 +1,5 @@
-#include "MainWindow.h"
-#include "ui_MainWindow.h"
+#include "ManualPlayground.h"
+#include "ui_ManualPlayground.h"
 #include "src/Utilities/Utilities.hpp"
 #include "AccountListWidgetItem.h"
 #include "TokenListWidgetItem.h"
@@ -7,24 +7,21 @@
 #include <QMessageBox>
 #include <tuple>
 #include "src/Playground.hpp"
-#include "ChangeModeDialog.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+ManualPlayground::ManualPlayground(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::ManualPlayground)
 {
     ui->setupUi(this);
     playground_ = new Playground;
-    ChangeModeDialog* change = new ChangeModeDialog;
-    change->exec();
 }
 
-MainWindow::~MainWindow()
+ManualPlayground::~ManualPlayground()
 {
     delete ui;
 }
 
-void MainWindow::on_create_toekn_pushButton_clicked()
+void ManualPlayground::on_create_toekn_pushButton_clicked()
 {
     if (!ValidNumber(ui->lineEdit_3->text().toStdString())) {
         QMessageBox::about(this, "Adding token failed", "Please put a number as the price of the token!");
@@ -46,7 +43,7 @@ void MainWindow::on_create_toekn_pushButton_clicked()
     }
 }
 
-void MainWindow::on_create_account_pushButton_clicked()
+void ManualPlayground::on_create_account_pushButton_clicked()
 {
     std::string account_name = ui->lineEdit->text().toStdString();
     ui->lineEdit->clear();
@@ -62,7 +59,7 @@ void MainWindow::on_create_account_pushButton_clicked()
     }
 }
 
-void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
+void ManualPlayground::VerifyUpdatePoolDisplayRequest(PoolInterface *pool) {
     for (int i = 0; i < ui->listWidget_pool->count(); ++i) {
         QListWidgetItem *item = ui->listWidget_pool->item(i);
         QWidget *item_widget = ui->listWidget_pool->itemWidget(item);

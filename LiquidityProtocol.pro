@@ -12,7 +12,9 @@ SOURCES += \
     AccountListWidgetItem.cpp \
     ChangeModeDialog.cpp \
     ExistingPoolProvisionDialog.cpp \
+    ManualPlayground.cpp \
     MintDialog.cpp \
+    NewMainWindow.cpp \
     NewPoolProvisionDialog.cpp \
     PoolGraphItem.cpp \
     PoolListWidgetItem.cpp \
@@ -23,7 +25,6 @@ SOURCES += \
     WalletListWidgetItem.cpp \
     WithdrawDialog.cpp \
     main.cpp \
-    MainWindow.cpp \
     qcustomplot.cpp \
     src/Market/Agents/Arbitrager.cpp \
     src/Market/Agents/Provider.cpp \
@@ -47,8 +48,9 @@ HEADERS += \
     AccountListWidgetItem.h \
     ChangeModeDialog.h \
     ExistingPoolProvisionDialog.h \
-    MainWindow.h \
+    ManualPlayground.h \
     MintDialog.h \
+    NewMainWindow.h \
     NewPoolProvisionDialog.h \
     PoolGraphItem.h \
     PoolListWidgetItem.h \
@@ -82,8 +84,9 @@ FORMS += \
     AccountListWidgetItem.ui \
     ChangeModeDialog.ui \
     ExistingPoolProvisionDialog.ui \
-    MainWindow.ui \
+    ManualPlayground.ui \
     MintDialog.ui \
+    NewMainWindow.ui \
     NewPoolProvisionDialog.ui \
     PoolGraphItem.ui \
     PoolListWidgetItem.ui \
