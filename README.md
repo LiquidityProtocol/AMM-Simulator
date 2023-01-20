@@ -85,16 +85,8 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 
 ## How use it
 
-```mermaid
-graph TD;
-    Create_any_number_of_tokens-->Create_an_Account;
-    Create_an_Account-->Mint_tokens;
-    Mint_tokens-->Provide_liqudity;
-    Provide_liqudity-->Trade;
-    Provide_liqudity-->Provide_liqudity_again;
-    Provide_liqudity-->Withdraw_liqudity;
-    Provide_liqudity-->Mint_tokens;
-```
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/workflow.png?raw=true)
+
 
 ### Token creation
 - Give any name
