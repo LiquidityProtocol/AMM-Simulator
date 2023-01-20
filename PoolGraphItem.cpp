@@ -56,7 +56,6 @@ void PoolGraphItem::mouseHover(QMouseEvent *event) {
     mouseVertical->point2->setCoords(1, y);
 
     ui->widget->replot();
-    ui->widget->yAxis->setTickLabels(plotting_volume);
 
     epochContent->setText("");
 
@@ -108,6 +107,8 @@ void PoolGraphItem::UpdateGraph() {
     for (auto epochData : history)
         epochs.append(epochData->epochIndex());
 
+    int plotted_data = std::min((int)epochs.size(), plotted_Epochs);
+
     double xmin = std::max(0.0, epochs.back() - plotted_Epochs), xmax = xmin + plotted_Epochs;
     double ymin = 1e18, ymax = -1;
 
@@ -118,8 +119,8 @@ void PoolGraphItem::UpdateGraph() {
             for (auto epochData : history)
                 volume.append(log(epochData->GetVolume(token)));
 
-            ymin = std::min(ymin, *std::min_element(volume.begin(), volume.end()));
-            ymax = std::max(ymax, *std::max_element(volume.begin(), volume.end()));
+            ymin = std::min(ymin, *std::min_element(volume.end() - plotted_data, volume.end()));
+            ymax = std::max(ymax, *std::max_element(volume.end() - plotted_data, volume.end()));
 
             token_to_graph[token]->setData(epochs, volume);
             token_to_graph[token]->addToLegend();
@@ -136,8 +137,8 @@ void PoolGraphItem::UpdateGraph() {
         }
         epochs.resize(open.size());
 
-        ymin = *std::min_element(low.begin(), low.end());
-        ymax = *std::max_element(high.begin(), high.end());
+        ymin = *std::min_element(low.end() - plotted_data, low.end());
+        ymax = *std::max_element(high.end() - plotted_data, high.end());
 
         lineChart->addToLegend();
         lineChart->setData(epochs, close);
