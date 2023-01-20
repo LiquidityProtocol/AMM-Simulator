@@ -19,11 +19,18 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(1, 25, 147);</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_poolName">
      <item>
       <widget class="QLabel" name="label_poolName">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Pool</string>
        </property>
@@ -38,6 +45,9 @@
      </property>
      <item>
       <widget class="QLabel" name="label_protocol">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Protocol:</string>
        </property>
@@ -55,6 +65,9 @@
      </item>
      <item>
       <widget class="QLabel" name="label_poolFee">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Pool fee (%):</string>
        </property>
@@ -145,6 +158,9 @@
      </property>
      <item>
       <widget class="QLabel" name="label_spotPrice">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Spot price against input token: </string>
        </property>
@@ -217,6 +233,9 @@
      </property>
      <item>
       <widget class="QLabel" name="label_secondToken">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Graph 2nd token against input token:</string>
        </property>
@@ -230,7 +249,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <property name="spacing">
-      <number>-1</number>
+      <number>4</number>
      </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetMaximumSize</enum>

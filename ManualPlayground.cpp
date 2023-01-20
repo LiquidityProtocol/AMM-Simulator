@@ -1,5 +1,7 @@
+
 #include "ManualPlayground.h"
 #include "ui_ManualPlayground.h"
+#include "introductorywindow.h"
 #include "src/Utilities/Utilities.hpp"
 #include "AccountListWidgetItem.h"
 #include "TokenListWidgetItem.h"
@@ -7,6 +9,7 @@
 #include <QMessageBox>
 #include <tuple>
 #include "src/Playground.hpp"
+
 
 ManualPlayground::ManualPlayground(QWidget *parent) :
     QWidget(parent),
@@ -69,6 +72,7 @@ void ManualPlayground::VerifyUpdatePoolDisplayRequest(PoolInterface *pool, doubl
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }
 
+
 void ManualPlayground::on_create_token_pushButton_clicked()
 {
     if (!ValidNumber(ui->lineEdit_3->text().toStdString())) {
@@ -104,3 +108,4 @@ void ManualPlayground::VerifyUpdateAccountsWalletsRequest()
         account_item->UpdateWallet();
     }
 }
+
