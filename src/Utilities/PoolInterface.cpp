@@ -285,19 +285,6 @@ double PoolInterface::GetSpotPrice(Token *input_token, Token *output_token) cons
     }
 }
 
-std::vector<Operation *> PoolInterface::GetLatestEpochs(int n) const {
-    std::vector<Operation *> opsList;
-
-    for (auto ops = kthLastOps(0) ; ops ; ops = ops->prvEpochOps) {
-        opsList.push_back(ops);
-        if ((int)opsList.size() >= n)
-            break;
-    }
-    reverse(opsList.begin(), opsList.end());
-
-    return opsList;
-}
-
 std::vector<Operation *> PoolInterface::GetLatestOps(int n) const {
     if ((int)ledger_.size() <= n) {
         return ledger_;
@@ -322,9 +309,75 @@ Operation *PoolInterface::kthLastOps(int k) const {
         return ledger_[ledger_.size() - 1 - k];
     }
 }
+Operation *PoolInterface::kthFirstOps(int k) const {
+    if ((int)ledger_.size() <= k) {
+        return nullptr;
+    } else {
+        return ledger_[k];
+    }
+}
+
+std::vector<PoolEpochData *> PoolInterface::GetLastestEpochs(int n) const {
+    if ((int)history_.size() <= n) {
+        return history_;
+    } else {
+        return std::vector<PoolEpochData *>(history_.end() - n, history_.end());
+    }
+}
+std::vector<PoolEpochData *> PoolInterface::GetEpochHistory() const {
+    return history_;
+}
+
+PoolEpochData *PoolInterface::kthLastEpoch(int k) const {
+    if ((int)history_.size() <= k) {
+        return nullptr;
+    } else {
+        return history_[history_.size() - k - 1];
+    }
+}
+
+PoolEpochData *PoolInterface::kthFirstEpoch(int k) const {
+    if ((int)history_.size() <= k) {
+        return nullptr;
+    } else {
+        return history_[k];
+    }
+}
 
 void PoolInterface::endEpoch() {
-    ledger_.back()->endEpoch_ = true;
+    auto EpochData = new PoolEpochData(this);
+
+    auto &open = EpochData->open;
+    auto &high = EpochData->high;
+    auto &low = EpochData->low;
+    auto &close = EpochData->close;
+
+    for (Token *a : tokens())
+    for (Token *b : tokens()) {
+        open[a][b] = close[a][b] = GetSpotPrice(a, b);
+
+        if (lastEpochIndex) {
+            open[a][b] = ledger_[lastEpochIndex - 1]->GetSpotPrice(a, b);
+        } else if (!ledger_.empty()) {
+            open[a][b] = ledger_[0]->GetSpotPrice(a, b);
+        }
+        high[a][b] = low[a][b] = open[a][b];
+    }
+    for (; lastEpochIndex < ledger_.size() ; ++lastEpochIndex) {
+        auto op = ledger_[lastEpochIndex];
+
+        for (Token *a : tokens())
+        for (Token *b : tokens()) {
+            high[a][b] = std::max(high[a][b], op->GetSpotPrice(a, b));
+            low[a][b]  = std::min(low[a][b], op->GetSpotPrice(a, b));
+        }
+    }
+    for (auto [token, quantity] : quantities()) {
+        EpochData->market_price[token] = token->real_value();
+        EpochData->quantities[token] = quantity;
+    }
+    EpochData->nEpoch = history_.size();
+    history_.push_back(EpochData);
 }
 
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {

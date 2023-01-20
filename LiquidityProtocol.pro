@@ -35,6 +35,7 @@ SOURCES += \
     src/Market/Simulation.cpp \
     src/Utilities/Account.cpp \
     src/Utilities/Operation.cpp \
+    src/Utilities/PoolEpochData.cpp \
     src/Utilities/PoolInterface.cpp \
     src/Utilities/Token.cpp \
     src/Utilities/TokensContainer.cpp \

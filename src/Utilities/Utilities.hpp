@@ -86,6 +86,28 @@ public:
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 
+    double GetMarketPrice(Token *a) const;
+    double GetSpotPrice(Token *a, Token *b) const;
+    double GetQuanitty(Token *a) const;
+    double GetVolume(Token *a) const;
+
+    friend std::ostream & operator<<(std::ostream &os, const Operation &op);
+private:
+    std::string operation_type_;
+    std::string account_name_;
+    PoolInterface *pool_;
+    std::unordered_map<Token *, double> quantities_;
+    std::unordered_map<Token *, double> input_;
+    std::unordered_map<Token *, double> output_;
+    std::unordered_map<Token *, double> market_price_;
+
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMatrix;
+};
+
+class PoolEpochData {
+public:
+    PoolEpochData(PoolInterface *pool);
+
     double GetOpenPrice(Token *a, Token *b) const;
     double GetHighPrice(Token *a, Token *b) const;
     double GetLowPrice(Token *a, Token *b) const;
@@ -96,27 +118,18 @@ public:
     double GetQuanitty(Token *a) const;
     double GetVolume(Token *a) const;
 
-    bool endEpoch() const;
+    PoolInterface *pool() const;
     int epochIndex() const;
 
-    friend std::ostream & operator<<(std::ostream &os, const Operation &op);
     friend class PoolInterface;
 private:
-    bool endEpoch_ = false;
-    int nEpochs = 1;
-
-    Operation *prvEpochOps = nullptr;
-
-    std::string operation_type_;
-    std::string account_name_;
-    PoolInterface *pool_;
-    std::unordered_map<Token *, double> quantities_;
-    std::unordered_map<Token *, double> input_;
-    std::unordered_map<Token *, double> output_;
-    std::unordered_map<Token *, double> market_price_;
-
-    std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMatrix;
     std::unordered_map<Token *, std::unordered_map<Token *, double> > open, high, low, close;
+
+    std::unordered_map<Token *, double> quantities;
+    std::unordered_map<Token *, double> market_price;
+
+    PoolInterface *pool_;
+    int nEpoch;
 };
 
 class Account {
@@ -184,11 +197,17 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
     double GetSpotPrice(Token *input_token, Token *output_token) const;
 
-    std::vector<Operation *> GetLatestEpochs(int n) const;
     std::vector<Operation *> GetLatestOps(int n) const;
     std::vector<Operation *> ledger() const;
 
     Operation *kthLastOps(int k) const;
+    Operation *kthFirstOps(int k) const;
+
+    std::vector<PoolEpochData *> GetLastestEpochs(int n) const;
+    std::vector<PoolEpochData *> GetEpochHistory() const;
+
+    PoolEpochData *kthLastEpoch(int k) const;
+    PoolEpochData *kthFirstEpoch(int k) const;
 
     void endEpoch();
 protected:
@@ -210,6 +229,8 @@ private:
     double pool_fee_;
     Token *pool_token_;
     std::vector<Operation *> ledger_;
+    std::vector<PoolEpochData *> history_;
+    size_t lastEpochIndex = 0;
 
     double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
     Operation * Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);
