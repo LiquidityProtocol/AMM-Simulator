@@ -161,7 +161,6 @@ public:
 protected:
     std::string name_;
     std::unordered_map<Token *, double> wallet_;
-    double total_value_;
     double budget_;
     std::vector<Operation *> ledger_;
 

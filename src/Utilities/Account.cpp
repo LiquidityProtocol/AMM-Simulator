@@ -9,7 +9,13 @@ double Account::budget() const {
 }
 
 double Account::total_value() const {
-    return total_value_ + budget_;
+    double total_value = 0;
+    for (auto [token, quantity] : wallet_) {
+        if (!token->pool()) {
+            total_value += quantity * token->real_value();
+        }
+    }
+    return total_value + budget_;
 }
 
 double Account::total_asset() const {
@@ -64,7 +70,6 @@ Account::Account(const std::string &name)
 
 Account::Account(const std::string &name, double budget)
     : name_(name)
-    , total_value_(0)
     , budget_(budget) {}
 
 double Account::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
