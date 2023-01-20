@@ -2,8 +2,11 @@
 #include "ui_SimulationPlayground.h"
 #include "PoolGraphItem.h"
 #include "./src/Market/Agents/Arbitrager.hpp"
+
 #include <QVector>
+#include <QTimer>
 #include <random>
+
 #include "ProviderSimulationGraphItem.h"
 #include "ArbitrageurSimulationGraphItem.h"
 
@@ -109,10 +112,12 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
     }
     for(int i = 0; i < ui->lineEdit->text().toInt(); i++){
         on_runButton_clicked();
+
+        QTime dieTime = QTime::currentTime().addMSecs(500);
+        while (QTime::currentTime() < dieTime)
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     }
 }
-
-
 
 void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
     if (ui->pool_comboBox->currentIndex() == -1)
