@@ -28,7 +28,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
 {
     ui->setupUi(this);
     market_ = new Market;
-    step=0;
+    step = 0;
     epochs = {step};
     wallet_values = {arbitrager->total_value()};
     ui->tabWidget->clear();
