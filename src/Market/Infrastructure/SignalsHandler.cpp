@@ -13,20 +13,18 @@ void SignalsHandler::respondSignals() {
     while (SignalQueue.size()) {
         Account *sender = SignalQueue.front().first;
         Signal msg = SignalQueue.front().second;
+
+        PoolInterface *pool = msg.pool();
+        Token *input_token = msg.input_token();
+        Token *output_token = msg.output_token();
+
         double quantity = msg.quantity();
 
         SignalQueue.pop();
 
-        while (true) {
-            try {
-                sender->Trade(msg.pool(),
-                            msg.input_token(),
-                            msg.output_token(),
-                            quantity);
-                break;
-            } catch (...) {
-                quantity *= 0.9;
-            }
-        }
+        while (sender->GetQuantity(input_token) < quantity)
+            quantity *= 0.95;
+
+        sender->Trade(pool, input_token, output_token, quantity);
     }
 }

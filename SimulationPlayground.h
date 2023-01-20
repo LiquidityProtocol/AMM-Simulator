@@ -2,9 +2,9 @@
 #define SIMULATIONPLAYGROUND_H
 
 #include <QDialog>
-#include "src/Market/Infrastructure/Market.hpp"
-#include "src/Market/Agents/Arbitrager.hpp"
 #include <qcustomplot.h>
+
+#include "src/Market/Simulation.hpp"
 
 namespace Ui {
 class SimulationPlayground;
@@ -34,10 +34,12 @@ private slots:
     void on_pushButton_reset_market_clicked();
 
 
+    void on_Arbs_Options_currentIndexChanged(int index);
+
 private:
+    Simulation *Sim;
+
     Ui::SimulationPlayground *ui;
-    Market* market_;
-    double step;
     QVector<double> epochs;
     QVector<double> wallet_values;
     std::unordered_map<Token*, QVector<double> > inventory_quantities;

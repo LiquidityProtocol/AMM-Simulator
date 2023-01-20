@@ -19,7 +19,6 @@ void Arbitrager::sendStrategicSignal(PoolInterface *pool) {
         MovingAverage::calculateSignal(TradeSignals, pool, true);
     } else if (strat == STRATEGY::LINEAR_REGRESSION) {
         LinearRegression::calculateSignal(TradeSignals, pool);
-    } else if (strat == STRATEGY::HASH_AI) {
     } else {
         assert(strat == STRATEGY::NAIVE_GREEDY);
         assert(GetPoolType(pool) == PROTOCOL::UNISWAP_V2);
@@ -32,7 +31,7 @@ void Arbitrager::sendStrategicSignal(PoolInterface *pool) {
         Token *output = s.output_token();
         PoolInterface *pool = s.pool();
 
-        double volume = total_value() * 0.2;
+        double volume = std::min(1e4, total_value() * 0.2);
         double quantity = volume / input->real_value();
 
         while (GetQuantity(input) < quantity * 1.8) {

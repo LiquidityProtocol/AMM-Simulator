@@ -2,7 +2,6 @@
 #include "ui_NewMainWindow.h"
 #include "SimulationPlayground.h"
 #include "ManualPlayground.h"
-#include <format>
 
 NewMainWindow::NewMainWindow(QWidget *parent) :
     QMainWindow(parent),

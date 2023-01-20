@@ -1,4 +1,5 @@
 #include "Provider.hpp"
+#include <QVector>
 
 Provider::Provider(const std::string name, double budget) : Account(name, budget) {}
 
@@ -15,7 +16,8 @@ void Provider::StrategicProvide(PoolInterface *pool) {
 
     if (LP_amount < 0) {
         LP_amount = std::min(-LP_amount, GetQuantity(pool->pool_token()));
-        Withdraw(pool, LP_amount);
+        if (LP_amount > 0)
+            Withdraw(pool, LP_amount);
     } else {
         std::unordered_map<Token *, double> providingQuantities;
         std::unordered_set<Token *> tokenSet = pool->tokens();
@@ -40,16 +42,71 @@ void Provider::StrategicProvide(PoolInterface *pool) {
             LP_amount /= neededBudget;
             LP_amount *= budget() * 0.9;
         }
+        if (LP_amount > 0.01) {
+            for (auto [token, quantity] : pool->quantities()) {
+                double neededQuantity = quantity * LP_amount / pool->total_pool_token_quantity();
+                double activeQuantity = GetQuantity(token);
 
-        for (auto token : tokenSet) {
-            double neededQuantity = pool->GetQuantity(token) / pool->total_pool_token_quantity() * LP_amount;
-            double activeQuantity = GetQuantity(token);
-
-            if (activeQuantity < neededQuantity) {
-                buy(token, neededQuantity - activeQuantity);
+                if (activeQuantity < neededQuantity) {
+                    buy(token, (neededQuantity - activeQuantity) * 1.01);
+                }
+                providingQuantities[token] = neededQuantity;
             }
-            providingQuantities[token] = neededQuantity;
+            Provide(pool, providingQuantities);
         }
-        Provide(pool, providingQuantities);
+    }
+}
+
+QVector<double> Provider::calcHoldValue(PoolInterface *pool) const {
+
+    double hold = 0;
+    double share = 0;
+
+    for (size_t i = 0 ; i < provideHistory.size() ; ++i) {
+        auto tempProvide = provideHistory[i].find(pool);
+        if (tempProvide != provideHistory[i].end()) {
+            for (auto [token, quantity] : tempProvide->second)
+                hold += quantity * token->real_value();
+        }
+    }
+
+    QVector<double> vals = {hold};
+
+    for (size_t i = 0 ; i < provideHistory.size() ; ++i) {
+        auto tempProvide = provideHistory[i].find(pool);
+        if (tempProvide != provideHistory[i].end()) {
+            for (auto [token, quantity] : tempProvide->second)
+                hold -= quantity * token->real_value();
+
+            share += benefitHistory[i].find(pool)->second;
+        }
+        vals.push_back(hold + share * pool->pool_token_value());
+    }
+    return vals;
+}
+double Provider::calcShareValue(PoolInterface *pool) const {
+    return pool->pool_token_value() * GetQuantity(pool->pool_token());
+}
+
+void Provider::endEpoch() {
+    static size_t lastEpochIndex = 0;
+
+    provideHistory.push_back({});
+    benefitHistory.push_back({});
+
+    auto &provideEpochData = provideHistory.back();
+    auto &benefitEpochData = benefitHistory.back();
+
+    for (; lastEpochIndex < ledger_.size() ; ++lastEpochIndex) {
+        auto op = ledger_[lastEpochIndex];
+        auto pool = op->pool();
+
+        if (op->operation_type() == "PROVIDE") {
+            for (auto [token, quantity] : op->input())  provideEpochData[pool][token] += quantity;
+            for (auto [token, quantity] : op->output()) benefitEpochData[pool] += quantity;
+        } else {
+            for (auto [token, quantity] : op->output()) provideEpochData[pool][token] -= quantity;
+            for (auto [token, quantity] : op->input())  benefitEpochData[pool] -= quantity;
+        }
     }
 }

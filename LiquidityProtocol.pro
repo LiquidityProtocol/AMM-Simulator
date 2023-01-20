@@ -35,6 +35,7 @@ SOURCES += \
     src/Market/Simulation.cpp \
     src/Utilities/Account.cpp \
     src/Utilities/Operation.cpp \
+    src/Utilities/PoolEpochData.cpp \
     src/Utilities/PoolInterface.cpp \
     src/Utilities/Token.cpp \
     src/Utilities/TokensContainer.cpp \
@@ -69,7 +70,7 @@ HEADERS += \
     src/Market/Infrastructure/Signals.hpp \
     src/Market/Infrastructure/SignalsHandler.hpp \
     src/Market/Simulation.hpp \
-    src/Market/Strategy/Strat_HashAI.hpp \
+    src/Market/Strategy/Strat_Greedy.hpp \
     src/Market/Strategy/Strat_LinearRegression.hpp \
     src/Market/Strategy/Strat_MovingAverage.hpp \
     src/Utilities/Utilities.hpp \

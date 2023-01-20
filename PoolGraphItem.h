@@ -20,10 +20,14 @@ public:
 
     void clearData();
     void UpdateGraph();
+
     void initLineChart();
     void initCandleStick();
-    void setViewMethod(bool plotting_volume);
+    void initEpochContent();
 
+    void setViewMethod(bool plotting_volume);
+private slots:
+    void mouseHover(QMouseEvent *event);
 private:
     Ui::PoolGraphItem *ui;
 
@@ -39,10 +43,10 @@ private:
 
     bool plotting_volume = true;
     int plotted_Epochs = 20;
+
+    QCPItemStraightLine *mouseHorizontal;
+    QCPItemStraightLine *mouseVertical;
+    QCPItemText *epochContent;
 };
-
-//#define StockGraph_iid "com.acme.StockGraph"
-
-//Q_DECLARE_INTERFACE(PoolGraphItem, StockGraph_iid)
 
 #endif // POOLGRAPHITEM_H

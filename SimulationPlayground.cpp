@@ -5,9 +5,10 @@
 #include "./src/Market/Agents/Arbitrager.hpp"
 #include <QVector>
 #include <random>
+#include "ProviderSimulationGraphItem.h"
 
 enum VIEW_METHOD {
-    VIEW_QUANTITY,
+    VIEW_VOLUME,
     VIEW_PRICE
 };
 std::string getPoolName(PoolInterface *pool) {
@@ -27,19 +28,20 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     ui(new Ui::SimulationPlayground)
 {
     ui->setupUi(this);
-    market_ = new Market;
-    step=0;
-    epochs = {step};
-    wallet_values = {arbitrager->total_value()};
+    Sim = new Simulation();
+
     ui->tabWidget->clear();
     ui->tabWidget->addTab(new QWidget, "Pool Graph");
+    ui->tabWidget->addTab(new QWidget, "LP Graph");
+//    ui->tabWidget->addTab(new QWidget, "Arbitrageur Graph");
     update_pool_comboBox();
-    for(auto [strategy, strategy_name]: STRATEGY_NAME){
+
+    for(auto &[strategy, strategy_name] : STRATEGY_NAME) {
         ui->Arbs_Options->addItem(strategy_name, QVariant::fromValue(strategy));
     }
 
-    ui->View_Options->addItem("View Quantity", QVariant::fromValue(VIEW_METHOD::VIEW_QUANTITY));
-    ui->View_Options->addItem("View Spot Price", QVariant::fromValue(VIEW_METHOD::VIEW_PRICE));
+    ui->View_Options->addItem("View Volume", QVariant::fromValue(VIEW_METHOD::VIEW_VOLUME));
+    ui->View_Options->addItem("View Price", QVariant::fromValue(VIEW_METHOD::VIEW_PRICE));
     ui->View_Options->setCurrentIndex(0);
     QString default_scenario = "{ \"price_tags\": { \"ETH\": 1012, \"DAI\": 10, \"BTC\": 5 }}";
     ui->textEdit_initial_scenario->setText(default_scenario);
@@ -50,21 +52,21 @@ SimulationPlayground::~SimulationPlayground() {
 }
 
 void SimulationPlayground::on_runButton_clicked() {
-    if(market_->GetMarketPools().empty()){
+    if (Sim->GetPools().empty()) {
         QMessageBox::about(this, "Run failed", "Market has no pool!");
     }
-    market_->runEpoch();
-    step = step + 1;
-    epochs.append(step);
-    wallet_values.append(arbitrager->total_value());
+    Sim->runEpoch();
 
     if (ui->pool_comboBox->currentIndex() != -1) {
         QWidget *item_widget = ui->tabWidget->widget(0);
+        QWidget *lp_widget = ui->tabWidget->widget(1);
 
         PoolGraphItem *pool_graph = qobject_cast<PoolGraphItem *>(item_widget);
+        ProviderSimulationGraphItem *lp_graph = qobject_cast<ProviderSimulationGraphItem *>(lp_widget);
 
-        pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
+        pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_VOLUME);
         pool_graph->UpdateGraph();
+        lp_graph->UpdateGraph();
     }
 }
 
@@ -74,17 +76,22 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
 
     PoolInterface *pool = qvariant_cast<PoolInterface *>(ui->pool_comboBox->itemData(index));
     PoolGraphItem *pool_graph = new PoolGraphItem(this, pool);
+    ProviderSimulationGraphItem *lp_graph = new ProviderSimulationGraphItem(this, pool, Sim->GetLP());
 
-    pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_QUANTITY);
+    pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_VOLUME);
     pool_graph->UpdateGraph();
+    lp_graph->UpdateGraph();
 
-    ui->tabWidget->removeTab(0);
+    ui->tabWidget->clear();
     ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
+    ui->tabWidget->addTab(lp_graph, "LP Graph");
+    ui->tabWidget->setCurrentIndex(0);
 }
 
 void SimulationPlayground::on_pushButton_customEpoch_clicked() {
     if(ui->lineEdit->text() == ""){
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
+        return;
     }
     for(int i = 0; i < ui->lineEdit->text().toInt(); i++){
         on_runButton_clicked();
@@ -100,15 +107,16 @@ void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
     PoolInterface *pool = qvariant_cast<PoolInterface *>(ui->pool_comboBox->currentData());
     PoolGraphItem *pool_graph = new PoolGraphItem(this, pool);
 
-    pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->itemData(index)) == VIEW_METHOD::VIEW_QUANTITY);
+    pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->itemData(index)) == VIEW_METHOD::VIEW_VOLUME);
     pool_graph->UpdateGraph();
 
     ui->tabWidget->removeTab(0);
     ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
+    ui->tabWidget->setCurrentIndex(0);
 }
 
 void SimulationPlayground::update_pool_comboBox(){
-    for (PoolInterface *pool : market_->GetMarketPools()) {
+    for (auto pool : Sim->GetPools()) {
         ui->pool_comboBox->addItem(QString::fromStdString(getPoolName(pool)),
                                    QVariant::fromValue(pool));
     }
@@ -122,7 +130,10 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
         return;
     }
     on_pushButton_reset_market_clicked();
-    market_->loadInitialScenario(price_tags_, PROTOCOL::UNISWAP_V2);
+
+    Market *market = Sim->GetMarket();
+    market->loadInitialScenario(price_tags_, PROTOCOL::UNISWAP_V2);
+
     update_pool_comboBox();
     ui->pool_comboBox->setCurrentIndex(0);
 }
@@ -154,13 +165,19 @@ std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QS
 
 void SimulationPlayground::on_pushButton_reset_market_clicked()
 {
-    delete market_;
-    market_ = new Market();
-    step = 0;
-    epochs = {step};
-    wallet_values = {arbitrager->total_value()};
+    delete Sim;
+    Sim = new Simulation();
+
     ui->pool_comboBox->clear();
-    ui->tabWidget->removeTab(0);
+    ui->tabWidget->clear();
     ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");
+    ui->tabWidget->addTab(new QWidget, "LP Graph");
+    ui->tabWidget->setCurrentIndex(0);
+}
+
+
+void SimulationPlayground::on_Arbs_Options_currentIndexChanged(int index) {
+    auto arb = Sim->GetArb();
+    arb->setStrategy(qvariant_cast<STRATEGY>(ui->Arbs_Options->itemData(index)));
 }
 

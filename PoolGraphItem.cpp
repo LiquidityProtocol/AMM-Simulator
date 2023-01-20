@@ -24,6 +24,11 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     pool_(pool)
 {
     ui->setupUi(this);
+    connect(ui->widget, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseHover(QMouseEvent*)));
+
+    mouseHorizontal = new QCPItemStraightLine(ui->widget);
+    mouseVertical = new QCPItemStraightLine(ui->widget);
+
     token_to_graph = std::unordered_map< Token*, QCPGraph* > ();
     for (auto token: pool_->tokens()){
         token_to_graph[token] = ui->widget->addGraph();
@@ -35,48 +40,96 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     }
     initLineChart();
     initCandleStick();
+    initEpochContent();
 
-    assert(plottedToken1);
-    assert(plottedToken2);
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+}
+
+void PoolGraphItem::mouseHover(QMouseEvent *event) {
+    double x = ui->widget->xAxis->pixelToCoord(event->pos().x()) + 0.5;
+    double y = ui->widget->yAxis->pixelToCoord(event->pos().y());
+
+    mouseHorizontal->point1->setCoords((int)x, 0);
+    mouseHorizontal->point2->setCoords((int)x, 1);
+
+    mouseVertical->point1->setCoords(0, y);
+    mouseVertical->point2->setCoords(1, y);
+
+    ui->widget->replot();
+
+    epochContent->setText("");
+
+    PoolEpochData *dt = pool_->kthFirstEpoch((int)x);
+    std::string content = "";
+
+    if (dt == nullptr)
+        return;
+
+    if (plotting_volume) {
+        for (auto token : pool_->tokens()) {
+            std::string TokenContent = token->name();
+
+            TokenContent += std::string(7 - TokenContent.size(), ' ');
+            TokenContent += std::to_string(dt->GetVolume(token));
+
+            content += TokenContent;
+            content += "\n";
+        }
+        content.pop_back();
+    } else {
+        double open = dt->GetOpenPrice(plottedToken1, plottedToken2);
+        double high = dt->GetHighPrice(plottedToken1, plottedToken2);
+        double low = dt->GetLowPrice(plottedToken1, plottedToken2);
+        double close = dt->GetClosePrice(plottedToken1, plottedToken2);
+
+        if (open > close) {
+            epochContent->setColor(QColor(Qt::red));
+        } else {
+            epochContent->setColor(QColor(Qt::green));
+        }
+        content += "O: " + std::to_string(open) + "\n";
+        content += "H: " + std::to_string(high) + "\n";
+        content += "L: " + std::to_string(low) + "\n";
+        content += "C: " + std::to_string(close);
+    }
+    epochContent->setText(QString::fromStdString(content));
 }
 
 void PoolGraphItem::UpdateGraph() {
     clearData();
 
-    std::vector<Operation *> opsList = pool_->GetLatestEpochs(plotted_Epochs);
+    std::vector<PoolEpochData *> history = pool_->GetEpochHistory();
     QVector<double> epochs;
 
-    if (opsList.empty())
+    if (history.empty())
         return;
 
-    for (auto ops : opsList) {
-        assert(ops->endEpoch());
-        epochs.append(ops->epochIndex());
-    }
+    for (auto epochData : history)
+        epochs.append(epochData->epochIndex());
 
-    double xmin = epochs[0], xmax = epochs.back();
+    int plotted_data = std::min((int)epochs.size(), plotted_Epochs);
+
+    double xmin = std::max(0.0, epochs.back() - plotted_Epochs), xmax = xmin + plotted_Epochs;
     double ymin = 1e18, ymax = -1;
 
     if (plotting_volume) {
-        std::unordered_map<Token*, QVector<double> > volume;
-
-        for (auto ops : opsList)
-        for (auto token : pool_->tokens())
-            volume[token].append(ops->GetVolume(token));
-
         for (auto token : pool_->tokens()) {
-            ymin = std::min(ymin, *std::min_element(volume[token].begin(), volume[token].end()));
-            ymax = std::max(ymax, *std::max_element(volume[token].begin(), volume[token].end()));
+            QVector<double> volume;
 
-            token_to_graph[token]->setData(epochs, volume[token]);
+            for (auto epochData : history)
+                volume.append(log(epochData->GetVolume(token)));
+
+            ymin = std::min(ymin, *std::min_element(volume.end() - plotted_data, volume.end()));
+            ymax = std::max(ymax, *std::max_element(volume.end() - plotted_data, volume.end()));
+
+            token_to_graph[token]->setData(epochs, volume);
             token_to_graph[token]->addToLegend();
             token_to_graph[token]->rescaleAxes(true);
         }
     } else {
         QVector<double> open, high, low, close;
 
-        for (auto ops : opsList) {
+        for (auto ops : history) {
             open.append(ops->GetOpenPrice(plottedToken1, plottedToken2));
             high.append(ops->GetHighPrice(plottedToken1, plottedToken2));
             low.append(ops->GetLowPrice(plottedToken1, plottedToken2));
@@ -84,11 +137,12 @@ void PoolGraphItem::UpdateGraph() {
         }
         epochs.resize(open.size());
 
-        ymin = *std::min_element(low.begin(), low.end());
-        ymax = *std::max_element(high.begin(), high.end());
+        ymin = *std::min_element(low.end() - plotted_data, low.end());
+        ymax = *std::max_element(high.end() - plotted_data, high.end());
 
+        lineChart->addToLegend();
         lineChart->setData(epochs, close);
-        lineChart->setName(QString::fromStdString(plottedToken1->name() + "/" + plottedToken2->name()));
+        lineChart->setName(QString::fromStdString(plottedToken2->name() + "/" + plottedToken1->name()));
         candleStick->setData(epochs, open, high, low, close);
     }
     double xrange = xmax - xmin;
@@ -121,6 +175,7 @@ void PoolGraphItem::initLineChart() {
     //                             QPen(Qt::black, 1.5), QBrush(Qt::white), 3));
     lineChart->setLineStyle(QCPGraph::lsLine);
     lineChart->setPen(QPen(QColor(120, 120, 120), 3));
+    lineChart->setName(QString::fromStdString(plottedToken2->name() + "/" + plottedToken1->name()));
     lineChart->keyAxis()->setUpperEnding(QCPLineEnding::esSpikeArrow);
     lineChart->valueAxis()->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
@@ -135,6 +190,13 @@ void PoolGraphItem::initCandleStick() {
     candleStick->setChartStyle(QCPFinancial::csCandlestick);
     candleStick->setTwoColored(true);
     candleStick->setName("Candlestick");
+}
+
+void PoolGraphItem::initEpochContent() {
+    epochContent = new QCPItemText(ui->widget);
+    epochContent->setPositionAlignment(Qt::AlignTop|Qt::AlignHCenter);
+    epochContent->position->setType(QCPItemPosition::ptAxisRectRatio);
+    epochContent->position->setCoords(0.5, 0); // place position at center/top of axis rect
 }
 
 void PoolGraphItem::setViewMethod(bool plotting_volume) {

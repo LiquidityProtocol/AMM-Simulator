@@ -33,20 +33,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Liquidity Provider</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="LP_Options">
-         <property name="placeholderText">
-          <string>Select Behavior</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QLabel" name="label_4">
          <property name="text">
           <string>View Method</string>
