@@ -12,15 +12,11 @@ class WalletListWidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WalletListWidgetItem(QWidget *parent = nullptr, Token *token=nullptr, double quantity = 0);
+    explicit WalletListWidgetItem(QWidget *parent = nullptr, Token *token = nullptr, double quantity = 0);
     ~WalletListWidgetItem();
-    std::string GetTokenName();
-    void UpdateTokenQuantity(double quantity);
-    Token * token() const;
 
 private:
     Ui::WalletListWidgetItem *ui;
-    Token *token_;
 };
 
 #endif // WALLETLISTWIDGETITEM_H

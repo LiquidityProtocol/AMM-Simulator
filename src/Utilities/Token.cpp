@@ -1,11 +1,11 @@
 #include "Utilities.hpp"
 
 std::string Token::name() const {
-    return name_;
+    return pool_ ? "Pool Token - " + pool_->name() : name_;
 }
 
 double Token::real_value() const {
-    return real_value_;
+    return pool_ ? pool_->GetPoolValue() / pool_->total_pool_token_quantity() : real_value_;
 }
 
 PoolInterface * Token::pool() const {

@@ -19,6 +19,8 @@ SOURCES += \
     NewPoolProvisionDialog.cpp \
     PoolGraphItem.cpp \
     PoolListWidgetItem.cpp \
+    PoolTokenDialog.cpp \
+    PoolTokenListWidgetItem.cpp \
     ProvideDialog.cpp \
     ProviderSimulationGraphItem.cpp \
     SimulationPlayground.cpp \
@@ -57,6 +59,8 @@ HEADERS += \
     NewPoolProvisionDialog.h \
     PoolGraphItem.h \
     PoolListWidgetItem.h \
+    PoolTokenDialog.h \
+    PoolTokenListWidgetItem.h \
     ProvideDialog.h \
     ProviderSimulationGraphItem.h \
     SimulationPlayground.h \
@@ -95,6 +99,8 @@ FORMS += \
     NewPoolProvisionDialog.ui \
     PoolGraphItem.ui \
     PoolListWidgetItem.ui \
+    PoolTokenDialog.ui \
+    PoolTokenListWidgetItem.ui \
     ProvideDialog.ui \
     ProviderSimulationGraphItem.ui \
     SimulationPlayground.ui \

@@ -149,7 +149,7 @@ public:
 
     double total_value() const;
     double budget() const;
-
+    double total_asset() const;
     std::vector<Operation *> ledger() const;
 
     double GetQuantity(Token *token) const;
@@ -181,6 +181,8 @@ public:
     friend class Market;
     friend class Signal;
 
+    std::string name() const;
+
     bool InPool(Token *token) const;
     double GetQuantity(Token *token) const;
 
@@ -210,6 +212,9 @@ public:
     PoolEpochData *kthFirstEpoch(int k) const;
 
     void endEpoch();
+
+    double GetPoolValue() const;
+
 protected:
     static constexpr double INITIAL_POOL_TOKEN_SUPPLY = 100;
 

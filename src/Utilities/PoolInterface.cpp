@@ -1,4 +1,5 @@
 #include "Utilities.hpp"
+#include "../Protocols/Protocols.hpp"
 
 template<typename T1, typename T2>
 std::unordered_set<T1> GetKeys(const std::unordered_map<T1, T2> &mp) {
@@ -41,6 +42,15 @@ PoolInterface::PoolInterface(std::unordered_map<Token *, double> quantities, dou
 
     quantities_ = quantities;
     quantities_[pool_token_ = new Token(this)] = INITIAL_POOL_TOKEN_SUPPLY;
+}
+
+std::string PoolInterface::name() const {
+    std::string name = PROTOCOL_NAME.at(GetPoolType(this)) + " Pool ";
+    for (auto token : tokens_container_.tokens()) {
+        name += token->name() + "|";
+    }
+    name.pop_back();
+    return name;
 }
 
 bool PoolInterface::InPool(Token *token) const {
@@ -380,6 +390,14 @@ void PoolInterface::endEpoch() {
     history_.push_back(EpochData);
 }
 
+double PoolInterface::GetPoolValue() const {
+    double total_value = 0;
+    for (auto [token, quantity] : quantities()) {
+        total_value += quantity * token->real_value();
+    }
+    return total_value;
+}
+
 double PoolInterface::ComputeSpotExchangeRate(Token *input_token, Token *output_token) const {
     /*
      * This method computes the spot exchange rate of a swap.
@@ -442,7 +460,6 @@ void PoolInterface::UpdateWallet(Account *account, Token *token, double quantity
     if (!account->wallet_[token]) {
         account->wallet_.erase(token);
     }
-    account->total_value_ += quantity * token->real_value();
 }
 
 void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity) {

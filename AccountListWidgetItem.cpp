@@ -2,6 +2,7 @@
 #include "ui_AccountListWidgetItem.h"
 #include "MintDialog.h"
 #include "WalletListWidgetItem.h"
+#include "PoolTokenListWidgetItem.h"
 #include <QMessageBox>
 #include "ManualPlayground.h"
 
@@ -13,8 +14,9 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
 {
     ui->setupUi(this);
     connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<ManualPlayground *>(parent), &ManualPlayground::VerifyUpdatePoolDisplayRequest);
+    connect(this, &AccountListWidgetItem::UpdateAccountsWalletsRequest, qobject_cast<ManualPlayground *>(parent), &ManualPlayground::VerifyUpdateAccountsWalletsRequest);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
-    ui->lineEdit_2->setText(QString::number(account_->total_value()));
+    UpdateWallet();
 }
 
 AccountListWidgetItem::~AccountListWidgetItem()
@@ -61,13 +63,20 @@ void AccountListWidgetItem::on_withdraw_pushButton_clicked()
 
 void AccountListWidgetItem::UpdateWallet()
 {
+    ui->lineEdit_2->setText(QString::number(account_->total_asset()));
     ui->listWidget->clear();
     for (auto [token, quantity] : account_->wallet()) {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
         ui->listWidget->addItem(item);
-        WalletListWidgetItem *wallet_item = new WalletListWidgetItem(this, token, quantity);
-        item->setSizeHint(wallet_item->sizeHint());
-        ui->listWidget->setItemWidget(item, wallet_item);
+        if (token->pool()) {
+            PoolTokenListWidgetItem *pool_token_item = new PoolTokenListWidgetItem(this, token, quantity);
+            item->setSizeHint(pool_token_item->sizeHint());
+            ui->listWidget->setItemWidget(item, pool_token_item);
+        } else {
+            WalletListWidgetItem *wallet_item = new WalletListWidgetItem(this, token, quantity);
+            item->setSizeHint(wallet_item->sizeHint());
+            ui->listWidget->setItemWidget(item, wallet_item);
+        }
     }
 }
 
@@ -75,7 +84,6 @@ void AccountListWidgetItem::VerifyMintRequest(Token *token, double quantity)
 {
     try {
         account_->Deposit(token, quantity);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         mint_dialog->accept();
     } catch (std::exception &e) {
@@ -87,8 +95,7 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
     try {
         double curr_slippage = pool->GetSlippage(input_token, output_token, input_quantity);
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
-        UpdateWallet();
+        emit UpdateAccountsWalletsRequest();
         emit UpdatePoolDisplayRequest(pool, curr_slippage);
         trade_dialog->accept();
     } catch (std::exception &e) {
@@ -99,7 +106,6 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
 void AccountListWidgetItem::VerifyWithdrawRequest(Token *input_token, double surrendered_quantity) {
     try {
         playground_->ExecuteWithdrawal(account_, input_token, surrendered_quantity);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(input_token->pool());
         withdraw_dialog->accept();
@@ -113,9 +119,11 @@ void AccountListWidgetItem::VerifyProvisionTypeDeclaration(bool initial_provisio
     provide_dialog->accept();
     if (initial_provision) {
         new_pool_provision_dialog = new NewPoolProvisionDialog(this, playground_);
+        new_pool_provision_dialog->setWindowTitle(QString::fromStdString("Provide from account " + account_->name()));
         new_pool_provision_dialog->exec();
     } else {
         existing_pool_provision_dialog = new ExistingPoolProvisionDialog(this, playground_);
+        existing_pool_provision_dialog->setWindowTitle(QString::fromStdString("Provide from account " + account_->name()));
         existing_pool_provision_dialog->exec();
     }
 }
@@ -124,7 +132,6 @@ void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         new_pool_provision_dialog->accept();
@@ -137,7 +144,6 @@ void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, slippage_controller);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         new_pool_provision_dialog->accept();
@@ -150,7 +156,6 @@ void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, weights);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         new_pool_provision_dialog->accept();
@@ -163,7 +168,6 @@ void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, cons
 {
     try {
         playground_->ExecuteProvision(account_, protocol, quantities);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         existing_pool_provision_dialog->accept();

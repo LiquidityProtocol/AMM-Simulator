@@ -22,6 +22,7 @@ public:
     explicit AccountListWidgetItem(QWidget *parent = nullptr, Playground* playground = nullptr, Account *account = nullptr);
     ~AccountListWidgetItem();
     Account *account() const;
+    void UpdateWallet();
 
 public slots:
     void VerifyMintRequest(Token *token, double quantity);
@@ -41,6 +42,7 @@ private slots:
 
 signals:
     void UpdatePoolDisplayRequest(PoolInterface *pool, double curr_slippage = -1);
+    void UpdateAccountsWalletsRequest();
 
 private:
     Ui::AccountListWidgetItem *ui;
@@ -52,8 +54,6 @@ private:
     NewPoolProvisionDialog *new_pool_provision_dialog;
     ExistingPoolProvisionDialog *existing_pool_provision_dialog;
     Playground *playground_;
-
-    void UpdateWallet();
 };
 
 #endif // ACCOUNTLISTWIDGETITEM_H

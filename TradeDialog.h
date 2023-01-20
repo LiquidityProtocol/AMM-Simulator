@@ -33,8 +33,8 @@ signals:
     void TradeRequest(PoolInterface *pool, Token *input_token, Token *output_token, double quantity);
 
 private slots:
-    void on_input_token_comboBox_currentTextChanged(const QString &input_token_name);
-    void on_output_token_comboBox_currentTextChanged(const QString &output_token_name);
+    void on_input_token_comboBox_activated(int index);
+    void on_output_token_comboBox_activated(int index);
     void on_protocol_comboBox_currentIndexChanged(int index);
     void on_protocol_comboBox_activated(int index);
     void on_pool_comboBox_currentIndexChanged(int index);

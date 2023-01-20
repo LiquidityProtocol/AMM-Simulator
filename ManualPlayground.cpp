@@ -95,3 +95,12 @@ void ManualPlayground::on_create_token_pushButton_clicked()
     }
 }
 
+void MainWindow::VerifyUpdateAccountsWalletsRequest()
+{
+    for (int i = 0; i < ui->listWidget->count(); ++i) {
+        QListWidgetItem *item = ui->listWidget->item(i);
+        QWidget *item_widget = ui->listWidget->itemWidget(item);
+        AccountListWidgetItem *account_item = qobject_cast<AccountListWidgetItem *>(item_widget);
+        account_item->UpdateWallet();
+    }
+}

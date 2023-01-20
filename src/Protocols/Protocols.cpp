@@ -1,15 +1,15 @@
 #include "Protocols.hpp"
 
-PROTOCOL GetPoolType(PoolInterface *pool) {
-    if (dynamic_cast<UniswapV2Pool *>(pool)) {
+PROTOCOL GetPoolType(const PoolInterface *pool) {
+    if (typeid(*pool) == typeid(UniswapV2Pool)) {
         return PROTOCOL::UNISWAP_V2;
-    } else if (dynamic_cast<UniswapV3Pool *>(pool)) {
+    } else if (typeid(*pool) == typeid(UniswapV3Pool)) {
         return PROTOCOL::UNISWAP_V3;
-    } else if (dynamic_cast<BalancerPool *>(pool)) {
+    } else if (typeid(*pool) == typeid(BalancerPool)) {
         return PROTOCOL::BALANCER;
-    } else if (dynamic_cast<CurvePool *>(pool)) {
+    } else if (typeid(*pool) == typeid(CurvePool)) {
         return PROTOCOL::CURVE;
-    } else if (dynamic_cast<ConstantSum *>(pool)) {
+    } else if (typeid(*pool) == typeid(ConstantSum)) {
         return PROTOCOL::CONSTANT_SUM;
     }
     throw std::invalid_argument("there is no pool type corresponding to this pool");

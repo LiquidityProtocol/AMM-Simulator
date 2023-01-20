@@ -12,7 +12,7 @@ PoolListWidgetItem::PoolListWidgetItem(QWidget *parent, Playground *playground, 
 {
     ui->setupUi(this);
 
-    ui->label_poolName->setText(QString::fromStdString(pool_->pool_token()->name()));
+    ui->label_poolName->setText(QString::fromStdString(pool_->name()));
     ui->lineEdit_protocol->setText(QString::fromStdString(PROTOCOL_NAME.at(GetPoolType(pool_))));
     ui->lineEdit_poolFee->setText(QString::fromStdString(std::to_string(pool_->pool_fee()*100)));
 
