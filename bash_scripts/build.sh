@@ -3,5 +3,5 @@
 rm -rf build
 mkdir build
 cd build
-qmake ../src/LiquidityProtocol.pro
+qmake ../LiquidityProtocol.pro
 make -j4
