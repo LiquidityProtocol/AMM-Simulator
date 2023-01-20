@@ -198,6 +198,7 @@ void PoolGraphItem::initEpochContent() {
     epochContent->setPositionAlignment(Qt::AlignTop|Qt::AlignHCenter);
     epochContent->position->setType(QCPItemPosition::ptAxisRectRatio);
     epochContent->position->setCoords(0.5, 0); // place position at center/top of axis rect
+    epochContent->setText("");
 }
 
 void PoolGraphItem::initHoverLines() {
