@@ -20,8 +20,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(1, 25, 147);</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -29,7 +28,7 @@ color: rgb(1, 25, 147);</string>
      <item>
       <widget class="QLabel" name="label_poolName">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Pool</string>
@@ -46,7 +45,7 @@ color: rgb(1, 25, 147);</string>
      <item>
       <widget class="QLabel" name="label_protocol">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Protocol:</string>
@@ -66,7 +65,7 @@ color: rgb(1, 25, 147);</string>
      <item>
       <widget class="QLabel" name="label_poolFee">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Pool fee (%):</string>
@@ -159,7 +158,7 @@ color: rgb(1, 25, 147);</string>
      <item>
       <widget class="QLabel" name="label_spotPrice">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Spot price against input token: </string>
@@ -234,7 +233,7 @@ color: rgb(1, 25, 147);</string>
      <item>
       <widget class="QLabel" name="label_secondToken">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Graph 2nd token against input token:</string>

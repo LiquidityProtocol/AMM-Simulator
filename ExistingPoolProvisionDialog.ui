@@ -14,10 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(1, 25, 147);
-border: 1px solid; 
-border-color: rgb(1, 25, 147);</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -29,11 +26,11 @@ border-color: rgb(1, 25, 147);</string>
       <widget class="QLabel" name="label_protocol">
        <property name="font">
         <font>
-         <bold>true</bold>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147); </string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Protocol</string>
@@ -51,11 +48,11 @@ border-color: rgb(1, 25, 147);</string>
       <widget class="QLabel" name="label_pool">
        <property name="font">
         <font>
-         <bold>true</bold>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147); </string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Pool</string>
