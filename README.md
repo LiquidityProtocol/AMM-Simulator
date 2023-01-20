@@ -12,19 +12,19 @@ create his/her own protocol and see how it performs compared to other famous pro
 ## Members
 | name | github username | trello username | role |
 |:------------:|:---------------:|:---------------:|:------:|
-| Adithya Ravichandran | Ad1thya-R | ad1thya_r | Responsible for Git |
 | Levente Ludányi | ludlev2 | leventeludanyi | Project Leader |
+| Adithya Ravichandran | Ad1thya-R | ad1thya_r | Responsible for Git |
 | Fryderyk Sitnik | fryderyk-sitnik | fryderyksitnik2 | Responsible for Trello |
 | Shubh Lashkery | shubhlashkery | shubhlashkery | Economics Team Leader |
 | Martina Paez Berru  | Martina-Paez-Berru | martinapaezberru | Frontend Team Leader |
+| Minh Pham | minhpham160603 | minhpham1606 | Playground Team Leader |
+| Duc Nguyen | combi2k2 | Duc Nguyen | Protocols Team Leader |
 | Kaoutar Fahraoui | Kaoutar-Fahraoui | kaoutar.fahraoui |  |
 | Mia Chambat | miachambat | miachambat |  |
 | Amine Roudani | amineroudani | amineroudani |  |
 | Julien Girod | juliengirod | Julien Girod |  |
-| Duc Nguyen | combi2k2 | Duc Nguyen | Protocols Team Leader |
 | Victoire Fabien | victoire-fabien | victoire-fabien |  |
 | Jasmine Samson | Jasmine-Samson | jasmine samson |  |
-| Minh Pham | minhpham160603 | minhpham1606 |  |
 | Tu Nguyen | ngoctu-nguyen | nguyenngoctu03 |  |
 | The Nguyen | the-nguyen | thenguyen33 |  |
 | Alessandro Massaad | alemassaad | alemassaad |  |
@@ -82,24 +82,6 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 
 <br>
 
-Otherwise you can follow these steps for Ubuntu users.
-
-
-Run the following commands on the terminal:
-```
-sudo apt-get install qt5-default
-```
-
-Now you need to run this script that you can find in `scripts\build.sh`:
-
-```
-rm -rf build
-mkdir build
-cd build
-qmake ../src/LiquidityProtocol.pro
-make -j4
-./LiquidityProtocol
-```
 
 ## How use it
 
