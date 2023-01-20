@@ -110,13 +110,18 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
         return;
     }
-    for(int i = 0; i < ui->lineEdit->text().toInt(); i++){
+    int customEpoch = ui->lineEdit->text().toInt();
+    ui->lineEdit->setReadOnly(true);
+    while (customEpoch--) {
+        ui->lineEdit->setText(QString::fromStdString(std::to_string(customEpoch)));
         on_runButton_clicked();
 
         QTime dieTime = QTime::currentTime().addMSecs(500);
         while (QTime::currentTime() < dieTime)
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     }
+    ui->lineEdit->clear();
+    ui->lineEdit->setReadOnly(false);
 }
 
 void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
