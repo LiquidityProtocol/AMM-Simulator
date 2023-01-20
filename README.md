@@ -83,7 +83,7 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 <br>
 
 
-## How use it
+## How to use it
 
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/workflow.png?raw=true)
 
