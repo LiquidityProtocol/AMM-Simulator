@@ -27,6 +27,7 @@ private slots:
     void on_pushButton_customEpoch_clicked();
 
     void on_pushButton_load_scenario_clicked();
+    void on_pushButton_analyze_arbitrager_clicked()
     void on_View_Options_currentIndexChanged(int index);
     void update_pool_comboBox();
 

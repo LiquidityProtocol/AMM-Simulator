@@ -146,6 +146,12 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked()
     ui->pool_comboBox->setCurrentIndex(0);
 }
 
+void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
+{
+    ArbitrageurSimulationGraphItem *arbitrager_dialog = new ArbitrageurSimulationGraphItem(this, epochs, wallet_values);
+    arbitrager_dialog->exec();
+}
+
 std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QString scenario){
     QByteArray byte_arr = scenario.toUtf8();
     QJsonDocument doc = QJsonDocument::fromJson(byte_arr);
