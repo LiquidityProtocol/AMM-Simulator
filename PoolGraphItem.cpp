@@ -59,6 +59,9 @@ void PoolGraphItem::mouseHover(QMouseEvent *event) {
 
     epochContent->setText("");
 
+    if ((int)x < 0)
+        return;
+
     PoolEpochData *dt = pool_->kthFirstEpoch((int)x);
     std::string content = "";
 
@@ -117,7 +120,7 @@ void PoolGraphItem::UpdateGraph() {
             QVector<double> volume;
 
             for (auto epochData : history)
-                volume.append(log(epochData->GetVolume(token)));
+                volume.append(epochData->GetVolume(token));
 
             ymin = std::min(ymin, *std::min_element(volume.end() - plotted_data, volume.end()));
             ymax = std::max(ymax, *std::max_element(volume.end() - plotted_data, volume.end()));
