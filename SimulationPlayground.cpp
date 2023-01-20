@@ -79,6 +79,7 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
 
     pool_graph->setViewMethod(qvariant_cast<VIEW_METHOD>(ui->View_Options->currentData()) == VIEW_METHOD::VIEW_VOLUME);
     pool_graph->UpdateGraph();
+    lp_graph->UpdateGraph();
 
     ui->tabWidget->clear();
     ui->tabWidget->insertTab(0, pool_graph, "Pool Graph");
@@ -89,6 +90,7 @@ void SimulationPlayground::on_pool_comboBox_currentIndexChanged(int index) {
 void SimulationPlayground::on_pushButton_customEpoch_clicked() {
     if(ui->lineEdit->text() == ""){
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
+        return;
     }
     for(int i = 0; i < ui->lineEdit->text().toInt(); i++){
         on_runButton_clicked();
