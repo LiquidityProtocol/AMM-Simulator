@@ -4,7 +4,7 @@ std::string Account::name() const {
     return name_;
 }
 
-double Account::total_value() const {
+double Account::total_asset() const {
     double total_value = 0;
     for (auto [token, quantity] : wallet_) {
         total_value += quantity * token->real_value();
