@@ -95,7 +95,7 @@ void ManualPlayground::on_create_token_pushButton_clicked()
     }
 }
 
-void MainWindow::VerifyUpdateAccountsWalletsRequest()
+void ManualPlayground::VerifyUpdateAccountsWalletsRequest()
 {
     for (int i = 0; i < ui->listWidget->count(); ++i) {
         QListWidgetItem *item = ui->listWidget->item(i);
