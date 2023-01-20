@@ -156,7 +156,7 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
 {
     delete market_;
     market_ = new Market();
-    step = {0};
+    step = 0;
     epochs = {step};
     wallet_values = {arbitrager->total_value()};
     ui->pool_comboBox->clear();
