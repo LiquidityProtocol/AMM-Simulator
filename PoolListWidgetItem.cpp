@@ -251,7 +251,7 @@ void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
         curr_Point->setAdaptiveSampling(false);
         curr_Point->setLineStyle(QCPGraph::lsNone);
         curr_Point->setScatterStyle(QCPScatterStyle::ssCircle);
-        curr_Point->setPen(QPen(QBrush(QColor(100,16,176)), 2));
+        curr_Point->setPen(QPen(QBrush(QColor(155,0,0)), 2));
         curr_Point->setName("current quantities");
         curr_Point->addData(input_quants[0], output_quants[0]);
 
@@ -260,7 +260,7 @@ void PoolListWidgetItem::on_comboBox_secondToken_currentIndexChanged(int index)
             last_Point->setAdaptiveSampling(false);
             last_Point->setLineStyle(QCPGraph::lsNone);
             last_Point->setScatterStyle(QCPScatterStyle::ssCircle);
-            last_Point->setPen(QPen(QBrush(QColor(100,0,0)), 2));
+            last_Point->setPen(QPen(QBrush(QColor(128,28,176)), 2));
             last_Point->setName("last quantities");
             last_Point->addData(input_quants[1], output_quants[1]);
         }
