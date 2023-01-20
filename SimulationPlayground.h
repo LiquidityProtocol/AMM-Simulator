@@ -45,7 +45,6 @@ private:
     std::unordered_map<Token*, QVector<double> > inventory_quantities;
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
     Token* test_token;
-    Arbitrager* arbitrager;
 };
 
 #endif // SIMULATIONPLAYGROUND_H
