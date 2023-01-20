@@ -227,7 +227,7 @@ void Market::simulateProvide(PoolInterface *pool) {
     } else {
         LP_volume = (rvNorm(0.5, 1) - LP_discourage) * 1e6;
     }
-    double LP_amount = LP_volume / pool->pool_token_value();
+    double LP_amount = LP_volume / pool->pool_token()->real_value();
     if (LP_amount < 0) {
         A->Withdraw(pool, -LP_amount);
     } else {

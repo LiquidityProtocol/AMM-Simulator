@@ -12,7 +12,7 @@ void Provider::StrategicProvide(PoolInterface *pool) {
 
     double LP_discourage = abs(log(PoolRatio) - log(MarketRatio));
     double LP_volume = (1 - LP_discourage) * total_value() * 0.2;
-    double LP_amount = LP_volume / pool->pool_token_value();
+    double LP_amount = LP_volume / pool->pool_token()->real_value();
 
     if (LP_amount < 0) {
         LP_amount = std::min(-LP_amount, GetQuantity(pool->pool_token()));
@@ -80,12 +80,12 @@ QVector<double> Provider::calcHoldValue(PoolInterface *pool) const {
 
             share += benefitHistory[i].find(pool)->second;
         }
-        vals.push_back(hold + share * pool->pool_token_value());
+        vals.push_back(hold + share * pool->pool_token()->real_value());
     }
     return vals;
 }
 double Provider::calcShareValue(PoolInterface *pool) const {
-    return pool->pool_token_value() * GetQuantity(pool->pool_token());
+    return pool->pool_token()->real_value() * GetQuantity(pool->pool_token());
 }
 
 void Provider::endEpoch() {
