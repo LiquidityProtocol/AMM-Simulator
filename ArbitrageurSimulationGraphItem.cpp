@@ -18,7 +18,8 @@ QColor random_color10() {
 
 ArbitrageurSimulationGraphItem::ArbitrageurSimulationGraphItem(QWidget *parent, QVector<double> epochs, QVector<double> wallet_values) :
     QDialog(parent),
-    ui(new Ui::ArbitrageurSimulationGraphItem)
+    ui(new Ui::ArbitrageurSimulationGraphItem),
+    wallet_values_(wallet_values)
 {
     ui->setupUi(this);
     QCPGraph *arbitrager_to_graph = ui->widget->addGraph();

@@ -17,7 +17,7 @@ public:
 private:
     Ui::ArbitrageurSimulationGraphItem *ui;
     QVector<double> epochs;
-    QVector<double> wallet_values;
+    QVector<double> wallet_values_;
 };
 
 #endif // ARBITRAGEURSIMULATIONGRAPHITEM_H
