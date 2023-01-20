@@ -28,6 +28,7 @@ SOURCES += \
     TradeDialog.cpp \
     WalletListWidgetItem.cpp \
     WithdrawDialog.cpp \
+    introductorywindow.cpp \
     main.cpp \
     qcustomplot.cpp \
     src/Market/Agents/Arbitrager.cpp \
@@ -67,6 +68,7 @@ HEADERS += \
     TokenListWidgetItem.h \
     TradeDialog.h \
     WalletListWidgetItem.h \
+    introductorywindow.h \
     qcustomplot.h \
     WithdrawDialog.h \
     src/Market/Agents/Arbitrager.hpp \
@@ -107,9 +109,14 @@ FORMS += \
     TokenListWidgetItem.ui \
     TradeDialog.ui \
     WalletListWidgetItem.ui \
-    WithdrawDialog.ui
+    WithdrawDialog.ui \
+    introductorywindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    LOGO.qrc \
+    Logo_background.qrc

@@ -20,15 +20,20 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(1, 25, 147); </string>
        </property>
        <property name="text">
         <string>Account name</string>
@@ -60,8 +65,13 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(1, 25, 147);</string>
        </property>
        <property name="text">
         <string>$</string>
@@ -71,7 +81,7 @@
      <item>
       <widget class="QLineEdit" name="lineEdit_2">
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(1, 25, 147);</string>
        </property>
        <property name="text">
         <string/>
@@ -95,7 +105,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">color: rgb(1, 25, 147);</string>
      </property>
     </widget>
    </item>
@@ -103,8 +113,14 @@
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QPushButton" name="mint_pushButton">
+       <property name="font">
+        <font>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 0, 8);</string>
+        <string notr="true">color: rgb(1, 25, 147); </string>
        </property>
        <property name="text">
         <string>Mint</string>
@@ -113,8 +129,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="trade_pushButton">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 0, 8);</string>
+        <string notr="true">color: rgb(1, 25, 147); </string>
        </property>
        <property name="text">
         <string>Trade</string>
@@ -123,8 +144,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="provide_pushButton">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 0, 8);</string>
+        <string notr="true">color: rgb(1, 25, 147); </string>
        </property>
        <property name="text">
         <string>Provide</string>
@@ -133,8 +159,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="withdraw_pushButton">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 0, 8);</string>
+        <string notr="true">color: rgb(1, 25, 147); </string>
        </property>
        <property name="text">
         <string>Withdraw</string>

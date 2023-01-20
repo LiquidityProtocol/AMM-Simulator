@@ -23,6 +23,8 @@ private slots:
 
     void on_tabWidget_tabCloseRequested(int index);
 
+    void on_pushButton_returnIntroWindow_clicked();
+
 private:
     Ui::NewMainWindow *ui;
     int manualPlaygroundCount = 1;
