@@ -29,6 +29,11 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     ui->setupUi(this);
     Sim = new Simulation();
 
+    arbitrageur = Sim->GetArb();
+    step = 0;
+    wallet_values = { arbitargeur->total_value() };
+    epochs = {step};
+
     ui->tabWidget->clear();
     ui->tabWidget->addTab(new QWidget, "Pool Graph");
     ui->tabWidget->addTab(new QWidget, "LP Graph");
@@ -55,6 +60,10 @@ void SimulationPlayground::on_runButton_clicked() {
         QMessageBox::about(this, "Run failed", "Market has no pool!");
     }
     Sim->runEpoch();
+
+    step = step + 1;
+    epochs.append(step);
+    wallet_values.append( arbitrageur->total_value() );
 
     if (ui->pool_comboBox->currentIndex() != -1) {
         QWidget *item_widget = ui->tabWidget->widget(0);
@@ -160,6 +169,11 @@ void SimulationPlayground::on_pushButton_reset_market_clicked()
 {
     delete Sim;
     Sim = new Simulation();
+
+    arbitrageur = Sim->GetArb();
+    step = 0;
+    wallet_values = { arbitargeur->total_value() };
+    epochs = {step};
 
     ui->pool_comboBox->clear();
     ui->tabWidget->clear();

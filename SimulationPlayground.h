@@ -39,10 +39,13 @@ private:
     Simulation *Sim;
 
     Ui::SimulationPlayground *ui;
+    double step;
     QVector<double> epochs;
+    QVector<double> wallet_values;
     std::unordered_map<Token*, QVector<double> > inventory_quantities;
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
     Token* test_token;
+    Arbitrager *arbitrageur;
 };
 
 #endif // SIMULATIONPLAYGROUND_H
