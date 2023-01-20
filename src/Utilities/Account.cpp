@@ -5,7 +5,11 @@ std::string Account::name() const {
 }
 
 double Account::total_value() const {
-    return total_value_;
+    double total_value = 0;
+    for (auto [token, quantity] : wallet_) {
+        total_value += quantity * token->real_value();
+    }
+    return total_value;
 }
 
 std::unordered_map<Token *, double> Account::wallet() const {
@@ -28,12 +32,10 @@ void Account::Deposit(Token *token, double quantity) {
     if (!wallet_[token]) {
         wallet_.erase(token);
     }
-    total_value_ += quantity * token->real_value();
 }
 
 Account::Account(const std::string &name)
-    : name_(name)
-    , total_value_(0) {}
+    : name_(name) {}
 
 double Account::Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity) {
     ledger_.emplace_back(pool->Swap(this, input_token, output_token, input_quantity));

@@ -5,7 +5,7 @@ std::string Token::name() const {
 }
 
 double Token::real_value() const {
-    return real_value_;
+    return pool_ ? pool_->GetPoolValue() / pool_->total_pool_token_quantity() : real_value_;
 }
 
 PoolInterface * Token::pool() const {

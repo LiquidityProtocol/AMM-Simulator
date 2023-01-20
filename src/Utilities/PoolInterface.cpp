@@ -293,8 +293,8 @@ std::vector<Operation *> PoolInterface::ledger() const {
 
 double PoolInterface::GetPoolValue() const {
     double total_value = 0;
-    for (auto token : tokens()) {
-        total_value += GetQuantity(token) * token->real_value();
+    for (auto [token, quantity] : quantities()) {
+        total_value += quantity * token->real_value();
     }
     return total_value;
 }
@@ -361,7 +361,6 @@ void PoolInterface::UpdateWallet(Account *account, Token *token, double quantity
     if (!account->wallet_[token]) {
         account->wallet_.erase(token);
     }
-    account->total_value_ += quantity * token->real_value();
 }
 
 void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *output_token, double input_quantity, double output_quantity) {
@@ -384,7 +383,6 @@ void PoolInterface::ExecuteSwap(Account *trader, Token *input_token, Token *outp
     UpdateWallet(trader, input_token, -input_quantity);
     quantities_[output_token] -= output_quantity;
     UpdateWallet(trader, output_token, output_quantity);
-    UpdatePoolTokenValue();
 }
 
 bool PoolInterface::ValidProvision(std::unordered_map<Token *, double> quantities) const {
@@ -429,7 +427,6 @@ void PoolInterface::ExecuteProvision(Account *provider, std::unordered_map<Token
     }
     quantities_[pool_token_] += generated_pool_token_quantity;
     UpdateWallet(provider, pool_token_, generated_pool_token_quantity);
-    UpdatePoolTokenValue();
 }
 
 void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities) {
@@ -450,9 +447,4 @@ void PoolInterface::ExecuteWithdrawal(Account *provider, double surrendered_pool
     }
     quantities_[pool_token_] -= surrendered_pool_token_quantity;
     UpdateWallet(provider, pool_token_, -surrendered_pool_token_quantity);
-    UpdatePoolTokenValue();
-}
-
-void PoolInterface::UpdatePoolTokenValue() {
-    pool_token_->real_value_ = total_pool_token_quantity() ? GetPoolValue() / total_pool_token_quantity() : 0;
 }

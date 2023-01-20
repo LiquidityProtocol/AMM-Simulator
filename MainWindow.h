@@ -18,6 +18,7 @@ public:
 
 public slots:
     void VerifyUpdatePoolDisplayRequest(PoolInterface *pool, double slippage = -1);
+    void VerifyUpdateAccountsWalletsRequest();
 
 private slots:
     void on_create_toekn_pushButton_clicked();

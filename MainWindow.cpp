@@ -94,3 +94,13 @@ void MainWindow::VerifyUpdatePoolDisplayRequest(PoolInterface *pool, double slip
     item->setSizeHint(pool_item->sizeHint());
     ui->listWidget_pool->setItemWidget(item, pool_item);
 }
+
+void MainWindow::VerifyUpdateAccountsWalletsRequest()
+{
+    for (int i = 0; i < ui->listWidget->count(); ++i) {
+        QListWidgetItem *item = ui->listWidget->item(i);
+        QWidget *item_widget = ui->listWidget->itemWidget(item);
+        AccountListWidgetItem *account_item = qobject_cast<AccountListWidgetItem *>(item_widget);
+        account_item->UpdateWallet();
+    }
+}
