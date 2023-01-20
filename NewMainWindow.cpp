@@ -1,4 +1,5 @@
 #include "NewMainWindow.h"
+#include "introductorywindow.h"
 #include "ui_NewMainWindow.h"
 #include "SimulationPlayground.h"
 #include "ManualPlayground.h"
@@ -37,5 +38,14 @@ void NewMainWindow::on_pushButton_addSimulation_clicked()
 void NewMainWindow::on_tabWidget_tabCloseRequested(int index)
 {
     ui->tabWidget->removeTab(index);
+}
+
+
+void NewMainWindow::on_pushButton_returnIntroWindow_clicked()
+{
+    this->close();
+    IntroductoryWindow *introductorywindow;
+    introductorywindow = new IntroductoryWindow(this);
+    introductorywindow->show();
 }
 

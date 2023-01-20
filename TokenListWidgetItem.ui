@@ -6,18 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>223</width>
-    <height>72</height>
+    <width>231</width>
+    <height>86</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(255, 255, 255);
+color: rgb(1, 25, 147);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Token name</string>
        </property>
@@ -36,6 +44,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="label_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
        <property name="text">
         <string>Price</string>
        </property>

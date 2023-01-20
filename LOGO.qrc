@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>LP_logo.png</file>
+    </qresource>
+</RCC>
