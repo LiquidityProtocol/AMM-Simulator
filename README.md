@@ -2,7 +2,10 @@
 
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/LP_logo.png?raw=true)
 
-C++ project on building a liquidity protocol and a market simulator to test the different automated market makers in different scenarios.
+C++ project on building liquidity pools and a market simulator to test the different automated market makers in different scenarios. We built two distinct
+simulators. A manual interactive simulator and a market simulator. In the manual, one can mint tokens, initialise pools using 5 different protocols. The
+simulator allows the user to trade, provide extra liquidity, withdraw liquaidity and dynamically displays a graph representing the quatinities in the
+pool, the invariant quantity of a protocol, divergence loss, slipage, change in money etc.
 The goal is to build an environment where we can test the already existing algorithms and implement our own AMM algorithm.
 
 
