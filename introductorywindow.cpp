@@ -1,6 +1,6 @@
 #include "introductorywindow.h"
 #include "ui_introductorywindow.h"
-#include "MainWindow.h"
+#include "NewMainWindow.h"
 
 IntroductoryWindow::IntroductoryWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,7 +20,7 @@ IntroductoryWindow::~IntroductoryWindow()
 void IntroductoryWindow::on_pushButton_clicked()
 {
     this->close();
-    mainwindow = new MainWindow(this);
+    mainwindow = new NewMainWindow(this);
     mainwindow -> show();
 
 

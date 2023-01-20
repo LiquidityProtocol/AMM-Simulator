@@ -9,24 +9,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1457</width>
-    <height>747</height>
+    <width>167725</width>
+    <height>167725</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Liquidity Protocol</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(28, 18, 62);
-
-font: 13pt &quot;Calibri&quot;;
-
-border-color: rgb(255, 255, 255); 
-
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="enabled">
@@ -35,6 +29,21 @@ border-color: rgb(255, 255, 255);
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -48,6 +57,12 @@ border-color: rgb(255, 255, 255);
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QFrame" name="frame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="styleSheet">
            <string notr="true">
 
@@ -99,10 +114,7 @@ border: 3px solid rgb(255, 255, 255);
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">border: 3px solid rgb(255, 255, 255);
-
-
-</string>
+           <string notr="true"/>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -166,8 +178,8 @@ hr { height: 1px; border-width: 0; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1457</width>
-     <height>21</height>
+     <width>167725</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

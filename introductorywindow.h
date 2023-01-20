@@ -2,7 +2,7 @@
 #define INTRODUCTORYWINDOW_H
 
 #include <QMainWindow>
-#include "MainWindow.h"
+#include "NewMainWindow.h"
 namespace Ui {
 class IntroductoryWindow;
 }
@@ -20,7 +20,7 @@ private slots:
 
 private:
     Ui::IntroductoryWindow *ui;
-    MainWindow* mainwindow;
+    NewMainWindow* mainwindow;
 };
 
 

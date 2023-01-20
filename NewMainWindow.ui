@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>16777193</width>
-    <height>16777193</height>
+    <width>1677215</width>
+    <height>1677215</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -79,6 +82,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_returnIntroWindow">
+        <property name="text">
+         <string>Return to Introductory Window</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -88,8 +98,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>16777193</width>
-     <height>24</height>
+     <width>1677215</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
