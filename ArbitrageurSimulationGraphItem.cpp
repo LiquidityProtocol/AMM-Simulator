@@ -1,6 +1,6 @@
 #include "ArbitrageurSimulationGraphItem.h"
-#include "ui_ArbitrageurSimulationGraphItem.h"
 #include "qcustomplot.h"
+#include "ui_ArbitrageurSimulationGraphItem.h"
 
 std::random_device rd10;
 std::mt19937 gen10(rd10());
