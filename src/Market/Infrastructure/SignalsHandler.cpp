@@ -22,9 +22,13 @@ void SignalsHandler::respondSignals() {
 
         SignalQueue.pop();
 
-        while (sender->GetQuantity(input_token) < quantity)
-            quantity *= 0.95;
-
-        sender->Trade(pool, input_token, output_token, quantity);
+        for (int _ = 0 ; _ < 50 ; ++_) {
+            try {
+                sender->Trade(pool, input_token, output_token, quantity);
+                break;
+            } catch (...) {
+                quantity *= 0.95;
+            }
+        }
     }
 }
