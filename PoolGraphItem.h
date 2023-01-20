@@ -24,6 +24,7 @@ public:
     void initLineChart();
     void initCandleStick();
     void initEpochContent();
+    void initHoverLines();
 
     void setViewMethod(bool plotting_volume);
 private slots:

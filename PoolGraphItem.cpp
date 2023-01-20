@@ -26,9 +26,6 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     ui->setupUi(this);
     connect(ui->widget, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseHover(QMouseEvent*)));
 
-    mouseHorizontal = new QCPItemStraightLine(ui->widget);
-    mouseVertical = new QCPItemStraightLine(ui->widget);
-
     token_to_graph = std::unordered_map< Token*, QCPGraph* > ();
     for (auto token: pool_->tokens()){
         token_to_graph[token] = ui->widget->addGraph();
@@ -41,6 +38,7 @@ PoolGraphItem::PoolGraphItem(QWidget *parent, PoolInterface *pool) :
     initLineChart();
     initCandleStick();
     initEpochContent();
+    initHoverLines();
 
     ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
@@ -200,6 +198,17 @@ void PoolGraphItem::initEpochContent() {
     epochContent->setPositionAlignment(Qt::AlignTop|Qt::AlignHCenter);
     epochContent->position->setType(QCPItemPosition::ptAxisRectRatio);
     epochContent->position->setCoords(0.5, 0); // place position at center/top of axis rect
+}
+
+void PoolGraphItem::initHoverLines() {
+    mouseHorizontal = new QCPItemStraightLine(ui->widget);
+    mouseVertical = new QCPItemStraightLine(ui->widget);
+
+    mouseHorizontal->point1->setCoords(0, 0);
+    mouseHorizontal->point2->setCoords(0, 1);
+
+    mouseVertical->point1->setCoords(0, 0);
+    mouseVertical->point2->setCoords(1, 0);
 }
 
 void PoolGraphItem::setViewMethod(bool plotting_volume) {
