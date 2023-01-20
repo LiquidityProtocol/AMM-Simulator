@@ -117,7 +117,6 @@ public:
 protected:
     std::string name_;
     std::unordered_map<Token *, double> wallet_;
-    double total_value_;
     std::vector<Operation *> ledger_;
 
     Account(const std::string &name);
@@ -197,8 +196,6 @@ private:
     void ExecuteProvision(Account *provider, std::unordered_map<Token *, double> input_quantities, double generated_pool_token_quantity);
 
     void ExecuteWithdrawal(Account *provider, double surrendered_pool_token_quantity, std::unordered_map<Token *, double> output_quantities);
-
-    void UpdatePoolTokenValue();
 };
 
 Q_DECLARE_METATYPE(PoolInterface *);

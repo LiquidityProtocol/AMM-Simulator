@@ -14,8 +14,9 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
 {
     ui->setupUi(this);
     connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest);
+    connect(this, &AccountListWidgetItem::UpdateAccountsWalletsRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdateAccountsWalletsRequest);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
-    ui->lineEdit_2->setText(QString::number(account_->total_value()));
+    UpdateWallet();
 }
 
 AccountListWidgetItem::~AccountListWidgetItem()
@@ -62,6 +63,7 @@ void AccountListWidgetItem::on_withdraw_pushButton_clicked()
 
 void AccountListWidgetItem::UpdateWallet()
 {
+    ui->lineEdit_2->setText(QString::number(account_->total_value()));
     ui->listWidget->clear();
     for (auto [token, quantity] : account_->wallet()) {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
@@ -82,7 +84,6 @@ void AccountListWidgetItem::VerifyMintRequest(Token *token, double quantity)
 {
     try {
         account_->Deposit(token, quantity);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         mint_dialog->accept();
     } catch (std::exception &e) {
@@ -94,8 +95,7 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
     try {
         double curr_slippage = pool->GetSlippage(input_token, output_token, input_quantity);
         playground_->ExecuteSwap(account_, pool, input_token, output_token, input_quantity);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
-        UpdateWallet();
+        emit UpdateAccountsWalletsRequest();
         emit UpdatePoolDisplayRequest(pool, curr_slippage);
         trade_dialog->accept();
     } catch (std::exception &e) {
@@ -106,7 +106,6 @@ void AccountListWidgetItem::VerifyTradeRequest(PoolInterface *pool, Token *input
 void AccountListWidgetItem::VerifyWithdrawRequest(Token *input_token, double surrendered_quantity) {
     try {
         playground_->ExecuteWithdrawal(account_, input_token, surrendered_quantity);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(input_token->pool());
         withdraw_dialog->accept();
@@ -133,7 +132,6 @@ void AccountListWidgetItem::VerifyProvideRequest1(PROTOCOL protocol, const std::
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         new_pool_provision_dialog->accept();
@@ -146,7 +144,6 @@ void AccountListWidgetItem::VerifyProvideRequest2(PROTOCOL protocol, const std::
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, slippage_controller);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         new_pool_provision_dialog->accept();
@@ -159,7 +156,6 @@ void AccountListWidgetItem::VerifyProvideRequest3(PROTOCOL protocol, const std::
 {
     try {
         playground_->ExecuteInitialProvision(account_, protocol, quantities, pool_fee, weights);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         new_pool_provision_dialog->accept();
@@ -172,7 +168,6 @@ void AccountListWidgetItem::VerifyExistingProvideRequest(PROTOCOL protocol, cons
 {
     try {
         playground_->ExecuteProvision(account_, protocol, quantities);
-        ui->lineEdit_2->setText(QString::number(account_->total_value()));
         UpdateWallet();
         emit UpdatePoolDisplayRequest(playground_->GetPool(protocol, GetKeys(quantities)));
         existing_pool_provision_dialog->accept();
