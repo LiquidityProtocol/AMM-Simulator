@@ -2,11 +2,11 @@
 
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/LP_logo.png?raw=true)
 
-C++ project on building liquidity pools and a market simulator to test the different automated market makers in different scenarios. We built two distinct
+C++ project on building liquidity pools and a stochastic market simulator to test the different automated market makers in different scenarios. We built two distinct
 simulators. A manual interactive simulator and a market simulator. In the manual, one can mint tokens, initialise pools using 5 different protocols. The
 simulator allows the user to trade, provide extra liquidity, withdraw liquaidity and dynamically displays a graph representing the quatinities in the
-pool, the invariant quantity of a protocol, divergence loss, slipage, change in money etc.
-The goal is to build an environment where we can test the already existing algorithms and implement our own AMM algorithm.
+pool, the invariant quantity of a protocol, divergence loss, slipage, change in money etc. The general implementation of the protocols allows the user to
+create his/her own protocol and see how it performs compared to other famous protocols such as UniswapV2, UniswapV3, Curve, Balancer etc. Furthermore, we implemented a market simulator as well. It allows the user to see the performance of protocols in a simulated market with multiple agents (arbitrageur, liquidity provider). One can initialise any number of tokens and set their prices and choose a strategy for the trader (Naive Greedy, Linear Regression, Exponential Moving Average, Moving Average). Every step happens probabilistically and different quantities (price, volume, arbitragur's return, liquidity provider's return) are dynamically displayed.
 
 
 ## Members
