@@ -36,6 +36,8 @@ private slots:
 
     void on_Arbs_Options_currentIndexChanged(int index);
 
+    void on_pushButton_stop_clicked();
+
 private:
     Simulation *Sim;
 
@@ -47,6 +49,7 @@ private:
     std::unordered_map<Token*, QCPGraph*>token_to_graph;
     Token* test_token;
     Arbitrager *arbitrageur;
+    bool stopped_;
 };
 
 #endif // SIMULATIONPLAYGROUND_H

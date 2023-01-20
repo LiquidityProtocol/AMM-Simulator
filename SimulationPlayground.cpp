@@ -28,7 +28,8 @@ Q_DECLARE_METATYPE(VIEW_METHOD);
 
 SimulationPlayground::SimulationPlayground(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::SimulationPlayground)
+    ui(new Ui::SimulationPlayground),
+    stopped_(false)
 {
     ui->setupUi(this);
     Sim = new Simulation();
@@ -115,6 +116,10 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
     int customEpoch = ui->lineEdit->text().toInt();
     ui->lineEdit->setReadOnly(true);
     while (customEpoch--) {
+        if (stopped_) {
+            stopped_ = false;
+            break;
+        }
         ui->lineEdit->setText(QString::fromStdString(std::to_string(customEpoch)));
         on_runButton_clicked();
 
@@ -191,6 +196,7 @@ std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QS
 
 void SimulationPlayground::on_pushButton_reset_market_clicked()
 {
+    stopped_ = true;
     delete Sim;
     Sim = new Simulation();
 
@@ -213,3 +219,7 @@ void SimulationPlayground::on_Arbs_Options_currentIndexChanged(int index) {
     arb->setStrategy(qvariant_cast<STRATEGY>(ui->Arbs_Options->itemData(index)));
 }
 
+void SimulationPlayground::on_pushButton_stop_clicked()
+{
+    stopped_ = true;
+}
