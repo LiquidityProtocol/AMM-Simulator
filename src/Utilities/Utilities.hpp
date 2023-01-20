@@ -107,7 +107,7 @@ public:
 
     std::string name() const;
     std::unordered_map<Token *, double> wallet() const;
-    double total_value() const;
+    double total_asset() const;
     std::vector<Operation *> ledger() const;
 
     double GetQuantity(Token *token) const;

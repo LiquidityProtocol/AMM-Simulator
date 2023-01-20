@@ -63,7 +63,7 @@ void AccountListWidgetItem::on_withdraw_pushButton_clicked()
 
 void AccountListWidgetItem::UpdateWallet()
 {
-    ui->lineEdit_2->setText(QString::number(account_->total_value()));
+    ui->lineEdit_2->setText(QString::number(account_->total_asset()));
     ui->listWidget->clear();
     for (auto [token, quantity] : account_->wallet()) {
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget);
