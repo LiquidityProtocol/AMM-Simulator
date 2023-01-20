@@ -14,9 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">gridline-color: rgb(0, 0, 0);
-border-color: rgb(1, 25, 147);
-color: rgb(1, 25, 147);</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

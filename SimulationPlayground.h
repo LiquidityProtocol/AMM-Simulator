@@ -50,6 +50,7 @@ private:
     Token* test_token;
     Arbitrager *arbitrageur;
     bool stopped_;
+    bool is_running;
 };
 
 #endif // SIMULATIONPLAYGROUND_H

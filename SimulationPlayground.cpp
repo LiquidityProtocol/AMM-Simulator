@@ -29,7 +29,8 @@ Q_DECLARE_METATYPE(VIEW_METHOD);
 SimulationPlayground::SimulationPlayground(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SimulationPlayground),
-    stopped_(false)
+    stopped_(false),
+    is_running(false)
 {
     ui->setupUi(this);
     Sim = new Simulation();
@@ -113,6 +114,7 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
         return;
     }
+    is_running = true;
     int customEpoch = ui->lineEdit->text().toInt();
     ui->lineEdit->setReadOnly(true);
     while (customEpoch--) {
@@ -129,6 +131,7 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
     }
     ui->lineEdit->clear();
     ui->lineEdit->setReadOnly(false);
+    is_running = false;
 }
 
 void SimulationPlayground::on_View_Options_currentIndexChanged(int index) {
@@ -196,7 +199,12 @@ std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QS
 
 void SimulationPlayground::on_pushButton_reset_market_clicked()
 {
-    stopped_ = true;
+    if (is_running) {
+        QMessageBox::about(this, "Reset failed", "Cannot Reset when market is running. Please press Stop!");
+        stopped_ = true;
+        return;
+    }
+
     delete Sim;
     Sim = new Simulation();
 
@@ -221,5 +229,6 @@ void SimulationPlayground::on_Arbs_Options_currentIndexChanged(int index) {
 
 void SimulationPlayground::on_pushButton_stop_clicked()
 {
-    stopped_ = true;
+    if (is_running)
+        stopped_ = true;
 }

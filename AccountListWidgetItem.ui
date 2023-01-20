@@ -20,7 +20,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -29,11 +29,11 @@
       <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
-         <bold>true</bold>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147); </string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Account name</string>
@@ -71,7 +71,7 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>$</string>
@@ -81,7 +81,7 @@
      <item>
       <widget class="QLineEdit" name="lineEdit_2">
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -116,11 +116,11 @@
        <property name="font">
         <font>
          <italic>false</italic>
-         <bold>true</bold>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147); </string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Mint</string>
@@ -131,11 +131,11 @@
       <widget class="QPushButton" name="trade_pushButton">
        <property name="font">
         <font>
-         <bold>true</bold>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147); </string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Trade</string>
@@ -146,11 +146,11 @@
       <widget class="QPushButton" name="provide_pushButton">
        <property name="font">
         <font>
-         <bold>true</bold>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147); </string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Provide</string>
@@ -161,11 +161,11 @@
       <widget class="QPushButton" name="withdraw_pushButton">
        <property name="font">
         <font>
-         <bold>true</bold>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(1, 25, 147); </string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Withdraw</string>
