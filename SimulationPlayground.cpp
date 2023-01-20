@@ -47,6 +47,7 @@ SimulationPlayground::SimulationPlayground(QWidget *parent) :
     for(auto &[strategy, strategy_name] : STRATEGY_NAME) {
         ui->Arbs_Options->addItem(strategy_name, QVariant::fromValue(strategy));
     }
+    ui->Arbs_Options->setCurrentIndex(0);
 
     ui->View_Options->addItem("View Volume", QVariant::fromValue(VIEW_METHOD::VIEW_VOLUME));
     ui->View_Options->addItem("View Price", QVariant::fromValue(VIEW_METHOD::VIEW_PRICE));
@@ -62,6 +63,7 @@ SimulationPlayground::~SimulationPlayground() {
 void SimulationPlayground::on_runButton_clicked() {
     if (Sim->GetPools().empty()) {
         QMessageBox::about(this, "Run failed", "Market has no pool!");
+        return;
     }
     Sim->runEpoch();
 
