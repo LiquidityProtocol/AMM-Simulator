@@ -16,6 +16,15 @@ enum PROTOCOL {
     CURVE
 };
 
+namespace std {
+    template <>
+    struct hash<PROTOCOL> {
+        size_t operator()(const PROTOCOL &k) const {
+            return static_cast<std::size_t>(k);
+        }
+    };
+}
+
 static const std::unordered_map<PROTOCOL, std::string> PROTOCOL_NAME({
         {PROTOCOL::UNISWAP_V2, "UNISWAP V2"},
         {PROTOCOL::UNISWAP_V3, "UNISWAP V3"},

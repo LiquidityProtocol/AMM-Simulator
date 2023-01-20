@@ -11,6 +11,15 @@ enum STRATEGY {
     MEAN_REVERSION
 };
 
+namespace std {
+    template <>
+    struct hash<STRATEGY> {
+        size_t operator()(const STRATEGY &k) const {
+            return static_cast<std::size_t>(k);
+        }
+    };
+}
+
 static const std::unordered_map<STRATEGY, QString> STRATEGY_NAME({
     {STRATEGY::SIMPLE_MOVING_AVERAGE, "MOVING_AVERAGE"},
     {STRATEGY::EXP_MOVING_AVERAGE, "EXP_MOVING_AVERAGE"},
