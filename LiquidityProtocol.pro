@@ -11,7 +11,6 @@ CONFIG += c++17
 SOURCES += \
     AccountListWidgetItem.cpp \
     ArbitrageurSimulationGraphItem.cpp \
-    ChangeModeDialog.cpp \
     ExistingPoolProvisionDialog.cpp \
     ManualPlayground.cpp \
     MintDialog.cpp \
@@ -52,7 +51,6 @@ SOURCES += \
 HEADERS += \
     AccountListWidgetItem.h \
     ArbitrageurSimulationGraphItem.h \
-    ChangeModeDialog.h \
     ExistingPoolProvisionDialog.h \
     ManualPlayground.h \
     MintDialog.h \
@@ -93,7 +91,6 @@ HEADERS += \
 FORMS += \
     AccountListWidgetItem.ui \
     ArbitrageurSimulationGraphItem.ui \
-    ChangeModeDialog.ui \
     ExistingPoolProvisionDialog.ui \
     ManualPlayground.ui \
     MintDialog.ui \
