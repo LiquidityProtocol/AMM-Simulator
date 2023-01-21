@@ -29,7 +29,7 @@ SOURCES += \
     ui/WithdrawDialog.cpp \
     ui/introductorywindow.cpp \
     ui/main.cpp \
-    ui/qcustomplot.cpp \
+    qcustomplot.cpp \
     src/Market/Agents/Arbitrager.cpp \
     src/Market/Agents/Provider.cpp \
     src/Market/Infrastructure/Signals.cpp \
@@ -67,7 +67,7 @@ HEADERS += \
     ui/TradeDialog.h \
     ui/WalletListWidgetItem.h \
     ui/introductorywindow.h \
-    ui/qcustomplot.h \
+    qcustomplot.h \
     ui/WithdrawDialog.h \
     src/Market/Agents/Arbitrager.hpp \
     src/Market/Agents/Provider.hpp \
