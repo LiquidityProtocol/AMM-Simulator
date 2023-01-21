@@ -4,9 +4,11 @@
 
 C++ project on building liquidity pools and a stochastic market simulator to test the different automated market makers in different scenarios. We built two distinct
 simulators. A manual interactive simulator and a market simulator. In the manual, one can mint tokens, initialise pools using 5 different protocols. The
-simulator allows the user to trade, provide extra liquidity, withdraw liquaidity and dynamically displays a graph representing the quatinities in the
-pool, the invariant quantity of a protocol, divergence loss, slipage, change in money etc. The general implementation of the protocols allows the user to
-create his/her own protocol and see how it performs compared to other famous protocols such as UniswapV2, UniswapV3, Curve, Balancer etc. Furthermore, we implemented a market simulator as well. It allows the user to see the performance of protocols in a simulated market with multiple agents (arbitrageur, liquidity provider). One can initialise any number of tokens and set their prices and choose a strategy for the trader (Naive Greedy, Linear Regression, Exponential Moving Average, Moving Average). Every step happens probabilistically and different quantities (price, volume, arbitragur's return, liquidity provider's return) are dynamically displayed.
+simulator allows the user to trade, provide extra liquidity, withdraw liquidity and dynamically displays a graph representing the quatinities in the
+pool, the invariant quantity of a protocol, divergence loss, slippage, change in money etc. The general implementation of the protocols allows the user to
+create his/her own protocol and see how it performs compared to other famous protocols such as UniswapV2, UniswapV3, Curve, Balancer etc. 
+
+Furthermore, we implemented a market simulator as well. It allows the user to see the performance of protocols in a simulated market with multiple agents (arbitrageur, liquidity provider). One can initialise any number of tokens and set their prices and choose a strategy for the trader (Naive Greedy, Linear Regression, Exponential Moving Average, Moving Average). Every step happens probabilistically and different quantities (price, volume, arbitrageur's return, liquidity provider's return) are dynamically displayed.
 
 
 ## Members
@@ -114,11 +116,13 @@ You can see the visualisation and some metrics shown on the right
 - Choose the protocol
 - Specify which pool you want to trade in
 - Input the desired amounts
-- The program will show you the output quantity (computed based on the liquidity protocol)
+- The dialog will show you the output quantity (computed based on the liquidity protocol)
 
 ### Withdrawing liquidty
 
-- 
+- Specify which pool to withdraw from
+- Specify percentage of provided liquidity to withdraw from pool
+- The dialog will show you the output quantities 
 
 ## Market Simulator
 
@@ -146,8 +150,10 @@ You can see the visualisation and some metrics shown on the right
 
 
 ## Definitions to know
-- Divergence loss
-- [Impermanent loss](https://medium.datadriveninvestor.com/impermanent-loss-in-defi-the-risks-involved-in-providing-liquidity-67c54fdf1cfc)
+- [Automated Market Makers](https://medium.com/pendulum-chain/what-is-an-automated-market-maker-amm-d9e8d7a6bba8)
+- [Liquidity Pool](https://www.youtube.com/watch?v=cizLhxSKrAc)
+- [Slippage](https://academy.shrimpy.io/post/what-is-slippage-how-to-avoid-slippage-on-defi-exchanges)
+- [Divergence loss](https://medium.datadriveninvestor.com/impermanent-loss-in-defi-the-risks-involved-in-providing-liquidity-67c54fdf1cfc)
 
 
 
