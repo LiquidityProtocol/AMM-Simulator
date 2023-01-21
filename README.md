@@ -83,10 +83,11 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 <br>
 
 
-## How to use it
+# How to use it
 
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/workflow.png?raw=true)
 
+## Manual Playground
 
 ### Token creation
 - Give any name
@@ -118,6 +119,23 @@ You can see the visualisation and some metrics shown on the right
 ### Withdrawing liquidty
 
 - 
+
+## Market Simulator
+
+### Set up and load initial scenario
+
+- Add tokens and their respective quantities in the price tags list in the format “[Token-Name]”:[Token-Quantity]
+- Choose Strategy of Arbitrageur from: [Naive Greedy, Linear Regression, Exponential Moving Average, Moving Average]
+
+### Configure Options
+
+- Select Viewing Method: View Volume or Price
+- Select Pool: Select which pool to view information about
+
+### Run Simulation
+
+- Run a single or multiple time steps
+- Toggle between the Pool, Provider and Arbitrageur graph to see how each Market Player is affected.
 
 ## Used protocols
 - [Curve](https://classic.curve.fi/files/crypto-pools-paper.pdf)
