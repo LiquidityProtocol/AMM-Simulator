@@ -9,27 +9,27 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    AccountListWidgetItem.cpp \
-    ArbitrageurSimulationGraphItem.cpp \
-    ExistingPoolProvisionDialog.cpp \
-    ManualPlayground.cpp \
-    MintDialog.cpp \
-    NewMainWindow.cpp \
-    NewPoolProvisionDialog.cpp \
-    PoolGraphItem.cpp \
-    PoolListWidgetItem.cpp \
-    PoolTokenDialog.cpp \
-    PoolTokenListWidgetItem.cpp \
-    ProvideDialog.cpp \
-    ProviderSimulationGraphItem.cpp \
-    SimulationPlayground.cpp \
-    TokenListWidgetItem.cpp \
-    TradeDialog.cpp \
-    WalletListWidgetItem.cpp \
-    WithdrawDialog.cpp \
-    introductorywindow.cpp \
-    main.cpp \
-    qcustomplot.cpp \
+    ui/AccountListWidgetItem.cpp \
+    ui/ArbitrageurSimulationGraphItem.cpp \
+    ui/ExistingPoolProvisionDialog.cpp \
+    ui/ManualPlayground.cpp \
+    ui/MintDialog.cpp \
+    ui/NewMainWindow.cpp \
+    ui/NewPoolProvisionDialog.cpp \
+    ui/PoolGraphItem.cpp \
+    ui/PoolListWidgetItem.cpp \
+    ui/PoolTokenDialog.cpp \
+    ui/PoolTokenListWidgetItem.cpp \
+    ui/ProvideDialog.cpp \
+    ui/ProviderSimulationGraphItem.cpp \
+    ui/SimulationPlayground.cpp \
+    ui/TokenListWidgetItem.cpp \
+    ui/TradeDialog.cpp \
+    ui/WalletListWidgetItem.cpp \
+    ui/WithdrawDialog.cpp \
+    ui/introductorywindow.cpp \
+    ui/main.cpp \
+    ui/qcustomplot.cpp \
     src/Market/Agents/Arbitrager.cpp \
     src/Market/Agents/Provider.cpp \
     src/Market/Infrastructure/Signals.cpp \
@@ -49,26 +49,26 @@ SOURCES += \
     src/Utilities/Utilities.cpp
 
 HEADERS += \
-    AccountListWidgetItem.h \
-    ArbitrageurSimulationGraphItem.h \
-    ExistingPoolProvisionDialog.h \
-    ManualPlayground.h \
-    MintDialog.h \
-    NewMainWindow.h \
-    NewPoolProvisionDialog.h \
-    PoolGraphItem.h \
-    PoolListWidgetItem.h \
-    PoolTokenDialog.h \
-    PoolTokenListWidgetItem.h \
-    ProvideDialog.h \
-    ProviderSimulationGraphItem.h \
-    SimulationPlayground.h \
-    TokenListWidgetItem.h \
-    TradeDialog.h \
-    WalletListWidgetItem.h \
-    introductorywindow.h \
-    qcustomplot.h \
-    WithdrawDialog.h \
+    ui/AccountListWidgetItem.h \
+    ui/ArbitrageurSimulationGraphItem.h \
+    ui/ExistingPoolProvisionDialog.h \
+    ui/ManualPlayground.h \
+    ui/MintDialog.h \
+    ui/NewMainWindow.h \
+    ui/NewPoolProvisionDialog.h \
+    ui/PoolGraphItem.h \
+    ui/PoolListWidgetItem.h \
+    ui/PoolTokenDialog.h \
+    ui/PoolTokenListWidgetItem.h \
+    ui/ProvideDialog.h \
+    ui/ProviderSimulationGraphItem.h \
+    ui/SimulationPlayground.h \
+    ui/TokenListWidgetItem.h \
+    ui/TradeDialog.h \
+    ui/WalletListWidgetItem.h \
+    ui/introductorywindow.h \
+    ui/qcustomplot.h \
+    ui/WithdrawDialog.h \
     src/Market/Agents/Arbitrager.hpp \
     src/Market/Agents/Provider.hpp \
     src/Market/Infrastructure/Signals.hpp \
@@ -89,25 +89,25 @@ HEADERS += \
     src/Market/Infrastructure/CommunityActor.hpp
 
 FORMS += \
-    AccountListWidgetItem.ui \
-    ArbitrageurSimulationGraphItem.ui \
-    ExistingPoolProvisionDialog.ui \
-    ManualPlayground.ui \
-    MintDialog.ui \
-    NewMainWindow.ui \
-    NewPoolProvisionDialog.ui \
-    PoolGraphItem.ui \
-    PoolListWidgetItem.ui \
-    PoolTokenDialog.ui \
-    PoolTokenListWidgetItem.ui \
-    ProvideDialog.ui \
-    ProviderSimulationGraphItem.ui \
-    SimulationPlayground.ui \
-    TokenListWidgetItem.ui \
-    TradeDialog.ui \
-    WalletListWidgetItem.ui \
-    WithdrawDialog.ui \
-    introductorywindow.ui \
+    ui/AccountListWidgetItem.ui \
+    ui/ArbitrageurSimulationGraphItem.ui \
+    ui/ExistingPoolProvisionDialog.ui \
+    ui/ManualPlayground.ui \
+    ui/MintDialog.ui \
+    ui/NewMainWindow.ui \
+    ui/NewPoolProvisionDialog.ui \
+    ui/PoolGraphItem.ui \
+    ui/PoolListWidgetItem.ui \
+    ui/PoolTokenDialog.ui \
+    ui/PoolTokenListWidgetItem.ui \
+    ui/ProvideDialog.ui \
+    ui/ProviderSimulationGraphItem.ui \
+    ui/SimulationPlayground.ui \
+    ui/TokenListWidgetItem.ui \
+    ui/TradeDialog.ui \
+    ui/WalletListWidgetItem.ui \
+    ui/WithdrawDialog.ui \
+    ui/introductorywindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

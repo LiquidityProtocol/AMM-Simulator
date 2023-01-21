@@ -2,7 +2,7 @@
 #define SIMULATIONPLAYGROUND_H
 
 #include <QDialog>
-#include <qcustomplot.h>
+#include <ui/qcustomplot.h>
 
 #include "src/Market/Simulation.hpp"
 
