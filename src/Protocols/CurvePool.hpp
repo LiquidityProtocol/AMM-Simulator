@@ -18,6 +18,9 @@ private:
         double pool_fee, 
         double leverage = 0
     ) : PoolInterface(tokens, pool_fee) {
+        if (tokens.size() & 1) {
+            throw std::invalid_argument("Curve only supports for even number of tokens!");
+        }
         if (leverage < 0) {
             throw std::invalid_argument("invalid leverage");
         } else {
@@ -29,6 +32,9 @@ private:
         double pool_fee, 
         double leverage = 0
     ) : PoolInterface(quantities, pool_fee) {
+        if (quantities.size() & 1) {
+            throw std::invalid_argument("Curve only supports for even number of tokens!");
+        }
         if (leverage < 0) {
             throw std::invalid_argument("invalid leverage");
         } else {
@@ -56,7 +62,7 @@ private:
         double normalizeCoeff = 0;
 
         for (auto [token, quantity] : quantities) {
-            normalizeCoeff += quantity / 10;
+            normalizeCoeff += quantity / 100;
         }
         double S = 0;
         double P = 1;
@@ -79,7 +85,7 @@ private:
         double r2 = GetQuantity(output_token);
 
         double P = Product();
-        double C = ComputeInvariant({});
+        double C = ComputeInvariant(quantities());
 
         int n = quantities().size();
 

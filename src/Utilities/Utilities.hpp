@@ -86,40 +86,83 @@ public:
     std::unordered_map<Token *, double> input() const;
     std::unordered_map<Token *, double> output() const;
 
-    friend std::ostream & operator<<(std::ostream &os, const Operation &op);
+    double GetMarketPrice(Token *a) const;
+    double GetSpotPrice(Token *a, Token *b) const;
+    double GetQuanitty(Token *a) const;
+    double GetVolume(Token *a) const;
 
+    friend std::ostream & operator<<(std::ostream &os, const Operation &op);
 private:
     std::string operation_type_;
     std::string account_name_;
     PoolInterface *pool_;
+    std::unordered_map<Token *, double> quantities_;
     std::unordered_map<Token *, double> input_;
     std::unordered_map<Token *, double> output_;
+    std::unordered_map<Token *, double> market_price_;
+
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > spotPriceMatrix;
+};
+
+class PoolEpochData {
+public:
+    PoolEpochData(PoolInterface *pool);
+
+    double GetOpenPrice(Token *a, Token *b) const;
+    double GetHighPrice(Token *a, Token *b) const;
+    double GetLowPrice(Token *a, Token *b) const;
+    double GetClosePrice(Token *a, Token *b) const;
+
+    double GetMarketPrice(Token *a) const;
+    double GetSpotPrice(Token *a, Token *b) const;
+    double GetQuanitty(Token *a) const;
+    double GetVolume(Token *a) const;
+
+    PoolInterface *pool() const;
+    int epochIndex() const;
+
+    friend class PoolInterface;
+private:
+    std::unordered_map<Token *, std::unordered_map<Token *, double> > open, high, low, close;
+
+    std::unordered_map<Token *, double> quantities;
+    std::unordered_map<Token *, double> market_price;
+
+    PoolInterface *pool_;
+    int nEpoch;
 };
 
 class Account {
 public:
+    Account(const std::string &name);
+    Account(const std::string &name, double budget);
+
     Account & operator=(const Account &) = delete;
 	Account(const Account &) = delete;
 
     friend class PoolInterface;
     friend class Playground;
-    friend class Market;
+    friend class SignalsHandler;
 
     std::string name() const;
     std::unordered_map<Token *, double> wallet() const;
+
+    double total_value() const;
+    double budget() const;
     double total_asset() const;
     std::vector<Operation *> ledger() const;
 
     double GetQuantity(Token *token) const;
 
     void Deposit(Token *token, double quantity);
-    
+
+    void sell(Token *token, double quantity);
+    void buy(Token *token, double quantity);
 protected:
     std::string name_;
     std::unordered_map<Token *, double> wallet_;
+    double budget_;
     std::vector<Operation *> ledger_;
-
-    Account(const std::string &name);
 
     double Trade(PoolInterface *pool, Token *input_token, Token *output_token, double input_quantity);
     double Provide(PoolInterface *pool, std::unordered_map<Token *, double> provided_quantities);
@@ -135,6 +178,7 @@ public:
     friend class Playground;
     friend class CommunityActor;
     friend class Market;
+    friend class Signal;
 
     std::string name() const;
 
@@ -152,7 +196,19 @@ public:
     double GetSlippage(Token *input_token, Token *output_token, double input_quantity) const;
     double GetSpotPrice(Token *input_token, Token *output_token) const;
 
+    std::vector<Operation *> GetLatestOps(int n) const;
     std::vector<Operation *> ledger() const;
+
+    Operation *kthLastOps(int k) const;
+    Operation *kthFirstOps(int k) const;
+
+    std::vector<PoolEpochData *> GetLastestEpochs(int n) const;
+    std::vector<PoolEpochData *> GetEpochHistory() const;
+
+    PoolEpochData *kthLastEpoch(int k) const;
+    PoolEpochData *kthFirstEpoch(int k) const;
+
+    void endEpoch();
 
     double GetPoolValue() const;
 
@@ -175,6 +231,8 @@ private:
     double pool_fee_;
     Token *pool_token_;
     std::vector<Operation *> ledger_;
+    std::vector<PoolEpochData *> history_;
+    size_t lastEpochIndex = 0;
 
     double SimulateSwap(Token *input_token, Token *output_token, double input_quantity) const;
     Operation * Swap(Account *trader, Token *input_token, Token *output_token, double input_quantity);

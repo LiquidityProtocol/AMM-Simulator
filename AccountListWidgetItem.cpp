@@ -4,7 +4,7 @@
 #include "WalletListWidgetItem.h"
 #include "PoolTokenListWidgetItem.h"
 #include <QMessageBox>
-#include "MainWindow.h"
+#include "ManualPlayground.h"
 
 AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playground, Account *account) :
     QWidget(parent),
@@ -13,8 +13,8 @@ AccountListWidgetItem::AccountListWidgetItem(QWidget *parent, Playground *playgr
     playground_(playground)
 {
     ui->setupUi(this);
-    connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdatePoolDisplayRequest);
-    connect(this, &AccountListWidgetItem::UpdateAccountsWalletsRequest, qobject_cast<MainWindow *>(parent), &MainWindow::VerifyUpdateAccountsWalletsRequest);
+    connect(this, &AccountListWidgetItem::UpdatePoolDisplayRequest, qobject_cast<ManualPlayground *>(parent), &ManualPlayground::VerifyUpdatePoolDisplayRequest);
+    connect(this, &AccountListWidgetItem::UpdateAccountsWalletsRequest, qobject_cast<ManualPlayground *>(parent), &ManualPlayground::VerifyUpdateAccountsWalletsRequest);
     ui->lineEdit->setText(QString::fromStdString(account_->name()));
     UpdateWallet();
 }

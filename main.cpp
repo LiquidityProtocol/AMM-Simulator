@@ -1,11 +1,15 @@
-#include "MainWindow.h"
+
+
+#include "QtWidgets/qlabel.h"
+#include "introductorywindow.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    IntroductoryWindow introw;
+    introw.show();
+
     return a.exec();
 }

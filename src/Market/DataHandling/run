@@ -1,0 +1,8 @@
+#!/bin/bash
+
+POOL_LIST=(`cat pool_ids.txt`)
+
+for pool_id in "${POOL_LIST[@]}"
+do
+    python3 ./UniSwapQuery.py $pool_id
+done
