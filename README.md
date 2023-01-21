@@ -150,7 +150,7 @@ You can see the visualisation and some metrics shown on the right
 
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/backend.png?raw=true)
 
-![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/visualisation.png?raw=true)
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/visualisation2.png?raw=true)
 
 
 ## Used protocols
