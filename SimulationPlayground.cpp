@@ -114,6 +114,10 @@ void SimulationPlayground::on_pushButton_customEpoch_clicked() {
         QMessageBox::about(this, "Invalid Epoch Number", "Enter epoch number");
         return;
     }
+    if (Sim->GetPools().empty()) {
+        QMessageBox::about(this, "Run failed", "Market has no pool!");
+        return;
+    }
     is_running = true;
     int customEpoch = ui->lineEdit->text().toInt();
     ui->lineEdit->setReadOnly(true);
