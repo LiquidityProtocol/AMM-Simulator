@@ -129,7 +129,7 @@ You can see the visualisation and some metrics shown on the right
 
 ## Definitions to know
 - Divergence loss
-- Impermanent loss (https://medium.datadriveninvestor.com/impermanent-loss-in-defi-the-risks-involved-in-providing-liquidity-67c54fdf1cfc)
+- [Impermanent loss](https://medium.datadriveninvestor.com/impermanent-loss-in-defi-the-risks-involved-in-providing-liquidity-67c54fdf1cfc)
 
 
 
