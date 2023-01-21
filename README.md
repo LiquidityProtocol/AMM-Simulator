@@ -146,6 +146,13 @@ You can see the visualisation and some metrics shown on the right
 - Run a single or multiple time steps
 - Toggle between the Pool, Provider and Arbitrageur graph to see how each Market Player is affected.
 
+# Rough layout of the codebase
+
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/backend.png?raw=true)
+
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/visualisation.png?raw=true)
+
+
 ## Used protocols
 - [Curve](https://classic.curve.fi/files/crypto-pools-paper.pdf)
 - [Balancer](https://classic.curve.fi/files/crypto-pools-paper.pdf)
