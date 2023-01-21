@@ -120,6 +120,8 @@ You can see the visualisation and some metrics shown on the right
 - 
 
 ## Used protocols
+- [Curve](https://classic.curve.fi/files/crypto-pools-paper.pdf)
+
 - Curve
 - Balancer
 - Constant sum
