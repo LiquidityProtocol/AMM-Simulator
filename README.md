@@ -81,7 +81,6 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 - Click on `File`
 - Click on `Open File or Project...`
 - Follow the path where you cloned the repository
-- Go to `src` folder
 - Click on `LiquidityProtocol.pro`
 - Click on Open
 - Run  `Ctrl+R`
