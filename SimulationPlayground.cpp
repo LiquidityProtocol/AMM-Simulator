@@ -156,27 +156,35 @@ void SimulationPlayground::update_pool_comboBox(){
     }
 }
 
-void SimulationPlayground::on_pushButton_load_scenario_clicked()
-{
+void SimulationPlayground::on_pushButton_load_scenario_clicked() {
     QString scenario_string = ui->textEdit_initial_scenario->toPlainText();
     std::unordered_map<std::string, double> price_tags_ = verify_scenario(scenario_string);
-    if(price_tags_.empty()){
+    if (price_tags_.empty()){
         return;
     }
-    on_pushButton_reset_market_clicked();
+    delete Sim;
+    Sim = new Simulation();
+
+    ui->pool_comboBox->clear();
+    ui->tabWidget->clear();
+    ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");
+    ui->tabWidget->addTab(new QWidget, "LP Graph");
+    ui->tabWidget->addTab(new QWidget, "Arb Graph");
+    ui->tabWidget->setCurrentIndex(0);
 
     Market *market = Sim->GetMarket();
     market->loadInitialScenario(price_tags_, PROTOCOL::UNISWAP_V2);
 
+    step = 0;
+    wallet_values = {10000};
+    epochs = {0};
+
     update_pool_comboBox();
     ui->pool_comboBox->setCurrentIndex(0);
-}
 
-/*void SimulationPlayground::on_pushButton_analyze_arbitrager_clicked()
-{
-    ArbitrageurSimulationGraphItem *arbitrager_dialog = new ArbitrageurSimulationGraphItem(this, epochs, wallet_values);
-    arbitrager_dialog->exec();
-}*/
+    for (int _ = 0 ; _ < 50 ; ++_)
+        on_runButton_clicked();
+}
 
 std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QString scenario){
     QByteArray byte_arr = scenario.toUtf8();
@@ -197,28 +205,11 @@ std::unordered_map<std::string, double> SimulationPlayground::verify_scenario(QS
 
 }
 
-void SimulationPlayground::on_pushButton_reset_market_clicked()
-{
-    if (is_running) {
-        QMessageBox::about(this, "Reset failed", "Cannot Reset when market is running. Please press Stop!");
+void SimulationPlayground::on_pushButton_reset_market_clicked() {
+    if (is_running)
         stopped_ = true;
-        return;
-    }
 
-    delete Sim;
-    Sim = new Simulation();
-
-    arbitrageur = Sim->GetArb();
-    step = 0;
-    wallet_values = { arbitrageur->total_value() };
-    epochs = {step};
-
-    ui->pool_comboBox->clear();
-    ui->tabWidget->clear();
-    ui->tabWidget->insertTab(0, new QWidget, "Pool Graph");
-    ui->tabWidget->addTab(new QWidget, "LP Graph");
-    ui->tabWidget->addTab(new QWidget, "Arb Graph");
-    ui->tabWidget->setCurrentIndex(0);
+    on_pushButton_load_scenario_clicked();
 }
 
 
