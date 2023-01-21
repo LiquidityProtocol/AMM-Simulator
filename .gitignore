@@ -37,3 +37,5 @@
 
 #QT Config
 *.pro.user
+
+.DS_Store
