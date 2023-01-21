@@ -10,6 +10,10 @@ create his/her own protocol and see how it performs compared to other famous pro
 
 Furthermore, we implemented a market simulator as well. It allows the user to see the performance of protocols in a simulated market with multiple agents (arbitrageur, liquidity provider). One can initialise any number of tokens and set their prices and choose a strategy for the trader (Naive Greedy, Linear Regression, Exponential Moving Average, Moving Average). Every step happens probabilistically and different quantities (price, volume, arbitrageur's return, liquidity provider's return) are dynamically displayed.
 
+# Demo
+
+https://user-images.githubusercontent.com/44528132/213862816-84bcd012-568c-4c8a-8f04-47ad25a2ec8c.mp4
+
 
 ## Members
 | name | github username | trello username | role |
@@ -88,13 +92,6 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 # How to use it
 
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/workflow.png?raw=true)
-
-#Demo
-
-
-
-https://user-images.githubusercontent.com/44528132/213862816-84bcd012-568c-4c8a-8f04-47ad25a2ec8c.mp4
-
 
 
 ## Manual Playground
