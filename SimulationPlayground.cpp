@@ -175,6 +175,8 @@ void SimulationPlayground::on_pushButton_load_scenario_clicked() {
     Market *market = Sim->GetMarket();
     market->loadInitialScenario(price_tags_, PROTOCOL::UNISWAP_V2);
 
+    arbitrageur = Sim->GetArb();
+
     step = 0;
     wallet_values = {10000};
     epochs = {0};
