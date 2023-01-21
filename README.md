@@ -121,12 +121,10 @@ You can see the visualisation and some metrics shown on the right
 
 ## Used protocols
 - [Curve](https://classic.curve.fi/files/crypto-pools-paper.pdf)
-
-- Curve
-- Balancer
-- Constant sum
-- UniswapV2
-- UniswapV3
+- [Balancer]([https://classic.curve.fi/files/crypto-pools-paper.pdf](https://balancer.fi/whitepaper.pdf))
+- [Constant Sum](https://classic.curve.fi/files/crypto-pools-paper.pdf)
+- [UniswapV2](https://classic.curve.fi/files/crypto-pools-paper.pdf)
+- [UniswapV3](https://classic.curve.fi/files/crypto-pools-paper.pdf)
 
 
 ## Definitions to know
