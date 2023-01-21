@@ -91,7 +91,7 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 
 # How to use it
 
-![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/workflow.png?raw=true)
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/Images/workflow.png?raw=true)
 
 
 ## Manual Playground
@@ -148,9 +148,9 @@ You can see the visualisation and some metrics shown on the right
 
 # Rough layout of the codebase
 
-![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/backend.png?raw=true)
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/Images/backend.png?raw=true)
 
-![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/visualisation2.png?raw=true)
+![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/Images/visualisation2.png?raw=true)
 
 
 ## Used protocols
