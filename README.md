@@ -121,15 +121,15 @@ You can see the visualisation and some metrics shown on the right
 
 ## Used protocols
 - [Curve](https://classic.curve.fi/files/crypto-pools-paper.pdf)
-- [Balancer]([https://classic.curve.fi/files/crypto-pools-paper.pdf](https://balancer.fi/whitepaper.pdf))
-- [Constant Sum](https://classic.curve.fi/files/crypto-pools-paper.pdf)
-- [UniswapV2](https://classic.curve.fi/files/crypto-pools-paper.pdf)
-- [UniswapV3](https://classic.curve.fi/files/crypto-pools-paper.pdf)
+- [Balancer](https://classic.curve.fi/files/crypto-pools-paper.pdf)
+- [Constant Sum](https://medium.com/bollinger-investment-group/constant-function-market-makers-defis-zero-to-one-innovation-968f77022159)
+- [UniswapV2](https://uniswap.org/whitepaper.pdf)
+- [UniswapV3](https://uniswap.org/whitepaper-v3.pdf)
 
 
 ## Definitions to know
 - Divergence loss
-- Impermanent loss
+- Impermanent loss (https://medium.datadriveninvestor.com/impermanent-loss-in-defi-the-risks-involved-in-providing-liquidity-67c54fdf1cfc)
 
 
 
