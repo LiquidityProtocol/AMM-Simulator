@@ -93,6 +93,9 @@ Download [Qt Creator](https://www.qt.io/product/development-tools) then open the
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/Images/workflow.png?raw=true)
 
 
+
+(It is advised to use dark mode on your computer to have the experience while running the application)
+
 ## Manual Playground
 
 ### Token creation
