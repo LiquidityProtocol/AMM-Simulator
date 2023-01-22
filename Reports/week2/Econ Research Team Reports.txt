@@ -36,6 +36,7 @@ extra and modified member functions. However creating a
 simple working class will be the first main priority.
 
 Gabriele Biroli
+
 This week, Shubh and I were tasked to do further research on 
 parameters effects on agents’ outcomes. Hence, we ran some 
 simulations taking a random sample and spent the week learning 
