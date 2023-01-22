@@ -4,4 +4,7 @@ Amine Roudani
 - So far, I have implemented Mean Reversion, Fibonacci Retracement, and Breakout strategies.
 
 Mathéo Le Masson
-- Finished the implementation of the arbitrager graph : Created new ArbitrageurSimulationGraphItem class and Modified SimulationPlayground, switched from QDialog visualisation to Qwidget tab, to have Pool LP and Arb graphs on the same tab (see experiment_arbitrageur), merged to experiment then to main
+- Finished the implementation of the arbitrager graph :
+  Created new ArbitrageurSimulationGraphItem class and Modified SimulationPlayground
+  Switched from QDialog visualisation to Qwidget tab, to have Pool LP and Arb graphs on the same tab
+  See experiment_arbitrageur, merged to experiment then to main
