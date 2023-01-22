@@ -2,3 +2,6 @@ Amine Roudani
 - Researched in depth various trading strategies.
 - Implemented these strategies in cpp with comments explaining what's happening.
 - So far, I have implemented Mean Reversion, Fibonacci Retracement, and Breakout strategies.
+
+Mathéo Le Masson
+- Finished the implementation of the arbitrager graph : Created new ArbitrageurSimulationGraphItem class and Modified SimulationPlayground, switched from QDialog visualisation to Qwidget tab, to have Pool LP and Arb graphs on the same tab (see experiment_arbitrageur), merged to experiment then to main
