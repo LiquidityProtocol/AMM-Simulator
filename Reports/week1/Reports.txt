@@ -145,4 +145,8 @@ This week I deepened my research on the associated costs of the protocol.
  and divergence loss. Then I proceeded to better understand how is slippage control in 
  Uniswap v3 an improvement of uniswap v2's slippage formula.
 
+Gabriele Biroli
+
+This Week I was sick and couldn't work for most of it. However I was charged with the task of researching and understanding how a liquidity protocol works and what are the economical aspects behind it. That way, the Econ Research team (My team and I) will be able to know on which models to focus on and how it would be possible to design an algorithm to set these models up. I started and will therefore try to thoroughly understand the following paper : "YieldSpace: An Automated Liquidity Provider for Fixed Yield Tokens". So far, I have discovered how different protocols work (such as the Constant sum or Constant product protocol) and what is the intuition behind them. I will continue this for a few days, until I'll be able to meet with the team and discuss it with them.
+
 
