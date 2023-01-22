@@ -47,3 +47,4 @@ functions will be useful for us further on in the project. Now,
 this week we will focus on starting to code the simulation and 
 understanding how to measure key determinants of Slippage and 
 Divergence Loss.
+
