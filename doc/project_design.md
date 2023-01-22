@@ -1,27 +1,20 @@
 ## Functionalities
 
-   We are building a market simulator to test different already existing liquidity protocols and eventually come up with our own automated market making algorithm and implement it.
-   The market simulator will have functionalities such as: exchanging different crypto currencies, providing liquidity, remove liquidity
-   The different protocols are: constant product, constant sum, balancer etc.
-   Arbitrage traders will be implemented as market participants as well.
-   The different simulations, pros and cons of different protocols will be displayed in QT.
+  C++ project on building liquidity pools and a stochastic market simulator to test the different automated market makers in different scenarios. We built two distinct simulators. A manual interactive simulator and a market simulator. In the manual, one can mint tokens, initialise pools using 5 different protocols. The simulator allows the user to trade, provide extra liquidity, withdraw liquidity and dynamically displays a graph representing the quatinities in the pool, the invariant quantity of a protocol, divergence loss, slippage, change in money etc. The general implementation of the protocols allows the user to create his/her own protocol and see how it performs compared to other famous protocols such as UniswapV2, UniswapV3, Curve, Balancer etc.
+
+Furthermore, we implemented a market simulator as well. It allows the user to see the performance of protocols in a simulated market with multiple agents (arbitrageur, liquidity provider). One can initialise any number of tokens and set their prices and choose a strategy for the trader (Naive Greedy, Linear Regression, Exponential Moving Average, Moving Average). Every step happens probabilistically and different quantities (price, volume, arbitrageur's return, liquidity provider's return) are dynamically displayed.
 
 ## Deadlines and deliverables
   
-  Week 1: 
-  - Have multiple chosen research papers on incentive mechanism of such a market and understand precisely different protocols
-  - Implement a very basic version of the market simulator (be able to swap coins)
-  - Implement the most basic liquidity protcols: constant product, constant sum, balancer
-
-    Try to plan different stages for your project and have intermediate results you can show for each stage. This exercise will help you focusing your efforts and minimize the risks of failure.
+  Manual playground
+  17/12/2022
+  Stochastic Simulator
+  18/01/2023
 
 ## Software Architecture
 
-    - How are you sub-dividing your project?Which modules are you implementing?
+This project doesn't have any external dependencies, only QT for the Graphical Interface.
 
-    - What is the interface of each module?
-      You can define the interface with the public section of your class headers (note that not all classes need to be "exposed" from one module to the others).
+## Run the application
 
-    - What external dependencies do you have? Why?
-    
-    
+Written in the README.
