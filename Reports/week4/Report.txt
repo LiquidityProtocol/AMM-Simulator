@@ -82,3 +82,8 @@ Shubh Lashkery:
 - I implemented a method to calculate the required input for a give output
 - I added some depth to the simulator and made sure it consistently ran with the make file.
 
+Gabriele Biroli
+
+- This week I finished coding the balancer pool protocol tester, however, when the moment came to test it and test the limits of my balancer pool protocol my qt did not work and I was unable to. I had to download it again and then had some issues with my tester program. 
+- For what is of finding the limits of the balancer pool, I designed and modeled some extreme cases, in order to see how the program behaved under these conditions. But again, for most it, I couldn’t manage to properly make the programs run and execute. 
+- Next week, I will try to have all of this work by the weekend, so I can focus on some other task coming back from the break.
