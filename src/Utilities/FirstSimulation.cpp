@@ -361,6 +361,75 @@ void SimulationTwo(){
     std::vector<double> arb_balances_tok2 = {1000};
     std::vector<double> pool_quantity_1 = {10};
     std::vector<double> pool_quantity_2 = {20};
+    
+    /*
+    QCustomPlot customPlot;
+        customPlot.setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+        customPlot.xAxis->setLabel("x-axis label");
+        customPlot.yAxis->setLabel("y-axis label");
+        customPlot.legend->setVisible(true);
+
+        // Add data to the chart
+        QCPGraph *slippagesGraph = customPlot.addGraph();
+        slippagesGraph->setData(slippages);
+        slippagesGraph->setPen(QPen(Qt::red));
+        slippagesGraph->setName("Slippages");
+
+        QCPGraph *spotExchangeRatesGraph = customPlot.addGraph();
+        spotExchangeRatesGraph->setData(spot_exchange_rates);
+        spotExchangeRatesGraph->setPen(QPen(Qt::blue));
+        spotExchangeRatesGraph->setName("Spot Exchange Rates");
+
+        QCPGraph *traderBalancesGraph1 = customPlot.addGraph();
+        traderBalancesGraph1->setData(trader_balances_tok1);
+        traderBalancesGraph1->setPen(QPen(Qt::green));
+        traderBalancesGraph1->setName("Trader Balance of Token 1");
+
+        QCPGraph *traderBalancesGraph2 = customPlot.addGraph();
+        traderBalancesGraph2->setData(trader_balances_tok2);
+        traderBalancesGraph2->setPen(QPen(Qt::magenta));
+        traderBalancesGraph2->setName("Trader Balance of Token 2");
+    
+        QCPGraph *poolQuantityGraph1 = customPlot.addGraph();
+        poolQuantityGraph1->setData(lp_balances_tok1);
+        poolQuantityGraph1->setPen(QPen(Qt::brown));
+        poolQuantityGraph1->setName("Liquidity Pool Balance of Token 1");
+    
+        QCPGraph *poolQuantityGraph1 = customPlot.addGraph();
+        poolQuantityGraph1->setData(lp_balances_tok2);
+        poolQuantityGraph1->setPen(QPen(Qt::orange));
+        poolQuantityGraph1->setName("Liquidity Pool Balance of Token 2");
+    
+        QCPGraph *poolQuantityGraph1 = customPlot.addGraph();
+        poolQuantityGraph1->setData(lp_balances_pooltok);
+        poolQuantityGraph1->setPen(QPen(Qt::purple));
+        poolQuantityGraph1->setName("Liquidity Pool Total Balance");
+
+        QCPGraph *poolQuantityGraph1 = customPlot.addGraph();
+        poolQuantityGraph1->setData(arb_balances_tok1);
+        poolQuantityGraph1->setPen(QPen(Qt::pink));
+        poolQuantityGraph1->setName("Arbritageur Balance for Token 1");
+    
+        QCPGraph *poolQuantityGraph1 = customPlot.addGraph();
+        poolQuantityGraph1->setData(arb_balances_tok2);
+        poolQuantityGraph1->setPen(QPen(Qt::lightgreen));
+        poolQuantityGraph1->setName("Arbritageur Balance for Token 2");
+    
+        QCPGraph *poolQuantityGraph1 = customPlot.addGraph();
+        poolQuantityGraph1->setData(pool_quantity_1);
+        poolQuantityGraph1->setPen(QPen(Qt::cyan));
+        poolQuantityGraph1->setName("Pool Quantity 1");
+
+        QCPGraph *poolQuantityGraph2 = customPlot.addGraph();
+        poolQuantityGraph2->setData(pool_quantity_2);
+        poolQuantityGraph2->setPen(QPen(Qt::yellow));
+        poolQuantityGraph2->setName("Pool Quantity 2");
+
+        // Set axis ranges and show the chart
+        customPlot.rescaleAxes();
+        customPlot.replot();
+        customPlot.show();
+    */
 
     //Initialize vector lists for all variables to be monitered
 
