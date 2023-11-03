@@ -1,4 +1,4 @@
-# CSE201-project
+# Project: Liquidity Protocol => Manual & Stochastic Automated Market Maker Simulator 
 
 ![alt text](https://github.com/Liquidity-protocol-CSE201-Project/Project/blob/main/LP_logo.png?raw=true)
 
